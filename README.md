@@ -9,6 +9,12 @@
 ```bash
 git clone https://github.com/2DJumpActionSample/project.git
 ```
+②使用するライブラリのブランチを指定してチェックアウト  
+* develop-dxlib
+* ~~develop-sdl~~  
+  
+③プロジェクトの中身を自身のリポジトリへ移動し開発しましょう。  
+git未使用者はそのまま開発可能です
 
 ## 💜利用ガイド💜
 現在制作中です...。
