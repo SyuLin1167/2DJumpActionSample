@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{a8b05ae1-832f-4737-9a1f-c4c330d18adf}</ProjectGuid>
+    <RootNamespace>project</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../DxLib_ｈ;../../nlohmann;$(SolutionDir)../box2d\include</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../../DxLib_ｈ;../../nlohmann;$(SolutionDir)../box2d\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../DxLib_ｈ;../../nlohmann;$(SolutionDir)../box2d\include</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../../DxLib_ｈ;../../nlohmann;$(SolutionDir)../box2d\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/box2d;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/box2d;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/box2d;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/box2d;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\code\Asset\DivisionGraph\DivisionGraph.cpp" />
+    <ClCompile Include="..\code\Asset\Graph\Graph.cpp" />
+    <ClCompile Include="..\code\Collision\CollisionBase\CollisionBase.cpp" />
+    <ClCompile Include="..\code\Collision\CollisionManager\CollisionManager.cpp" />
+    <ClCompile Include="..\code\Collision\MapCollision\MapCollision.cpp" />
+    <ClCompile Include="..\code\Collision\RectCollision\RectCollision.cpp" />
+    <ClCompile Include="..\code\Collision\TipBox\NomalBox\NomalBox.cpp" />
+    <ClCompile Include="..\code\Component\ComponentBase\ComponentBase.cpp" />
+    <ClCompile Include="..\code\Component\ComponentManager\ComponentManager.cpp" />
+    <ClCompile Include="..\code\Component\Jump\Jump.cpp" />
+    <ClCompile Include="..\code\GameSystem\Execution\Execution.cpp" />
+    <ClCompile Include="..\code\GameSystem\FrameRate\FrameRate.cpp" />
+    <ClCompile Include="..\code\GameSystem\Library\Library.cpp" />
+    <ClCompile Include="..\code\GameSystem\Window\Window.cpp" />
+    <ClCompile Include="..\code\main.cpp" />
+    <ClCompile Include="..\code\Object\Character\Player\Player.cpp" />
+    <ClCompile Include="..\code\Object\GameObject\GameObject.cpp" />
+    <ClCompile Include="..\code\Object\Map\Map.cpp" />
+    <ClCompile Include="..\code\Object\ObjectManager\ObjectManager.cpp" />
+    <ClCompile Include="..\code\Scene\LoadingScene\LoadingScene.cpp" />
+    <ClCompile Include="..\code\Scene\Play\Play.cpp" />
+    <ClCompile Include="..\code\Scene\SceneBase\SceneBase.cpp" />
+    <ClCompile Include="..\code\Scene\SceneManager\SceneManager.cpp" />
+    <ClCompile Include="..\code\Scene\Title\Title.cpp" />
+    <ClCompile Include="..\include\MyLib\FileIO\MemMapFile.cpp" />
+    <ClCompile Include="..\include\MyLib\KeyStatus\KeyStatus.cpp" />
+    <ClCompile Include="..\include\MyLib\Loading\Loading.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\code\Asset\AssetBase\AssetBase.h" />
+    <ClInclude Include="..\code\Asset\AssetManager\AssetManager.h" />
+    <ClInclude Include="..\code\Asset\DivisionGraph\DivisionGraph.h" />
+    <ClInclude Include="..\code\Asset\Graph\Graph.h" />
+    <ClInclude Include="..\code\Collision\CollisionBase\CollisionBase.h" />
+    <ClInclude Include="..\code\Collision\CollisionManager\CollisionManager.h" />
+    <ClInclude Include="..\code\Collision\MapCollision\MapCollision.h" />
+    <ClInclude Include="..\code\Collision\RectCollision\RectCollision.h" />
+    <ClInclude Include="..\code\Collision\TipBox\NomalBox\NomalBox.h" />
+    <ClInclude Include="..\code\Component\ComponentBase\ComponentBase.h" />
+    <ClInclude Include="..\code\Component\ComponentManager\ComponentManager.h" />
+    <ClInclude Include="..\code\Component\Jump\Jump.h" />
+    <ClInclude Include="..\code\GameSystem\Execution\Execution.h" />
+    <ClInclude Include="..\code\GameSystem\FrameRate\FrameRate.h" />
+    <ClInclude Include="..\code\GameSystem\Library\Library.h" />
+    <ClInclude Include="..\code\GameSystem\Window\Window.h" />
+    <ClInclude Include="..\code\Object\Character\Player\Player.h" />
+    <ClInclude Include="..\code\Object\GameObject\GameObject.h" />
+    <ClInclude Include="..\code\Object\GameObject\ObjectState.h" />
+    <ClInclude Include="..\code\Object\GameObject\ObjectTag.h" />
+    <ClInclude Include="..\code\Object\Map\Map.h" />
+    <ClInclude Include="..\code\Object\ObjectManager\ObjectManager.h" />
+    <ClInclude Include="..\code\Scene\LoadingScene\LoadingScene.h" />
+    <ClInclude Include="..\code\Scene\Play\Play.h" />
+    <ClInclude Include="..\code\Scene\SceneBase\SceneBase.h" />
+    <ClInclude Include="..\code\Scene\SceneManager\SceneManager.h" />
+    <ClInclude Include="..\code\Scene\Title\Title.h" />
+    <ClInclude Include="..\include\MyLib\Coroutine.h" />
+    <ClInclude Include="..\include\MyLib\FileIO\ExeFilePath.h" />
+    <ClInclude Include="..\include\MyLib\FileIO\MemMapFile.h" />
+    <ClInclude Include="..\include\MyLib\KeyStatus\KeyStatus.h" />
+    <ClInclude Include="..\include\MyLib\KeyStatus\KeyTag.h" />
+    <ClInclude Include="..\include\MyLib\Loading\Loading.h" />
+    <ClInclude Include="..\include\MyLib\Loading\LoadingContext.h" />
+    <ClInclude Include="..\include\MyLib\Math\PropVector2.h" />
+    <ClInclude Include="..\include\MyLib\Math\Vector2.h" />
+    <ClInclude Include="..\include\MyLib\Shape\Rect.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\data\MapTip.csv" />
+    <None Include="..\data\MapData.json" />
+    <None Include="..\data\test.json" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
