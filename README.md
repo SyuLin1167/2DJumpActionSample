@@ -4,6 +4,10 @@
     <img src="https://github.com/user-attachments/assets/4d2908a8-1603-420a-b655-756052e2fb7e" width=60%>
 </div>
 
+## バージョン
+**Dxlib版：Ver 1.0.0**  
+**~~SDL版：Ver 0.0.0~~**
+
 ## 🚀 使い方
 ①リポジトリをクローン
 ```bash
