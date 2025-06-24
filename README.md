@@ -3,10 +3,12 @@
 <div align="center">
     <img src="https://github.com/user-attachments/assets/4d2908a8-1603-420a-b655-756052e2fb7e" width=60%>
 </div>
-
-## バージョン
-**Dxlib版：Ver 1.0.1**  
-**~~SDL版：Ver 0.0.0~~**
+<div align="center">
+    <img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat">
+    
+[![Dxlib](https://img.shields.io/badge/Dxlib版-v1.0.1-orange.svg)]([https://dxlib.xsrv.jp/](https://github.com/SyuLin1167/2DJumpActionSample/tree/develop-dxlib/ProjectName))
+[![nlohman-json](https://img.shields.io/badge/SDL版-'-orange.svg)]()  
+</div>
 
 ## 🚀 使い方
 ①リポジトリをクローン
@@ -36,12 +38,6 @@ git clone https://github.com/2DJumpActionSample/project.git
 
 ## :eyes: 使用技術
 > [!NOTE]
-> <img src="https://img.shields.io/badge/-Cplusplus-00599C.svg?logo=cplusplus&style=plastic">
-> <img src="https://img.shields.io/badge/-Json-000000.svg?logo=json&style=plastic">
-> <img src="https://img.shields.io/badge/-Github-181717.svg?logo=github&style=plastic">
-> <img src="https://img.shields.io/badge/-HLSL-AB2B28.svg?logo=&style=flat-square">
-> <img src="https://img.shields.io/badge/-DxLib-512DA8.svg?logo=&style=flat-square">
-> ### 〇実装機能
 >* ステートマシン
 >* コンポーネント指向
 >* クラス間の繋がりが少ない設計
