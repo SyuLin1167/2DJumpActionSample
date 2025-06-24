@@ -6,7 +6,7 @@
 <div align="center">
     <img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat">
     
-[![Dxlib](https://img.shields.io/badge/Dxlib版-v1.0.1-orange.svg)]([https://dxlib.xsrv.jp/](https://github.com/SyuLin1167/2DJumpActionSample/tree/develop-dxlib/ProjectName))
+[![Dxlib](https://img.shields.io/badge/Dxlib版-v1.0.1-orange.svg)](https://github.com/SyuLin1167/2DJumpActionSample/tree/develop-dxlib/ProjectName)
 [![nlohman-json](https://img.shields.io/badge/SDL版-'-orange.svg)]()  
 </div>
 
