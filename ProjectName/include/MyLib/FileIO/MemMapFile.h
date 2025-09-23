@@ -19,6 +19,10 @@ namespace file
         /// </summary>
         MemMapFile();
 
+        // コピーコンストラクタとコピー代入演算子を削除
+        MemMapFile(const MemMapFile&) = delete;
+        MemMapFile& operator=(const MemMapFile&) = delete;
+
         /// <summary>
         /// デストラクタ
         /// </summary>
@@ -35,10 +39,21 @@ namespace file
         /// ファイルポインタの取得
         /// </summary>
         /// <param name="ptr">ポインタ</param>
-        void GetPtr(void** ptr);
+        char* GetPtr() noexcept { return ptr; };
+
+        /// <summary>
+        /// ファイルサイズの取得
+        /// </summary>
+        /// <returns>ファイルサイズ</returns>
+        size_t GetFileSize() const noexcept;
+
+        /// <summary>
+        /// ファイルを閉じる
+        /// </summary>
+        void Close();
     private:
         HANDLE fileHandle;  //ファイルハンドル
         HANDLE mapHandle;   //マッピングハンドル
-        void* pointer;      //ポインタ
+        char* ptr;      //ポインタ
     };
 }

@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include "GameObject/GameObject.h"
+#include "ColliderManager/ColliderManager.h"
 
 /// <summary>
 /// オブジェクト関連
@@ -31,7 +33,20 @@ namespace object
         /// オブジェクト追加
         /// </summary>
         /// <param name="object">追加するオブジェクト</param>
-        void AddObject(GameObject* object);
+        template<typename... Args>
+        inline void AddObject(GameObject* object, Args&&... args)
+        {
+            // 更新中なら一時保存、そうでないなら新規追加
+            if (isUpdate)
+            {
+                pendingObjects.emplace_back(object);
+                return;
+            }
+
+            // 新規追加
+            auto obj = std::shared_ptr<GameObject>(object, std::forward<Args>(args)...);
+            objects[object->MyObjectTag()].emplace_back(obj);
+        }
 
         /// <summary>
         /// オブジェクト除去

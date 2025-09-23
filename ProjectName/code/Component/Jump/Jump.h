@@ -51,13 +51,13 @@ namespace component
         /// </summary>
         void CanJump()
         {
-            m_nowJump = false;
+            nowJump = false;
         }
 
     private:
-        const float MAX_FALL_VELOCITY = 50.0f;      //最大落下速度
-        bool m_nowJump;                             //ジャンプ状態判定
-        std::function<bool()> m_trriger;            //トリガー
+        const float MAX_FALL_VELOCITY = 30.0f;      //最大落下速度
+        bool nowJump;                             //ジャンプ状態判定
+        std::function<bool()> trriger;            //トリガー
     };
 }
 

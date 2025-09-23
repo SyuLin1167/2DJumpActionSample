@@ -18,7 +18,7 @@ namespace object
         task::LoadingContext::Get()->AddTask(task::DATA, [this]() {
             auto path = file::GetExeDirectory() / "data/MapTip.csv";
             mmf->Open(path.string().c_str());
-            mmf->GetPtr((void**)&filePtr);
+            filePtr = mmf->GetPtr();
             std::this_thread::sleep_for(std::chrono::microseconds(1000));
         });
 
@@ -35,14 +35,17 @@ namespace object
         assetMgr->Load<asset::DivisionGraph>("map", "map.png", 32, 32);
 
         //当たり判定追加
-        colMgr->AddCollision<collision::MapCollision>("MapTip");
+        //colMgr->AddCollision<collision::MapCollision>("MapTip");
     }
 
     void Map::Init()
     {
         //マップデータの作成
         CreateMapData(filePtr);
-
+        col2d::ColliderDef def;
+        def.isActive = true;
+        auto id = ObjectContext::ColMgr().CreateTileCollider(&def, MyObjectTag());
+        ObjectContext::ColMgr().AddMask(id, col2d::RECT, PLAYER);
     }
 
     void Map::GetReferenceObject(std::function<std::vector<std::shared_ptr<GameObject>>(uint32_t)> referenceObj)

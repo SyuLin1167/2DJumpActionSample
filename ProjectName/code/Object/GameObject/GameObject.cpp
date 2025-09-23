@@ -6,7 +6,7 @@ namespace object
     GameObject::GameObject()
         : assetMgr(new asset::AssetManager)
         , compMgr(new component::ComponentManager)
-        , colMgr(new collision::CollisionManager(this))
+        //, colMgr(new collision::CollisionManager(this))
         , deltaTime(gameSystem::FrameRate::Self().GetDeltaTime())
         , pos()
         , size()
@@ -21,7 +21,7 @@ namespace object
 
     void GameObject::UpdateCollision()
     {
-        colMgr->ColliderWith();
+        //colMgr->ColliderWith();
     }
 
     void GameObject::UpdateComponents()

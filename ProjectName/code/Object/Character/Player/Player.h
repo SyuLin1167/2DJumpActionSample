@@ -33,6 +33,11 @@ namespace object
         void Update() override;
 
         /// <summary>
+        /// 後更新処理
+        /// </summary>
+        void LateUpdate() override;
+
+        /// <summary>
         /// 描画処理
         /// </summary>
         void Draw() override;
@@ -45,5 +50,7 @@ namespace object
         {
             return ObjectTag::PLAYER;
         }
+
+        col2d::ColliderID id;
     };
 }

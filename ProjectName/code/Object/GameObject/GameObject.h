@@ -6,6 +6,7 @@
 #include "Math/PropVector2.h"
 #include "ObjectTag.h"
 #include "ObjectState.h"
+#include "ObjectContext.h"
 #include "AssetManager/AssetManager.h"
 #include "ComponentManager/ComponentManager.h"
 #include "CollisionManager/CollisionManager.h"
@@ -47,6 +48,11 @@ namespace object
         /// 更新
         /// </summary>
         virtual void Update() {};
+
+        /// <summary>
+        /// 後更新
+        /// </summary>
+        virtual void LateUpdate() {};
 
         /// <summary>
         /// 当たり判定更新
@@ -99,11 +105,11 @@ namespace object
     protected:
         std::unique_ptr<asset::AssetManager> assetMgr;          //アセットマネージャー
         std::shared_ptr<component::ComponentManager> compMgr;   //コンポーネントマネージャー
-        std::shared_ptr<collision::CollisionManager> colMgr;    //コリジョンマネージャー
+        //std::shared_ptr<collision::CollisionManager> colMgr;    //コリジョンマネージャー
         const float& deltaTime;             //デルタタイム
-        Vector2<float> pos;           //座標
-        Vector2<float> size;          //サイズ
-        Vector2<float> velocity;      //速さ
-        uint32_t state;                     //状態
+        Vector2f pos;           //座標
+        Vector2f size;          //サイズ
+        Vector2f velocity;      //速さ
+        uint32_t state;         //状態
     };
 }
