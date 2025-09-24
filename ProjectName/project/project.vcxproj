@@ -130,14 +130,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/box2d;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/box2d;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)include;$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -149,7 +149,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/box2d;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -158,18 +158,23 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/box2d;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)include;$(SolutionDir)include/DxLib;$(SolutionDir)include/nlohmann;$(SolutionDir)include/MyLib;$(SolutionDir)code/GameSystem;$(SolutionDir)code/Collision;$(SolutionDir)code/Component;$(SolutionDir)code/Object;$(SolutionDir)code/Scene;$(SolutionDir)code/Asset</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\code\Asset\DivisionGraph\DivisionGraph.cpp" />
     <ClCompile Include="..\code\Asset\Graph\Graph.cpp" />
+    <ClCompile Include="..\code\Collision\ColliderManager\ColliderManager.cpp" />
+    <ClCompile Include="..\code\Collision\ColliderVisitor\ColliderVisitor.cpp" />
+    <ClCompile Include="..\code\Collision\Collider\Collider.cpp" />
     <ClCompile Include="..\code\Collision\CollisionBase\CollisionBase.cpp" />
-    <ClCompile Include="..\code\Collision\CollisionManager\CollisionManager.cpp" />
-    <ClCompile Include="..\code\Collision\MapCollision\MapCollision.cpp" />
-    <ClCompile Include="..\code\Collision\RectCollision\RectCollision.cpp" />
-    <ClCompile Include="..\code\Collision\TipBox\NomalBox\NomalBox.cpp" />
+    <ClCompile Include="..\code\Collision\RectCollider\RectCollider.cpp" />
+    <ClCompile Include="..\code\Collision\RectCollider\RectColliderResolver.cpp" />
+    <ClCompile Include="..\code\Collision\RectCollider\RectColliderVisitor.cpp" />
+    <ClCompile Include="..\code\Collision\TileCollider\TileCollider.cpp" />
+    <ClCompile Include="..\code\Collision\TileCollider\TileColliderResolver.cpp" />
+    <ClCompile Include="..\code\Collision\TileCollider\TileColliderVisitor.cpp" />
     <ClCompile Include="..\code\Component\ComponentBase\ComponentBase.cpp" />
     <ClCompile Include="..\code\Component\ComponentManager\ComponentManager.cpp" />
     <ClCompile Include="..\code\Component\Jump\Jump.cpp" />
@@ -196,11 +201,18 @@
     <ClInclude Include="..\code\Asset\AssetManager\AssetManager.h" />
     <ClInclude Include="..\code\Asset\DivisionGraph\DivisionGraph.h" />
     <ClInclude Include="..\code\Asset\Graph\Graph.h" />
+    <ClInclude Include="..\code\Collision\ColliderDef\ColliderDef.h" />
+    <ClInclude Include="..\code\Collision\ColliderManager\ColliderManager.h" />
+    <ClInclude Include="..\code\Collision\ColliderVisitor\ColliderVisitor.h" />
+    <ClInclude Include="..\code\Collision\Collider\Collider.h" />
+    <ClInclude Include="..\code\Collision\Collider\ColliderFilter.h" />
     <ClInclude Include="..\code\Collision\CollisionBase\CollisionBase.h" />
-    <ClInclude Include="..\code\Collision\CollisionManager\CollisionManager.h" />
-    <ClInclude Include="..\code\Collision\MapCollision\MapCollision.h" />
-    <ClInclude Include="..\code\Collision\RectCollision\RectCollision.h" />
-    <ClInclude Include="..\code\Collision\TipBox\NomalBox\NomalBox.h" />
+    <ClInclude Include="..\code\Collision\RectCollider\RectCollider.h" />
+    <ClInclude Include="..\code\Collision\RectCollider\RectColliderResolver.h" />
+    <ClInclude Include="..\code\Collision\RectCollider\RectColliderVisitor.h" />
+    <ClInclude Include="..\code\Collision\TileCollider\TileCollider.h" />
+    <ClInclude Include="..\code\Collision\TileCollider\TileColliderResolver.h" />
+    <ClInclude Include="..\code\Collision\TileCollider\TileColliderVisitor.h" />
     <ClInclude Include="..\code\Component\ComponentBase\ComponentBase.h" />
     <ClInclude Include="..\code\Component\ComponentManager\ComponentManager.h" />
     <ClInclude Include="..\code\Component\Jump\Jump.h" />
@@ -213,6 +225,7 @@
     <ClInclude Include="..\code\Object\GameObject\ObjectState.h" />
     <ClInclude Include="..\code\Object\GameObject\ObjectTag.h" />
     <ClInclude Include="..\code\Object\Map\Map.h" />
+    <ClInclude Include="..\code\Object\ObjectContext.h" />
     <ClInclude Include="..\code\Object\ObjectManager\ObjectManager.h" />
     <ClInclude Include="..\code\Scene\LoadingScene\LoadingScene.h" />
     <ClInclude Include="..\code\Scene\Play\Play.h" />
@@ -234,6 +247,7 @@
     <None Include="..\data\MapTip.csv" />
     <None Include="..\data\MapData.json" />
     <None Include="..\data\test.json" />
+    <None Include="..\data\TileMap.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -28,41 +28,17 @@
     <Filter Include="GameSystem\FrameRate">
       <UniqueIdentifier>{d707a9e2-e342-498c-81b7-574e2a21601d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{df455804-912a-4ee0-b43c-5e1fe0f3bd14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\GameObject">
-      <UniqueIdentifier>{73f077c3-5be1-4b73-94f6-ab3d970ae24d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Player">
-      <UniqueIdentifier>{340e087e-8d7c-4c77-ad1e-1fed83b66f7c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\Play">
       <UniqueIdentifier>{dc4b70bf-0d72-424c-8b68-5cf50eab452b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component">
       <UniqueIdentifier>{b91d0599-e4ce-4983-988a-a466cdefbf31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\ObjectManager">
-      <UniqueIdentifier>{b7aa4b91-5e44-46f8-a45e-ff3715417b22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Map">
-      <UniqueIdentifier>{51bee5ae-c668-432b-8830-3d321eb72673}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Jump">
       <UniqueIdentifier>{a07bac33-06ca-4b30-a635-efe6fe745a9d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Collision">
       <UniqueIdentifier>{843aef43-7aac-4e5b-ae94-255dab27a71c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Collision\CollisionManager">
-      <UniqueIdentifier>{f216b06f-b61a-4a03-b4c8-ad417a99c2f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Collision\MapCollision">
-      <UniqueIdentifier>{d3e06334-f9b4-405f-b815-1b1f070dbb64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Collision\RectCollision">
-      <UniqueIdentifier>{c7a520d0-a381-4831-8c8b-478e71a0b5d4}</UniqueIdentifier>
     </Filter>
     <Filter Include="MyLib">
       <UniqueIdentifier>{70c14614-cddd-461e-a359-388ebd48bbd1}</UniqueIdentifier>
@@ -106,14 +82,44 @@
     <Filter Include="Component\ComponentManager">
       <UniqueIdentifier>{44d41d83-db90-4f63-8b01-2d917aab1b88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Collision\ChipBox">
-      <UniqueIdentifier>{3af08452-caef-45c8-a4c2-af73a89c0834}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MyLib\FileIO">
       <UniqueIdentifier>{eddb39d9-0a36-4d53-bf02-6c186d9d9add}</UniqueIdentifier>
     </Filter>
     <Filter Include="MyLib\Loading">
       <UniqueIdentifier>{cc8dfca3-93e6-4be3-aeb0-7fa8a1cd1c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision\Collider">
+      <UniqueIdentifier>{d99e92c2-02e5-4d62-adf2-a96e9c84ff0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision\ColliderVisiter">
+      <UniqueIdentifier>{41b0787e-dd07-4af6-8320-75d43f0a9480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\RectCollider">
+      <UniqueIdentifier>{38f73f73-bf8f-43a8-bc3c-9e99b5c3f82c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision\TileCollider">
+      <UniqueIdentifier>{15ef6074-1d24-406f-84ee-2b0e06a01946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{df455804-912a-4ee0-b43c-5e1fe0f3bd14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameObject">
+      <UniqueIdentifier>{73f077c3-5be1-4b73-94f6-ab3d970ae24d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{340e087e-8d7c-4c77-ad1e-1fed83b66f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\ObjectManager">
+      <UniqueIdentifier>{b7aa4b91-5e44-46f8-a45e-ff3715417b22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Map">
+      <UniqueIdentifier>{51bee5ae-c668-432b-8830-3d321eb72673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision\RectCollider">
+      <UniqueIdentifier>{c7a520d0-a381-4831-8c8b-478e71a0b5d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision\ColiderManager">
+      <UniqueIdentifier>{ed94cec9-ef93-467b-9896-33a48f1834cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -160,15 +166,6 @@
     <ClCompile Include="..\include\MyLib\KeyStatus\KeyStatus.cpp">
       <Filter>MyLib\KeyStatus</Filter>
     </ClCompile>
-    <ClCompile Include="..\code\Collision\CollisionManager\CollisionManager.cpp">
-      <Filter>Collision\CollisionManager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\code\Collision\MapCollision\MapCollision.cpp">
-      <Filter>Collision\MapCollision</Filter>
-    </ClCompile>
-    <ClCompile Include="..\code\Collision\RectCollision\RectCollision.cpp">
-      <Filter>Collision\RectCollision</Filter>
-    </ClCompile>
     <ClCompile Include="..\code\Asset\Graph\Graph.cpp">
       <Filter>Asset\Graph</Filter>
     </ClCompile>
@@ -193,8 +190,32 @@
     <ClCompile Include="..\code\Component\ComponentManager\ComponentManager.cpp">
       <Filter>Component\ComponentManager</Filter>
     </ClCompile>
-    <ClCompile Include="..\code\Collision\TipBox\NomalBox\NomalBox.cpp">
-      <Filter>Collision\ChipBox</Filter>
+    <ClCompile Include="..\code\Collision\Collider\Collider.cpp">
+      <Filter>Collision\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\ColliderVisitor\ColliderVisitor.cpp">
+      <Filter>Collision\ColliderVisiter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\RectCollider\RectCollider.cpp">
+      <Filter>Collision\RectCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\TileCollider\TileCollider.cpp">
+      <Filter>Collision\TileCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\RectCollider\RectColliderVisitor.cpp">
+      <Filter>Collision\RectCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\TileCollider\TileColliderVisitor.cpp">
+      <Filter>Collision\TileCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\TileCollider\TileColliderResolver.cpp">
+      <Filter>Collision\TileCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\ColliderManager\ColliderManager.cpp">
+      <Filter>Collision\ColiderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\RectCollider\RectColliderResolver.cpp">
+      <Filter>Collision\RectCollider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -258,15 +279,6 @@
     <ClInclude Include="..\include\MyLib\KeyStatus\KeyTag.h">
       <Filter>MyLib\KeyStatus</Filter>
     </ClInclude>
-    <ClInclude Include="..\code\Collision\CollisionManager\CollisionManager.h">
-      <Filter>Collision\CollisionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\code\Collision\MapCollision\MapCollision.h">
-      <Filter>Collision\MapCollision</Filter>
-    </ClInclude>
-    <ClInclude Include="..\code\Collision\RectCollision\RectCollision.h">
-      <Filter>Collision\RectCollision</Filter>
-    </ClInclude>
     <ClInclude Include="..\code\Asset\AssetBase\AssetBase.h">
       <Filter>Asset\AssetBase</Filter>
     </ClInclude>
@@ -303,11 +315,44 @@
     <ClInclude Include="..\code\Component\ComponentManager\ComponentManager.h">
       <Filter>Component\ComponentManager</Filter>
     </ClInclude>
-    <ClInclude Include="..\code\Collision\TipBox\NomalBox\NomalBox.h">
-      <Filter>Collision\ChipBox</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\MyLib\Coroutine.h">
       <Filter>MyLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\Collider\Collider.h">
+      <Filter>Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\ColliderVisitor\ColliderVisitor.h">
+      <Filter>Collision\ColliderVisiter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\RectCollider\RectCollider.h">
+      <Filter>Collision\RectCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\TileCollider\TileCollider.h">
+      <Filter>Collision\TileCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\RectCollider\RectColliderVisitor.h">
+      <Filter>Collision\RectCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\TileCollider\TileColliderVisitor.h">
+      <Filter>Collision\TileCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\TileCollider\TileColliderResolver.h">
+      <Filter>Collision\TileCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\Collider\ColliderFilter.h">
+      <Filter>Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Object\ObjectContext.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\ColliderDef\ColliderDef.h">
+      <Filter>Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\ColliderManager\ColliderManager.h">
+      <Filter>Collision\ColiderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\RectCollider\RectColliderResolver.h">
+      <Filter>Collision\RectCollider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -318,6 +363,9 @@
       <Filter>Data</Filter>
     </None>
     <None Include="..\data\test.json">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="..\data\TileMap.tmx">
       <Filter>Data</Filter>
     </None>
   </ItemGroup>

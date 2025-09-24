@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "KeyStatus/KeyStatus.h"
 #include "Loading/LoadingContext.h"
-#include "RectCollision/RectCollision.h"
 #include "Jump/Jump.h"
 #include "Graph/Graph.h"
 #include "FileIO/ExeFilePath.h"
@@ -32,17 +31,29 @@ namespace object
 
     void Player::Init()
     {
-        //ジャンプ機能追加
+        // ジャンプ機能追加
         auto jump = compMgr->AddComponent<component::Jump>(this, std::bind(input::KeyStatus::DecisionKeyState, keyType.A, ON_PRESS));
 
-        //サイズ設定
+        // サイズ設定
         int imgW, imgH;
         GetGraphSize(assetMgr->Fetch<asset::Graph>()->GetHandle("body"), &imgW, &imgH);
-        size = Vector2<int>(imgW, imgH);
+        size = Vector2f(imgW, imgH);
 
-        //当たり判定追加
-        auto body = colMgr->AddCollision<collision::RectCollision>(pos, size, velocity);
-        body->AddTargetCollision(ObjectTag::MAP, collision::ShapeTag::MAP, [jump]() {jump->CanJump(); });
+        // 当たり判定追加
+        col2d::ColliderDef colDef{};
+        colDef.localPos = pos;
+        colDef.isActive = true;
+        colDef.shouldCCD = true;
+        id = ObjCtx::ColMgr().CreateRectCollider(&colDef, size, MyObjectTag());
+
+        // 衝突イベント追加
+        col2d::ContactListener listener;
+        listener.when = [&]() {return ObjCtx::ColMgr().GetCollider(id)->GetVelocity().y == 0 && velocity.y > 0; };
+        listener.event = [&, jump]() {jump->CanJump(); };
+        ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::TILE, ObjectTag::MAP), listener);
+
+        //auto body = colMgr->AddCollision<collision::RectCollision>(pos, size, velocity);
+        //body->AddTargetCollision(ObjectTag::MAP, collision::ShapeTag::MAP, [jump]() {jump->CanJump(); });
     }
 
     void Player::Update()
@@ -58,13 +69,19 @@ namespace object
         {
             velocity.x = 700 * deltaTime;
         }
-        pos.x += velocity.x;
-        pos.y += velocity.y;
+        ObjectContext::ColMgr().GetCollider(id)->SetVelocity(velocity);
+    }
+
+    void Player::LateUpdate()
+    {
+        pos = ObjCtx::ColMgr().GetCollider(id)->GetColliderDef()->localPos;
+        velocity = ObjCtx::ColMgr().GetCollider(id)->GetVelocity();
     }
 
     void Player::Draw()
     {
         DrawGraph((int)pos.x, (int)pos.y, assetMgr->Fetch<asset::Graph>()->GetHandle("body"), true);
         DrawFormatString(1000, 10, GetColor(250, 250, 20), "move:←→\njump:Aキー");
+        DrawFormatString(1000, 100, GetColor(250, 250, 20), "velX:%f", velocity.x);
     }
 }

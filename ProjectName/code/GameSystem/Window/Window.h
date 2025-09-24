@@ -21,7 +21,7 @@ namespace gameSystem
         /// </summary>
         const struct Info
         {
-            const Vector2<int> SIZE{ 1920, 1080 };    //ウィンドウサイズ
+            const Vector2<uint32_t> SIZE{ 1920, 1080 };    //ウィンドウサイズ
             const int COLOR_BIT = 32;    //カラービット
         };
 

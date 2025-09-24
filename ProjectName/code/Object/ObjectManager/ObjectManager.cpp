@@ -1,5 +1,5 @@
 ﻿#include "ObjectManager.h"
-#include "GameObject/GameObject.h"
+#include "ObjectContext.h"
 
 namespace object
 {
@@ -8,18 +8,7 @@ namespace object
         , pendingObjects()
         , isUpdate(false)
     {
-        //処理なし
-    }
-
-    void ObjectManager::AddObject(class GameObject* object)
-    {
-        //更新中なら一時保存、そうでなければオブジェクト配列に追加
-        if (isUpdate)
-        {
-            pendingObjects.emplace_back(object);
-            return;
-        }
-        objects[object->MyObjectTag()].emplace_back(object);
+        ObjectContext::Activate();
     }
 
     void ObjectManager::RemoveObject(class GameObject* object)
@@ -61,13 +50,18 @@ namespace object
                 object->UpdateComponents();
                 object->Update();
             }
+        }
+        //当たり判定の更新
+        ObjectContext::ColMgr().Step();
 
-            //当たり判定の更新
+        for (auto tag : OBJECT_TAGS)
+        {
             for (auto& object : objects[tag])
             {
-                object->UpdateCollision();
+                object->LateUpdate();
             }
         }
+
         isUpdate = false;
 
         for (auto tag : OBJECT_TAGS)
