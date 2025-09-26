@@ -26,11 +26,11 @@ namespace col2d
         /// </summary>
         ~ColliderDef() = default;
 
-        Vector2f worldPos;   // ワールド座標
-        Vector2f localPos;   // ローカル座標
-        bool shouldCCD;     // 連続衝突検出を行うか
-        bool isTrigger;     // トリガーかどうか
-        bool isActive;      // 有効かどうか
+        Vector2f worldPos{ 0,0 };   // ワールド座標
+        Vector2f localPos{ 0,0 };   // ローカル座標
+        bool shouldCCD;             // 連続衝突検出を行うか
+        bool isTrigger;             // トリガーかどうか
+        bool isActive;              // 有効かどうか
     };
 }
 

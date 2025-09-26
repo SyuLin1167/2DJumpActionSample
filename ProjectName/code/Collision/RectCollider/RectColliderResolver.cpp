@@ -7,6 +7,7 @@ namespace col2d
     {
         if (_issue.GetSweptRect().AABB(_other.GetRect()))
         {
+            // ç∑ï™ÇÃéZèo
             Vector2f diffX{};
             diffX.x = _other.GetRect().Left() - _issue.GetSweptRect().Right();
             diffX.y = _other.GetRect().Right() - _issue.GetSweptRect().Left();
@@ -14,9 +15,9 @@ namespace col2d
             diffY.x = _other.GetRect().Top() - _issue.GetSweptRect().Bottom();
             diffY.y = _other.GetRect().Bottom() - _issue.GetSweptRect().Top();
 
+            // é≤Ç≤Ç∆âüÇµñﬂÇµó ÇèoÇ∑
             float dx = (fabs(diffX.x) < fabs(diffX.y)) ? diffX.x : diffX.y;
             float dy = (fabs(diffY.x) < fabs(diffY.y)) ? diffY.x : diffY.y;
-
 
             if (fabs(dx) == fabs(dy))
             {
@@ -42,6 +43,7 @@ namespace col2d
                 }
                 _issue.SetVelocity(Vector2f(_issue.GetVelocity().x, 0.0f));
 
+            }
         }
     }
 }

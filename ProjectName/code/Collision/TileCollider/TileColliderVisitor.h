@@ -1,18 +1,23 @@
 #pragma once
 #include "TileColliderResolver.h"
-#include "ColliderVisitor/ColliderVisitor.h"
+#include "Collider/ColliderVisitor.h"
 
 namespace col2d
 {
+    // 前方宣言
     class TileCollider;
 
+    /// <summary>
+    /// タイルコライダービジター
+    /// </summary>
     class TileColliderVisitor final : public ColliderVisitor
     {
     public:
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        TileColliderVisitor(TileCollider& _issue) : issue(_issue) {}
+        /// <param name="issue">訪問するタイルコライダー</param>
+        TileColliderVisitor(TileCollider& issue) : m_issue(issue) {}
 
         // デフォルトコンストラクタは削除
         TileColliderVisitor() = delete;
@@ -24,11 +29,11 @@ namespace col2d
         /// <summary>
         /// タイルコライダーを訪問
         /// </summary>
-        /// <param name="_collider">訪問するタイルコライダー</param>
-        void Visit(RectCollider& _collider) override;
+        /// <param name="collider">訪問するタイルコライダー</param>
+        void Visit(RectCollider& collider) override;
 
     private:
-        TileCollider& issue; // 訪問するタイルコライダーの参照
-        TileColliderResolver resolver; // タイルコライダーの解決処理を行うリゾルバー
+        TileCollider& m_issue;              // 訪問するタイルコライダーの参照
+        TileColliderResolver m_resolver;    // タイルコライダーの解決処理を行うリゾルバー
     };
 }

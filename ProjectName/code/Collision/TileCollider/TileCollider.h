@@ -16,12 +16,12 @@ namespace col2d
     /// </summary>
     enum TileFlag : uint8_t
     {
-        NONE = 0,           // なし
-        LEFT = 1 << 1,      // 左側
-        RIGHT = 1 << 2,     // 右側
-        TOP = 1 << 3,       // 上側
-        BOTTOM = 1 << 4,    // 下側
-        ALL = (1 << 4) - 1  // 全方向
+        NONE = 0,            // なし
+        LEFT = 1u << 1,      // 左側
+        RIGHT = 1u << 2,     // 右側
+        TOP = 1u << 3,       // 上側
+        BOTTOM = 1u << 4,    // 下側
+        ALL = LEFT | RIGHT | TOP | BOTTOM  // 全方向
     };
 
     /// <summary>
@@ -38,7 +38,8 @@ namespace col2d
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        TileCollider(ColliderDef* _def);
+        /// <param name="def">コライダー定義</param>
+        TileCollider(ColliderDef* def);
 
         /// <summary>
         /// デストラクタ
@@ -48,10 +49,10 @@ namespace col2d
         /// <summary>
         /// カテゴリーの生成
         /// </summary>
-        /// <param name="_ownerID">所有者のID</param>
-        void GenerateCategory(uint32_t _ownerID = 0) override
+        /// <param name="ownerID">所有者のID</param>
+        void GenerateCategory(uint32_t ownerID = 0) override
         {
-            filter.category = MakeKey(ShapeType::TILE, _ownerID);
+            m_filter.category = MakeKey(ShapeType::TILE, ownerID);
         }
 
         /// <summary>
@@ -62,46 +63,53 @@ namespace col2d
         /// <summary>
         /// タイルコライダーの衝突判定
         /// </summary>
-        /// <param name="_rect">矩形</param>
+        /// <param name="rect">矩形</param>
         /// <returns>衝突しているか</returns>
-        bool IsColliding(const shape::Rect& _rect);
+        bool IsColliding(const shape::Rect& rect);
 
         /// <summary>
         /// 他のコライダーとの衝突判定
         /// </summary>
-        /// <param name="_other">他のコライダー</param>
-        void ColliderWidth(Collider& _other) override
+        /// <param name="other">他のコライダー</param>
+        void CollideWith(Collider& other) override
         {
-            _other.Accept(visitor);
+            other.Accept(m_visitor);
         }
 
         /// <summary>
         /// ヒットしたタイルのキーを取得
         /// </summary>
         /// <returns>ヒットしたタイルのキー/returns>
-        std::queue<std::pair<size_t, size_t>> GetHitTileKeys() const
+        std::queue<std::pair<size_t, size_t>> TakeHitTileKeys()
         {
-            return std::move(hitTileKeys);
+            return std::exchange(m_hitTileKeys, {});
         }
 
         /// <summary>
         /// タイル情報を取得
         /// </summary>
-        /// <param name="_key">タイルのキー</param>
-        /// <param name="_index">タイルのインデックス</param>
+        /// <param name="key">タイルのキー</param>
+        /// <param name="index">タイルのインデックス</param>
         /// <returns>タイル情報へのポインタ</returns>
-        inline const TileInfo* GetTileInfo(size_t _key, size_t _index) const
+        inline const TileInfo* GetTileInfo(size_t key, size_t index) const
         {
-            if (tileColliders.contains(_key) && _index < tileColliders.at(_key).size())
+            if (auto it = m_tileColliders.find(key); it != m_tileColliders.end())
             {
-                return &tileColliders.at(_key)[_index];
+                if (index < it->second.size())
+                {
+                    return &it->second[index];
+                }
             }
             return nullptr;
         }
 
+        /// <summary>
+        /// タイルサイズを取得
+        /// </summary>
+        /// <returns>タイルサイズ</returns>
         const Vector2u& GetTileSize() const
         {
-            return tileSize;
+            return m_tileSize;
         }
 
     private:
@@ -130,39 +138,42 @@ namespace col2d
         /// <summary>
         /// 隣接するタイルのフラグを取得
         /// <summary>
-        /// <param name="_tileLayer">タイルレイヤー</param>
-        /// <param name="_x">タイルのX座標</param>
-        /// <param name="_y">タイルのY座標</param>
-        uint8_t AdjacentTileAt(const std::vector<size_t>& _mapData,size_t _x, size_t _y) const;
+        /// <param name="tileLayer">タイルレイヤー</param>
+        /// <param name="x">タイルのX座標</param>
+        /// <param name="y">タイルのY座標</param>
+        uint8_t AdjacentTileAt(const std::vector<size_t>& mapData,size_t x, size_t y) const;
 
 
         /// <summary>
         /// コライダーを訪問
         /// </summary>
-        /// <param name="_visitor">訪問するビジター</param>
-        void Accept(ColliderVisitor& _visitor) override {}
+        /// <param name="visitor">訪問するビジター</param>
+        void Accept(ColliderVisitor& visitor) override {}
 
+        /// <summary>
+        /// マップ情報
+        /// </summary>
         struct MapInfo
         {
             size_t width;      // マップの幅（タイル数）
             size_t height;     // マップの高さ（タイル数）
         }mapInfo;
 
-        Vector2u chunkSize; // チャンクサイズ
-        Vector2u tileSize; // タイルのサイズ
-        TileColliderVisitor visitor; // タイルコライダービジター
+        Vector2u m_chunkSize;           // チャンクサイズ
+        Vector2u m_tileSize;            // タイルのサイズ
+        TileColliderVisitor m_visitor;  // タイルコライダービジター
 
         /// <summary>
         /// タイル情報
         /// summary>
         struct TileInfo
         {
-            uint8_t adjacentFlag; // 隣接するタイルのフラグ
+            uint8_t adjacentFlag;                   // 隣接するタイルのフラグ
             std::unique_ptr<RectCollider> collider; // タイルに対応する矩形コライダー
         };
 
-        std::unordered_map<size_t, std::vector<TileInfo>> tileColliders; // タイル状のコライダーを保持するベクター
-        std::queue<std::pair<size_t, size_t>> hitTileKeys; // ヒットしたタイルのキー
+        std::unordered_map<size_t, std::vector<TileInfo>> m_tileColliders;  // タイル状のコライダーを保持するベクター
+        std::queue<std::pair<size_t, size_t>> m_hitTileKeys;                // ヒットしたタイルのキー
     };
 }
 

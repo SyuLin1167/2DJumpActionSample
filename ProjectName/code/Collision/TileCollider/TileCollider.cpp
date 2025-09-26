@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <thread>
 #include <fstream>
+
 #include "json.hpp"
 #include "RectCollider/RectCollider.h"
 #include "FileIO/ExeFilePath.h"
@@ -9,9 +10,9 @@
 
 namespace col2d
 {
-    TileCollider::TileCollider(ColliderDef* _def)
-        :Collider(_def)
-        , visitor(*this)
+    TileCollider::TileCollider(ColliderDef* def)
+        :Collider(def)
+        , m_visitor(*this)
     {
         Initialize();
     }
@@ -26,7 +27,7 @@ namespace col2d
         mapInfo.width = info["width"];
         mapInfo.height = info["height"];
         ifs.close();
-        tileSize = { info["tilewidth"], info["tileheight"] };
+        m_tileSize = { info["tilewidth"], info["tileheight"] };
 
         auto path = file::GetExeDirectory() / "data/MapTip.csv";
         file::MemMapFile mmf;
@@ -35,9 +36,10 @@ namespace col2d
         char* fileEnd = filePtr + mmf.GetFileSize();
 
         // 1チャンクはウィンドウサイズ4つ分
-        chunkSize = gameSystem::Window::GetWindowData()->SIZE / tileSize.Half();
+        m_chunkSize = gameSystem::Window::GetWindowData()->SIZE / m_tileSize.Half();
 
         std::vector<size_t> mapData;
+        mapData.reserve(mapInfo.width * mapInfo.height);
         while (filePtr < fileEnd)
         {
             // 空白、カンマ、改行をスキップ
@@ -86,44 +88,45 @@ namespace col2d
                 }
 
                 // チャンクの算出とそれに伴うキーの生成
-                uint32_t chunkY = static_cast<uint32_t>(y / chunkSize.y);
-                uint32_t chunkX = static_cast<uint32_t>(x / chunkSize.x);
+                uint32_t chunkY = static_cast<uint32_t>(y / m_chunkSize.y);
+                uint32_t chunkX = static_cast<uint32_t>(x / m_chunkSize.x);
                 size_t key = MakeTileKey(chunkX, chunkY);
 
                 // キーに対して要素がなければ初期化としてメモリ確保
-                if (!tileColliders.contains(key))
+                if (auto it = m_tileColliders.find(key); it == m_tileColliders.end())
                 {
-                    tileColliders[key].resize(chunkSize.x * chunkSize.y);
+                    m_tileColliders.emplace(key, std::vector<TileInfo>(m_chunkSize.x * m_chunkSize.y));
+                    
                 }
 
                 // タイルコライダーを生成
                 TileInfo tileInfo;
                 tileInfo.adjacentFlag = adjacentFlag;
                 ColliderDef colDef = {};
-                colDef.localPos = Vector2f(x * tileSize.x, y * tileSize.y);
+                colDef.localPos = Vector2f(x * m_tileSize.x, y * m_tileSize.y);
                 colDef.isActive = true;
                 tileInfo.collider = std::make_unique<RectCollider>(&colDef);
-                tileInfo.collider->Initialize(tileSize.x, tileSize.y);
+                tileInfo.collider->Initialize(m_tileSize.x, m_tileSize.y);
 
                 // コライダーをチャンク内の座標に格納
-                const size_t colIndex = y % (chunkSize.y) * chunkSize.x + x % (chunkSize.x);
-                tileColliders[key][colIndex] = std::move(tileInfo);
+                const size_t colIndex = (y % m_chunkSize.y) * m_chunkSize.x + (x % m_chunkSize.x);
+                m_tileColliders[key][colIndex] = std::move(tileInfo);
             }
         }
     }
 
-    bool TileCollider::IsColliding(const shape::Rect& _rect)
+    bool TileCollider::IsColliding(const shape::Rect& rect)
     {
-        while(!hitTileKeys.empty())
+        while(!m_hitTileKeys.empty())
         {
-            hitTileKeys.pop();
+            m_hitTileKeys.pop();
         }
 
         // タイル範囲を計算
-        Vector2f tileLeft = _rect.pos / tileSize;
+        Vector2f tileLeft = rect.pos / m_tileSize;
         tileLeft.x = std::floor(tileLeft.x);
         tileLeft.y = std::floor(tileLeft.y);
-        Vector2f tileRight = (_rect.pos + _rect.size) / tileSize;
+        Vector2f tileRight = (rect.pos + rect.size) / m_tileSize;
         tileRight.x = std::ceil(tileRight.x) - 1;
         tileRight.y = std::ceil(tileRight.y) - 1;
 
@@ -132,7 +135,6 @@ namespace col2d
         {
             return false;
         }
-
         if (tileRight.x < 0 || tileRight.y < 0 || tileLeft.x >= mapInfo.width || tileLeft.y >= mapInfo.height)
         {
             return false;
@@ -140,11 +142,11 @@ namespace col2d
 
         // チャンク範囲を計算
         Vector2u chunkLeft{};
-        chunkLeft.x = std::floor(tileLeft.x / chunkSize.x);
-        chunkLeft.y = std::floor(tileLeft.y / chunkSize.y);
+        chunkLeft.x = std::floor(tileLeft.x / m_chunkSize.x);
+        chunkLeft.y = std::floor(tileLeft.y / m_chunkSize.y);
         Vector2u chunkRight{};
-        chunkRight.x = std::floor(tileRight.x / chunkSize.x);
-        chunkRight.y = std::floor(tileRight.y / chunkSize.y);
+        chunkRight.x = std::floor(tileRight.x / m_chunkSize.x);
+        chunkRight.y = std::floor(tileRight.y / m_chunkSize.y);
 
         // チャンク内のタイルコライダーを走査
         for (uint32_t cy = chunkLeft.y; cy <= chunkRight.y; ++cy)
@@ -155,19 +157,19 @@ namespace col2d
                 size_t key = MakeTileKey(cx, cy);
 
                 // チャンクのタイルコライダーを取得
-                auto iter = tileColliders.find(key);
-                if (iter == tileColliders.end())
+                auto iter = m_tileColliders.find(key);
+                if (iter == m_tileColliders.end())
                 {
                     continue;
                 }
 
                 // チャンク内のタイル範囲を計算
                 Vector2<size_t> localLeft{};
-                localLeft.x = (cx == chunkLeft.x) ? Mod(tileLeft.x, chunkSize.x) : 0;
-                localLeft.y = (cy == chunkLeft.y) ? Mod(tileLeft.y, chunkSize.y) : 0;
+                localLeft.x = (cx == chunkLeft.x) ? Mod(tileLeft.x, m_chunkSize.x) : 0;
+                localLeft.y = (cy == chunkLeft.y) ? Mod(tileLeft.y, m_chunkSize.y) : 0;
                 Vector2<size_t> localRight{};
-                localRight.x = (cx == chunkRight.x) ? Mod(tileRight.x, chunkSize.x) : (chunkSize.x - 1);
-                localRight.y = (cy == chunkRight.y) ? Mod(tileRight.y, chunkSize.y) : (chunkSize.y - 1);
+                localRight.x = (cx == chunkRight.x) ? Mod(tileRight.x, m_chunkSize.x) : (m_chunkSize.x - 1);
+                localRight.y = (cy == chunkRight.y) ? Mod(tileRight.y, m_chunkSize.y) : (m_chunkSize.y - 1);
 
                 // チャンク内のタイル範囲を走査
                 for (size_t ty = localLeft.y; ty <= localRight.y; ++ty)
@@ -175,7 +177,7 @@ namespace col2d
                     for (size_t tx = localLeft.x; tx <= localRight.x; ++tx)
                     {
                         // タイルのインデックスを生成
-                        size_t index = ty * chunkSize.x + tx;
+                        size_t index = ty * m_chunkSize.x + tx;
 
                         // タイルコライダーが存在するか確認
                         if (index >= iter->second.size() || !iter->second[index].collider)
@@ -183,9 +185,9 @@ namespace col2d
                             continue;
                         }
                         
-                        if (iter->second[index].collider->GetRect().AABB(_rect))
+                        if (iter->second[index].collider->GetRect().AABB(rect))
                         {
-                            hitTileKeys.push({ key, index });
+                            m_hitTileKeys.push({ key, index });
                         }
                     }
                 }
@@ -193,7 +195,7 @@ namespace col2d
         }
 
         // 範囲内にタイルコライダーが存在する場合はtrueを返す
-        if (!hitTileKeys.empty())
+        if (!m_hitTileKeys.empty())
         {
             return true;
         }

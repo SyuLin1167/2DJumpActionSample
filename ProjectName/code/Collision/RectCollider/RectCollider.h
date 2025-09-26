@@ -1,17 +1,16 @@
 #pragma once
 #include "Collider/Collider.h"
-#include "ColliderDef/ColliderDef.h"
+#include "Collider/ColliderDef.h"
 #include "RectColliderVisitor.h"
 #include "math/Vector2.h"
 #include "Shape/Rect.h"
-
-using namespace math;
 
 /// <summary>
 /// 当たり判定関連
 /// </summary>
 namespace col2d
 {
+    // 前方宣言
     class ColliderVisitor;
 
     /// <summary>
@@ -40,23 +39,23 @@ namespace col2d
         /// <param name="_ownerID">所有者のID</param>
         void GenerateCategory(uint32_t _ownerID = 0) override
         {
-            filter.category = MakeKey(ShapeType::RECT, _ownerID);
+            m_filter.category = MakeKey(ShapeType::RECT, _ownerID);
         }
 
         /// <summary>
         /// 初期化
         /// </summary>
         /// <param name="_size">サイズ</param>
-        inline void Initialize(const Vector2f& _size = { 0.0f,0.0f });
+        void Initialize(const Vector2f& _size = { 0.0f,0.0f });
 
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="_width">幅</param>
-        /// <param name="_height">高さ</param>
-        inline void Initialize(const float& _width, const float& _height)
+        /// <param name="width">幅</param>
+        /// <param name="height">高さ</param>
+        inline void Initialize(const float& width, const float& height)
         {
-            Initialize({ _width,_height });
+            Initialize({ width, height });
         }
 
         /// <summary>
@@ -65,48 +64,47 @@ namespace col2d
         /// <returns>サイズ</returns>
         shape::Rect GetRect() const
         {
-            return baseRect;
+            return m_baseRect;
         }
 
         /// <summary>
         /// スイープ矩形を取得
         /// </summary>
-        const shape::Rect GetSweptRect()
+        shape::Rect GetSweptRect() const
         {
-            CalcSweptRect();
-            return sweptRect;
+            return m_baseRect;
         }
 
         /// <summary>
         /// 矩形と点の衝突判定
         /// </summary>
-        /// <param name="_point">衝突判定を行う点</param>
+        /// <param name="point">衝突判定を行う点</param>
         /// <returns>衝突している場合はtrue、そうでない場合はfalse</returns>
-        bool IsColliding(const Vector2f& _point);
+        [[nodiscard]] bool IsColliding(const Vector2f& point);
 
         /// <summary>
         /// 矩形同士の衝突判定
         /// </summary>
-        /// <param name="_other">衝突判定を行う他の矩形コライダー</param>
+        /// <param name="other">衝突判定を行う他の矩形コライダー</param>
         /// <returns>衝突している場合はtrue、そうでない場合はfalse</returns>
-        bool IsColliding(const RectCollider& _other);
+        [[nodiscard]] bool IsColliding(const RectCollider& other);
 
         /// <summary>
         /// コライダーを訪問
         /// </summary>
-        /// <param name="_visitor">訪問するビジター</param>
-        void Accept(ColliderVisitor& _visitor) override
+        /// <param name="visitor">訪問するビジター</param>
+        void Accept(ColliderVisitor& visitor) override
         {
-            _visitor.Visit(*this);
+            visitor.Visit(*this);
         }
 
         /// <summary>
         /// 他のコライダーとの衝突判定
         /// </summary>
         /// <param name="_other">他のコライダー</param>
-        void ColliderWidth(Collider& _other) override
+        void CollideWith(Collider& _other) override
         {
-            _other.Accept(*visitor);
+            _other.Accept(*m_visitor);
         }
 
         /// <summary>
@@ -114,24 +112,27 @@ namespace col2d
         /// </summary>
         void AddVelocity(const Vector2f& _velocity) override
         {
-            colDef->localPos += _velocity;
-            baseRect.pos = colDef->localPos;
+            m_colDef->localPos += _velocity;
+            m_baseRect.pos = m_colDef->localPos;
         }
 
+        /// <summary>
+        /// 移動量の追加
+        /// </summary>
         void AddVelocity()
         {
-            colDef->localPos += velocity;
-            baseRect.pos = colDef->localPos;
+            m_colDef->localPos += m_velocity;
+            m_baseRect.pos = m_colDef->localPos;
         }
 
     private:
         /// <summary>
         /// スイープ矩形を算出
         /// </summary>
-        void CalcSweptRect();
+        void CalcSweptRect(Vector2f velocity);
 
-        std::unique_ptr<RectColliderVisitor> visitor; // ビジター
-        shape::Rect baseRect; // 基本の矩形
-        shape::Rect sweptRect; // スイープ矩形
+        std::unique_ptr<RectColliderVisitor> m_visitor; // ビジター
+        shape::Rect m_baseRect;                         // 基本の矩形
+        shape::Rect m_sweptRect;                        // スイープ矩形
     };
 }

@@ -1,16 +1,18 @@
 #pragma once
 #include <queue>
-#include <unordered_map>
 #include <memory>
-#include <RectCollider/RectCollider.h>
-#include <TileCollider/TileCollider.h>
 #include <functional>
+#include <unordered_map>
+
+#include "RectCollider/RectCollider.h"
+#include "TileCollider/TileCollider.h"
 
 /// <summary>
 /// 当たり判定関連
 /// </summary>
 namespace col2d
 {
+    // 前方宣言
     struct ColliderDef;
     class Collider;
 
@@ -19,14 +21,14 @@ namespace col2d
     /// </summary>
     struct ColliderID
     {
-        uint32_t index;          // コライダーのインデックス
-        uint16_t generation;     // コライダーの生成世代
+        uint32_t index;          // インデックス
+        uint16_t generation;     // 生成世代
     };
 
     /// <summary>
     /// コライダー管理
     /// </summary>
-    class ColliderManager
+    class ColliderManager final
     {
     public:
         /// <summary>
@@ -44,57 +46,59 @@ namespace col2d
         /// </summary>
         /// <typeparam name="T">コライダーの型</typeparam>
         /// <typeparam name="Args">コライダーの生成時に渡す引数の型</typeparam>
-        /// <param name="_def">コライダー定義</param>
-        /// <param name="_args">コライダー生成時に渡す引数</param>
+        /// <param name="def">コライダー定義</param>
+        /// <param name="ownerID">所有者のID</param>
+        /// <param name="args">コライダー生成時に渡す引数</param>
         /// <returns>生成されたコライダーの識別子</returns>
         template<typename T, typename... Args>
-        inline ColliderID CreateCollider(ColliderDef* _def, const uint32_t& _ownerID, Args&&... _args)
+        [[nodiscard]] inline ColliderID CreateCollider(ColliderDef* def, const uint32_t& ownerID, Args&&... args)
         {
             ColliderID cID = CreateID();
-            auto col = std::make_unique<T>(_def);
-            col->GenerateCategory(_ownerID);
-            col->Initialize(std::forward<Args>(_args)...);
-            colliders[cID.index] = std::move(col);
+            auto col = std::make_unique<T>(def);
+            col->GenerateCategory(ownerID);
+            col->Initialize(std::forward<Args>(args)...);
+            m_colliders[cID.index] = std::move(col);
             return cID;
         }
 
         /// <summary>
         /// 矩形コライダーを生成
         /// </summary>
-        /// <param name="_def">コライダー定義</param>
-        /// <param name="_size">サイズ</param>
+        /// <param name="def">コライダー定義</param>
+        /// <param name="size">サイズ</param>
+        /// <param name="ownerID">所有者のID</param>
         /// <returns>生成されたコライダーの識別子</returns>
-        ColliderID CreateRectCollider(ColliderDef* _def, const Vector2f& _size, const uint32_t& _ownerID = 0)
+        [[nodiscard]] inline ColliderID CreateRectCollider(ColliderDef* def, const Vector2f& size, const uint32_t& ownerID = 0)
         {
-            return CreateCollider<RectCollider>(_def, _ownerID, _size);
+            return CreateCollider<RectCollider>(def, ownerID, size);
         }
 
         /// <summary>
         /// タイルコライダーを生成
         /// </summary>
-        /// <param name="_def">コライダー定義</param>
+        /// <param name="def">コライダー定義</param>
+        /// <param name="ownerID">所有者のID</param>
         /// <returns>生成されたコライダーの識別子</returns>
-        ColliderID CreateTileCollider(ColliderDef* _def, const uint32_t& _ownerID = 0)
+        [[nodiscard]] inline ColliderID CreateTileCollider(ColliderDef* def, const uint32_t& ownerID = 0)
         {
-            return CreateCollider<TileCollider>(_def, _ownerID);
+            return CreateCollider<TileCollider>(def, ownerID);
         }
 
         /// <summary>
         /// コライダーを削除
         /// </summary>
-        /// <param name="_cID">コライダーの識別子</param>
-        void DestroyCollider(const ColliderID& _cID);
+        /// <param name="id">コライダーの識別子</param>
+        void DestroyCollider(const ColliderID& id);
 
         /// <summary>
         /// コライダーを取得
         /// </summary>
-        /// <param name="_cID">コライダーの識別子</param>
+        /// <param name="id">コライダーの識別子</param>
         /// <returns>コライダーへのポインタ</returns>
-        Collider* GetCollider(const ColliderID& _cID) const
+        Collider* GetCollider(const ColliderID& id) const
         {
-            if (colliders.contains(_cID.index))
-            {
-                return colliders.at(_cID.index).get();
+            if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
+                return it->second.get();
             }
             return nullptr;
         }
@@ -107,22 +111,26 @@ namespace col2d
         /// <summary>
         /// マスクを追加
         /// </summary>
-        /// <param name="_cID">コライダーの識別子</param>
-        /// <param name="_shape">形状の種類</param>
-        /// <param name="_ownerID">所有者のID</param>
-        void AddMask(const ColliderID& _cID, const uint32_t& _shape, const uint32_t& _ownerID)
+        /// <param name="id">コライダーの識別子</param>
+        /// <param name="shape">形状の種類</param>
+        /// <param name="ownerID">所有者のID</param>
+        void AddMask(const ColliderID& id, const uint32_t& shape, const uint32_t& ownerID)
         {
-            if (colliders.contains(_cID.index))
-            {
-                colliders.at(_cID.index)->GetFilter().AddMask(_shape, _ownerID);
+            if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
+                it->second->GetFilter().AddMask(shape, ownerID);
             }
         }
 
-        void AddEvent(const ColliderID& _cID, const uint64_t& _key, ContactListener _event)
+        /// <summary>
+        /// 衝突時イベントを追加
+        /// </summary>
+        /// <param name="id">コライダーの識別子</param>
+        /// <param name="key">対象のイベントを識別するためのキー</param>
+        /// <param name="event">追加するイベント</param>
+        void AddEvent(const ColliderID& id, const uint64_t& key, ContactListener event)
         {
-            if (colliders.contains(_cID.index))
-            {
-                colliders.at(_cID.index)->AddEvent(_key, std::move(_event));
+            if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
+                it->second->AddEvent(key, event);
             }
         }
 
@@ -133,7 +141,7 @@ namespace col2d
         /// <returns>生成されたコライダーの識別子</returns>
         ColliderID CreateID();
 
-        std::queue<uint32_t> freeIndex; // 使用されていないコライダーのインデックス
-        std::unordered_map<uint64_t, std::unique_ptr<Collider>> colliders; // コライダーのマップ
+        std::queue<uint32_t> m_freeIndexes; // 未使用のコライダーインデックス
+        std::unordered_map<uint32_t, std::unique_ptr<Collider>> m_colliders; // コライダーのマップ
     };
 }

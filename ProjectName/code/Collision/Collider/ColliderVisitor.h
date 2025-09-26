@@ -5,14 +5,12 @@
 /// </summary>
 namespace col2d
 {
+    // 前方宣言
     class RectCollider;
 
     /// <summary>
     /// コライダービジター
     /// </summary>
-    /// <remarks>
-    /// コライダーに対するビジター
-    /// </remarks>
     class ColliderVisitor
     {
     public:
@@ -29,6 +27,6 @@ namespace col2d
         /// 矩形コライダーを訪問
         /// </summary>
         /// <param name="_target">訪問する矩形コライダー</param>
-        virtual void Visit(RectCollider& _target) = 0;
+        virtual void Visit(RectCollider& target) = 0;
     };
 }

@@ -1,8 +1,9 @@
 #pragma once
 #include <memory>
+#include <functional>
+
 #include "math/Vector2.h"
 #include "ColliderFilter.h"
-#include <functional>
 
 using namespace math;
 
@@ -11,9 +12,13 @@ using namespace math;
 /// </summary>
 namespace col2d
 {
+    // 前方宣言
     struct ColliderDef;
     class ColliderVisitor;
 
+    /// <summary>
+    /// コンタクトリスナー
+    /// </summary>
     struct ContactListener
     {
         std::function<bool()> when; // 条件
@@ -23,21 +28,18 @@ namespace col2d
     /// <summary>
     /// コライダー
     /// </summary>
-    /// <remarks>
-    /// 当たり判定を行うための機能を所持する
-    /// </remarks>
     class Collider
     {
     public:
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="_def">コライダー定義</param>
-        Collider(ColliderDef* _def)
-            : filter()
-            , velocity()
+        /// <param name="def">コライダー定義</param>
+        explicit Collider(ColliderDef* def)
+            : m_filter()
+            , m_velocity{ 0,0 }
         {
-            colDef = std::make_unique<ColliderDef>(*_def);
+            m_colDef = std::make_unique<ColliderDef>(*def);
         }
 
         /// <summary>
@@ -48,93 +50,81 @@ namespace col2d
         /// <summary>
         /// カテゴリーの生成
         /// </summary>
-        /// <param name="_ownerID">所有者のID</param>
-        virtual void GenerateCategory(uint32_t _ownerID = 0) = 0;
+        /// <param name="ownerID">所有者のID</param>
+        virtual void GenerateCategory(uint32_t ownerID = 0) = 0;
 
         /// <summary>
         /// コライダーの定義情報を取得
         /// </summary>
         /// <returns>コライダー定義情報へのポインタ</returns>
-        ColliderDef* GetColliderDef() const
+        ColliderDef* GetColliderDef() const noexcept
         {
-            return colDef.get();
+            return m_colDef.get();
         }
 
         /// <summary>
         /// ビジターの受け入れ
         /// </summary>
-        /// /// <param name="_visitor">他のコライダー</param>
-        virtual void Accept(ColliderVisitor& _visitor) = 0;
+        /// /// <param name="visitor">他のコライダービジター</param>
+        virtual void Accept(ColliderVisitor& visitor) = 0;
 
         /// <summary>
         /// 衝突判定
         /// </summary>
-        /// <param name="_other">他のコライダー</param>
-        virtual void ColliderWidth(Collider& _other) = 0;
+        /// <param name="other">他のコライダー</param>
+        virtual void CollideWith(Collider& other) = 0;
 
         /// <summary>
         /// コライダーのフィルタ情報を取得
         /// </summary>
-        Filter& GetFilter()
+        Filter& GetFilter() noexcept
         {
-            return filter;
+            return m_filter;
         }
 
         /// <summary>
         /// 移動量の設定
         /// </summary>
-        void SetVelocity(const Vector2f& _velocity)
+        void SetVelocity(const Vector2f& velocity) noexcept
         {
-            velocity = _velocity;
+            m_velocity = velocity;
         }
 
         /// <summary>
         /// 移動量の取得
         /// </summary>
         /// <returns>移動量</returns>
-        Vector2f GetVelocity() const
+        Vector2f GetVelocity() const noexcept
         {
-            return velocity;
+            return m_velocity;
         }
 
         /// <summary>
         /// イベントの追加
         /// </summary>
-        /// <param name="_key">イベントのキー</param>
-        /// <param name="_event">追加するイベント</param>
-        void AddEvent(const uint64_t& _key, const ContactListener& _event)
+        /// <param name="key">イベントのキー</param>
+        /// <param name="event">追加するイベント</param>
+        void AddEvent(const uint64_t& key, ContactListener event)
         {
-            events[_key].push_back(_event);
+            m_events[key].push_back(std::move(event));
         }
 
         /// <summary>
         /// イベントの発火
         /// </summary>
-        /// <param name="_key">イベントのキー</param>
-        void TriggerEvent(const uint64_t& _key)
-        {
-            if (events.contains(_key))
-            {
-                for (auto& event : events[_key])
-                {
-                    if (event.when())
-                    {
-                        event.event();
-                    }
-                }
-            }
-        }
+        /// <param name="key">イベントのキー</param>
+        void TriggerEvent(const uint64_t& key);
 
     protected:
         /// <summary>
         /// 移動量の追加
         /// </summary>
-        /// <param name="_velocity">移動量</param>
-        virtual void AddVelocity(const Vector2f& _velocity) {};
+        /// <param name="velocity">移動量</param>
+        virtual void AddVelocity(const Vector2f& velocity) {};
 
-        Filter filter; // コライダーのフィルタ情報
-        std::unique_ptr<ColliderDef> colDef; // コライダーの定義情報へのポインタ
-        Vector2f velocity; // 速度
-        std::unordered_map<uint64_t, std::vector<ContactListener>> events; // 接触イベントリスト
+        Filter m_filter; // コライダーのフィルタ情報
+        std::unique_ptr<ColliderDef> m_colDef; // コライダー定義情報へのポインタ
+        Vector2f m_velocity; // 速度
+        std::unordered_map<uint64_t, std::vector<ContactListener>> m_events; // 接触イベントリスト
     };
 }
