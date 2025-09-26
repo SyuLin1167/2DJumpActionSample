@@ -1,13 +1,14 @@
 #pragma once
-#include <cstdint>
+#include <ranges>
 #include <vector>
+#include <cstdint>
+#include <algorithm>
 
 /// <summary>
 /// 当たり判定関連
 /// </summary>
 namespace col2d
 {
-
     /// <summary>
     /// 形状の種類
     /// </summary>
@@ -22,32 +23,32 @@ namespace col2d
     /// <summary>
     /// 形状の上位ビットを取得
     /// </summary>
-    /// <param name="_shapeType">形状の種類</param>
+    /// <param name="_shape">形状の種類</param>
     /// <returns>上位ビット</returns>
-    inline uint64_t ShapeHi(uint32_t _shapeType)
+    inline uint64_t ShapeHi(uint32_t shape)
     {
-        return static_cast<uint64_t>(_shapeType) << 32;
+        return static_cast<uint64_t>(shape) << 32;
     }
 
     /// <summary>
     /// キーを生成
     /// </summary>
-    /// <param name="_shapeType">形状の種類</param>
-    /// <param name="_ownerID">所有者のID</param>
+    /// <param name="shape">形状の種類</param>
+    /// <param name="ownerID">所有者のID</param>
     /// <returns>生成されたキー</returns>
-    inline uint64_t MakeKey(uint32_t _shapeType, uint32_t _ownerID)
+    inline uint64_t MakeKey(uint32_t shape, uint32_t ownerID)
     {
-        return ShapeHi(_shapeType) | static_cast<uint64_t>(_ownerID);
+        return ShapeHi(shape) | static_cast<uint64_t>(ownerID);
     }
 
     /// <summary>
     /// 最小の符号付きビットを取得
     /// </summary>
-    /// <param name="_value">値</param>
+    /// <param name="value">値</param>
     /// <returns>最小の符号付きビット</returns>
-    inline uint32_t LeastSignBit(const uint32_t& _value)
+    inline uint32_t LeastSignBit(const uint32_t& value)
     {
-        return _value & (~_value + 1);
+        return value & (~value + 1);
     }
 
     /// <summary>
@@ -71,36 +72,35 @@ namespace col2d
         /// <summary>
         /// マスクを追加
         /// </summary>
-        /// <param name="_shape">追加する形状</param>
-        /// <param name="_ownerID">追加する所有者ID</param>
-        void AddMask(uint32_t _shape, uint32_t _ownerID)
+        /// <param name="shape">追加する形状</param>
+        /// <param name="ownerID">追加する所有者ID</param>
+        void AddMask(uint32_t shape, uint32_t ownerID)
         {
-            while (_shape)
+            while (shape)
             {
-                uint32_t leastSignBit = LeastSignBit(_shape);
+                uint32_t lsb = LeastSignBit(shape);
 
 
                 // 既に同じマスクが存在するか確認
-                if (std::ranges::find(masks, MakeKey(leastSignBit, _ownerID)) != masks.end())
+                if (std::ranges::find(masks, MakeKey(lsb, ownerID)) != masks.end())
                 {
-                    _shape &= ~leastSignBit;
+                    shape &= ~lsb;
                     continue;
                 }
                 
 
                 // 既に同じ形状のマスクが存在する場合は、所有者IDを追加
-                auto it = std::ranges::find_if(masks, 
-                    [&leastSignBit](uint64_t mask) { return (mask >> 32) == leastSignBit; });
-                if (it != masks.end())
+                if (auto it = std::ranges::find_if(masks, [&lsb](uint64_t mask) { return (mask >> 32) == lsb; });
+                    it != masks.end())
                 {
-                    *it |= _ownerID;
-                    _shape &= ~leastSignBit;
+                    *it |= ownerID;
+                    shape &= ~lsb;
                     continue;
                 }
 
                 // 新しいマスクを追加
-                masks.push_back(MakeKey(leastSignBit, _ownerID));
-                _shape &= ~leastSignBit;
+                masks.push_back(MakeKey(lsb, ownerID));
+                shape &= ~lsb;
             }
         }
 
@@ -108,9 +108,9 @@ namespace col2d
         /// マスクを削除
         /// </summary>
         /// <param name="_mask">削除するマスク</param>
-        void RemoveMask(const uint32_t& _mask)
+        void RemoveMask(const uint64_t& mask)
         {
-            auto it = std::remove(masks.begin(), masks.end(), _mask);
+            auto it = std::remove(masks.begin(), masks.end(), mask);
             if (it != masks.end())
             {
                 masks.erase(it, masks.end());
@@ -130,9 +130,9 @@ namespace col2d
         /// </summary>
         /// <param name="_mask">確認するマスク</param>
         /// <returns>含まれているかどうか</returns>
-        bool HasMask(const uint64_t& _mask) const
+        bool HasMask(const uint64_t& mask) const
         {
-            return std::find(masks.begin(), masks.end(), _mask) != masks.end();
+            return std::find(masks.begin(), masks.end(), mask) != masks.end();
         }
     };
 }

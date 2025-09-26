@@ -64,9 +64,6 @@
     <Filter Include="Asset\AssetManager">
       <UniqueIdentifier>{75e91600-3d5d-4ca8-9344-b2cb6544a8e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Collision\CollisionBase">
-      <UniqueIdentifier>{3b3497ba-8b45-40b4-a23d-9da1458eb971}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Asset\Graph">
       <UniqueIdentifier>{8c7481d5-13e3-4cf5-abff-cc5d35eaac7a}</UniqueIdentifier>
     </Filter>
@@ -90,9 +87,6 @@
     </Filter>
     <Filter Include="Collision\Collider">
       <UniqueIdentifier>{d99e92c2-02e5-4d62-adf2-a96e9c84ff0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Collision\ColliderVisiter">
-      <UniqueIdentifier>{41b0787e-dd07-4af6-8320-75d43f0a9480}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\RectCollider">
       <UniqueIdentifier>{38f73f73-bf8f-43a8-bc3c-9e99b5c3f82c}</UniqueIdentifier>
@@ -181,9 +175,6 @@
     <ClCompile Include="..\code\Scene\LoadingScene\LoadingScene.cpp">
       <Filter>Scene\Loading</Filter>
     </ClCompile>
-    <ClCompile Include="..\code\Collision\CollisionBase\CollisionBase.cpp">
-      <Filter>Collision\CollisionBase</Filter>
-    </ClCompile>
     <ClCompile Include="..\code\Component\ComponentBase\ComponentBase.cpp">
       <Filter>Component\ComponentBase</Filter>
     </ClCompile>
@@ -192,9 +183,6 @@
     </ClCompile>
     <ClCompile Include="..\code\Collision\Collider\Collider.cpp">
       <Filter>Collision\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="..\code\Collision\ColliderVisitor\ColliderVisitor.cpp">
-      <Filter>Collision\ColliderVisiter</Filter>
     </ClCompile>
     <ClCompile Include="..\code\Collision\RectCollider\RectCollider.cpp">
       <Filter>Collision\RectCollider</Filter>
@@ -306,9 +294,6 @@
     <ClInclude Include="..\code\Scene\LoadingScene\LoadingScene.h">
       <Filter>Scene\Loading</Filter>
     </ClInclude>
-    <ClInclude Include="..\code\Collision\CollisionBase\CollisionBase.h">
-      <Filter>Collision\CollisionBase</Filter>
-    </ClInclude>
     <ClInclude Include="..\code\Component\ComponentBase\ComponentBase.h">
       <Filter>Component\ComponentBase</Filter>
     </ClInclude>
@@ -320,9 +305,6 @@
     </ClInclude>
     <ClInclude Include="..\code\Collision\Collider\Collider.h">
       <Filter>Collision\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="..\code\Collision\ColliderVisitor\ColliderVisitor.h">
-      <Filter>Collision\ColliderVisiter</Filter>
     </ClInclude>
     <ClInclude Include="..\code\Collision\RectCollider\RectCollider.h">
       <Filter>Collision\RectCollider</Filter>
@@ -345,14 +327,17 @@
     <ClInclude Include="..\code\Object\ObjectContext.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\code\Collision\ColliderDef\ColliderDef.h">
-      <Filter>Collision\Collider</Filter>
-    </ClInclude>
     <ClInclude Include="..\code\Collision\ColliderManager\ColliderManager.h">
       <Filter>Collision\ColiderManager</Filter>
     </ClInclude>
     <ClInclude Include="..\code\Collision\RectCollider\RectColliderResolver.h">
       <Filter>Collision\RectCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\Collider\ColliderDef.h">
+      <Filter>Collision\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\Collision\Collider\ColliderVisitor.h">
+      <Filter>Collision\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -363,9 +348,6 @@
       <Filter>Data</Filter>
     </None>
     <None Include="..\data\test.json">
-      <Filter>Data</Filter>
-    </None>
-    <None Include="..\data\TileMap.tmx">
       <Filter>Data</Filter>
     </None>
   </ItemGroup>

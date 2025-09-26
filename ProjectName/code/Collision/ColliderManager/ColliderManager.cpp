@@ -9,40 +9,37 @@ namespace col2d
         ColliderID cID{};
 
         // 未使用のコライダーのインデックスがあれば再利用し世代も新規にする
-        if (!freeIndex.empty())
+        if (!m_freeIndexes.empty())
         {
-            cID.index = freeIndex.front();
-            freeIndex.pop();
+            cID.index = m_freeIndexes.front();
+            m_freeIndexes.pop();
             cID.generation = 0;
         }
         else
         {
             // 新しいコライダーのインデックスを割り当てる
-            cID.index = static_cast<uint32_t>(colliders.size());
+            cID.index = static_cast<uint32_t>(m_colliders.size());
             cID.generation = 0;
         }
 
         return cID;
     }
 
-    void ColliderManager::DestroyCollider(const ColliderID& _cID)
+    void ColliderManager::DestroyCollider(const ColliderID& id)
     {
         // コライダーのインデックスを解放
-        if (colliders.contains(_cID.index))
-        {
-            colliders.erase(_cID.index);
-            freeIndex.push(_cID.index);
+        if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
+            m_colliders.erase(it);
+            m_freeIndexes.push(id.index);
         }
     }
-
-    
 
     void ColliderManager::Step()
     {
         // コライダーの更新処理
-        for (auto& [index, collider] : colliders)
+        for (auto& [index, collider] : m_colliders)
         {
-            for (auto& otherCollider : colliders)
+            for (auto& otherCollider : m_colliders)
             {
                 // 同じコライダー同士の衝突は無視
                 if (collider == otherCollider.second)
@@ -54,7 +51,7 @@ namespace col2d
                 if (collider->GetFilter().HasMask(otherCollider.second->GetFilter().category))
                 {
                     // コライダー同士の衝突判定
-                    collider->ColliderWidth(*otherCollider.second);
+                    collider->CollideWith(*otherCollider.second);
                 }
             }
         }

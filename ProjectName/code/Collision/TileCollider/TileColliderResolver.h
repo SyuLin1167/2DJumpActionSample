@@ -27,10 +27,10 @@ namespace col2d
         /// <summary>
         /// 解決処理
         /// </summary>
-        /// <param name="_issue">解決対象のタイルコライダー</param>
-        /// <param name="_other">他の矩形コライダー</param>
-        /// <param name="_adjacentFlag">隣接するタイルのフラグ</param>
-        void Resolve(RectCollider& _issue, const RectCollider& _other,const uint8_t& _adjacentFlag);
+        /// <param name="issue">解決対象のタイルコライダー</param>
+        /// <param name="other">他の矩形コライダー</param>
+        /// <param name="adjacentFlag">隣接するタイルのフラグ</param>
+        void Resolve(RectCollider& issue, const RectCollider& other, uint8_t adjacentFlag);
     };
 }
 

@@ -5,7 +5,6 @@
 #include "FileIO/MemMapFile.h"
 #include "Loading/LoadingContext.h"
 #include "DivisionGraph/DivisionGraph.h"
-#include "MapCollision/MapCollision.h"
 
 namespace object
 {

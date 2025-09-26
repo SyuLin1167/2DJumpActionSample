@@ -166,9 +166,7 @@
     <ClCompile Include="..\code\Asset\DivisionGraph\DivisionGraph.cpp" />
     <ClCompile Include="..\code\Asset\Graph\Graph.cpp" />
     <ClCompile Include="..\code\Collision\ColliderManager\ColliderManager.cpp" />
-    <ClCompile Include="..\code\Collision\ColliderVisitor\ColliderVisitor.cpp" />
     <ClCompile Include="..\code\Collision\Collider\Collider.cpp" />
-    <ClCompile Include="..\code\Collision\CollisionBase\CollisionBase.cpp" />
     <ClCompile Include="..\code\Collision\RectCollider\RectCollider.cpp" />
     <ClCompile Include="..\code\Collision\RectCollider\RectColliderResolver.cpp" />
     <ClCompile Include="..\code\Collision\RectCollider\RectColliderVisitor.cpp" />
@@ -201,12 +199,11 @@
     <ClInclude Include="..\code\Asset\AssetManager\AssetManager.h" />
     <ClInclude Include="..\code\Asset\DivisionGraph\DivisionGraph.h" />
     <ClInclude Include="..\code\Asset\Graph\Graph.h" />
-    <ClInclude Include="..\code\Collision\ColliderDef\ColliderDef.h" />
     <ClInclude Include="..\code\Collision\ColliderManager\ColliderManager.h" />
-    <ClInclude Include="..\code\Collision\ColliderVisitor\ColliderVisitor.h" />
     <ClInclude Include="..\code\Collision\Collider\Collider.h" />
+    <ClInclude Include="..\code\Collision\Collider\ColliderDef.h" />
     <ClInclude Include="..\code\Collision\Collider\ColliderFilter.h" />
-    <ClInclude Include="..\code\Collision\CollisionBase\CollisionBase.h" />
+    <ClInclude Include="..\code\Collision\Collider\ColliderVisitor.h" />
     <ClInclude Include="..\code\Collision\RectCollider\RectCollider.h" />
     <ClInclude Include="..\code\Collision\RectCollider\RectColliderResolver.h" />
     <ClInclude Include="..\code\Collision\RectCollider\RectColliderVisitor.h" />
@@ -247,7 +244,6 @@
     <None Include="..\data\MapTip.csv" />
     <None Include="..\data\MapData.json" />
     <None Include="..\data\test.json" />
-    <None Include="..\data\TileMap.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

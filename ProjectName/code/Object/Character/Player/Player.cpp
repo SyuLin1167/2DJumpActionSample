@@ -13,6 +13,7 @@ using json = nlohmann::json;
 namespace object
 {
     Player::Player()
+        :id()
     {
         //json読み込みからの座標初期化
         task::LoadingContext::Get()->AddTask(task::DATA, [this]() {
@@ -51,9 +52,6 @@ namespace object
         listener.when = [&]() {return ObjCtx::ColMgr().GetCollider(id)->GetVelocity().y == 0 && velocity.y > 0; };
         listener.event = [&, jump]() {jump->CanJump(); };
         ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::TILE, ObjectTag::MAP), listener);
-
-        //auto body = colMgr->AddCollision<collision::RectCollision>(pos, size, velocity);
-        //body->AddTargetCollision(ObjectTag::MAP, collision::ShapeTag::MAP, [jump]() {jump->CanJump(); });
     }
 
     void Player::Update()
@@ -82,6 +80,5 @@ namespace object
     {
         DrawGraph((int)pos.x, (int)pos.y, assetMgr->Fetch<asset::Graph>()->GetHandle("body"), true);
         DrawFormatString(1000, 10, GetColor(250, 250, 20), "move:←→\njump:Aキー");
-        DrawFormatString(1000, 100, GetColor(250, 250, 20), "velX:%f", velocity.x);
     }
 }

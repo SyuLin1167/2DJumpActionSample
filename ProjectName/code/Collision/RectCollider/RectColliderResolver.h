@@ -5,6 +5,7 @@
 /// </summary>
 namespace col2d
 {
+    // ‘O•ûéŒ¾
     class RectCollider;
 
     /// <summary>

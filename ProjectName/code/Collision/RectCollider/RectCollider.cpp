@@ -2,63 +2,71 @@
 
 namespace col2d
 {
-    RectCollider::RectCollider(ColliderDef* _def)
-        :Collider(_def)
-        , baseRect()
-        , sweptRect()
+    RectCollider::RectCollider(ColliderDef* def)
+        :Collider(def)
+        , m_baseRect()
+        , m_sweptRect()
     {
-        visitor = std::make_unique<RectColliderVisitor>(*this);
+        m_visitor = std::make_unique<RectColliderVisitor>(*this);
         Initialize();
     }
 
-    void RectCollider::Initialize(const Vector2f& _size)
+    void RectCollider::Initialize(const Vector2f& size)
     {
         // 矩形の初期化
-        baseRect.pos = colDef->localPos;
-        baseRect.size = _size;
+        m_baseRect.pos = m_colDef->localPos;
+        m_baseRect.size = size;
 
         // スイープ矩形の初期化
-        sweptRect.pos = colDef->localPos;
-        sweptRect.size = baseRect.size;
+        m_sweptRect.pos = m_colDef->localPos;
+        m_sweptRect.size = m_baseRect.size;
     }
 
-    bool RectCollider::IsColliding(const Vector2f& _point)
+    bool RectCollider::IsColliding(const Vector2f& point)
     {
         // スイープ矩形を使用して衝突判定
-        if (colDef->shouldCCD)
+        if (m_colDef->shouldCCD)
         {
-            CalcSweptRect();
-            return (_point.x >= sweptRect.Left() &&
-                _point.x <= sweptRect.Right() &&
-                _point.y >= sweptRect.Top() &&
-                _point.y <= sweptRect.Bottom());
+            CalcSweptRect(m_velocity);
+            return (point.x >= m_sweptRect.Left() &&
+                point.x <= m_sweptRect.Right() &&
+                point.y >= m_sweptRect.Top() &&
+                point.y <= m_sweptRect.Bottom());
         }
 
         //通常の衝突判定
-        return (_point.x >= baseRect.Left()&&
-            _point.x <= baseRect.Right() &&
-            _point.y >= baseRect.Top() &&
-            _point.y <= baseRect.Bottom());
+        return (point.x >= m_baseRect.Left() &&
+            point.x <= m_baseRect.Right() &&
+            point.y >= m_baseRect.Top() &&
+            point.y <= m_baseRect.Bottom());
     }
 
 
-    bool RectCollider::IsColliding(const RectCollider& _other)
+    bool RectCollider::IsColliding(const RectCollider& other)
     {
-        // スイープ矩形を使用して衝突判定
-        if (colDef->shouldCCD)
+        // 連続衝突検出を行う場合
+        if (m_colDef->shouldCCD || other.GetColliderDef()->shouldCCD)
         {
-            CalcSweptRect();
-            return sweptRect.AABB(_other.GetRect());
+            // 相対速度の算出
+            const math::Vector2f v_rel{
+                m_velocity.x - other.GetVelocity().x,
+                m_velocity.y - other.GetVelocity().y
+            };
+
+            // スイープ矩形の算出
+            CalcSweptRect(v_rel);
+
+            return m_sweptRect.AABB(other.GetRect());
         }
 
         // 通常の矩形衝突判定
-        return baseRect.AABB(_other.GetRect());
+        return m_baseRect.AABB(other.GetRect());
     }
 
-    void RectCollider::CalcSweptRect()
+    void RectCollider::CalcSweptRect(Vector2f velocity)
     {
-        sweptRect.pos.x = std::min(colDef->localPos.x, colDef->localPos.x + velocity.x);
-        sweptRect.pos.y = std::min(colDef->localPos.y, colDef->localPos.y + velocity.y);
-        sweptRect.size = baseRect.size + Vector2(std::abs(velocity.x), std::abs(velocity.y));
+        m_sweptRect.pos.x = std::min(m_colDef->localPos.x, m_colDef->localPos.x + velocity.x);
+        m_sweptRect.pos.y = std::min(m_colDef->localPos.y, m_colDef->localPos.y + velocity.y);
+        m_sweptRect.size = m_baseRect.size + Vector2f(std::abs(velocity.x), std::abs(velocity.y));
     }
 }

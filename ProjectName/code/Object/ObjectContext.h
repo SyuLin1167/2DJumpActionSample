@@ -1,7 +1,7 @@
 #pragma once
 #include <optional> 
 #include "ColliderManager/ColliderManager.h"
-#include "ColliderDef/ColliderDef.h"
+#include "Collider/ColliderDef.h"
 
 /// <summary>
 /// オブジェクト関連

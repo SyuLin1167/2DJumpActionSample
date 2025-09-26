@@ -1,15 +1,15 @@
 ﻿#pragma once
-#include <unordered_map>
-#include <functional>
 #include <memory>
 #include <typeindex>
+#include <functional>
+#include <unordered_map>
+
 #include "Math/PropVector2.h"
 #include "ObjectTag.h"
 #include "ObjectState.h"
 #include "ObjectContext.h"
 #include "AssetManager/AssetManager.h"
 #include "ComponentManager/ComponentManager.h"
-#include "CollisionManager/CollisionManager.h"
 
 using namespace math;
 
