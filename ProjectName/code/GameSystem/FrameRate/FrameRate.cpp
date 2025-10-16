@@ -1,52 +1,44 @@
-﻿#include <DxLib.h>
-#include "FrameRate.h"
+﻿module;
+#include <DxLib.h>
+
+module GameSystem.FrameRate;
 
 namespace gameSystem
 {
-    std::unique_ptr<FrameRate> FrameRate::frameRate = nullptr;
-
     FrameRate::FrameRate()
-        : startTime(GetNowHiPerformanceCount())
-        , nowTime(startTime)
-        , prevTime(startTime)
-        , deltaTime()
-        , fps(FPS_60)
-        , frameCount()
+        : m_startTime(GetNowHiPerformanceCount())
+        , m_nowTime(m_startTime)
+        , m_prevTime(m_startTime)
+        , m_deltaTime()
+        , m_fps(FPS_60)
+        , m_frameCount()
     {
         CalcFrameRate();
-    }
-
-    void FrameRate::CreateInstance()
-    {
-        if (!frameRate)
-        {
-            frameRate.reset(new FrameRate);
-        }
     }
 
     void FrameRate::CalcFrameRate()
     {
         //デルタタイムを算出
-        nowTime = GetNowHiPerformanceCount();
-        deltaTime = (nowTime - prevTime) / MICRO_SEC;
-        prevTime = nowTime;
+        m_nowTime = GetNowHiPerformanceCount();
+        m_deltaTime = (m_nowTime - m_prevTime) / MICRO_SEC;
+        m_prevTime = m_nowTime;
 
         //fps算出
-        if (frameCount == FPS_60)
+        if (m_frameCount == FPS_60)
         {
-            fps = MICRO_SEC / ((nowTime - startTime) / FPS_60);
-            startTime = nowTime;
-            frameCount = 0;
+            m_fps = MICRO_SEC / ((m_nowTime - m_startTime) / FPS_60);
+            m_startTime = m_nowTime;
+            m_frameCount = 0;
         }
-        frameCount++;
+        m_frameCount++;
     }
 
 #ifdef _DEBUG
     void FrameRate::DrawFrameRate() const
     {
         clsDx();
-        printfDx("deltaTime: %f", deltaTime);
-        printfDx("fps: %3.1f", fps);
+        printfDx("deltaTime: %f", m_deltaTime);
+        printfDx("fps: %3.1f", m_fps);
     }
 #endif // _DEBUG
 }

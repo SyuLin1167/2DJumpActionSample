@@ -1,27 +1,30 @@
-﻿#include <DxLib.h>
+﻿module;
+#include <DxLib.h>
 #include <thread>
-#include "Play.h"
-#include "KeyStatus/KeyStatus.h"
-#include "ObjectManager/ObjectManager.h"
-#include "Loading/LoadingContext.h"
-#include "Character/Player/Player.h"
-#include "Map/Map.h"
-#include "Title/Title.h"
+
+module Scene.Play;
+
+import MyLib.KeyStatus;
+import MyLib.Loading.LoadingContext;
+import Scene.Title;
+import Object.ObjectManager;
+import Object.Player;
+import Object.Map;
 
 namespace scene
 {
     Play::Play()
     {
         //オブジェクト追加
-        objManager->AddObject(new object::Player);
-        objManager->AddObject(new object::Map);
+        m_objManager->AddObject(new object::Player);
+        m_objManager->AddObject(new object::Map);
 
         task::LoadingContext::Get()->WatchProgress();
     }
 
     void Play::Init()
     {
-        objManager->InitBeforeUpdate();
+        m_objManager->InitBeforeUpdate();
     }
 
     std::shared_ptr<SceneBase> Play::Update()
@@ -32,12 +35,12 @@ namespace scene
             return std::make_shared<Title>();
         }
 
-        objManager->Update();
+        m_objManager->Update();
         return shared_from_this();
     }
 
     void Play::Draw()
     {
-        objManager->Draw();
+        m_objManager->Draw();
     }
 }

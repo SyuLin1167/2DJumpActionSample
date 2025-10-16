@@ -1,5 +1,9 @@
-#include "TileColliderVisitor.h"
-#include "TileCollider.h"
+module Collider.TileColliderVisitor;
+
+import MyLib.Math.Vector2;
+import Collider.TileCollider;
+
+using namespace math;
 
 namespace col2d
 {
@@ -14,9 +18,9 @@ namespace col2d
 
         // 移動量からサブステップ数を決める
         Vector2f vel = collider.GetVelocity();
-        float longest = std::fmax(std::abs(vel.x), std::abs(vel.y));
+        float longest = std::max(std::abs(vel.x), std::abs(vel.y));
         float stepMax = m_issue.GetTileSize().Half().x;
-        int N = std::fmax(1, static_cast<int>(std::ceil(longest / stepMax)));
+        int N = std::max(1, static_cast<int>(std::ceil(longest / stepMax)));
         vel /= N;
 
         // サブステップごとに衝突判定と解決を行う

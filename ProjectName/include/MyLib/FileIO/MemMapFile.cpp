@@ -1,11 +1,14 @@
-﻿#include "MemMapFile.h"
+﻿module;
+#include <Windows.h>
+
+module MyLib.FileIO.MemMapFile;
 
 namespace file
 {
     MemMapFile::MemMapFile()
-        :fileHandle(INVALID_HANDLE_VALUE)
-        , mapHandle()
-        , ptr()
+        : m_fileHandle(INVALID_HANDLE_VALUE)
+        , m_mapHandle()
+        , m_ptr()
     {
         //処理なし
     }
@@ -20,39 +23,39 @@ namespace file
         Close();
 
         //ファイルハンドルの作成
-        fileHandle = CreateFile(fileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-        if (fileHandle == INVALID_HANDLE_VALUE)
+        m_fileHandle = CreateFile(fileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+        if (m_fileHandle == INVALID_HANDLE_VALUE)
         {
             return false;
         }
 
         // サイズ0のファイルは MapViewできないので特別扱い
         if (GetFileSize() == 0) {
-            mapHandle = nullptr;
-            ptr = nullptr;
+            m_mapHandle = nullptr;
+            m_ptr = nullptr;
             return true;
         }
 
         //ハンドルのマッピング
-        mapHandle = CreateFileMapping(fileHandle, 0, PAGE_READONLY, 0, 0, 0);
-        if (!mapHandle)
+        m_mapHandle = CreateFileMapping(m_fileHandle, 0, PAGE_READONLY, 0, 0, 0);
+        if (!m_mapHandle)
         {
-            CloseHandle(fileHandle);
-            fileHandle = INVALID_HANDLE_VALUE;
+            CloseHandle(m_fileHandle);
+            m_fileHandle = INVALID_HANDLE_VALUE;
             return false;
         }
 
         //マッピングデータをポインタへ格納
-        ptr = static_cast<char*>(MapViewOfFile(mapHandle, FILE_MAP_READ, 0, 0, 0));
+        m_ptr = static_cast<char*>(MapViewOfFile(m_mapHandle, FILE_MAP_READ, 0, 0, 0));
         return true;
     }
 
     size_t MemMapFile::GetFileSize() const noexcept
     {
-        if (fileHandle != INVALID_HANDLE_VALUE)
+        if (m_fileHandle != INVALID_HANDLE_VALUE)
         {
             LARGE_INTEGER li{};
-            if (GetFileSizeEx(fileHandle, &li))
+            if (GetFileSizeEx(m_fileHandle, &li))
             {
                 return static_cast<size_t>(li.QuadPart);
             }
@@ -62,20 +65,20 @@ namespace file
 
     void MemMapFile::Close()
     {
-        if (ptr)
+        if (m_ptr)
         {
-            UnmapViewOfFile(ptr);
-            ptr = nullptr;
+            UnmapViewOfFile(m_ptr);
+            m_ptr = nullptr;
         }
-        if (mapHandle)
+        if (m_mapHandle)
         {
-            CloseHandle(mapHandle);
-            mapHandle = nullptr;
+            CloseHandle(m_mapHandle);
+            m_mapHandle = nullptr;
         }
-        if (fileHandle != INVALID_HANDLE_VALUE)
+        if (m_fileHandle != INVALID_HANDLE_VALUE)
         {
-            CloseHandle(fileHandle);
-            fileHandle = INVALID_HANDLE_VALUE;
+            CloseHandle(m_fileHandle);
+            m_fileHandle = INVALID_HANDLE_VALUE;
         }
     }
 }

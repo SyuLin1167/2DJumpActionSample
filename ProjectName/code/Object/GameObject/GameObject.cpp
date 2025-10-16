@@ -1,31 +1,23 @@
-﻿#include "GameObject.h"
-#include "FrameRate/FrameRate.h"
+﻿module Object.GameObject;
+import GameSystem.FrameRate;
 
 namespace object
 {
     GameObject::GameObject()
-        : assetMgr(new asset::AssetManager)
-        , compMgr(new component::ComponentManager)
-        //, colMgr(new collision::CollisionManager(this))
-        , deltaTime(gameSystem::FrameRate::Self().GetDeltaTime())
-        , pos()
-        , size()
-        , velocity()
+        : m_assetMgr(new asset::AssetManager)
+        , m_compMgr(new component::ComponentManager)
+        , m_deltaTime(gameSystem::FrameRate::Instance().GetDeltaTime())
+        , m_pos()
+        , m_size()
+        , m_velocity()
     {
-        state = MainState::ACTIVE;
+        m_state = MainState::ACTIVE;
     }
 
-    GameObject::~GameObject()
-    {
-    }
-
-    void GameObject::UpdateCollision()
-    {
-        //colMgr->ColliderWith();
-    }
+    GameObject::~GameObject() = default;
 
     void GameObject::UpdateComponents()
     {
-        compMgr->Update(deltaTime);
+        m_compMgr->Update(m_deltaTime);
     }
 }

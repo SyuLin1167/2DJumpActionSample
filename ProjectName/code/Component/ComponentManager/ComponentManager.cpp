@@ -1,13 +1,12 @@
-#include "ComponentManager.h"
-#include "ComponentBase/ComponentBase.h"
+module Component.ComponentManager;
 
 namespace component
 {
-    void ComponentManager::Update(const float& _deltaTime)
+    void ComponentManager::Update(const float& deltaTime)
     {
-        for (auto& component : components)
+        for (auto& component : m_components)
         {
-            component.second->Update(_deltaTime);
+            component.second->Update(deltaTime);
         }
     }
 }

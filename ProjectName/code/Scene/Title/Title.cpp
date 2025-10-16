@@ -1,10 +1,13 @@
+module;
 #include <DxLib.h>
-#include "Title.h"
-#include "KeyStatus/KeyStatus.h"
-#include "FileIO/ExeFilePath.h"
-#include "Loading/LoadingContext.h"
-#include "LoadingScene/LoadingScene.h"
-#include "Play/Play.h"
+
+module Scene.Title;
+
+import MyLib.KeyStatus;
+import MyLib.FileIO.ExeFilePath;
+import MyLib.Loading.LoadingContext;
+import Scene.LoadingScene;
+import Scene.Play;
 
 namespace scene
 {

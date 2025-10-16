@@ -1,14 +1,20 @@
-#include "TileColliderResolver.h"
-
-#include <cmath>
+module;
+#include <math.h>
 #include <limits>
 
-#include "TileCollider.h"
+module Collider.TileColliderResolver;
+
+import MyLib.Math.Vector2;
+import Collider.TileCollider;
+
+using namespace math;
 
 namespace col2d
 {
     void TileColliderResolver::Resolve(RectCollider& issue, const RectCollider& other, uint8_t adjacentFlag)
     {
+        constexpr float INF = std::numeric_limits<float>::max();
+
         // めり込み量を計算
         Vector2f diffX{};
         diffX.x = other.GetRect().Left() - issue.GetRect().Right();
@@ -20,41 +26,36 @@ namespace col2d
         // 隣接フラグがある方向は無視する
         if (adjacentFlag & TileFlag::LEFT)
         {
-            diffX.x = std::numeric_limits<float>::infinity();
+            diffX.x = INF;
         }
         if (adjacentFlag & TileFlag::RIGHT)
         {
-            diffX.y = std::numeric_limits<float>::infinity();
+            diffX.y = INF;
         }
         if (adjacentFlag & TileFlag::TOP)
         {
-            diffY.x = std::numeric_limits<float>::infinity();
+            diffY.x = INF;
         }
         if (adjacentFlag & TileFlag::BOTTOM)
         {
-            diffY.y = std::numeric_limits<float>::infinity();
+            diffY.y = INF;
         }
+
         float dx = (std::abs(diffX.x) < std::abs(diffX.y)) ? diffX.x : diffX.y;
         float dy = (std::abs(diffY.x) < std::abs(diffY.y)) ? diffY.x : diffY.y;
 
-        if (fabs(dx) == fabs(dy))
-        {
-            return;
-        }
+        // どちらも無効なら終了
+        if (dx == INF && dy == INF) return;
 
         //最も近い方向に押し戻す
         if (fabs(dx) < fabs(dy))
         {
-            // 同じ方向への押し戻しは受け付けないようにする
-            if ((dx < 0 && issue.GetVelocity().x > 0) || (dx > 0 && issue.GetVelocity().x < 0))
-            {
-                issue.AddVelocity(Vector2f(dx, 0.0f));
-            }
+            issue.AddVelocity(Vector2f(dx, 0.0f));
             issue.SetVelocity(Vector2f(0.0f, issue.GetVelocity().y));
         }
         else
         {
-            // 同じ方向への押し戻しは受け付けないようにする
+            // ジャンプの影響で同じ方向への押し戻しは受け付けないようにする
             if ((dy < 0 && issue.GetVelocity().y > 0) || (dy > 0 && issue.GetVelocity().y < 0))
             {
                 issue.AddVelocity(Vector2f(0.0f, dy));

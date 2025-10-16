@@ -1,5 +1,5 @@
-﻿#include "ObjectManager.h"
-#include "ObjectContext.h"
+﻿module Object.ObjectManager;
+import ObjectContext;
 
 namespace object
 {

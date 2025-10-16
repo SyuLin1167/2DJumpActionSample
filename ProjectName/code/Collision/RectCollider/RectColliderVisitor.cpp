@@ -1,5 +1,6 @@
-#include "RectColliderVisitor.h"
-#include "RectCollider/RectCollider.h"
+module Collider.RectColliderVisitor;
+
+import Collider.RectCollider;
 
 namespace col2d
 {
