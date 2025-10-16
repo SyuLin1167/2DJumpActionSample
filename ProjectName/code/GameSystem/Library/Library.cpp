@@ -1,10 +1,12 @@
-﻿#include <Dxlib.h>
-#include "Library.h"
+﻿module;
+#include <Dxlib.h>
+
+module GameSystem.Library;
 
 namespace gameSystem
 {
     Library::Library()
-        :success(true)
+        :m_success(true)
     {
         SetWindowSizeExtendRate(1.0);
         SetMainWindowText("2DGame");
@@ -14,7 +16,7 @@ namespace gameSystem
         if (DxLib_Init())
         {
             DebugBreak();
-            success = false;
+            m_success = false;
         }
 
         SetDrawScreen(DX_SCREEN_BACK);

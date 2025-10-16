@@ -1,7 +1,10 @@
+module;
 #include <DxLib.h>
 #include <format>
-#include "Graph.h"
-#include "FileIO/ExeFilePath.h"
+
+module Asset.Graph;
+
+import MyLib.FileIO.ExeFilePath;
 
 namespace asset
 {

@@ -1,19 +1,27 @@
-#include "TileCollider.h"
-#include <algorithm>
+module;
 #include <thread>
 #include <fstream>
+#include <json.hpp>
 
-#include "json.hpp"
-#include "RectCollider/RectCollider.h"
-#include "FileIO/ExeFilePath.h"
-#include "FileIO/MemMapFile.h"
+module Collider.TileCollider;
+
+import <algorithm>;
+
+import MyLib.Math.Vector2;
+import Collider.RectCollider;
+import MyLib.FileIO.MemMapFile;
+import MyLib.FileIO.ExeFilePath;
+import GameSystem.Window;
+import Collider.TileColliderVisitor;
+
+using namespace math;
 
 namespace col2d
 {
     TileCollider::TileCollider(ColliderDef* def)
         :Collider(def)
-        , m_visitor(*this)
     {
+        m_visitor = std::make_unique<TileColliderVisitor>(*this);
         Initialize();
     }
 
@@ -36,7 +44,7 @@ namespace col2d
         char* fileEnd = filePtr + mmf.GetFileSize();
 
         // 1チャンクはウィンドウサイズ4つ分
-        m_chunkSize = gameSystem::Window::GetWindowData()->SIZE / m_tileSize.Half();
+        m_chunkSize = gameSystem::Window::Instance().GetWindowData()->SIZE / m_tileSize.Half();
 
         std::vector<size_t> mapData;
         mapData.reserve(mapInfo.width * mapInfo.height);
@@ -103,10 +111,10 @@ namespace col2d
                 TileInfo tileInfo;
                 tileInfo.adjacentFlag = adjacentFlag;
                 ColliderDef colDef = {};
-                colDef.localPos = Vector2f(x * m_tileSize.x, y * m_tileSize.y);
+                colDef.localPos = Vector2f(static_cast<float>(x * m_tileSize.x), static_cast<float>(y * m_tileSize.y));
                 colDef.isActive = true;
                 tileInfo.collider = std::make_unique<RectCollider>(&colDef);
-                tileInfo.collider->Initialize(m_tileSize.x, m_tileSize.y);
+                tileInfo.collider->Initialize(static_cast<float>(m_tileSize.x), static_cast<float>(m_tileSize.y));
 
                 // コライダーをチャンク内の座標に格納
                 const size_t colIndex = (y % m_chunkSize.y) * m_chunkSize.x + (x % m_chunkSize.x);
@@ -142,11 +150,11 @@ namespace col2d
 
         // チャンク範囲を計算
         Vector2u chunkLeft{};
-        chunkLeft.x = std::floor(tileLeft.x / m_chunkSize.x);
-        chunkLeft.y = std::floor(tileLeft.y / m_chunkSize.y);
+        chunkLeft.x = static_cast<uint32_t>(std::floor(tileLeft.x / m_chunkSize.x));
+        chunkLeft.y = static_cast<uint32_t>(std::floor(tileLeft.y / m_chunkSize.y));
         Vector2u chunkRight{};
-        chunkRight.x = std::floor(tileRight.x / m_chunkSize.x);
-        chunkRight.y = std::floor(tileRight.y / m_chunkSize.y);
+        chunkRight.x = static_cast<uint32_t>(std::floor(tileRight.x / m_chunkSize.x));
+        chunkRight.y = static_cast<uint32_t>(std::floor(tileRight.y / m_chunkSize.y));
 
         // チャンク内のタイルコライダーを走査
         for (uint32_t cy = chunkLeft.y; cy <= chunkRight.y; ++cy)
@@ -165,11 +173,11 @@ namespace col2d
 
                 // チャンク内のタイル範囲を計算
                 Vector2<size_t> localLeft{};
-                localLeft.x = (cx == chunkLeft.x) ? Mod(tileLeft.x, m_chunkSize.x) : 0;
-                localLeft.y = (cy == chunkLeft.y) ? Mod(tileLeft.y, m_chunkSize.y) : 0;
+                localLeft.x = (cx == chunkLeft.x) ? Mod(static_cast<size_t>(tileLeft.x), m_chunkSize.x) : 0;
+                localLeft.y = (cy == chunkLeft.y) ? Mod(static_cast<size_t>(tileLeft.y), m_chunkSize.y) : 0;
                 Vector2<size_t> localRight{};
-                localRight.x = (cx == chunkRight.x) ? Mod(tileRight.x, m_chunkSize.x) : (m_chunkSize.x - 1);
-                localRight.y = (cy == chunkRight.y) ? Mod(tileRight.y, m_chunkSize.y) : (m_chunkSize.y - 1);
+                localRight.x = (cx == chunkRight.x) ? Mod(static_cast<size_t>(tileRight.x), m_chunkSize.x) : (m_chunkSize.x - 1);
+                localRight.y = (cy == chunkRight.y) ? Mod(static_cast<size_t>(tileRight.y), m_chunkSize.y) : (m_chunkSize.y - 1);
 
                 // チャンク内のタイル範囲を走査
                 for (size_t ty = localLeft.y; ty <= localRight.y; ++ty)

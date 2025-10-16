@@ -1,11 +1,14 @@
+module;
 #include <thread>
-#include "Loading.h"
+#include <future>
+
+module MyLib.Loading;
 
 namespace task
 {
     Loading::Loading()
-        : progress()
-        , isLoading()
+        : m_progress()
+        , m_isLoading()
     {
         //処理なし
     }
@@ -15,26 +18,26 @@ namespace task
         //処理なし
     }
 
-    void Loading::AddTask(Level _level, std::function<void()> _task)
+    void Loading::AddTask(Level level, std::function<void()> task)
     {
         //タスク数加算
-        taskInfo[Level::END].totalTasks++;
-        taskInfo[_level].totalTasks++;
+        m_taskInfo[Level::END].totalTasks++;
+        m_taskInfo[level].totalTasks++;
 
         //タスクを追加する
-        taskInfo[_level].tasks.emplace_back(std::async(std::launch::async, [this, _level, _task]() {
-            auto& info = taskInfo[_level];
+        m_taskInfo[level].tasks.emplace_back(std::async(std::launch::async, [this, level, task]() {
+            auto& info = m_taskInfo[level];
             //DATAレベル以外は前のレベルのタスクが終わるまで待つ
-            if (_level != Level::DATA)
+            if (level != Level::DATA)
             {
-                taskInfo[static_cast<Level>(static_cast<int>(_level) - 1)].future.wait();
+                m_taskInfo[static_cast<Level>(static_cast<int>(level) - 1)].future.wait();
             }
 
             //タスク実行
-            _task();
+            task();
 
             //タスク終了後処理
-            taskInfo[Level::END].finishTasks++;
+            m_taskInfo[Level::END].finishTasks++;
             if (++info.finishTasks == info.totalTasks)
             {
                 info.promise.set_value();
@@ -44,16 +47,16 @@ namespace task
 
     void Loading::WatchProgress()
     {
-        taskInfo[Level::END].tasks.emplace_back(std::async(std::launch::async, [this]() {
-            auto& info = taskInfo[Level::END];
+        m_taskInfo[Level::END].tasks.emplace_back(std::async(std::launch::async, [this]() {
+            auto& info = m_taskInfo[Level::END];
             //全タスク終了までループ
             while (info.finishTasks < info.totalTasks)
             {
-                progress = static_cast<float>(info.finishTasks) / info.totalTasks;
+                m_progress = static_cast<float>(info.finishTasks) / info.totalTasks;
                 std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
-            progress = 1.0f;
-            isLoading = false;
+            m_progress = 1.0f;
+            m_isLoading = false;
         }));
     }
 }

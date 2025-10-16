@@ -1,4 +1,7 @@
-#include "RectCollider.h"
+module Collider.RectCollider;
+import MyLib.Math.Vector2;
+
+using namespace math;
 
 namespace col2d
 {

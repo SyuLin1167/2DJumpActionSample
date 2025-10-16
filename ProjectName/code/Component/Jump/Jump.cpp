@@ -1,41 +1,42 @@
-#include "Jump.h"
-#include "GameObject/GameObject.h"
+module Component.Jump;
+import Object.GameObject;
+import MyLib.Math.PropVector2;
 
 using namespace math;
 
 namespace component
 {
-    Jump::Jump(object::GameObject* _owner, std::function<bool()> _trriger)
-        :ComponentBase(_owner)
-        , nowJump(false)
-        , trriger(_trriger)
+    Jump::Jump(object::GameObject* owner, std::function<bool()> trigger)
+        :ComponentBase(owner)
+        , m_nowJump(false)
+        , m_trigger(trigger)
     {
         //処理なし
     }
 
-    void Jump::Update(const float& _deltaTime)
+    void Jump::Update(const float& deltaTime)
     {
         //トリガーが引かれたらジャンプを実施
-        if (trriger())
+        if (m_trigger())
         {
             TryJump();
         }
         
         // ジャンプ中なら最大落下速度まで重力を加算する
-        if (owner->AccessVel().NowY() < MAX_FALL_VELOCITY)
+        if (m_owner->AccessVel().NowY() < MAX_FALL_VELOCITY)
         {
-            owner->AccessVel().Add(PropVector2<float>::Y, FALL_SPEED * GRAVITY * _deltaTime);
+            m_owner->AccessVel().Add(PropVector2<float>::Y, FALL_SPEED * GRAVITY * deltaTime);
         }
     }
 
     void Jump::TryJump()
     {
         //ジャンプ中でなければジャンプを実施
-        if (!nowJump)
+        if (!m_nowJump)
         {
-            nowJump = true;
-            owner->AccessVel().Assign(PropVector2<float>::Y, 0.0f);
-            owner->AccessVel().Add(PropVector2<float>::Y, JUMP_POWER);
+            m_nowJump = true;
+            m_owner->AccessVel().Assign(PropVector2<float>::Y, 0.0f);
+            m_owner->AccessVel().Add(PropVector2<float>::Y, JUMP_POWER);
         }
     }
 }

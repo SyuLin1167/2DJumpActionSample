@@ -1,6 +1,4 @@
-#include "ColliderManager.h"
-#include "RectCollider/RectCollider.h"
-#include "TileCollider/TileCollider.h"
+module Collider.ColliderManager;
 
 namespace col2d
 {

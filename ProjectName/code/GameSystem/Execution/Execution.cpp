@@ -1,10 +1,14 @@
-﻿#include <Dxlib.h>
-#include "Execution.h"
-#include "Window/Window.h"
-#include "Library/Library.h"
-#include "KeyStatus/KeyStatus.h"
-#include "SceneManager/SceneManager.h"
-#include "FileIO/ExeFilePath.h"
+﻿module;
+#include <Dxlib.h>
+#include <filesystem>
+
+module GameSystem.Execution;
+
+import GameSystem.Library;
+import GameSystem.Window;
+import MyLib.KeyStatus;
+import MyLib.FileIO.ExeFilePath;
+import Scene.SceneManager;
 
 namespace fs = std::filesystem;
 
@@ -13,10 +17,10 @@ namespace gameSystem
     Execution::Execution()
     {
         //ゲーム実行に必要なクラスのインスタンスを生成、初期化
-        Window::InitInstance();
-        library.reset(new Library);
+        Window::Instance();
+        m_library.reset(new Library);
         input::KeyStatus::InitInstance();
-        scene.reset(new scene::SceneManager);
+        m_scene.reset(new scene::SceneManager);
 
         //実行に必要なデータファイルを実行ファイルの場所に複製
         fs::path dataFile = file::GetExeDirectory() / "../../data";
@@ -39,13 +43,13 @@ namespace gameSystem
     int Execution::Run()
     {
         //ライブラリ初期化
-        if (!library->InitSuccess())
+        if (!m_library->InitSuccess())
         {
             return -1;
         }
 
         //ゲームループ
-        scene->GameLoop();
+        m_scene->GameLoop();
 
         //ソフトの正常終了
         return _CrtDumpMemoryLeaks();

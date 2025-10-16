@@ -1,24 +1,31 @@
-﻿#include <DxLib.h>
+﻿module;
+#include <DxLib.h>
+#include <json.hpp>
 #include <fstream>
 #include <functional>
-#include "Map.h"
-#include "FileIO/MemMapFile.h"
-#include "Loading/LoadingContext.h"
-#include "DivisionGraph/DivisionGraph.h"
+
+
+module Object.Map;
+
+import MyLib.FileIO.MemMapFile;
+import MyLib.Loading.LoadingContext;
+import Asset.DivisionGraph;
 
 namespace object
 {
     Map::Map()
         : filePtr()
         , player()
-        , mmf(new file::MemMapFile)
     {
         //マップ構成読み込み
         task::LoadingContext::Get()->AddTask(task::DATA, [this]() {
+            file::MemMapFile mmf;
             auto path = file::GetExeDirectory() / "data/MapTip.csv";
-            mmf->Open(path.string().c_str());
-            filePtr = mmf->GetPtr();
-            std::this_thread::sleep_for(std::chrono::microseconds(1000));
+            mmf.Open(path.string().c_str());
+            filePtr = mmf.GetPtr();
+
+            //マップデータの作成
+            CreateMapData(filePtr);
         });
 
         //タイル情報読み込み
@@ -27,20 +34,15 @@ namespace object
             std::ifstream ifs(jpath.string());
             ifs >> mapInfo;
             ifs.close();
-            std::this_thread::sleep_for(std::chrono::microseconds(5000));
         });
 
         //マップ画像読み込み
-        assetMgr->Load<asset::DivisionGraph>("map", "map.png", 32, 32);
+        m_assetMgr->Load<asset::DivisionGraph>("map", "map.png", 32, 32);
 
-        //当たり判定追加
-        //colMgr->AddCollision<collision::MapCollision>("MapTip");
     }
 
     void Map::Init()
     {
-        //マップデータの作成
-        CreateMapData(filePtr);
         col2d::ColliderDef def;
         def.isActive = true;
         auto id = ObjectContext::ColMgr().CreateTileCollider(&def, MyObjectTag());
@@ -61,10 +63,10 @@ namespace object
         CalcDrawRange(static_cast<int>(player->AccessPos().NowY()) / height, rangeY, mapData.size() - 1);
         for (size_t i = rangeY.first; i <= rangeY.second; i++)
         {
-            CalcDrawRange(player->AccessPos().NowX() / width, rangeX, mapData[i].size() - 1);
+            CalcDrawRange(static_cast<int>(player->AccessPos().NowX()) / width, rangeX, mapData.at(i).size() - 1);
             for (size_t j = rangeX.first; j <= rangeX.second; j++)
             {
-                int handle = assetMgr->Fetch<asset::DivisionGraph>()->GetHandle("map", mapData[i][j]);
+                int handle = m_assetMgr->Fetch<asset::DivisionGraph>()->GetHandle("map", mapData.at(i).at(j));
                 DrawGraph(static_cast<int>(width * j), static_cast<int>(height * i), handle, true);
             }
         }
@@ -72,8 +74,8 @@ namespace object
 
     void Map::CalcDrawRange(int pos, std::pair<size_t, size_t>& range, size_t length)
     {
-        range.first = std::clamp<int>(pos - 5, 0, length);
-        range.second = std::clamp<int>(pos + 5, 0, length);
+        range.first = std::clamp<int>(pos - 5, 0, (int)length);
+        range.second = std::clamp<int>(pos + 5, 0, (int)length);
     }
 
     void Map::CreateMapData(char* ptr)

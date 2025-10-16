@@ -1,11 +1,10 @@
-﻿#include "SceneBase.h"
-#include "ObjectManager/ObjectManager.h"
+﻿module Scene.SceneBase;
 
 namespace scene
 {
     SceneBase::SceneBase()
     {
-        objManager = std::make_unique<object::ObjectManager>();
+        m_objManager = std::make_unique<object::ObjectManager>();
     }
 
     SceneBase::~SceneBase() = default;

@@ -1,20 +1,26 @@
-﻿#include <DxLib.h>
-#include "SceneManager.h"
-#include "FrameRate/FrameRate.h"
-#include "KeyStatus/KeyStatus.h"
-#include "SceneBase/SceneBase.h"
-#include "Title/Title.h"
+﻿module;
+#include <DxLib.h>
+
+module Scene.SceneManager;
+
+import MyLib.KeyStatus;
+import Scene.SceneBase;
+import Scene.Title;
+import Asset.Graph;
+import GameSystem.FrameRate;
 
 namespace scene
 {
     SceneManager::SceneManager()
-        : nextScene()
-        , graph(new asset::Graph)
+        : m_nextScene()
+        , m_graph(new asset::Graph)
     {
-        graph->CreateHandle("background", "bg.png");
+        // 初期化
+        m_graph->CreateHandle("background", "bg.png");
+        gameSystem::FrameRate::Instance();
 
-        gameSystem::FrameRate::CreateInstance();
-        nowScene.emplace(new Title);
+        //最初のシーンをタイトルに設定
+        m_nowScene.emplace(new Title);
     }
 
     void SceneManager::GameLoop()
@@ -31,22 +37,22 @@ namespace scene
     void SceneManager::Update()
     {
         //更新処理
-        gameSystem::FrameRate::Self().CalcFrameRate();
+        gameSystem::FrameRate::Instance().CalcFrameRate();
         input::KeyStatus::UpdateKeyState();
-        nextScene = nowScene.top()->Update();
+        m_nextScene = m_nowScene.top()->Update();
     }
 
     void SceneManager::Draw()
     {
         //描画
         ClearDrawScreen();
-        DrawGraph(0, 0, graph->GetHandle("background"), true);
-        nowScene.top()->Draw();
+        DrawGraph(0, 0, m_graph->GetHandle("background"), true);
+        m_nowScene.top()->Draw();
         clsDx();
         SetFontSize(32);
         DrawFormatString(10, 1020, GetColor(50, 250, 200), "Eキーでシーン遷移");
 #ifdef _DEBUG
-        gameSystem::FrameRate::Self().DrawFrameRate();
+        gameSystem::FrameRate::Instance().DrawFrameRate();
 #endif // _DEBUG
         ScreenFlip();
     }
@@ -54,11 +60,11 @@ namespace scene
     void SceneManager::ChangeScene()
     {
         //シーン切り替え処理
-        if (nextScene.get() != nowScene.top().get())
+        if (m_nextScene.get() != m_nowScene.top().get())
         {
-            nowScene.pop();
-            nowScene.emplace(nextScene);
-            nowScene.top()->Init();
+            m_nowScene.pop();
+            m_nowScene.emplace(m_nextScene);
+            m_nowScene.top()->Init();
         }
     }
 }

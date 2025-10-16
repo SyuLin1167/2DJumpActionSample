@@ -1,5 +1,7 @@
-﻿#include <DxLib.h>
-#include "KeyStatus.h"
+﻿module;
+#include <DxLib.h>
+
+module MyLib.KeyStatus;
 
 namespace input
 {

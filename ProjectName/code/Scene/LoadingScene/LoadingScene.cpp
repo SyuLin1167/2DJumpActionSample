@@ -1,6 +1,9 @@
-#include "LoadingScene.h"
-#include "Loading/Loading.h"
-#include "Loading/LoadingContext.h"
+module;
+#include "Coroutine.h"
+
+module Scene.LoadingScene;
+import MyLib.Loading;
+import MyLib.Loading.LoadingContext;
 
 namespace scene
 {

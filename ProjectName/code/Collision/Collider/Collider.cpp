@@ -1,6 +1,4 @@
-#include "Collider.h"
-#include "ColliderDef.h"
-#include "ColliderVisitor.h"
+module Collider;
 
 namespace col2d
 {

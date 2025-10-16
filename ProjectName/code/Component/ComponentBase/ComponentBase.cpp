@@ -1,10 +1,10 @@
-﻿#include "ComponentBase.h"
-#include "GameObject/GameObject.h"
+﻿module Component;
+import Object.GameObject;
 
 namespace component
 {
     ComponentBase::ComponentBase(object::GameObject* owner)
-        : owner(owner)
+        : m_owner(owner)
     {
         //処理なし
     }
