@@ -217,7 +217,7 @@
     <ClCompile Include="..\code\Object\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="..\code\Object\ObjectManager\ObjectManager.ixx" />
     <ClCompile Include="..\code\Scene\LoadingScene\LoadingScene.cpp" />
-    <ClCompile Include="..\code\Scene\LoadingScene\LoadScene.ixx" />
+    <ClCompile Include="..\code\Scene\LoadingScene\LoadingScene.ixx" />
     <ClCompile Include="..\code\Scene\Play\Play.cpp" />
     <ClCompile Include="..\code\Scene\Play\Play.ixx" />
     <ClCompile Include="..\code\Scene\SceneBase\SceneBase.cpp" />
@@ -226,6 +226,7 @@
     <ClCompile Include="..\code\Scene\SceneManager\SceneManager.ixx" />
     <ClCompile Include="..\code\Scene\Title\Title.cpp" />
     <ClCompile Include="..\code\Scene\Title\Title.ixx" />
+    <ClCompile Include="..\include\MyLib\Coroutine.ixx" />
     <ClCompile Include="..\include\MyLib\FileIO\ExeFilePath.ixx" />
     <ClCompile Include="..\include\MyLib\FileIO\MemMapFile.cpp" />
     <ClCompile Include="..\include\MyLib\FileIO\MemMapFile.ixx" />
@@ -240,7 +241,6 @@
     <ClCompile Include="..\include\MyLib\Shape\Rect.ixx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\MyLib\Coroutine.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

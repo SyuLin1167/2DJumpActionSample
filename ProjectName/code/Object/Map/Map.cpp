@@ -1,11 +1,12 @@
 ﻿module;
 #include <DxLib.h>
-#include <json.hpp>
 #include <fstream>
 #include <functional>
 
 
 module Object.Map;
+
+import <json.hpp>;
 
 import MyLib.FileIO.MemMapFile;
 import MyLib.Loading.LoadingContext;

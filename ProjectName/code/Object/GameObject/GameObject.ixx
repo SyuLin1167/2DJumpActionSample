@@ -1,5 +1,3 @@
-module;
-
 export module Object.GameObject;
 
 import <memory>;
