@@ -1,10 +1,12 @@
 module;
 #include <DxLib.h>
 #include <format>
+#include <thread>
 
 module Asset.Graph;
 
 import MyLib.FileIO.ExeFilePath;
+import MyLib.Loading.LoadingContext;
 
 namespace asset
 {
@@ -23,14 +25,26 @@ namespace asset
         }
     }
 
-    void Graph::CreateHandle(std::string _handleName, std::string _graphName)
+    void Graph::CreateHandle(std::string handleName, std::string graphName)
     {
-        auto fpath = file::GetExeDirectory() / std::format("assets/{}", _graphName);
+        auto fpath = file::GetExeDirectory() / std::format("assets/{}", graphName);
         int handle = LoadGraph(fpath.string().c_str());
-        if (handle)
+
+        // ”ñ“¯Šú“Ç‚İ‚İ’†‚È‚çƒ^ƒXƒN‚É“o˜^
+        if (task::LoadingContext::Get())
         {
-            handles[_handleName] = handle;
+            task::LoadingContext::Get()->AddTask(task::GRAPH, [&, handleName,handle]() {
+                //”ñ“¯Šú“Ç‚İ‚İŠ®—¹‘Ò‚¿
+                while (CheckHandleASyncLoad(handle))
+                {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                }
+                handles[handleName] = handle;
+            });
+            return;
         }
+
+        handles[handleName] = handle;
     }
 
     void Graph::DeleteHandle(std::string _name)
