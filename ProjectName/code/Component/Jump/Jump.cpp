@@ -6,8 +6,9 @@ using namespace math;
 
 namespace component
 {
-    Jump::Jump(object::GameObject* owner, std::function<bool()> trigger)
+    Jump::Jump(object::GameObject* owner, const float& jumpPower, std::function<bool()> trigger)
         :ComponentBase(owner)
+        , JUMP_POWER(jumpPower)
         , m_nowJump(false)
         , m_trigger(trigger)
     {
@@ -36,7 +37,7 @@ namespace component
         {
             m_nowJump = true;
             m_owner->AccessVel().Assign(PropVector2<float>::Y, 0.0f);
-            m_owner->AccessVel().Add(PropVector2<float>::Y, JUMP_POWER);
+            m_owner->AccessVel().Add(PropVector2<float>::Y, -JUMP_POWER);
         }
     }
 }

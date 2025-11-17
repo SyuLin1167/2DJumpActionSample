@@ -1,6 +1,9 @@
 export module Object.Player;
 
+import <future>;
+
 import Object.GameObject;
+import Object.PlayerData;
 
 /// <summary>
 /// オブジェクト関連
@@ -21,7 +24,7 @@ export namespace object
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~Player() = default;
+        ~Player();
 
         /// <summary>
         /// 初期化処理
@@ -53,5 +56,6 @@ export namespace object
         }
 
         col2d::ColliderID id;
+        std::future<json> data;
     };
 }

@@ -24,7 +24,7 @@ export namespace object
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~ObjectManager() = default;
+        ~ObjectManager();
 
         /// <summary>
         /// オブジェクト追加

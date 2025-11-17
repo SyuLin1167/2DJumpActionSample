@@ -5,17 +5,14 @@ using namespace math;
 
 namespace col2d
 {
-    RectCollider::RectCollider(ColliderDef* def)
+    RectCollider::RectCollider(ColliderDef* def, const Vector2f& size)
         :Collider(def)
         , m_baseRect()
         , m_sweptRect()
     {
+        // ビジターの初期化
         m_visitor = std::make_unique<RectColliderVisitor>(*this);
-        Initialize();
-    }
 
-    void RectCollider::Initialize(const Vector2f& size)
-    {
         // 矩形の初期化
         m_baseRect.pos = m_colDef->localPos;
         m_baseRect.size = size;

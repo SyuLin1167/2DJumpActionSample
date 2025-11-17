@@ -46,9 +46,9 @@ namespace scene
     {
         //描画
         ClearDrawScreen();
+        clsDx();
         DrawGraph(0, 0, m_graph->GetHandle("background"), true);
         m_nowScene.top()->Draw();
-        clsDx();
         SetFontSize(32);
         DrawFormatString(10, 1020, GetColor(50, 250, 200), "Eキーでシーン遷移");
 #ifdef _DEBUG

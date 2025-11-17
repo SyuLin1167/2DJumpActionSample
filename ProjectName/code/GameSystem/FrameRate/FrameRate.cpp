@@ -36,7 +36,6 @@ namespace gameSystem
 #ifdef _DEBUG
     void FrameRate::DrawFrameRate() const
     {
-        clsDx();
         printfDx("deltaTime: %f", m_deltaTime);
         printfDx("fps: %3.1f", m_fps);
     }

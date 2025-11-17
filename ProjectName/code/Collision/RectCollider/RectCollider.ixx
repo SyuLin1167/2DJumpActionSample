@@ -20,8 +20,8 @@ export namespace col2d
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="_def">コライダー定義</param>
-        RectCollider(ColliderDef* _def);
+        /// <param name="def">コライダー定義</param>
+        RectCollider(ColliderDef* def, const Vector2f& size = { 0,0 });
 
         /// <summary>
         /// デストラクタ
@@ -35,22 +35,6 @@ export namespace col2d
         void GenerateCategory(uint32_t _ownerID = 0) override
         {
             m_filter.category = MakeKey(ShapeType::RECT, _ownerID);
-        }
-
-        /// <summary>
-        /// 初期化
-        /// </summary>
-        /// <param name="_size">サイズ</param>
-        void Initialize(const Vector2f& _size = { 0.0f,0.0f });
-
-        /// <summary>
-        /// 初期化
-        /// </summary>
-        /// <param name="width">幅</param>
-        /// <param name="height">高さ</param>
-        inline void Initialize(const float& width, const float& height)
-        {
-            Initialize({ width, height });
         }
 
         /// <summary>

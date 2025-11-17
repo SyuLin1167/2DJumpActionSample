@@ -8,8 +8,8 @@ import <unordered_map>;
 export import MyLib.Math.PropVector2;
 export import ObjectState;
 export import ObjectTag;
+export import AppContext;
 export import ObjectContext;
-export import Asset.AssetManager;
 export import Component.ComponentManager;
 
 using namespace math;
@@ -99,11 +99,9 @@ export namespace object
         virtual ObjectTag MyObjectTag() const = 0;
 
     protected:
-        std::unique_ptr<asset::AssetManager> m_assetMgr;          //アセットマネージャー
         std::shared_ptr<component::ComponentManager> m_compMgr;   //コンポーネントマネージャー
         const float& m_deltaTime;             //デルタタイム
         Vector2f m_pos;           //座標
-        Vector2f m_size;          //サイズ
         Vector2f m_velocity;      //速さ
         uint32_t m_state;         //状態
     };

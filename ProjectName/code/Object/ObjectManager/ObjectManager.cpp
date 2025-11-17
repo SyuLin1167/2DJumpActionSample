@@ -8,8 +8,10 @@ namespace object
         , pendingObjects()
         , isUpdate(false)
     {
-        ObjectContext::Activate();
+        ObjCtx::Activate();
     }
+
+    ObjectManager::~ObjectManager() = default;
 
     void ObjectManager::RemoveObject(class GameObject* object)
     {

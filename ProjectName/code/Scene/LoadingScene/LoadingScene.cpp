@@ -14,6 +14,8 @@ namespace scene
         , m_holdScene(std::move(holdScene))
         , m_coroutine()
     {
+        m_objManager.reset();
+
         // ローディング開始
         SetUseASyncLoadFlag(true);
         task::LoadingContext::Set(std::make_unique<task::Loading>().release());
@@ -45,7 +47,7 @@ namespace scene
         // 読み込み完了まで待機
         co_yield WaitUntil{ [this] { return !task::LoadingContext::Get()->IsLoading(); } };
 
-        // 100％表示用
+        // 100％表示用の待機時間
         co_yield WaitForSeconds{ 0.5f };
 
         // 読み込み完了

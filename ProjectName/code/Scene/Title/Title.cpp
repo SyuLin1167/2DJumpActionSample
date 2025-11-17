@@ -4,19 +4,19 @@ module;
 module Scene.Title;
 
 import MyLib.KeyStatus;
-import MyLib.FileIO.ExeFilePath;
 import MyLib.Loading.LoadingContext;
 import Scene.LoadingScene;
 import Scene.Play;
+import AppContext;
 
 namespace scene
 {
     Title::Title()
     {
-        //シェーダー読み込み
-        auto VSfpath = file::GetExeDirectory() / "shader/VertexShader.vso";
+        //シェーダー読み込み(resources/shader)
+        auto VSfpath = gameSystem::AppCtx::FileSystem().Resolve("shader://VertexShader.vso");
         vs = LoadVertexShader(VSfpath.string().c_str());
-        auto PSfpath = file::GetExeDirectory() / "shader/PixelShader.pso";
+        auto PSfpath = gameSystem::AppCtx::FileSystem().Resolve("shader://PixelShader.pso");
         ps = LoadPixelShader(PSfpath.string().c_str());
 
         // 頂点データの準備

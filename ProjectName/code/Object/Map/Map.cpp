@@ -1,53 +1,78 @@
 ﻿module;
 #include <DxLib.h>
+#include <json.hpp>
 #include <fstream>
 #include <functional>
-
+#include <algorithm>
 
 module Object.Map;
 
-import <json.hpp>;
+import <future>;
 
-import MyLib.FileIO.MemMapFile;
 import MyLib.Loading.LoadingContext;
+import MyLib.Math.Vector2;
+import MyLib.TileChunkUtil;
 import Asset.DivisionGraph;
+import GameSystem.Window;
+
+using namespace gameSystem;
 
 namespace object
 {
     Map::Map()
-        : filePtr()
-        , player()
+        : player(nullptr)
     {
-        //マップ構成読み込み
-        task::LoadingContext::Get()->AddTask(task::DATA, [this]() {
-            file::MemMapFile mmf;
-            auto path = file::GetExeDirectory() / "data/MapTip.csv";
-            mmf.Open(path.string().c_str());
-            filePtr = mmf.GetPtr();
+        // マップ構成読み込み
+        auto path = AppCtx::FileSystem().Resolve("data://MapTip.csv");
+        auto mapDataSf = AppCtx::FileSystem().csvIO.CreateArrayAsync<size_t>(path).share();
 
-            //マップデータの作成
-            CreateMapData(filePtr);
-        });
+        // タイル情報読み込み
+        auto mapInfoSf = AppCtx::FileSystem().jsonIO.LoadAsync(AppCtx::FileSystem().Resolve("data://MapData")).share(); 
 
-        //タイル情報読み込み
-        task::LoadingContext::Get()->AddTask(task::DATA, [this]() {
-            auto jpath = file::GetExeDirectory() / "data/MapData.json";
-            std::ifstream ifs(jpath.string());
-            ifs >> mapInfo;
-            ifs.close();
-        });
+        // 最終的な MapInfo を届けるための promise/future
+        auto infoPromise = std::make_shared<std::promise<object::MapInfo>>();
 
-        //マップ画像読み込み
-        m_assetMgr->Load<asset::DivisionGraph>("map", "map.png", 32, 32);
+        // マップ生成
+        task::LoadingContext::Get()->AddTask(task::INIT, [this, mapDataSf, mapInfoSf, infoPromise]() {
+            // マップデータ取得
+            const auto& dataArray = mapDataSf.get();
+            m_mapInfo.FromJson(mapInfoSf.get());
 
+            // チャンクサイズを取得
+            m_mapInfo.chunkSize = Window::Instance().GetWindowData()->SIZE / m_mapInfo.tileSize.Half();
+
+            
+            infoPromise->set_value(m_mapInfo);
+
+            //チャンク化してマップデータ格納
+            m_mapData = tile::BuildChunkedGrid<size_t>(
+                m_mapInfo.mapSize.x,
+                m_mapInfo.mapSize.y,
+                m_mapInfo.chunkSize,
+                [&](size_t, size_t, size_t gidx, size_t, size_t)->std::optional<size_t>
+                {
+                    return std::optional<size_t>{ dataArray[gidx] };
+                });
+            });
+
+        // 当たり判定生成
+        col2d::ColliderDef def;
+        def.isActive = true;
+        colID = ObjectContext::ColMgr().CreateTileCollider(&def, infoPromise->get_future().share(), "MapTip.csv", MyObjectTag());
+
+        // マップ画像読み込み
+        AppCtx::AssetMgr().LoadAsync<asset::DivisionGraph>("map", "map.png");
+    }
+
+    Map::~Map()
+    {
+        AppCtx::AssetMgr().DeleteHandle<asset::DivisionGraph>("map");
     }
 
     void Map::Init()
     {
-        col2d::ColliderDef def;
-        def.isActive = true;
-        auto id = ObjectContext::ColMgr().CreateTileCollider(&def, MyObjectTag());
-        ObjectContext::ColMgr().AddMask(id, col2d::RECT, PLAYER);
+        // 衝突マスク追加
+        ObjectContext::ColMgr().AddMask(colID, col2d::RECT, PLAYER);
     }
 
     void Map::GetReferenceObject(std::function<std::vector<std::shared_ptr<GameObject>>(uint32_t)> referenceObj)
@@ -58,45 +83,47 @@ namespace object
 
     void Map::Draw()
     {
+        // マップ未生成なら描画しない
+        if (m_mapData.empty())
+        {
+            return;
+        }
+
         //描画範囲を算出して描画
-        int width = mapInfo["tilewidth"];
-        int height = mapInfo["tileheight"];
-        CalcDrawRange(static_cast<int>(player->AccessPos().NowY()) / height, rangeY, mapData.size() - 1);
+        CalcDrawRange(static_cast<int>(player->AccessPos().NowY()) / m_mapInfo.tileSize.x, rangeY, m_mapInfo.mapSize.x);
+        CalcDrawRange(static_cast<int>(player->AccessPos().NowX()) / m_mapInfo.tileSize.y, rangeX, m_mapInfo.mapSize.y);
+
         for (size_t i = rangeY.first; i <= rangeY.second; i++)
         {
-            CalcDrawRange(static_cast<int>(player->AccessPos().NowX()) / width, rangeX, mapData.at(i).size() - 1);
             for (size_t j = rangeX.first; j <= rangeX.second; j++)
             {
-                int handle = m_assetMgr->Fetch<asset::DivisionGraph>()->GetHandle("map", mapData.at(i).at(j));
-                DrawGraph(static_cast<int>(width * j), static_cast<int>(height * i), handle, true);
+                // チャンクに沿ったキーを生成
+                auto key = (static_cast<uint64_t>(i / m_mapInfo.chunkSize.y) << 32) | static_cast<uint64_t>(j / m_mapInfo.chunkSize.x);
+
+                // ローカルインデックスでタイル取得
+                const size_t localY = i % m_mapInfo.chunkSize.y;
+                const size_t localX = j % m_mapInfo.chunkSize.x;
+                const size_t localIndex = localY * m_mapInfo.chunkSize.x + localX;
+
+                // 座標に沿ったハンドル取得
+                auto mapIt = m_mapData.find(key);
+                if (mapIt == m_mapData.end()) continue;
+                int handle = AppCtx::AssetMgr().Fetch<asset::DivisionGraph>()->GetHandle("map", mapIt->second.at(localIndex));
+
+                // チャンクに沿った座標に描画
+                int x = static_cast<int>(j * m_mapInfo.tileSize.x);
+                int y = static_cast<int>(i * m_mapInfo.tileSize.y);
+                DrawGraph(x, y, handle, true);
             }
         }
     }
 
     void Map::CalcDrawRange(int pos, std::pair<size_t, size_t>& range, size_t length)
     {
-        range.first = std::clamp<int>(pos - 5, 0, (int)length);
-        range.second = std::clamp<int>(pos + 5, 0, (int)length);
-    }
-
-    void Map::CreateMapData(char* ptr)
-    {
-        //マップデータ生成
-        std::vector<size_t> row;
-        for (char* p = ptr; *p != '\0'; p++)
-        {
-            if (*p != ',' && *p != '\r')
-            {
-                if (*p == '\n')
-                {
-                    mapData.emplace_back(row);
-                    row.clear();
-                }
-                else
-                {
-                    row.emplace_back(int(*p - '0'));
-                }
-            }
-        }
+        // 範囲算出
+        if (length == 0) { range = {0, 0}; return; }
+        const int maxIndex = static_cast<int>(length) - 1;
+        range.first  = static_cast<size_t>(std::clamp(pos - 5, 0, maxIndex));
+        range.second = static_cast<size_t>(std::clamp(pos + 5, 0, maxIndex));
     }
 }

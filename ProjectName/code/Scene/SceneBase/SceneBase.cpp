@@ -7,7 +7,6 @@ namespace scene
 {
     SceneBase::SceneBase()
     {
-
         m_objManager = std::make_unique<object::ObjectManager>();
     }
 
