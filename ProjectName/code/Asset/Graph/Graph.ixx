@@ -30,6 +30,13 @@ export namespace asset
         void CreateHandle(std::string handleName, std::string graphName) override;
 
         /// <summary>
+        /// ハンドル生成(非同期)
+        /// </summary>
+        /// <param name="handleName">ハンドル名</param>
+        /// <param name="graphName">画像名</param>
+        void CreateHandleAsync(std::string handleName, std::string graphName) override;
+
+        /// <summary>
         /// ハンドル削除
         /// </summary>
         /// <param name="name">削除するハンドル名</param>
