@@ -10,9 +10,9 @@ import Component;
 /// </summary>
 export namespace component
 {
-    constexpr float GRAVITY = 3.8f;         //重力加速度
-    constexpr float FALL_SPEED = 5.0f;      //落下速度
-    constexpr float JUMP_POWER = -8.0f;    //ジャンプ力
+    constexpr float GRAVITY = 3.8f;             //重力加速度
+    constexpr float FALL_SPEED = 5.0f;          //落下速度
+    constexpr float DEFAULT_JUMP_POWER = 5.0f;  //デフォルトのジャンプ力
 
     /// <summary>
     /// ジャンプ処理
@@ -29,8 +29,9 @@ export namespace component
         /// コンストラクタ
         /// </summary>
         /// <param name="owner">所有者</param>
-        /// <param name="trigger">更新の優先順位</param>
-        Jump(object::GameObject* owner, std::function<bool()> trigger);
+        /// <param name="jumpPower">ジャンプ力</param>
+        /// <param name="trigger">ジャンプのためのトリガー</param>
+        Jump(object::GameObject* owner, const float& jumpPower = DEFAULT_JUMP_POWER, std::function<bool()> trigger = {});
 
         /// <summary>
         /// デストラクタ
@@ -57,6 +58,7 @@ export namespace component
         }
 
     private:
+        const float JUMP_POWER;    //ジャンプ力
         static constexpr float MAX_FALL_VELOCITY = 30.0f;      //最大落下速度
         bool m_nowJump;                             //ジャンプ状態判定
         std::function<bool()> m_trigger;            //トリガー

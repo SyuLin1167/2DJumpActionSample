@@ -16,14 +16,7 @@ export namespace asset
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        DivisionGraph() = default;
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="divW">分割する横幅</param>
-        /// <param name="divH">分割する立幅</param>
-        DivisionGraph(int divW, int divH);
+        DivisionGraph() :m_divW(32), m_divH(32) {};
 
         /// <summary>
         /// デストラクタ
@@ -37,8 +30,8 @@ export namespace asset
         /// <param name="divH">分割する立幅</param>
         void ChangeDivSize(int divW, int divH)
         {
-            divW = divW;
-            divH = divH;
+            m_divW = divW;
+            m_divH = divH;
         }
 
         /// <summary>
@@ -47,6 +40,13 @@ export namespace asset
         /// <param name="handleName">ハンドル名</param>
         /// <param name="graphName">画像名</param>
         void CreateHandle(std::string handleName, std::string graphName) override;
+
+        /// <summary>
+        /// ハンドル生成(非同期)
+        /// </summary>
+        /// <param name="handleName">ハンドル名</param>
+        /// <param name="graphName">画像名</param>
+        void CreateHandleAsync(std::string handleName, std::string graphName) override;
 
         /// <summary>
         /// ハンドル削除

@@ -31,6 +31,13 @@ export namespace asset
         virtual void CreateHandle(std::string handleName, std::string graphName) = 0;
 
         /// <summary>
+        /// ハンドル生成(非同期)
+        /// </summary>
+        /// <param name="handleName">ハンドル名</param>
+        /// <param name="graphName">画像名</param>
+        virtual void CreateHandleAsync(std::string handleName, std::string graphName) = 0;
+
+        /// <summary>
         /// ハンドル削除
         /// </summary>
         /// <param name="name">削除するハンドル名</param>

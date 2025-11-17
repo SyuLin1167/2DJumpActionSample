@@ -4,11 +4,14 @@ import <queue>;
 import <memory>;
 import <functional>;
 import <unordered_map>;
+import <string>;
+import <future>;
 
 import MyLib.Math.Vector2;
 import Collider;
 import Collider.RectCollider;
 import Collider.TileCollider;
+import Object.MapInfo;
 
 using namespace math;
 
@@ -55,9 +58,8 @@ export namespace col2d
         [[nodiscard]] inline ColliderID CreateCollider(ColliderDef* def, const uint32_t& ownerID, Args&&... args)
         {
             ColliderID cID = CreateID();
-            auto col = std::make_unique<T>(def);
+            auto col = std::make_unique<T>(def, std::forward<Args>(args)...);
             col->GenerateCategory(ownerID);
-            col->Initialize(std::forward<Args>(args)...);
             m_colliders[cID.index] = std::move(col);
             return cID;
         }
@@ -80,9 +82,20 @@ export namespace col2d
         /// <param name="def">コライダー定義</param>
         /// <param name="ownerID">所有者のID</param>
         /// <returns>生成されたコライダーの識別子</returns>
-        [[nodiscard]] inline ColliderID CreateTileCollider(ColliderDef* def, const uint32_t& ownerID = 0)
+        [[nodiscard]] inline ColliderID CreateTileCollider(ColliderDef* def, const object::MapInfo& info, std::string fileName, const uint32_t& ownerID = 0)
         {
-            return CreateCollider<TileCollider>(def, ownerID);
+            return CreateCollider<TileCollider>(def, ownerID, info, fileName);
+        }
+
+        /// <summary>
+        /// タイルコライダーを生成
+        /// </summary>
+        /// <param name="def">コライダー定義</param>
+        /// <param name="ownerID">所有者のID</param>
+        /// <returns>生成されたコライダーの識別子</returns>
+        [[nodiscard]] inline ColliderID CreateTileCollider(ColliderDef* def, std::shared_future<object::MapInfo> info, std::string fileName, const uint32_t& ownerID = 0)
+        {
+            return CreateCollider<TileCollider>(def, ownerID, info, fileName);
         }
 
         /// <summary>

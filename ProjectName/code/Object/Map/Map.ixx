@@ -1,12 +1,15 @@
 export module Object.Map;
 
 import Object.GameObject;
+import Object.MapInfo;
 import Asset.AssetManager;
+import MyLib.Math.Vector2;
 
 export import <vector>;
-import <json.hpp>;
+import <future>;
 
 using json = nlohmann::json;
+using namespace math;
 
 /// <summary>
 /// オブジェクト関連
@@ -27,7 +30,7 @@ export namespace object
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~Map() = default;
+        ~Map();
 
         /// <summary>
         ///  参照するオブジェクト取得
@@ -62,19 +65,13 @@ export namespace object
         }
 
     private:
-        /// <summary>
-        /// マップデータ構築
-        /// </summary>
-        /// <param name="ptr">ファイルポインタ</param>
-        void CreateMapData(char* ptr);
-
-        char* filePtr;                              //ファイルポインタ
-        std::vector<std::vector<size_t>> mapData;   //マップデータ
-        json mapInfo;   //マップ情報
+        MapInfo m_mapInfo;                  // マップ情報
+        std::unordered_map<size_t, std::vector<size_t>> m_mapData;   //マップデータ
 
         std::pair<size_t, size_t> rangeX;           //描画範囲X
         std::pair<size_t, size_t> rangeY;           //描画範囲Y
 
         GameObject* player;                         //プレイヤー
+        col2d::ColliderID colID;            // コライダーID
     };
 }

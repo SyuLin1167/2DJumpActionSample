@@ -1,12 +1,14 @@
 module;
 #include <DxLib.h>
 #include <format>
+#include <future>
 #include <thread>
+#include <filesystem>
 
 module Asset.Graph;
 
-import MyLib.FileIO.ExeFilePath;
 import MyLib.Loading.LoadingContext;
+import AppContext;
 
 namespace asset
 {
@@ -27,24 +29,45 @@ namespace asset
 
     void Graph::CreateHandle(std::string handleName, std::string graphName)
     {
-        auto fpath = file::GetExeDirectory() / std::format("assets/{}", graphName);
+        // 以前のハンドルを削除
+        DeleteHandle(handleName);
+
+        // グラフィック読み込み
+        auto fpath = gameSystem::AppCtx::FileSystem().Resolve(std::format("assets://{}", graphName));
         int handle = LoadGraph(fpath.string().c_str());
 
-        // 非同期読み込み中ならタスクに登録
-        if (task::LoadingContext::Get())
-        {
-            task::LoadingContext::Get()->AddTask(task::GRAPH, [&, handleName,handle]() {
-                //非同期読み込み完了待ち
+        handles[handleName] = handle;
+    }
+
+    void Graph::CreateHandleAsync(std::string handleName, std::string graphName)
+    {
+        // 以前のハンドルを削除
+        DeleteHandle(handleName);
+
+        // 非同期タスクを作成
+        auto fpath = gameSystem::AppCtx::FileSystem().Resolve(std::format("assets://{}", graphName));
+
+        // グラフィック読み込み
+        int handle = LoadGraph(fpath.string().c_str());
+
+        auto task = [this, handle, handleName]()
+            {
                 while (CheckHandleASyncLoad(handle))
                 {
                     std::this_thread::sleep_for(std::chrono::milliseconds(1));
                 }
                 handles[handleName] = handle;
-            });
-            return;
-        }
+            };
 
-        handles[handleName] = handle;
+        // 非同期読み込み中ならタスクに登録
+        if (task::LoadingContext::Get())
+        {
+            task::LoadingContext::Get()->AddTask(task::GRAPH, task);
+        }
+        else
+        {
+            task();
+        }
     }
 
     void Graph::DeleteHandle(std::string _name)

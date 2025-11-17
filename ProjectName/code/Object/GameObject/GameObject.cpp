@@ -4,11 +4,9 @@ import GameSystem.FrameRate;
 namespace object
 {
     GameObject::GameObject()
-        : m_assetMgr(new asset::AssetManager)
-        , m_compMgr(new component::ComponentManager)
+        : m_compMgr(new component::ComponentManager)
         , m_deltaTime(gameSystem::FrameRate::Instance().GetDeltaTime())
         , m_pos()
-        , m_size()
         , m_velocity()
     {
         m_state = MainState::ACTIVE;

@@ -5,7 +5,6 @@
 module Scene.Play;
 
 import MyLib.KeyStatus;
-import MyLib.Loading.LoadingContext;
 import Scene.Title;
 import Object.ObjectManager;
 import Object.Player;
@@ -18,8 +17,6 @@ namespace scene
         //オブジェクト追加
         m_objManager->AddObject(new object::Player);
         m_objManager->AddObject(new object::Map);
-
-        task::LoadingContext::Get()->WatchProgress();
     }
 
     void Play::Init()

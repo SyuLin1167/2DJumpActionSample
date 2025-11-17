@@ -2,10 +2,13 @@ export module Collider.TileCollider;
 
 import <unordered_map>;
 import <queue>;
+import <string>;
+import <future>;
 
 import MyLib.Shape.Rect;
 import Collider;
 import Collider.TileColliderVisitor;
+export import Object.MapInfo;
 
 using namespace math;
 
@@ -39,12 +42,21 @@ export namespace col2d
         struct TileInfo;
 
     public:
-
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="def">コライダー定義</param>
-        TileCollider(ColliderDef* def);
+        /// <param name="info">マップ情報</param>
+        /// <param name="fileName">ファイル名</param>
+        TileCollider(ColliderDef* def, const object::MapInfo& info, std::string fileName);
+        
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="def">コライダー定義</param>
+        /// <param name="info">マップ情報</param>
+        /// <param name="fileName">ファイル名</param>
+        TileCollider(ColliderDef* def, std::shared_future<object::MapInfo> info, std::string fileName);
 
         /// <summary>
         /// デストラクタ
@@ -59,11 +71,6 @@ export namespace col2d
         {
             m_filter.category = MakeKey(ShapeType::TILE, ownerID);
         }
-
-        /// <summary>
-        /// 初期化
-        /// </summary>
-        void Initialize();
 
         /// <summary>
         /// タイルコライダーの衝突判定
@@ -112,9 +119,9 @@ export namespace col2d
         /// タイルサイズを取得
         /// </summary>
         /// <returns>タイルサイズ</returns>
-        const Vector2u& GetTileSize() const
+        const Vector2f& GetTileSize() const
         {
-            return m_tileSize;
+            return m_mapInfo.tileSize;
         }
 
     private:
@@ -148,7 +155,6 @@ export namespace col2d
         /// <param name="y">タイルのY座標</param>
         uint8_t AdjacentTileAt(const std::vector<size_t>& mapData, size_t x, size_t y) const;
 
-
         /// <summary>
         /// コライダーを訪問
         /// </summary>
@@ -156,16 +162,13 @@ export namespace col2d
         void Accept(ColliderVisitor& visitor) override {}
 
         /// <summary>
-        /// マップ情報
+        /// タイルコライダーの生成
         /// </summary>
-        struct MapInfo
-        {
-            size_t width;      // マップの幅（タイル数）
-            size_t height;     // マップの高さ（タイル数）
-        }mapInfo;
+        /// <param name="mapData">マップデータ</param>
+        void BuildTileColliders(std::vector<size_t> mapData);
 
-        Vector2u m_chunkSize;           // チャンクサイズ
-        Vector2u m_tileSize;            // タイルのサイズ
+        object::MapInfo m_mapInfo;      // マップ情報
+
         std::unique_ptr<TileColliderVisitor> m_visitor;  // タイルコライダービジター
 
         /// <summary>

@@ -196,6 +196,9 @@
     <ClCompile Include="..\code\Component\ComponentManager\ComponentManager.ixx" />
     <ClCompile Include="..\code\Component\Jump\Jump.cpp" />
     <ClCompile Include="..\code\Component\Jump\Jump.ixx" />
+    <ClCompile Include="..\code\Component\Move\MoveWithKey\MoveWithKey.cpp" />
+    <ClCompile Include="..\code\Component\Move\MoveWithKey\MoveWithKey.ixx" />
+    <ClCompile Include="..\code\GameSystem\AppContext.ixx" />
     <ClCompile Include="..\code\GameSystem\Execution\Execution.cpp" />
     <ClCompile Include="..\code\GameSystem\Execution\Execution.ixx" />
     <ClCompile Include="..\code\GameSystem\FrameRate\FrameRate.cpp" />
@@ -207,13 +210,16 @@
     <ClCompile Include="..\code\main.cpp" />
     <ClCompile Include="..\code\Object\Character\Player\Player.cpp" />
     <ClCompile Include="..\code\Object\Character\Player\Player.ixx" />
+    <ClCompile Include="..\code\Object\Character\Player\PlayerData.ixx" />
     <ClCompile Include="..\code\Object\GameObject\GameObject.cpp" />
     <ClCompile Include="..\code\Object\GameObject\GameObject.ixx" />
     <ClCompile Include="..\code\Object\GameObject\ObjectContext.ixx" />
+    <ClCompile Include="..\code\Object\GameObject\ObjectData.ixx" />
     <ClCompile Include="..\code\Object\GameObject\ObjectState.ixx" />
     <ClCompile Include="..\code\Object\GameObject\ObjectTag.ixx" />
     <ClCompile Include="..\code\Object\Map\Map.cpp" />
     <ClCompile Include="..\code\Object\Map\Map.ixx" />
+    <ClCompile Include="..\code\Object\Map\MapInfo.ixx" />
     <ClCompile Include="..\code\Object\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="..\code\Object\ObjectManager\ObjectManager.ixx" />
     <ClCompile Include="..\code\Scene\LoadingScene\LoadingScene.cpp" />
@@ -227,9 +233,11 @@
     <ClCompile Include="..\code\Scene\Title\Title.cpp" />
     <ClCompile Include="..\code\Scene\Title\Title.ixx" />
     <ClCompile Include="..\include\MyLib\Coroutine.ixx" />
-    <ClCompile Include="..\include\MyLib\FileIO\ExeFilePath.ixx" />
-    <ClCompile Include="..\include\MyLib\FileIO\MemMapFile.cpp" />
-    <ClCompile Include="..\include\MyLib\FileIO\MemMapFile.ixx" />
+    <ClCompile Include="..\include\MyLib\FileSystem\FileIO\CsvIO.ixx" />
+    <ClCompile Include="..\include\MyLib\FileSystem\FileIO\JsonIO.ixx" />
+    <ClCompile Include="..\include\MyLib\FileSystem\FileIO\MemMapFile.cpp" />
+    <ClCompile Include="..\include\MyLib\FileSystem\FileIO\MemMapFile.ixx" />
+    <ClCompile Include="..\include\MyLib\FileSystem\FileSystem.ixx" />
     <ClCompile Include="..\include\MyLib\KeyStatus\KeyStatus.cpp" />
     <ClCompile Include="..\include\MyLib\KeyStatus\KeyStatus.ixx" />
     <ClCompile Include="..\include\MyLib\KeyStatus\KeyTag.ixx" />
@@ -239,14 +247,15 @@
     <ClCompile Include="..\include\MyLib\Math\PropVector2.ixx" />
     <ClCompile Include="..\include\MyLib\Math\Vector2.ixx" />
     <ClCompile Include="..\include\MyLib\Shape\Rect.ixx" />
+    <ClCompile Include="..\include\MyLib\TileChunkUtil.ixx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\data\MapTip.csv" />
-    <None Include="..\data\MapData.json" />
-    <None Include="..\data\test.json" />
+    <None Include="..\data\PlayerData.json" />
+    <None Include="..\resources\data\MapData.json" />
+    <None Include="..\resources\data\MapTip.csv" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="project.rc" />

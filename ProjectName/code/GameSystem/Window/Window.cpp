@@ -1,5 +1,7 @@
-﻿#include <DxLib.h>
-import GameSystem.Window;
+﻿module;
+#include <DxLib.h>
+
+module GameSystem.Window;
 
 namespace gameSystem
 {

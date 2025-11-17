@@ -38,15 +38,23 @@ export namespace asset
         /// <typeparam name="...Args">引数</typeparam>
         /// <param name="name">アセット名</param>
         /// <param name="path">ファイルパス</param>
-        /// <param name="...args">引数群</param
         template<typename T, typename... Args>
-        void Load(std::string name, std::string path, Args&&... args)
+        void Load(std::string name, std::string path)
         {
-            if (m_registry.find(typeid(T)) == m_registry.end())
-            {
-                m_registry[typeid(T)] = std::make_unique<T>(std::forward<Args>(args)...);
-            }
-            m_registry.at(typeid(T))->CreateHandle(name, path);
+            Fetch<T>()->CreateHandle(name, path);
+        }
+
+        /// <summary>
+        /// アセット読み込み(非同期
+        /// </summary>
+        /// <typeparam name="T">アセットの種類</typeparam>
+        /// <typeparam name="...Args">引数</typeparam>
+        /// <param name="name">アセット名</param>
+        /// <param name="path">ファイルパス</param>
+        template<typename T, typename... Args>
+        void LoadAsync(std::string name, std::string path)
+        {
+            Fetch<T>()->CreateHandleAsync(name, path);
         }
 
         /// <summary>
@@ -57,12 +65,16 @@ export namespace asset
         template<typename T>
         T* Fetch()
         {
+            // 存在する場合はそれを返す
             auto it = m_registry.find(typeid(T));
             if (it != m_registry.end())
             {
                 return static_cast<T*>(it->second.get());
             }
-            return nullptr;
+
+            // 存在しない場合は新規作成して返す
+            m_registry[typeid(T)] = std::make_unique<T>();
+            return static_cast<T*>(m_registry.at(typeid(T)).get());
         }
 
         /// <summary>
@@ -71,7 +83,7 @@ export namespace asset
         /// <typeparam name="T">アセットの種類</typeparam>
         /// <param name="name">アセット名</param>
         template<typename T>
-        void Delete(std::string name)
+        void DeleteHandle(std::string name)
         {
             m_registry.at(typeid(T))->DeleteHandle(name);
         }
