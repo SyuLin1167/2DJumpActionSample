@@ -6,7 +6,8 @@ export module Collider.RectColliderResolver;
 export namespace col2d
 {
     // 前方宣言
-    export class RectCollider;
+    class RectCollider;
+    class CircleCollider;
 
     /// <summary>
     /// 矩形コライダーの解決処理
@@ -30,8 +31,15 @@ export namespace col2d
         /// <summary>
         /// 解決処理
         /// </summary>
-        /// <param name="issue">解決対象のタイルコライダー</param>
+        /// <param name="issue">解決対象の矩形コライダー</param>
         /// <param name="other">他の矩形コライダー</param>
         void Resolve(RectCollider& issue, const RectCollider& other);
+
+        /// <summary>
+        /// 解決処理
+        /// </summary>
+        /// <param name="issue">解決対象の矩形コライダー</param>
+        /// <param name="other">他の円形コライダー</param>
+        void Resolve(RectCollider& issue, const CircleCollider& other);
     };
 }

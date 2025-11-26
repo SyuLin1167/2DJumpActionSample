@@ -1,8 +1,6 @@
 export module Collider.RectCollider;
-
 import MyLib.Shape.Rect;
 import Collider;
-import Collider.RectColliderVisitor;
 
 using namespace math;
 
@@ -11,6 +9,10 @@ using namespace math;
 /// </summary>
 export namespace col2d
 { 
+    // 前方宣言
+    class RectColliderVisitor;
+    class CircleCollider;
+
     /// <summary>
     /// 矩形コライダー
     /// </summary>
@@ -23,10 +25,13 @@ export namespace col2d
         /// <param name="def">コライダー定義</param>
         RectCollider(ColliderDef* def, const Vector2f& size = { 0,0 });
 
+        // デフォルトコンストラクタは削除
+        RectCollider() = delete;
+
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~RectCollider() override = default;
+        ~RectCollider() override;
 
         /// <summary>
         /// カテゴリーの生成
@@ -38,18 +43,10 @@ export namespace col2d
         }
 
         /// <summary>
-        /// 矩形(シェイプ)を取得
+        /// 矩形を取得
         /// </summary>
-        /// <returns>サイズ</returns>
+        /// <returns>矩形</returns>
         shape::Rect GetRect() const
-        {
-            return m_baseRect;
-        }
-
-        /// <summary>
-        /// スイープ矩形を取得
-        /// </summary>
-        shape::Rect GetSweptRect() const
         {
             return m_baseRect;
         }
@@ -58,15 +55,43 @@ export namespace col2d
         /// 矩形と点の衝突判定
         /// </summary>
         /// <param name="point">衝突判定を行う点</param>
-        /// <returns>衝突している場合はtrue、そうでない場合はfalse</returns>
-        [[nodiscard]] bool IsColliding(const Vector2f& point);
+        /// <returns>衝突しているかどうか</returns>
+        bool IsColliding(const Vector2f& point);
+
+        /// <summary>
+        /// 矩形と点の連続衝突判定
+        /// </summary>
+        /// <param name="point">衝突判定を行う点</param>
+        /// <returns>衝突しているかどうか</returns>
+        bool IsCollidingSegmentPoint(const Vector2f& point);
+
+        /// <summary>
+        /// 矩形と円の衝突判定
+        /// </summary>
+        /// <param name="circle">衝突判定を行う円形コライダー</param>
+        /// <returns>衝突しているかどうか</returns>
+        bool IsColliding(const CircleCollider& circle);
 
         /// <summary>
         /// 矩形同士の衝突判定
         /// </summary>
         /// <param name="other">衝突判定を行う他の矩形コライダー</param>
-        /// <returns>衝突している場合はtrue、そうでない場合はfalse</returns>
-        [[nodiscard]] bool IsColliding(const RectCollider& other);
+        /// <returns>衝突しているかどうか</returns>
+        bool IsColliding(const RectCollider& other);
+
+        /// <summary>
+        /// 矩形同士の連続衝突判定
+        /// </summary>
+        /// <param name="other">衝突判定を行う矩形コライダー</param>
+        /// <returns>衝突しているかどうか</returns>
+        bool IsCollidingSegmentRect(const RectCollider& other);
+
+        /// <summary>
+        /// 矩形同士の連続衝突判定
+        /// </summary>
+        /// <param name="other">衝突判定を行う円形コライダー</param>
+        /// <returns>衝突しているかどうか</returns>
+        bool IsCollidingSegmentCircle(const CircleCollider& other);
 
         /// <summary>
         /// コライダーを訪問
@@ -75,15 +100,6 @@ export namespace col2d
         void Accept(ColliderVisitor& visitor) override
         {
             visitor.Visit(*this);
-        }
-
-        /// <summary>
-        /// 他のコライダーとの衝突判定
-        /// </summary>
-        /// <param name="_other">他のコライダー</param>
-        void CollideWith(Collider& _other) override
-        {
-            _other.Accept(*m_visitor);
         }
 
         /// <summary>
@@ -110,7 +126,6 @@ export namespace col2d
         /// </summary>
         void CalcSweptRect(Vector2f velocity);
 
-        std::unique_ptr<RectColliderVisitor> m_visitor; // ビジター
         shape::Rect m_baseRect;                         // 基本の矩形
         shape::Rect m_sweptRect;                        // スイープ矩形
     };

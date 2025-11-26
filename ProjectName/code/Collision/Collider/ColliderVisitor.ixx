@@ -7,6 +7,7 @@ export namespace col2d
 {
     // 前方宣言
     export class RectCollider;
+    export class CircleCollider;
 
     /// <summary>
     /// コライダービジター
@@ -24,9 +25,13 @@ export namespace col2d
         virtual ~ColliderVisitor() = default;
 
         /// <summary>
-        /// 矩形コライダーを訪問
+        /// 矩形コライダーへ訪問
         /// </summary>
-        /// <param name="_target">訪問する矩形コライダー</param>
-        virtual void Visit(RectCollider& target) = 0;
+        virtual void Visit(RectCollider& target) {};
+
+        /// <summary>
+        /// 円形コライダーへ訪問
+        /// </summary>
+        virtual void Visit(CircleCollider& target) {};
     };
 }

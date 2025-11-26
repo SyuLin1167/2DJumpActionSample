@@ -16,6 +16,8 @@ using namespace math;
 /// </summary>
 export namespace col2d
 {
+    constexpr float EPSILON = 1e-6f;    // 浮動小数点誤差許容値
+
     /// <summary>
     /// コンタクトリスナー
     /// </summary>
@@ -72,7 +74,10 @@ export namespace col2d
         /// 衝突判定
         /// </summary>
         /// <param name="other">他のコライダー</param>
-        virtual void CollideWith(Collider& other) = 0;
+        virtual void CollideWith(Collider& other)
+        {
+            other.Accept(*m_visitor);
+        }
 
         /// <summary>
         /// コライダーのフィルタ情報を取得
@@ -124,6 +129,7 @@ export namespace col2d
 
         Filter m_filter; // コライダーのフィルタ情報
         std::unique_ptr<ColliderDef> m_colDef; // コライダー定義情報へのポインタ
+        std::unique_ptr<ColliderVisitor> m_visitor; // ビジター
         Vector2f m_velocity; // 速度
         std::unordered_map<uint64_t, std::vector<ContactListener>> m_events; // 接触イベントリスト
     };

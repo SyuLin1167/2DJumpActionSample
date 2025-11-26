@@ -1,21 +1,17 @@
 module;
+#include <json.hpp>
 #include <thread>
 #include <fstream>
-#include <json.hpp>
 
 module Collider.TileCollider;
-
 import <algorithm>;
-
-import MyLib.Math.Vector2;
 import MyLib.File.MemMapFile;
-import MyLib.TileChunkUtil;
 import MyLib.Loading.LoadingContext;
+import MyLib.TileChunkUtil;
+import MyLib.Math.Vector2;
 import AppContext;
 import GameSystem.Window;
 import Collider.TileColliderVisitor;
-import Collider.RectCollider;
-//import Object.MapInfo;
 
 using json = nlohmann::json;
 using namespace math;
@@ -85,6 +81,8 @@ namespace col2d
             throw std::runtime_error("TileCollider must be created within a LoadingContext.");
         }
     }
+
+    TileCollider::~TileCollider() = default;
 
     bool TileCollider::IsColliding(const shape::Rect& rect)
     {

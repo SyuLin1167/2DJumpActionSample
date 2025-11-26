@@ -1,5 +1,4 @@
 export module Collider.RectColliderVisitor;
-
 import ColliderVisitor;
 import Collider.RectColliderResolver;
 
@@ -9,7 +8,8 @@ import Collider.RectColliderResolver;
 export namespace col2d
 {
     // 前方宣言
-    export class RectCollider;
+    class RectCollider;
+    class CircleCollider;
 
     /// <summary>
     /// 矩形コライダービジター
@@ -21,7 +21,7 @@ export namespace col2d
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        RectColliderVisitor(RectCollider& issue) :m_issue(issue) {}
+        RectColliderVisitor(RectCollider& issue);
 
         // デフォルトコンストラクタは削除
         RectColliderVisitor() = delete;
@@ -36,6 +36,12 @@ export namespace col2d
         /// </summary>
         /// <param name="_target">訪問する矩形コライダー</param>
         void Visit(col2d::RectCollider& target) override;
+
+        /// <summary>
+        /// 円形コライダーを訪問
+        /// </summary>
+        /// <param name="_target">訪問する円形コライダー</param>
+        void Visit(col2d::CircleCollider& target) override;
 
     private:
         RectCollider& m_issue; // 訪問する矩形コライダーの参照
