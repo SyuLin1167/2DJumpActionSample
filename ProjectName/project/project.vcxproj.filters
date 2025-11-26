@@ -112,6 +112,15 @@
     <Filter Include="MyLib\KeyStatus">
       <UniqueIdentifier>{f5894192-ced3-4426-940e-cf232df9419b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\MoveWithKey">
+      <UniqueIdentifier>{75fa4d6f-1e8e-42ce-90da-bf951af1402b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy">
+      <UniqueIdentifier>{24cc6df9-54cc-4e52-b204-68832efe6e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision\CircleCollider">
+      <UniqueIdentifier>{271d3db1-ad98-4191-ba7f-86df80d7a44c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\code\main.cpp" />
@@ -165,9 +174,6 @@
     </ClCompile>
     <ClCompile Include="..\include\MyLib\Loading\Loading.cpp">
       <Filter>MyLib\Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\MyLib\FileIO\MemMapFile.cpp">
-      <Filter>MyLib\FileIO</Filter>
     </ClCompile>
     <ClCompile Include="..\code\Scene\LoadingScene\LoadingScene.cpp">
       <Filter>Scene\Loading</Filter>
@@ -265,9 +271,6 @@
     <ClCompile Include="..\code\Scene\Play\Play.ixx">
       <Filter>Scene\Play</Filter>
     </ClCompile>
-    <ClCompile Include="..\code\Scene\LoadingScene\LoadScene.ixx">
-      <Filter>Scene\Loading</Filter>
-    </ClCompile>
     <ClCompile Include="..\code\Object\Character\Player\Player.ixx">
       <Filter>Object\Player</Filter>
     </ClCompile>
@@ -304,12 +307,6 @@
     <ClCompile Include="..\code\Asset\AssetManager\AssetManager.ixx">
       <Filter>Asset\AssetManager</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\MyLib\FileIO\MemMapFile.ixx">
-      <Filter>MyLib\FileIO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\MyLib\FileIO\ExeFilePath.ixx">
-      <Filter>MyLib\FileIO</Filter>
-    </ClCompile>
     <ClCompile Include="..\include\MyLib\KeyStatus\KeyTag.ixx">
       <Filter>MyLib\KeyStatus</Filter>
     </ClCompile>
@@ -331,21 +328,84 @@
     <ClCompile Include="..\include\MyLib\Shape\Rect.ixx">
       <Filter>MyLib\Shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\include\MyLib\FileSystem\FileIO\MemMapFile.cpp">
+      <Filter>MyLib\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\FileSystem\FileIO\MemMapFile.ixx">
+      <Filter>MyLib\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\GameSystem\AppContext.ixx">
+      <Filter>GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\Shape\Circle.ixx">
+      <Filter>MyLib\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\Coroutine.ixx">
+      <Filter>MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\FileSystem\FileIO\CsvIO.ixx">
+      <Filter>MyLib\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\FileSystem\FileIO\JsonIO.ixx">
+      <Filter>MyLib\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\FileSystem\FileSystem.ixx">
+      <Filter>MyLib\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Scene\LoadingScene\LoadingScene.ixx">
+      <Filter>Scene\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Object\Map\MapInfo.ixx">
+      <Filter>Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Component\Move\MoveWithKey\MoveWithKey.ixx">
+      <Filter>Component\MoveWithKey</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Component\Move\MoveWithKey\MoveWithKey.cpp">
+      <Filter>Component\MoveWithKey</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Object\Character\Player\PlayerData.ixx">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Object\Character\Enemy\Enemy.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Object\Character\Enemy\Enemy.ixx">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\TileChunkUtil.ixx">
+      <Filter>MyLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleCollider.ixx">
+      <Filter>Collision\CircleCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleCollider.cpp">
+      <Filter>Collision\CircleCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderVisitor.ixx">
+      <Filter>Collision\CircleCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderResolver.cpp">
+      <Filter>Collision\CircleCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderResolver.ixx">
+      <Filter>Collision\CircleCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderVisitor.cpp">
+      <Filter>Collision\CircleCollider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\MyLib\Coroutine.h">
-      <Filter>MyLib</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\data\MapTip.csv">
+    <None Include="..\resources\data\PlayerData.json">
       <Filter>Data</Filter>
     </None>
-    <None Include="..\data\MapData.json">
+    <None Include="..\resources\data\MapData.json">
       <Filter>Data</Filter>
     </None>
-    <None Include="..\data\test.json">
+    <None Include="..\resources\data\MapTip.csv">
       <Filter>Data</Filter>
     </None>
   </ItemGroup>

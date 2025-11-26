@@ -37,7 +37,7 @@ namespace object
     void Player::Init()
     {
         // プレイヤーデータ入力
-        PlayerData pData;
+        PlayerData pData{};
         pData.Input(data.get());
 
         // 初期位置設定
@@ -60,6 +60,7 @@ namespace object
         colDef.isActive = true;
         colDef.shouldCCD = true;
         id = ObjCtx::ColMgr().CreateRectCollider(&colDef, Vector2f(imgW, imgH), MyObjectTag());
+        ObjCtx::ColMgr().AddMask(id, col2d::CIRCLE, ObjectTag::ENEMY);
 
         // 衝突イベント追加
         col2d::ContactListener listener;
@@ -70,12 +71,16 @@ namespace object
 
     void Player::Update()
     {
+        // 速度反映
         ObjectContext::ColMgr().GetCollider(id)->SetVelocity(m_velocity);
     }
 
     void Player::LateUpdate()
     {
+        // 座標更新
         m_pos = ObjCtx::ColMgr().GetCollider(id)->GetColliderDef()->localPos;
+
+        // 速度更新
         m_velocity = ObjCtx::ColMgr().GetCollider(id)->GetVelocity();
     }
 
