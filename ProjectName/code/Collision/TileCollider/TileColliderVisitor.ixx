@@ -1,12 +1,12 @@
 export module Collider.TileColliderVisitor;
-
+export import ColliderVisitor;
 import Collider.TileColliderResolver;
-import ColliderVisitor;
 
 export namespace col2d
 {
     // 前方宣言
-    export class TileCollider;
+    class TileCollider;
+    class CircleCollider;
 
     /// <summary>
     /// タイルコライダービジター
@@ -18,10 +18,11 @@ export namespace col2d
         /// コンストラクタ
         /// </summary>
         /// <param name="issue">訪問するタイルコライダー</param>
-        TileColliderVisitor(TileCollider& issue) : m_issue(issue) {}
+        TileColliderVisitor(TileCollider& issue);
 
         // デフォルトコンストラクタは削除
         TileColliderVisitor() = delete;
+
         /// <summary>
         /// デストラクタ
         /// </summary>
@@ -32,6 +33,15 @@ export namespace col2d
         /// </summary>
         /// <param name="collider">訪問するタイルコライダー</param>
         void Visit(RectCollider& collider) override;
+
+        /// <summary>
+        /// 円形コライダーを訪問
+        /// </summary>
+        /// <param name="target">訪問する円形コライダー</param>
+        void Visit(CircleCollider& target) override
+        {
+            // タイルコライダーは円形コライダーに対応していないため、処理なし
+        }
 
     private:
         TileCollider& m_issue;              // 訪問するタイルコライダーの参照

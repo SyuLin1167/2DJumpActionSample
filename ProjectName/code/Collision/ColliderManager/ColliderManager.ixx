@@ -11,6 +11,7 @@ import MyLib.Math.Vector2;
 import Collider;
 import Collider.RectCollider;
 import Collider.TileCollider;
+import Collider.CircleCollider;
 import Object.MapInfo;
 
 using namespace math;
@@ -74,6 +75,18 @@ export namespace col2d
         [[nodiscard]] inline ColliderID CreateRectCollider(ColliderDef* def, const Vector2f& size, const uint32_t& ownerID = 0)
         {
             return CreateCollider<RectCollider>(def, ownerID, size);
+        }
+
+        /// <summary>
+        /// 円コライダーを生成
+        /// </summary>
+        /// <param name="def">コライダー定義</param>
+        /// <param name="radius">半径</param>
+        /// <param name="ownerID">所有者のID</param>
+        /// <returns>生成されたコライダーの識別子</returns>
+        [[nodiscard]] inline ColliderID CreateCircleCollider(ColliderDef* def, float radius, const uint32_t& ownerID = 0)
+        {
+            return CreateCollider<CircleCollider>(def, ownerID, radius);
         }
 
         /// <summary>

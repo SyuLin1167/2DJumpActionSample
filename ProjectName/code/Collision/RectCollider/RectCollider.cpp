@@ -1,5 +1,9 @@
 module Collider.RectCollider;
+import <memory>;
 import MyLib.Math.Vector2;
+import MyLib.Shape.Circle;
+import Collider.CircleCollider;
+import Collider.RectColliderVisitor;
 
 using namespace math;
 
@@ -22,45 +26,91 @@ namespace col2d
         m_sweptRect.size = m_baseRect.size;
     }
 
+    RectCollider::~RectCollider() = default;
+
     bool RectCollider::IsColliding(const Vector2f& point)
     {
         // スイープ矩形を使用して衝突判定
         if (m_colDef->shouldCCD)
         {
-            CalcSweptRect(m_velocity);
-            return (point.x >= m_sweptRect.Left() &&
-                point.x <= m_sweptRect.Right() &&
-                point.y >= m_sweptRect.Top() &&
-                point.y <= m_sweptRect.Bottom());
+            return IsCollidingSegmentPoint(point);
         }
 
         //通常の衝突判定
-        return (point.x >= m_baseRect.Left() &&
-            point.x <= m_baseRect.Right() &&
-            point.y >= m_baseRect.Top() &&
-            point.y <= m_baseRect.Bottom());
+        return m_baseRect.IsInside(point);
     }
 
+    bool RectCollider::IsCollidingSegmentPoint(const Vector2f& point)
+    {
+        // スイープ矩形を使用して衝突判定
+        CalcSweptRect(m_velocity);
+        return m_sweptRect.IsInside(point);
+    }
+
+    bool RectCollider::IsColliding(const CircleCollider& circle)
+    {
+        // 連続衝突検出を行う場合
+        if (m_colDef->shouldCCD || circle.GetColliderDef()->shouldCCD)
+        {
+            return IsCollidingSegmentCircle(circle);
+        }
+
+
+        // 中心から最も近い辺を求める
+        Vector2f nearest
+        {
+            std::clamp(circle.GetCircle().center.x, m_baseRect.Left(), m_baseRect.Right()),
+            std::clamp(circle.GetCircle().center.y, m_baseRect.Top(), m_baseRect.Bottom())
+        };
+
+        // 中心と辺の距離を計算して判定
+        Vector2f diff = circle.GetCircle().center - nearest;
+        return diff.LengthSq() <= (circle.GetCircle().radius * circle.GetCircle().radius);
+    }
 
     bool RectCollider::IsColliding(const RectCollider& other)
     {
         // 連続衝突検出を行う場合
         if (m_colDef->shouldCCD || other.GetColliderDef()->shouldCCD)
         {
-            // 相対速度の算出
-            const math::Vector2f v_rel{
-                m_velocity.x - other.GetVelocity().x,
-                m_velocity.y - other.GetVelocity().y
-            };
-
-            // スイープ矩形の算出
-            CalcSweptRect(v_rel);
-
-            return m_sweptRect.AABB(other.GetRect());
+            return IsCollidingSegmentRect(other);
         }
 
         // 通常の矩形衝突判定
         return m_baseRect.AABB(other.GetRect());
+    }
+
+    bool RectCollider::IsCollidingSegmentRect(const RectCollider& other)
+    {
+        // 相対速度を計算
+        Vector2f vRel = m_velocity - other.GetVelocity();
+        if(vRel.LengthSq() < EPSILON)
+        {
+            // 相対速度がほぼゼロの場合、通常のAABB判定を行う
+            return m_baseRect.AABB(other.GetRect());
+        }
+
+        // スイープ矩形を使用して衝突判定
+        CalcSweptRect(vRel);
+        return m_sweptRect.AABB(other.GetRect());
+
+    }
+
+    bool RectCollider::IsCollidingSegmentCircle(const CircleCollider& other)
+    {
+        // スイープ矩形を使用して衝突判定
+        Vector2f vRel = m_velocity - other.GetVelocity();
+        CalcSweptRect(vRel);
+
+        // 中心から最も近い辺を求める
+        Vector2f nearest
+        {
+            std::clamp(other.GetCircle().center.x, m_sweptRect.Left(), m_sweptRect.Right()),
+            std::clamp(other.GetCircle().center.y, m_sweptRect.Top(), m_sweptRect.Bottom())
+        };
+        // 中心と辺の距離を計算して判定
+        Vector2f diff = other.GetCircle().center - nearest;
+        return diff.LengthSq() <= (other.GetCircle().radius * other.GetCircle().radius);
     }
 
     void RectCollider::CalcSweptRect(Vector2f velocity)

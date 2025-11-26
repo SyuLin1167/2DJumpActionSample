@@ -1,6 +1,6 @@
 export module Collider.TileColliderResolver;
-import Collider.RectCollider;
 import <cstdint>;
+import Collider.RectCollider;
 
 /// <summary>
 /// “–‚½‚è”»’èŠÖ˜A

@@ -1,14 +1,12 @@
 export module Collider.TileCollider;
-
-import <unordered_map>;
-import <queue>;
-import <string>;
 import <future>;
-
+import <string>;
+import <queue>;
+import <unordered_map>;
 import MyLib.Shape.Rect;
-import Collider;
-import Collider.TileColliderVisitor;
+export import Collider;
 export import Object.MapInfo;
+import Collider.RectCollider;
 
 using namespace math;
 
@@ -17,6 +15,9 @@ using namespace math;
 /// </summary>
 export namespace col2d
 {
+    // 前方宣言
+    class TileColliderVisitor;
+
     /// <summary>
     /// タイルの隣接フラグ
     /// </summary>
@@ -61,7 +62,7 @@ export namespace col2d
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~TileCollider() override = default;
+        ~TileCollider() override;
 
         /// <summary>
         /// カテゴリーの生成
@@ -78,15 +79,6 @@ export namespace col2d
         /// <param name="rect">矩形</param>
         /// <returns>衝突しているか</returns>
         bool IsColliding(const shape::Rect& rect);
-
-        /// <summary>
-        /// 他のコライダーとの衝突判定
-        /// </summary>
-        /// <param name="other">他のコライダー</param>
-        void CollideWith(Collider& other) override
-        {
-            other.Accept(*m_visitor);
-        }
 
         /// <summary>
         /// ヒットしたタイルのキーを取得
@@ -168,8 +160,6 @@ export namespace col2d
         void BuildTileColliders(std::vector<size_t> mapData);
 
         object::MapInfo m_mapInfo;      // マップ情報
-
-        std::unique_ptr<TileColliderVisitor> m_visitor;  // タイルコライダービジター
 
         /// <summary>
         /// タイル情報
