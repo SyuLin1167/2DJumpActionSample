@@ -16,6 +16,7 @@ import Asset.DivisionGraph;
 import GameSystem.Window;
 
 using namespace gameSystem;
+using namespace math;
 
 namespace object
 {
@@ -90,8 +91,13 @@ namespace object
         }
 
         //描画範囲を算出して描画
-        CalcDrawRange(static_cast<int>(player->AccessPos().NowY()) / m_mapInfo.tileSize.x, rangeY, m_mapInfo.mapSize.x);
-        CalcDrawRange(static_cast<int>(player->AccessPos().NowX()) / m_mapInfo.tileSize.y, rangeX, m_mapInfo.mapSize.y);
+        Vector2i pos
+        {
+            pos.x = player->AccessPos().NowX<int>() / static_cast<int>(m_mapInfo.tileSize.x),
+            pos.y = player->AccessPos().NowY<int>() / static_cast<int>(m_mapInfo.tileSize.y)
+        };
+        CalcDrawRange(pos.y, rangeY, m_mapInfo.mapSize.x);
+        CalcDrawRange(pos.x, rangeX, m_mapInfo.mapSize.y);
 
         for (size_t i = rangeY.first; i <= rangeY.second; i++)
         {

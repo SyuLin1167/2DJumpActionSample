@@ -8,6 +8,7 @@ import MyLib.KeyStatus;
 import Scene.Title;
 import Object.ObjectManager;
 import Object.Player;
+import Object.Enemy;
 import Object.Map;
 
 namespace scene
@@ -16,6 +17,7 @@ namespace scene
     {
         //オブジェクト追加
         m_objManager->AddObject(new object::Player);
+        m_objManager->AddObject(new object::Enemy);
         m_objManager->AddObject(new object::Map);
     }
 

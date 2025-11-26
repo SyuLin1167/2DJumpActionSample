@@ -171,6 +171,12 @@
     <ClCompile Include="..\code\Asset\DivisionGraph\DivisionGraph.ixx" />
     <ClCompile Include="..\code\Asset\Graph\Graph.cpp" />
     <ClCompile Include="..\code\Asset\Graph\Graph.ixx" />
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleCollider.cpp" />
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleCollider.ixx" />
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderResolver.cpp" />
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderResolver.ixx" />
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderVisitor.cpp" />
+    <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderVisitor.ixx" />
     <ClCompile Include="..\code\Collision\ColliderManager\ColliderManager.cpp" />
     <ClCompile Include="..\code\Collision\ColliderManager\ColliderManager.ixx" />
     <ClCompile Include="..\code\Collision\Collider\Collider.cpp" />
@@ -208,13 +214,14 @@
     <ClCompile Include="..\code\GameSystem\Window\Window.cpp" />
     <ClCompile Include="..\code\GameSystem\Window\Window.ixx" />
     <ClCompile Include="..\code\main.cpp" />
+    <ClCompile Include="..\code\Object\Character\Enemy\Enemy.cpp" />
+    <ClCompile Include="..\code\Object\Character\Enemy\Enemy.ixx" />
     <ClCompile Include="..\code\Object\Character\Player\Player.cpp" />
     <ClCompile Include="..\code\Object\Character\Player\Player.ixx" />
     <ClCompile Include="..\code\Object\Character\Player\PlayerData.ixx" />
     <ClCompile Include="..\code\Object\GameObject\GameObject.cpp" />
     <ClCompile Include="..\code\Object\GameObject\GameObject.ixx" />
     <ClCompile Include="..\code\Object\GameObject\ObjectContext.ixx" />
-    <ClCompile Include="..\code\Object\GameObject\ObjectData.ixx" />
     <ClCompile Include="..\code\Object\GameObject\ObjectState.ixx" />
     <ClCompile Include="..\code\Object\GameObject\ObjectTag.ixx" />
     <ClCompile Include="..\code\Object\Map\Map.cpp" />
@@ -246,6 +253,7 @@
     <ClCompile Include="..\include\MyLib\Loading\LoadingContext.ixx" />
     <ClCompile Include="..\include\MyLib\Math\PropVector2.ixx" />
     <ClCompile Include="..\include\MyLib\Math\Vector2.ixx" />
+    <ClCompile Include="..\include\MyLib\Shape\Circle.ixx" />
     <ClCompile Include="..\include\MyLib\Shape\Rect.ixx" />
     <ClCompile Include="..\include\MyLib\TileChunkUtil.ixx" />
   </ItemGroup>
@@ -253,9 +261,9 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\data\PlayerData.json" />
     <None Include="..\resources\data\MapData.json" />
     <None Include="..\resources\data\MapTip.csv" />
+    <None Include="..\resources\data\PlayerData.json" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="project.rc" />
