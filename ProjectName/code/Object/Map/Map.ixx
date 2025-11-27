@@ -33,11 +33,6 @@ export namespace object
         ~Map();
 
         /// <summary>
-        ///  参照するオブジェクト取得
-        /// </summary>
-        void GetReferenceObject(std::function<std::vector<std::shared_ptr<GameObject>>(uint32_t)> referenceObj) override;
-
-        /// <summary>
         /// 初期化処理
         /// </summary>
         void Init() override;
@@ -71,7 +66,6 @@ export namespace object
         std::pair<size_t, size_t> rangeX;           //描画範囲X
         std::pair<size_t, size_t> rangeY;           //描画範囲Y
 
-        GameObject* player;                         //プレイヤー
         col2d::ColliderID colID;            // コライダーID
     };
 }

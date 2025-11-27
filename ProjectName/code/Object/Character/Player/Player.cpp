@@ -9,6 +9,7 @@ import MyLib.File.FileSystem;
 import MyLib.KeyStatus;
 import MyLib.Loading.LoadingContext;
 import MyLib.Math.Vector2;
+import GameSystem.Camera;
 import Component.Jump;
 import Component.MoveWithKey;
 import Asset.Graph;
@@ -42,6 +43,9 @@ namespace object
 
         // 初期位置設定
         m_pos = pData.pos;
+
+        // カメラ追従ターゲット設定
+        gameSystem::Camera::Instance().SetTarget(&m_pos);
 
         // 移動機能追加
         auto move = m_compMgr->AddComponent<component::MoveWithKey>(this);
@@ -86,7 +90,9 @@ namespace object
 
     void Player::Draw()
     {
-        DrawGraph((int)m_pos.x, (int)m_pos.y, AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("body"), true);
+        const Vector2f sp = gameSystem::Camera::Instance().WorldToScreen(m_pos);
+        DrawGraph((int)sp.x, (int)sp.y, AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("body"), true);
+
         DrawFormatString(1000, 10, GetColor(250, 250, 20), "move:←→\njump:Aキー");
     }
 }

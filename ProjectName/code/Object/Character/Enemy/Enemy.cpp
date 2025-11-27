@@ -3,6 +3,7 @@ module;
 
 module Object.Enemy;
 import MyLib.Math.Vector2;
+import GameSystem.Camera;
 
 using namespace math;
 
@@ -28,6 +29,7 @@ namespace object
     void Enemy::LateUpdate() {}
     void Enemy::Draw()
     {
-        DrawCircle(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y), 32, GetColor(255, 150, 0), TRUE);
+        const auto sp = gameSystem::Camera::Instance().WorldToScreen(m_pos);
+        DrawCircle(static_cast<int>(sp.x), static_cast<int>(sp.y), 32, GetColor(255, 150, 0), TRUE);
     }
 }

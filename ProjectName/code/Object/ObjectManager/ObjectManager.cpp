@@ -1,5 +1,6 @@
 ﻿module Object.ObjectManager;
 import ObjectContext;
+import GameSystem.Camera;
 
 namespace object
 {
@@ -63,6 +64,7 @@ namespace object
                 object->LateUpdate();
             }
         }
+        gameSystem::Camera::Instance().Update();
 
         isUpdate = false;
 

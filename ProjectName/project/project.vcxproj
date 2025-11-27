@@ -205,6 +205,8 @@
     <ClCompile Include="..\code\Component\Move\MoveWithKey\MoveWithKey.cpp" />
     <ClCompile Include="..\code\Component\Move\MoveWithKey\MoveWithKey.ixx" />
     <ClCompile Include="..\code\GameSystem\AppContext.ixx" />
+    <ClCompile Include="..\code\GameSystem\Camera\Camera.cpp" />
+    <ClCompile Include="..\code\GameSystem\Camera\Camera.ixx" />
     <ClCompile Include="..\code\GameSystem\Execution\Execution.cpp" />
     <ClCompile Include="..\code\GameSystem\Execution\Execution.ixx" />
     <ClCompile Include="..\code\GameSystem\FrameRate\FrameRate.cpp" />
