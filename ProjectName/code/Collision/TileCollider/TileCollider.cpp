@@ -37,7 +37,7 @@ namespace col2d
             const auto& mapData = mapDataSf.get();
             // タイルコライダー生成
             BuildTileColliders(mapData);
-            };
+        };
 
         // タスクの登録または即時実行
         if (task::LoadingContext::Get())
@@ -228,6 +228,7 @@ namespace col2d
 
                 TileInfo tileInfo{};
                 tileInfo.adjacentFlag = adjacentFlag;
+                tileInfo.type = static_cast<TileType>(mapData[gidx]);
 
                 ColliderDef colDef{};
                 colDef.localPos = Vector2f(x * m_mapInfo.tileSize.x, y * m_mapInfo.tileSize.y);

@@ -62,7 +62,7 @@ namespace col2d
                     // 現在位置で本当に衝突しているか再確認
                     if (collider.IsColliding(*tileInfo->collider))
                     {
-                        m_resolver.Resolve(collider, *tileInfo->collider, tileInfo->adjacentFlag);
+                        m_resolver.Resolve(collider, *tileInfo);
                         hadContact = true;
                     }
                 }
