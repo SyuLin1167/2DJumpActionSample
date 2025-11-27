@@ -68,6 +68,7 @@ namespace col2d
             {
                 return;
             }
+
             issue.AddVelocity(Vector2f(dx, 0.0f));
             issue.SetVelocity(Vector2f(0.0f, issue.GetVelocity().y));
         }
@@ -78,6 +79,7 @@ namespace col2d
             {
                 return;
             }
+
             issue.AddVelocity(Vector2f(0.0f, dy));
             issue.SetVelocity(Vector2f(issue.GetVelocity().x, 0.0f));
         }

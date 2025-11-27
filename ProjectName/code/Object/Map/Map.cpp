@@ -12,6 +12,7 @@ import <future>;
 import MyLib.Loading.LoadingContext;
 import MyLib.Math.Vector2;
 import MyLib.TileChunkUtil;
+import GameSystem.Camera;
 import Asset.DivisionGraph;
 import GameSystem.Window;
 
@@ -21,7 +22,6 @@ using namespace math;
 namespace object
 {
     Map::Map()
-        : player(nullptr)
     {
         // マップ構成読み込み
         auto path = AppCtx::FileSystem().Resolve("data://MapTip.csv");
@@ -72,14 +72,16 @@ namespace object
 
     void Map::Init()
     {
+        // ワールドサイズ設定
+        Vector2f worldSize
+        {
+            m_mapInfo.mapSize.x * m_mapInfo.tileSize.x,
+            m_mapInfo.mapSize.y * m_mapInfo.tileSize.y
+        };
+        gameSystem::Camera::Instance().SetWorldSize(worldSize);
+
         // 衝突マスク追加
         ObjectContext::ColMgr().AddMask(colID, col2d::RECT, PLAYER);
-    }
-
-    void Map::GetReferenceObject(std::function<std::vector<std::shared_ptr<GameObject>>(uint32_t)> referenceObj)
-    {
-        //プレイヤー参照
-        player = referenceObj(PLAYER).begin()->get();
     }
 
     void Map::Draw()
@@ -90,15 +92,23 @@ namespace object
             return;
         }
 
-        //描画範囲を算出して描画
-        Vector2i pos
-        {
-            pos.x = player->AccessPos().NowX<int>() / static_cast<int>(m_mapInfo.tileSize.x),
-            pos.y = player->AccessPos().NowY<int>() / static_cast<int>(m_mapInfo.tileSize.y)
-        };
-        CalcDrawRange(pos.y, rangeY, m_mapInfo.mapSize.x);
-        CalcDrawRange(pos.x, rangeX, m_mapInfo.mapSize.y);
+        // カメラオフセット取得
+        Vector2f camOffset = gameSystem::Camera::Instance().GetOffset();
+        const auto winSize = Window::Instance().GetWindowData()->SIZE;
 
+        // 描画範囲算出
+        const int startTileX = (std::max)(0, static_cast<int>(camOffset.x / m_mapInfo.tileSize.x));
+        const int startTileY = (std::max)(0, static_cast<int>(camOffset.y / m_mapInfo.tileSize.y));
+        const int endTileX = (std::min)(static_cast<int>(m_mapInfo.mapSize.x) - 1,
+            static_cast<int>((camOffset.x + winSize.x) / m_mapInfo.tileSize.x) + 1);
+        const int endTileY = (std::min)(static_cast<int>(m_mapInfo.mapSize.y) - 1,
+            static_cast<int>((camOffset.y + winSize.y) / m_mapInfo.tileSize.y) + 1);
+
+        // 描画範囲設定
+        rangeX = { static_cast<size_t>(startTileX), static_cast<size_t>(endTileX) };
+        rangeY = { static_cast<size_t>(startTileY), static_cast<size_t>(endTileY) };
+
+        // 描画ループ
         for (size_t i = rangeY.first; i <= rangeY.second; i++)
         {
             for (size_t j = rangeX.first; j <= rangeX.second; j++)
@@ -117,9 +127,10 @@ namespace object
                 int handle = AppCtx::AssetMgr().Fetch<asset::DivisionGraph>()->GetHandle("map", mapIt->second.at(localIndex));
 
                 // チャンクに沿った座標に描画
-                int x = static_cast<int>(j * m_mapInfo.tileSize.x);
-                int y = static_cast<int>(i * m_mapInfo.tileSize.y);
-                DrawGraph(x, y, handle, true);
+                float x = j * m_mapInfo.tileSize.x;
+                float y = i * m_mapInfo.tileSize.y;
+                Vector2f camPos = gameSystem::Camera::Instance().WorldToScreen({ x, y });
+                DrawGraph(static_cast<int>(camPos.x), static_cast<int>(camPos.y), handle, true);
             }
         }
     }
