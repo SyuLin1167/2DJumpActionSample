@@ -1,6 +1,8 @@
 export module Collider.TileColliderResolver;
 import <cstdint>;
 import Collider.RectCollider;
+import Collider.TileCollider;
+import MyLib.Shape.Rect;
 
 /// <summary>
 /// 当たり判定関連
@@ -29,9 +31,25 @@ export namespace col2d
         /// 解決処理
         /// </summary>
         /// <param name="issue">解決対象のタイルコライダー</param>
-        /// <param name="other">他の矩形コライダー</param>
-        /// <param name="adjacentFlag">隣接するタイルのフラグ</param>
-        void Resolve(RectCollider& issue, const RectCollider& other, uint8_t adjacentFlag);
+        /// <param name="tileInfo">タイル情報</param>
+        void Resolve(RectCollider& issue, const TileInfo& tileInfo);
+
+        // 押し戻し量の計算
+        math::Vector2f CalcPushBack(const RectCollider& issue,const uint8_t adjacentFlag, const shape::Rect& tileRect);
+
+        /// <summary>
+        /// 通常ブロックの解決処理
+        /// </summary>
+        /// <param name="issue">解決対象のタイルコライダー</param>
+        /// <param name="tileInfo">タイル情報</param>
+        void ResolveSolid(RectCollider& issue, const TileInfo& tileInfo);
+
+        /// <summary>
+        /// 上からのみ当たるブロックの解決処理
+        /// </summary>
+        /// <param name="issue">解決対象のタイルコライダー</param>
+        /// <param name="tileInfo">タイル情報</param>
+        void ResolveOneWayTop(RectCollider& issue, const TileInfo& tileInfo);
     };
 }
 

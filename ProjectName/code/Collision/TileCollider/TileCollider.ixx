@@ -32,6 +32,25 @@ export namespace col2d
     };
 
     /// <summary>
+    /// タイルの種類
+    /// </summary>
+    export enum class TileType : uint8_t
+    {
+        SOLID = 1, // 通常ブロック
+        ONE_WAY_TOP = 2  // 上からのみ当たり（足場）
+    };
+
+    /// <summary>
+    /// タイル情報
+    /// </summary>
+    struct TileInfo
+    {
+        TileType type;                          // タイルの種類
+        uint8_t adjacentFlag;                   // 隣接するタイルのフラグ
+        std::unique_ptr<RectCollider> collider; // タイルに対応する矩形コライダー
+    };
+
+    /// <summary>
     /// タイルコライダー
     /// </summary>
     /// <remarks>
@@ -39,9 +58,6 @@ export namespace col2d
     /// </remarks>
     export class TileCollider final :public Collider
     {
-        // 前方宣言
-        struct TileInfo;
-
     public:
         /// <summary>
         /// コンストラクタ
@@ -160,15 +176,6 @@ export namespace col2d
         void BuildTileColliders(std::vector<size_t> mapData);
 
         object::MapInfo m_mapInfo;      // マップ情報
-
-        /// <summary>
-        /// タイル情報
-        /// summary>
-        struct TileInfo
-        {
-            uint8_t adjacentFlag;                   // 隣接するタイルのフラグ
-            std::unique_ptr<RectCollider> collider; // タイルに対応する矩形コライダー
-        };
 
         std::unordered_map<size_t, std::vector<TileInfo>> m_tileColliders;  // タイル状のコライダーを保持するベクター
         std::queue<std::pair<size_t, size_t>> m_hitTileKeys;                // ヒットしたタイルのキー
