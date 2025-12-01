@@ -105,6 +105,11 @@ export namespace col2d
         }
 
         /// <summary>
+        /// 移動量の追加
+        /// </summary>
+        virtual void AddVelocity() {};
+
+        /// <summary>
         /// イベントの追加
         /// </summary>
         /// <param name="key">イベントのキー</param>
@@ -119,6 +124,18 @@ export namespace col2d
         /// </summary>
         /// <param name="key">イベントのキー</param>
         void TriggerEvent(const uint64_t& key);
+
+        /// <summary>
+        /// イベントの削除
+        /// </summary>
+        /// <param name="key">イベントのキー</param>
+        void DeleteEvent(const uint64_t& key)
+        {
+            if (m_events.find(key) != m_events.end())
+            {
+                m_events.erase(key);
+            }
+        }
 
     protected:
         /// <summary>

@@ -112,7 +112,7 @@ export namespace col2d
         /// <summary>
         /// ˆÚ“®—Ê‚Ì’Ç‰Á
         /// </summary>
-        void AddVelocity()
+        void AddVelocity() override
         {
             m_colDef->localPos += m_velocity;
             m_baseCircle.center = m_colDef->localPos;

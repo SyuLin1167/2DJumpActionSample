@@ -35,6 +35,11 @@ export namespace col2d
         /// </summary>
         void Visit(RectCollider& target) override;
 
+        /// <summary>
+        /// 円形コライダーを訪問
+        /// </summary>
+        void Visit(CircleCollider& target) override;
+
     private:
         CircleCollider& m_issue;                 // 衝突判定を行う円形コライダー
         CircleColliderResolver m_resolver;       // 解決処理

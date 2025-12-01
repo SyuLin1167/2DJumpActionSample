@@ -47,7 +47,7 @@ export namespace component
         /// <summary>
         /// ジャンプの実行
         /// </summary>
-        void TryJump();
+        void TryJump(const float& deltaTime);
 
         /// <summary>
         /// ジャンプ可能にする

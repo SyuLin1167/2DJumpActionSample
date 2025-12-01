@@ -20,7 +20,7 @@ namespace component
         //トリガーが引かれたらジャンプを実施
         if (m_trigger())
         {
-            TryJump();
+            TryJump(deltaTime);
         }
         
         // ジャンプ中なら最大落下速度まで重力を加算する
@@ -30,7 +30,7 @@ namespace component
         }
     }
 
-    void Jump::TryJump()
+    void Jump::TryJump(const float& deltaTime)
     {
         //ジャンプ中でなければジャンプを実施
         if (!m_nowJump)

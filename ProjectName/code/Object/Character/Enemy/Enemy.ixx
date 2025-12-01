@@ -7,6 +7,8 @@ import Object.GameObject;
 /// </summary>
 export namespace object
 {
+    constexpr float MAX_HEALTH = 1.0f;  // 最大体力
+
     /// <summary>
     /// 敵の役割
     /// </summary>
@@ -36,7 +38,7 @@ export namespace object
         /// <summary>
         /// 後更新処理
         /// </summary>
-        void LateUpdate() override;
+        void LateUpdate() override {};
 
         /// <summary>
         /// 描画処理
@@ -52,6 +54,9 @@ export namespace object
             return ObjectTag::ENEMY;
         }
 
-        col2d::ColliderID id;
+    private:
+        col2d::ColliderID id;   // コライダーID
+        float m_health;        // 体力
+        float m_damage;        // ダメージ
     };
 }

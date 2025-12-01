@@ -114,7 +114,7 @@ export namespace col2d
         /// <summary>
         /// ˆÚ“®—Ê‚Ì’Ç‰Á
         /// </summary>
-        void AddVelocity()
+        void AddVelocity() override
         {
             m_colDef->localPos += m_velocity;
             m_baseRect.pos = m_colDef->localPos;

@@ -12,7 +12,7 @@ using namespace math;
 namespace col2d
 {
     constexpr float INF = std::numeric_limits<float>::max();    // –³ŒÀ‘å
-    static constexpr float ONE_WAY_EPS = 0.5f;                  // ‘«ê”»’è‚Ì‹–—eŒë·
+    static constexpr float ONE_WAY_EPS = 5.0f;                  // ‘«ê”»’è‚Ì‹–—eŒë·
 
 
     void TileColliderResolver::Resolve(RectCollider& issue, const TileInfo& tileInfo)

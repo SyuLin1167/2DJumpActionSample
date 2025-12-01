@@ -62,6 +62,11 @@ export namespace object
         void Update();
 
         /// <summary>
+        /// オブジェクト配列への反映
+        /// </summary>
+        void RefreshObjects();
+
+        /// <summary>
         /// オブジェクト取得
         /// </summary>
         /// <param name="tag">タグ</param>
