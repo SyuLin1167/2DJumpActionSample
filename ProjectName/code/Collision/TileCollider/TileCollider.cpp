@@ -91,7 +91,7 @@ namespace col2d
             m_hitTileKeys.pop();
         }
 
-        // タイル範囲を計算
+        // タイル範囲を計算(0～タイル幅)
         Vector2f tileLeft = rect.pos / m_mapInfo.tileSize;
         tileLeft.x = std::floor(tileLeft.x);
         tileLeft.y = std::floor(tileLeft.y);

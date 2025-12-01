@@ -1,6 +1,9 @@
 export module Collider.RectColliderVisitor;
 import ColliderVisitor;
 import Collider.RectColliderResolver;
+import MyLib.Math.Vector2;
+
+using namespace math;
 
 /// <summary>
 /// 当たり判定関連
@@ -35,13 +38,13 @@ export namespace col2d
         /// 矩形コライダーを訪問
         /// </summary>
         /// <param name="_target">訪問する矩形コライダー</param>
-        void Visit(col2d::RectCollider& target) override;
+        void Visit(RectCollider& target) override;
 
         /// <summary>
         /// 円形コライダーを訪問
         /// </summary>
         /// <param name="_target">訪問する円形コライダー</param>
-        void Visit(col2d::CircleCollider& target) override;
+        void Visit(CircleCollider& target) override;
 
     private:
         RectCollider& m_issue; // 訪問する矩形コライダーの参照

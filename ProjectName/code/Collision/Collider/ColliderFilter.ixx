@@ -112,10 +112,9 @@ export namespace col2d
         /// <param name="_mask">íœ‚·‚éƒ}ƒXƒN</param>
         void RemoveMask(const uint64_t& mask)
         {
-            auto it = std::remove(masks.begin(), masks.end(), mask);
-            if (it != masks.end())
+            if (auto it = std::find(masks.begin(), masks.end(), mask); it != masks.end())
             {
-                masks.erase(it, masks.end());
+                masks.erase(it);
             }
         }
 

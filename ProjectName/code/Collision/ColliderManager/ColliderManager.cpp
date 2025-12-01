@@ -25,8 +25,18 @@ namespace col2d
 
     void ColliderManager::DestroyCollider(const ColliderID& id)
     {
-        // コライダーのインデックスを解放
-        if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
+        // コライダーを解放
+        if (auto it = m_colliders.find(id.index); it != m_colliders.end())
+        {
+            // 他のコライダーからのマスクとイベントを削除
+            auto& category = it->second->GetFilter().category;
+            for (auto& [index, collider] : m_colliders)
+            {
+                collider->GetFilter().RemoveMask(category);
+                collider->DeleteEvent(category);
+            }
+
+            // コライダーを削除してインデックスを再利用可能にする
             m_colliders.erase(it);
             m_freeIndexes.push(id.index);
         }
@@ -52,6 +62,8 @@ namespace col2d
                     collider->CollideWith(*otherCollider.second);
                 }
             }
+
+            collider->AddVelocity();
         }
     }
     

@@ -21,8 +21,7 @@ namespace col2d
         {
             return;
         }
-
-        bool hadContact = false;
+        m_hadContact = false;
 
         // サブステップ数を決定
         Vector2f vel = m_issue.GetVelocity();
@@ -31,34 +30,35 @@ namespace col2d
         float stepMax = std::max(0.0001f, std::min(selfRect.size.Half().x, selfRect.size.Half().y));
         int N = std::max(1, static_cast<int>(std::ceil(longest / stepMax)));
         vel /= static_cast<float>(N);
-
-        // 仮想位置での矩形
-        auto stepRect = m_issue.GetRect();
+        Vector2f accumulatedMove{ 0.0f, 0.0f };
 
         // サブステップで仮想移動して衝突解決
         for (int i = 0; i < N; ++i)
         {
+            // 仮想移動
             m_issue.AddVelocity(vel);
-            stepRect.pos += vel;
+            accumulatedMove += vel;
 
             // 衝突していたら解決する
-            if (stepRect.AABB(target.GetRect()))
+            if (m_issue.IsColliding(target))
             {
-                hadContact = true;
-
-                // どちらかがトリガーなら押し戻しは行わない
-                if (!m_issue.GetColliderDef()->isTrigger || !target.GetColliderDef()->isTrigger)
+                // 衝突処理を行い、続行不可ならループを抜ける
+                if (!HandleContact<RectCollider, RectCollider, RectColliderResolver>(m_issue, target, m_resolver))
                 {
-                    m_resolver.Resolve(m_issue, target);
+                    break;
                 }
             }
         }
 
         // 衝突していればイベントを実施する
-        if (hadContact)
+        if (m_hadContact)
         {
             m_issue.TriggerEvent(target.GetFilter().category);
+            target.TriggerEvent(m_issue.GetFilter().category);
         }
+
+        // サブステップで進めた純粋な前進分だけを必ず巻き戻す
+        m_issue.AddVelocity(accumulatedMove * -1.0f);
     }
 
     void RectColliderVisitor::Visit(col2d::CircleCollider& target)
@@ -68,7 +68,8 @@ namespace col2d
         {
             return;
         }
-        bool hadContact = false;
+        m_hadContact = false;
+
         // サブステップ数を決定
         Vector2f vel = m_issue.GetVelocity();
         float longest = std::max(std::abs(vel.x), std::abs(vel.y));
@@ -76,28 +77,34 @@ namespace col2d
         float stepMax = std::max(0.0001f, std::min(selfRect.size.Half().x, selfRect.size.Half().y));
         int N = std::max(1, static_cast<int>(std::ceil(longest / stepMax)));
         vel /= static_cast<float>(N);
-        // 仮想位置での矩形
-        auto stepRect = m_issue.GetRect();
+        Vector2f accumulatedMove{ 0.0f, 0.0f };
+
         // サブステップで仮想移動して衝突解決
         for (int i = 0; i < N; ++i)
         {
+            // 仮想移動
             m_issue.AddVelocity(vel);
-            stepRect.pos += vel;
+            accumulatedMove += vel;
+
             // 衝突していたら解決する
             if (m_issue.IsColliding(target))
             {
-                hadContact = true;
-                // どちらかがトリガーなら押し戻しは行わない
-                if (!m_issue.GetColliderDef()->isTrigger || !target.GetColliderDef()->isTrigger)
+                // 衝突処理を行い、続行不可ならループを抜ける
+                if (!HandleContact<RectCollider, CircleCollider, RectColliderResolver>(m_issue, target, m_resolver))
                 {
-                    m_resolver.Resolve(m_issue, target);
+                    break;
                 }
             }
         }
+
         // 衝突していればイベントを実施する
-        if (hadContact)
+        if (m_hadContact)
         {
             m_issue.TriggerEvent(target.GetFilter().category);
+            target.TriggerEvent(m_issue.GetFilter().category);
         }
+
+        // サブステップで進めた純粋な前進分だけを必ず巻き戻す
+        m_issue.AddVelocity(accumulatedMove * -1.0f);
     }
 };

@@ -54,6 +54,7 @@ namespace object
                 object->Update();
             }
         }
+
         //当たり判定の更新
         ObjectContext::ColMgr().Step();
 
@@ -66,8 +67,13 @@ namespace object
         }
         gameSystem::Camera::Instance().Update();
 
+        // 更新終了後の処理
         isUpdate = false;
+        RefreshObjects();
+    }
 
+    void ObjectManager::RefreshObjects()
+    {
         for (auto tag : OBJECT_TAGS)
         {
             //死亡状態のオブジェクトを削除

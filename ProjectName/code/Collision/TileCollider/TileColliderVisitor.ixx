@@ -43,6 +43,9 @@ export namespace col2d
             // タイルコライダーは円形コライダーに対応していないため、処理なし
         }
 
+        // 衝突タイル毎に処理
+        void ProcessCollisionTiles(RectCollider& collider);
+
     private:
         TileCollider& m_issue;              // 訪問するタイルコライダーの参照
         TileColliderResolver m_resolver;    // タイルコライダーの解決処理を行うリゾルバー

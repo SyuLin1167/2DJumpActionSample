@@ -21,7 +21,7 @@ namespace col2d
         }
 
         // 衝突が発生したかどうか
-        bool hadContact = false;
+        m_hadContact = false;
 
         // 移動量からサブステップ数を決める
         Vector2f vel = collider.GetVelocity();
@@ -30,49 +30,55 @@ namespace col2d
         const float stepMax = 0.5f * std::min(tileSize.x, tileSize.y);
         int N = std::max(1, static_cast<int>(std::ceil(longest / stepMax)));
         vel /= N;
-
-        // 仮想位置での矩形
-        auto stepRect = collider.GetRect();
+        Vector2f accumulatedMove{ 0.0f, 0.0f };
 
         // サブステップごとに衝突判定と解決を行う
         for (int i = 0; i < N; ++i)
         {
             // 仮想移動
             collider.AddVelocity(vel);
-            stepRect.pos += vel;
+            accumulatedMove += vel;
 
-            // 現在予定位置で衝突タイル収集
-            if (m_issue.IsColliding(stepRect))
+            // 現在予定位置で衝突しているタイルを収集(あれば衝突)
+            if (m_issue.IsColliding(collider.GetRect()))
             {
                 // 衝突タイルごとに処理
-                auto hitTileKeys = m_issue.TakeHitTileKeys();
-                while (!hitTileKeys.empty())
-                {
-                    // 衝突タイル情報取得
-                    auto& [key, index] = hitTileKeys.front();
-                    hitTileKeys.pop();
-                    auto tileInfo = m_issue.GetTileInfo(key, index);
-
-                    // タイルコライダーが存在しない場合はスキップ
-                    if (!tileInfo || !tileInfo->collider)
-                    {
-                        continue;
-                    }
-
-                    // 現在位置で本当に衝突しているか再確認
-                    if (collider.IsColliding(*tileInfo->collider))
-                    {
-                        m_resolver.Resolve(collider, *tileInfo);
-                        hadContact = true;
-                    }
-                }
+                ProcessCollisionTiles(collider);
             }
         }
 
+        // サブステップで進めた純粋な前進分だけを必ず巻き戻す
+        collider.AddVelocity((accumulatedMove - vel) * -1.0f);
+
         // 衝突していればイベントを実施する
-        if (hadContact)
+        if (m_hadContact)
         {
             collider.TriggerEvent(m_issue.GetFilter().category);
+        }
+    }
+
+    void TileColliderVisitor::ProcessCollisionTiles(RectCollider& collider)
+    {
+        auto hitTileKeys = m_issue.TakeHitTileKeys();
+        while (!hitTileKeys.empty())
+        {
+            // 衝突タイル情報取得
+            auto& [key, index] = hitTileKeys.front();
+            hitTileKeys.pop();
+            auto tileInfo = m_issue.GetTileInfo(key, index);
+
+            // タイルコライダーが存在しない場合はスキップ
+            if (!tileInfo || !tileInfo->collider)
+            {
+                continue;
+            }
+
+            // 現在位置で本当に衝突しているか再確認
+            if (collider.IsColliding(*tileInfo->collider))
+            {
+                m_hadContact = true;
+                m_resolver.Resolve(collider, *tileInfo);
+            }
         }
     }
 }

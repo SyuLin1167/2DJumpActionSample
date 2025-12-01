@@ -1,5 +1,6 @@
 module Collider.CircleColliderResolver;
 import MyLib.Math.Vector2;
+import MyLib.Shape.Rect;
 import Collider.CircleCollider;
 import Collider.RectCollider;
 
@@ -10,19 +11,26 @@ namespace col2d
     void CircleColliderResolver::Resolve(CircleCollider& issue, const RectCollider& other)
     {
         // ·•ª‚ðŽZo
-        Vector2f diff = issue.GetCircle().center - other.GetRect().Center();
-
-        // Ž²‚²‚Æ‚É‰Ÿ‚µ–ß‚µ•ûŒü‚ðo‚·
-        Vector2f push = { 0.0f, 0.0f };
-        if (std::abs(diff.x) > std::abs(diff.y))
+        shape::Rect otherRect = other.GetRect();
+        Vector2f closestPoint
         {
-            push.x = (diff.x < 0) ? -other.GetRect().size.Half().x : other.GetRect().size.Half().x;
-        }
-        else
+            std::clamp(issue.GetCircle().center.x, otherRect.Left(), otherRect.Right()),
+            std::clamp(issue.GetCircle().center.y, otherRect.Top(), otherRect.Bottom())
+        };
+        Vector2f diff = issue.GetCircle().center - closestPoint;
+        
+        // ”»’è‹——£‚Ì“ñæ‚ðŒvŽZ
+        float distSq = diff.LengthSq();
+        float radius = issue.GetCircle().radius;
+        if (distSq >= radius * radius)
         {
-            push.y = (diff.y < 0) ? -other.GetRect().size.Half().y : other.GetRect().size.Half().y;
+            return;
         }
 
+        // ‰Ÿ‚µ–ß‚µ—Ê‚Æ•ûŒü‚ðŒvŽZ
+        float dist = std::sqrt(distSq);
+        float penetration = radius - dist;
+        Vector2f push = diff.Norm() * penetration;
         issue.AddVelocity(push);
 
         // ‰Ÿ‚µ–ß‚µŒã‚Ì‘¬“x¬•ªœ‹Ž
@@ -42,12 +50,12 @@ namespace col2d
         // ‰Ÿ‚µ–ß‚µ—Ê‚Æ•ûŒü‚ðŒvŽZ
         float dist = std::sqrt(distSq);
         float penetration = rSum - dist;
-        Vector2f normal = diff / dist;
-        Vector2f push = normal * penetration;
+        Vector2f push = diff.Norm() * penetration;
 
         issue.AddVelocity(push);
 
         // ‰Ÿ‚µ–ß‚µŒã‚Ì‘¬“x¬•ªœ‹Ž
+        Vector2f normal = push.Norm();
         Vector2f v = issue.GetVelocity();
         float vn = v.Dot(normal);
         issue.SetVelocity(v - normal * vn);
