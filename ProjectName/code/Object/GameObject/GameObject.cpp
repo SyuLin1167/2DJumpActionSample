@@ -5,7 +5,7 @@ namespace object
 {
     GameObject::GameObject()
         : m_compMgr(new component::ComponentManager)
-        , m_deltaTime(gameSystem::FrameRate::Instance().GetDeltaTime())
+        , m_deltaTime(gameSystem::FrameRate::GetDeltaTime())
         , m_pos()
         , m_velocity()
     {

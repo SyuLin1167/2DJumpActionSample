@@ -6,19 +6,16 @@ module Scene.SceneManager;
 import MyLib.KeyStatus;
 import Scene.SceneBase;
 import Scene.Title;
-import Asset.Graph;
 import GameSystem.FrameRate;
+
+using namespace gameSystem;
+using namespace input;
 
 namespace scene
 {
     SceneManager::SceneManager()
         : m_nextScene()
-        , m_graph(new asset::Graph)
     {
-        // 初期化
-        m_graph->CreateHandle("background", "bg.png");
-        gameSystem::FrameRate::Instance();
-
         //最初のシーンをタイトルに設定
         m_nowScene.emplace(new Title);
     }
@@ -26,7 +23,7 @@ namespace scene
     void SceneManager::GameLoop()
     {
         //ゲームループ
-        while (!ProcessMessage() && !input::KeyStatus::DecisionKeyState(keyType.ESCAPE, ON_PRESS))
+        while (!ProcessMessage() && !KeyStatus::CheckKey(keyType.ESCAPE, ON_PRESS))
         {
             Update();
             Draw();
@@ -37,8 +34,8 @@ namespace scene
     void SceneManager::Update()
     {
         //更新処理
-        gameSystem::FrameRate::Instance().CalcFrameRate();
-        input::KeyStatus::UpdateKeyState();
+        FrameRate::CalcFrameRate();
+        KeyStatus::UpdateKeyState();
         m_nextScene = m_nowScene.top()->Update();
     }
 
@@ -47,12 +44,10 @@ namespace scene
         //描画
         ClearDrawScreen();
         clsDx();
-        DrawGraph(0, 0, m_graph->GetHandle("background"), true);
         m_nowScene.top()->Draw();
-        SetFontSize(32);
-        DrawFormatString(10, 1020, GetColor(50, 250, 200), "Eキーでシーン遷移");
+
 #ifdef _DEBUG
-        gameSystem::FrameRate::Instance().DrawFrameRate();
+        FrameRate::DrawFrameRate();
 #endif // _DEBUG
         ScreenFlip();
     }

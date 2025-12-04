@@ -19,6 +19,7 @@ export namespace object
         MAP = 1 << 0,
         PLAYER = 1 << 1,
         ENEMY = 1 << 2,
+        GOAL = 1 << 3,
     };
 
     /// <summary>
@@ -30,6 +31,7 @@ export namespace object
         MAP,
         PLAYER,
         ENEMY,
+        GOAL,
     };
 
     /// <summary>
@@ -41,6 +43,7 @@ export namespace object
         {ObjectTag::MAP,"map"},
         {ObjectTag::PLAYER,"player"},
         {ObjectTag::ENEMY,"enemy"},
+        {ObjectTag::GOAL,"goal"},
     };
 
     /// <summary>
@@ -52,5 +55,6 @@ export namespace object
         {"map",ObjectTag::MAP},
         {"player",ObjectTag::PLAYER},
         {"enemy",ObjectTag::ENEMY},
+        {"goal",ObjectTag::GOAL},
     };
 }

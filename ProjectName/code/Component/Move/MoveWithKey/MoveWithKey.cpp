@@ -4,6 +4,7 @@ import MyLib.KeyStatus;
 import Object.GameObject;
 
 using namespace math;
+using namespace input;
 
 namespace component
 {
@@ -41,11 +42,11 @@ namespace component
         if (m_canMoveX)
         {
             float velocity = 0.0f;
-            if (input::KeyStatus::DecisionKeyState(m_leftKey, ON_PRESS | PRESSING))
+            if (KeyStatus::CheckKey(m_leftKey, ON_PRESS | PRESSING))
             {
                 velocity = -m_moveSpeed.x * deltaTime;
             }
-            if (input::KeyStatus::DecisionKeyState(m_rightKey, ON_PRESS | PRESSING))
+            if (KeyStatus::CheckKey(m_rightKey, ON_PRESS | PRESSING))
             {
 
                 velocity = m_moveSpeed.x * deltaTime;
@@ -55,11 +56,11 @@ namespace component
         if (m_canMoveY)
         {
             float velocity = 0.0f;
-            if (input::KeyStatus::DecisionKeyState(m_upKey, ON_PRESS | PRESSING))
+            if (KeyStatus::CheckKey(m_upKey, ON_PRESS | PRESSING))
             {
                 velocity = -m_moveSpeed.y * deltaTime;
             }
-            if (input::KeyStatus::DecisionKeyState(m_downKey, ON_PRESS | PRESSING))
+            if (KeyStatus::CheckKey(m_downKey, ON_PRESS | PRESSING))
             {
                 velocity = m_moveSpeed.y * deltaTime;
             }

@@ -51,7 +51,7 @@ export namespace asset
         /// <summary>
         /// ハンドル削除
         /// </summary>
-        /// <param name="_name">削除するハンドル名</param>
+        /// <param name="name">削除するハンドル名</param>
         void DeleteHandle(std::string name) override;
 
         /// <summary>

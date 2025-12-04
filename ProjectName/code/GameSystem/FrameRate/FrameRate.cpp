@@ -13,10 +13,10 @@ namespace gameSystem
         , m_fps(FPS_60)
         , m_frameCount()
     {
-        CalcFrameRate();
+        CalcFrameRateImpl();
     }
 
-    void FrameRate::CalcFrameRate()
+    void FrameRate::CalcFrameRateImpl()
     {
         //デルタタイムを算出
         m_nowTime = GetNowHiPerformanceCount();
@@ -34,10 +34,10 @@ namespace gameSystem
     }
 
 #ifdef _DEBUG
-    void FrameRate::DrawFrameRate() const
+    void FrameRate::DrawFrameRate()
     {
-        printfDx("deltaTime: %f", m_deltaTime);
-        printfDx("fps: %3.1f", m_fps);
+        printfDx("deltaTime: %f", FrameRate::GetDeltaTime());
+        printfDx("fps: %3.1f", Instance().m_fps);
     }
 #endif // _DEBUG
 }

@@ -53,6 +53,5 @@ export namespace scene
 
         std::stack<std::shared_ptr<SceneBase>> m_nowScene;     //現在のシーン
         std::shared_ptr<SceneBase> m_nextScene;                   //次シーン
-        std::unique_ptr<class asset::Graph> m_graph;
     };
 }

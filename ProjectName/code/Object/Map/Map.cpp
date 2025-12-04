@@ -40,7 +40,7 @@ namespace object
             m_mapInfo.FromJson(mapInfoSf.get());
 
             // チャンクサイズを取得
-            m_mapInfo.chunkSize = Window::Instance().GetWindowData()->SIZE / m_mapInfo.tileSize.Half();
+            m_mapInfo.chunkSize = Window::GetWindowData()->SIZE / m_mapInfo.tileSize.Half();
 
             
             infoPromise->set_value(m_mapInfo);
@@ -94,7 +94,7 @@ namespace object
 
         // カメラオフセット取得
         Vector2f camOffset = gameSystem::Camera::Instance().GetOffset();
-        const auto winSize = Window::Instance().GetWindowData()->SIZE;
+        const auto winSize = Window::GetWindowData()->SIZE;
 
         // 描画範囲算出
         const int startTileX = (std::max)(0, static_cast<int>(camOffset.x / m_mapInfo.tileSize.x));
@@ -138,7 +138,11 @@ namespace object
     void Map::CalcDrawRange(int pos, std::pair<size_t, size_t>& range, size_t length)
     {
         // 範囲算出
-        if (length == 0) { range = {0, 0}; return; }
+        if (length == 0)
+        {
+            range = {0, 0};
+            return;
+        }
         const int maxIndex = static_cast<int>(length) - 1;
         range.first  = static_cast<size_t>(std::clamp(pos - 5, 0, maxIndex));
         range.second = static_cast<size_t>(std::clamp(pos + 5, 0, maxIndex));

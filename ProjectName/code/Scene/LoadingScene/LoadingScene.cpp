@@ -67,21 +67,25 @@ namespace scene
                 if (std::holds_alternative<WaitForSeconds>(yieldType))
                 {
                     // 指定時間待機
-                    auto& wait = std::get<WaitForSeconds>(yieldType);
-                    static float elapsed = 0.0f;
-                    elapsed += gameSystem::FrameRate::Instance().GetDeltaTime();
-                    if (elapsed < wait.seconds)
+                    if (auto waitPtr = std::get_if<WaitForSeconds>(&yieldType))
                     {
-                        return shared_from_this();
+                        static float elapsed = 0.0f;
+                        elapsed += gameSystem::FrameRate::GetDeltaTime();
+                        if (elapsed < waitPtr->seconds)
+                        {
+                            return shared_from_this();
+                        }
                     }
                 }
                 else if (std::holds_alternative<WaitUntil>(yieldType))
                 {
                     // 指定条件完了確認
-                    auto& wait = std::get<WaitUntil>(yieldType);
-                    if (!wait.pred())
+                    if (auto waitPtr = std::get_if<WaitUntil>(&yieldType))
                     {
-                        return shared_from_this();
+                        if (!waitPtr->pred())
+                        {
+                            return shared_from_this();
+                        }
                     }
                 }
 

@@ -226,6 +226,7 @@
     <ClCompile Include="..\code\Object\GameObject\ObjectContext.ixx" />
     <ClCompile Include="..\code\Object\GameObject\ObjectState.ixx" />
     <ClCompile Include="..\code\Object\GameObject\ObjectTag.ixx" />
+    <ClCompile Include="..\code\Object\Goal\Goal.ixx" />
     <ClCompile Include="..\code\Object\Map\Map.cpp" />
     <ClCompile Include="..\code\Object\Map\Map.ixx" />
     <ClCompile Include="..\code\Object\Map\MapInfo.ixx" />
@@ -235,12 +236,16 @@
     <ClCompile Include="..\code\Scene\LoadingScene\LoadingScene.ixx" />
     <ClCompile Include="..\code\Scene\Play\Play.cpp" />
     <ClCompile Include="..\code\Scene\Play\Play.ixx" />
+    <ClCompile Include="..\code\Scene\Result\Result.cpp" />
+    <ClCompile Include="..\code\Scene\Result\Result.ixx" />
     <ClCompile Include="..\code\Scene\SceneBase\SceneBase.cpp" />
     <ClCompile Include="..\code\Scene\SceneBase\SceneBase.ixx" />
     <ClCompile Include="..\code\Scene\SceneManager\SceneManager.cpp" />
     <ClCompile Include="..\code\Scene\SceneManager\SceneManager.ixx" />
     <ClCompile Include="..\code\Scene\Title\Title.cpp" />
     <ClCompile Include="..\code\Scene\Title\Title.ixx" />
+    <ClCompile Include="..\include\MyLib\ClickStatus\ClickStatus.cpp" />
+    <ClCompile Include="..\include\MyLib\ClickStatus\ClickStatus.ixx" />
     <ClCompile Include="..\include\MyLib\Coroutine.ixx" />
     <ClCompile Include="..\include\MyLib\FileSystem\FileIO\CsvIO.ixx" />
     <ClCompile Include="..\include\MyLib\FileSystem\FileIO\JsonIO.ixx" />

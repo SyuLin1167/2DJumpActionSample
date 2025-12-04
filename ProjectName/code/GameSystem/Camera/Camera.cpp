@@ -26,7 +26,7 @@ namespace gameSystem
         }
 
         // ウィンドウサイズ取得
-        auto winSize = Window::Instance().GetWindowData()->SIZE;
+        auto winSize = Window::GetWindowData()->SIZE;
 
         // スクロールするターゲットの座標
         Vector2f target = *m_target - winSize / 3;
@@ -39,7 +39,7 @@ namespace gameSystem
 
     void Camera::ClampPosition()
     {
-        auto winSize = Window::Instance().GetWindowData()->SIZE;
+        auto winSize = Window::GetWindowData()->SIZE;
 
         // マップサイズが未設定の場合はクランプ不可
         if (m_worldSize.x <= 0.0f || m_worldSize.y <= 0.0f)
