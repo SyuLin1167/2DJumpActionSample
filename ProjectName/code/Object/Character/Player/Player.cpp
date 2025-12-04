@@ -52,7 +52,7 @@ namespace object
         move->SetHorizontal(keyType.LEFT, keyType.RIGHT, pData.moveSpeed.x);
 
         // ジャンプ機能追加
-        auto jump = m_compMgr->AddComponent<component::Jump>(this, pData.moveSpeed.y, std::bind(input::KeyStatus::DecisionKeyState, keyType.A, ON_PRESS));
+        auto jump = m_compMgr->AddComponent<component::Jump>(this, pData.moveSpeed.y, std::bind(input::KeyStatus::CheckKey, keyType.SPACE, ON_PRESS));
 
         // サイズ設定
         int imgW, imgH;

@@ -37,7 +37,7 @@ namespace component
         {
             m_nowJump = true;
             m_owner->AccessVel().Assign(PropVector2<float>::Y, 0.0f);
-            m_owner->AccessVel().Add(PropVector2<float>::Y, -JUMP_POWER);
+            m_owner->AccessVel().Add(PropVector2<float>::Y, -JUMP_POWER * deltaTime);
         }
     }
 }

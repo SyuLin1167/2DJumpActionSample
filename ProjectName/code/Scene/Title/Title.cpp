@@ -8,11 +8,16 @@ import MyLib.Loading.LoadingContext;
 import Scene.LoadingScene;
 import Scene.Play;
 import AppContext;
+import Asset.Graph;
+
+using namespace gameSystem;
 
 namespace scene
 {
     Title::Title()
     {
+        AppCtx::AssetMgr().LoadAsync<asset::Graph>("Title", "Title.png");
+
         //シェーダー読み込み(resources/shader)
         auto VSfpath = gameSystem::AppCtx::FileSystem().Resolve("shader://VertexShader.vso");
         vs = LoadVertexShader(VSfpath.string().c_str());
@@ -47,6 +52,9 @@ namespace scene
 
     Title::~Title()
     {
+        // 背景画像ハンドル削除
+        gameSystem::AppCtx::AssetMgr().DeleteHandle<asset::Graph>("Title");
+
         DeleteShader(vs);
         DeleteShader(ps);
     }
@@ -54,7 +62,7 @@ namespace scene
     std::shared_ptr<SceneBase> Title::Update()
     {
         //Eキーが押されていたらシーン移動
-        if (input::KeyStatus::DecisionKeyState(keyType.E, ON_PRESS))
+        if (input::KeyStatus::CheckKey(keyType.E, ON_PRESS))
         {
             return std::make_shared<LoadingScene>(LoadPolicy::PROGRESS, CreateNextScene<Play>, shared_from_this());
         }
@@ -79,10 +87,12 @@ namespace scene
 
     void Title::Draw()
     {
+
         SetUseVertexShader(vs);
         SetUsePixelShader(ps);
 
         DrawPolygon2DToShader(Vert, 2);
+        DrawGraph(0, 0, AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("Title"), true);
     }
 
     void Title::DrawLoading()

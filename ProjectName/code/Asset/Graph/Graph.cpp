@@ -70,10 +70,10 @@ namespace asset
         }
     }
 
-    void Graph::DeleteHandle(std::string _name)
+    void Graph::DeleteHandle(std::string name)
     {
         //‘ÎÛ‚Ìƒnƒ“ƒhƒ‹‚ðŒ©‚Â‚¯‚Äíœ
-        auto it = handles.find(_name);
+        auto it = handles.find(name);
         if (it != handles.end())
         {
             DeleteGraph(it->second);

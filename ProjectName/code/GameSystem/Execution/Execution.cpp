@@ -18,10 +18,9 @@ namespace gameSystem
     Execution::Execution()
     {
         //ゲーム実行に必要なクラスのインスタンスを生成、初期化
-        Window::Instance();
+        Window::Init();
         m_library.reset(new Library);
         AppCtx::Activate();
-        input::KeyStatus::InitInstance();
         m_scene.reset(new scene::SceneManager);
 
         // 実行に必要な resources フォルダを実行ファイルの場所に複製

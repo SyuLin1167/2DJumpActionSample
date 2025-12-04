@@ -45,11 +45,12 @@ export namespace asset
         /// <summary>
         /// ハンドル取得
         /// </summary>
-        /// <param name="_name">取得するハンドル名</param>
+        /// <param name="name">取得するハンドル名</param>
         /// <returns>ハンドル</returns>
         int GetHandle(const std::string& name) const
         {
-            if (auto it = handles.find(name); it != handles.end()) {
+            if (auto it = handles.find(name); it != handles.end())
+            {
                 return it->second;
             }
             return -1;

@@ -31,6 +31,31 @@ export namespace gameSystem
         ~FrameRate() = default;
 
         /// <summary>
+        /// フレームレートを算出
+        /// </summary>
+        static void CalcFrameRate()
+        {
+            Instance().CalcFrameRateImpl();
+        }
+
+        /// <summary>
+        /// デルタタイム取得
+        /// </summary>
+        /// <returns>デルタタイム</returns>
+        static const float& GetDeltaTime()
+        {
+            return Instance().m_deltaTime;
+        }
+
+#ifdef _DEBUG
+        /// <summary>
+        /// FPS(フレームレート)描画
+        /// </summary>
+        static void DrawFrameRate();
+#endif // _DEBUG
+
+    private:
+        /// <summary>
         /// 自身のインスタンスを返す
         /// </summary>
         /// <returns>自身のインスタンス</returns>
@@ -41,31 +66,11 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// フレームレートを算出
-        /// </summary>
-        void CalcFrameRate();
-
-        /// <summary>
-        /// デルタタイム取得
-        /// </summary>
-        /// <returns>デルタタイム</returns>
-        const float& GetDeltaTime() const
-        {
-            return m_deltaTime;
-        }
-
-#ifdef _DEBUG
-        /// <summary>
-        /// FPS(フレームレート)描画
-        /// </summary>
-        void DrawFrameRate() const;
-#endif // _DEBUG
-
-    private:
-        /// <summary>
         /// コンストラクタ
         /// </summary>
         FrameRate();
+
+        void CalcFrameRateImpl();
 
         inline static constexpr float MICRO_SEC = 1000000.0f;     //マイクロ秒
         inline static constexpr float FPS_60 = 60.0f;             //60fps

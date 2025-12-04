@@ -1,7 +1,5 @@
-export module Scene.Play;
+export module Scene.Result;
 import Scene.SceneBase;
-import MyLib.Math.Vector2;
-import Asset.Graph;
 
 /// <summary>
 /// シーン関連
@@ -9,37 +7,35 @@ import Asset.Graph;
 export namespace scene
 {
     /// <summary>
-    /// プレイシーンを担当
+    /// リザルトシーンを担当
     /// </summary>
-    export class Play final :public SceneBase
+    export class Result final : public SceneBase
     {
     public:
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        Play();
+        Result();
 
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~Play();
+        ~Result() = default;
 
         /// <summary>
-        /// 初期化処理
+        ///　初期化処理
         /// </summary>
-        void Init() override;
-
+        void Init() override {}
+        
         /// <summary>
         /// 更新処理
         /// </summary>
+        /// <returns>次シーンのポインタ</returns>
         std::shared_ptr<SceneBase> Update() override;
 
         /// <summary>
         /// 描画処理
         /// </summary>
         void Draw() override;
-
-    private:
-        bool m_cleared;     // クリアフラグ
     };
 }

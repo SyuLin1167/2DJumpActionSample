@@ -121,6 +121,15 @@
     <Filter Include="Collision\CircleCollider">
       <UniqueIdentifier>{271d3db1-ad98-4191-ba7f-86df80d7a44c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Goal">
+      <UniqueIdentifier>{d3c8d47f-0e22-4b50-abea-dea5390374cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Result">
+      <UniqueIdentifier>{7b9a6b1b-2214-437a-9789-6efd938f27d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyLib\ClickStatus">
+      <UniqueIdentifier>{3e10bd16-164c-4cbd-8c51-1074fef87033}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\code\main.cpp" />
@@ -393,6 +402,23 @@
     </ClCompile>
     <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderVisitor.cpp">
       <Filter>Collision\CircleCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\GameSystem\Camera\Camera.cpp" />
+    <ClCompile Include="..\code\GameSystem\Camera\Camera.ixx" />
+    <ClCompile Include="..\code\Object\Goal\Goal.ixx">
+      <Filter>Object\Goal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Scene\Result\Result.ixx">
+      <Filter>Scene\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\ClickStatus\ClickStatus.cpp">
+      <Filter>MyLib\ClickStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\ClickStatus\ClickStatus.ixx">
+      <Filter>MyLib\ClickStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\Scene\Result\Result.cpp">
+      <Filter>Scene\Result</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
