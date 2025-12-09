@@ -22,13 +22,13 @@ export namespace object
         {
             // 画像読み込み
             //AppCtx::AssetMgr().LoadAsync<asset::Graph>("goal", "goal.png");
-            m_pos = { 2100.0f, 900.0f }; // 仮のゴール位置
+            m_pos = { 2100.0f, 1000.0f }; // 仮のゴール位置
         }
 
         ~Goal()
         {
             //AppCtx::AssetMgr().DeleteHandle<asset::Graph>("goal");
-            ObjCtx::ColMgr().DestroyCollider(id);
+            ObjCtx::ColMgr().Destroy(id);
         }
 
         void Init() override

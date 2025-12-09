@@ -38,16 +38,15 @@ export namespace col2d
         /// </summary>
         /// <param name="def">コライダー定義</param>
         explicit Collider(ColliderDef* def)
-            : m_filter()
+            : m_colDef(std::make_unique<ColliderDef>(*def))
+            , m_filter()
             , m_velocity{ 0,0 }
-        {
-            m_colDef = std::make_unique<ColliderDef>(*def);
-        }
+        {}
 
         /// <summary>
         /// デストラクタ
         /// </summary>
-        virtual ~Collider() {};
+        virtual ~Collider() = default;
 
         /// <summary>
         /// カテゴリーの生成

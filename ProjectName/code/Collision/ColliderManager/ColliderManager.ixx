@@ -58,11 +58,11 @@ export namespace col2d
         template<typename T, typename... Args>
         [[nodiscard]] inline ColliderID CreateCollider(ColliderDef* def, const uint32_t& ownerID, Args&&... args)
         {
-            ColliderID cID = CreateID();
+            ColliderID id = CreateID();
             auto col = std::make_unique<T>(def, std::forward<Args>(args)...);
             col->GenerateCategory(ownerID);
-            m_colliders[cID.index] = std::move(col);
-            return cID;
+            m_colliders[id.index] = std::move(col);
+            return id;
         }
 
         /// <summary>
@@ -115,20 +115,14 @@ export namespace col2d
         /// コライダーを削除
         /// </summary>
         /// <param name="id">コライダーの識別子</param>
-        void DestroyCollider(const ColliderID& id);
+        void Destroy(const ColliderID& id);
 
         /// <summary>
         /// コライダーを取得
         /// </summary>
         /// <param name="id">コライダーの識別子</param>
         /// <returns>コライダーへのポインタ</returns>
-        Collider* GetCollider(const ColliderID& id) const
-        {
-            if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
-                return it->second.get();
-            }
-            return nullptr;
-        }
+        Collider* GetCollider(const ColliderID& id) const;
 
         /// <summary>
         /// コライダーの更新処理
@@ -168,7 +162,8 @@ export namespace col2d
         /// <returns>生成されたコライダーの識別子</returns>
         ColliderID CreateID();
 
-        std::queue<uint32_t> m_freeIndexes; // 未使用のコライダーインデックス
+        std::queue<ColliderID> m_freeID; // 未使用のコライダーID
+        std::unordered_map<uint32_t, uint16_t> m_generations; // 現在の世代を管理
         std::unordered_map<uint32_t, std::unique_ptr<Collider>> m_colliders; // コライダーのマップ
     };
 }

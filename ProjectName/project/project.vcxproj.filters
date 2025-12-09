@@ -127,7 +127,22 @@
     <Filter Include="Scene\Result">
       <UniqueIdentifier>{7b9a6b1b-2214-437a-9789-6efd938f27d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MyLib\ClickStatus">
+    <Filter Include="UI">
+      <UniqueIdentifier>{1507b492-63d2-429f-8f3b-450680fd6fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UIBase">
+      <UniqueIdentifier>{504c1b1b-64c4-4942-9d6f-beb5457c8e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UIManager">
+      <UniqueIdentifier>{5af717ea-6674-412f-8a58-3340fab16d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Bottun">
+      <UniqueIdentifier>{1af4afeb-6da0-4752-83c6-b24633eb2905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameSystem\Camera">
+      <UniqueIdentifier>{a0cfe714-d5eb-4eff-ac8e-aff329532169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyLib\MouseStatus">
       <UniqueIdentifier>{3e10bd16-164c-4cbd-8c51-1074fef87033}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -162,9 +177,6 @@
     </ClCompile>
     <ClCompile Include="..\code\Scene\Play\Play.cpp">
       <Filter>Scene\Play</Filter>
-    </ClCompile>
-    <ClCompile Include="..\code\Scene\SceneBase\SceneBase.cpp">
-      <Filter>Scene\SceneBase</Filter>
     </ClCompile>
     <ClCompile Include="..\code\Scene\SceneManager\SceneManager.cpp">
       <Filter>Scene\SceneManager</Filter>
@@ -403,22 +415,41 @@
     <ClCompile Include="..\code\Collision\CircleColldier\CircleColliderVisitor.cpp">
       <Filter>Collision\CircleCollider</Filter>
     </ClCompile>
-    <ClCompile Include="..\code\GameSystem\Camera\Camera.cpp" />
-    <ClCompile Include="..\code\GameSystem\Camera\Camera.ixx" />
     <ClCompile Include="..\code\Object\Goal\Goal.ixx">
       <Filter>Object\Goal</Filter>
     </ClCompile>
     <ClCompile Include="..\code\Scene\Result\Result.ixx">
       <Filter>Scene\Result</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\MyLib\ClickStatus\ClickStatus.cpp">
-      <Filter>MyLib\ClickStatus</Filter>
-    </ClCompile>
-    <ClCompile Include="..\include\MyLib\ClickStatus\ClickStatus.ixx">
-      <Filter>MyLib\ClickStatus</Filter>
-    </ClCompile>
     <ClCompile Include="..\code\Scene\Result\Result.cpp">
       <Filter>Scene\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\UI\UIBase\UIBase.ixx">
+      <Filter>UI\UIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\UI\UIManager\UIManager.cpp">
+      <Filter>UI\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\UI\UIManager\UIManager.ixx">
+      <Filter>UI\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\UI\Button\Button.cpp">
+      <Filter>UI\Bottun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\UI\Button\Button.ixx">
+      <Filter>UI\Bottun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\GameSystem\Camera\Camera.ixx">
+      <Filter>GameSystem\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\GameSystem\Camera\Camera.cpp">
+      <Filter>GameSystem\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\MouseStatus\MouseStatus.cpp">
+      <Filter>MyLib\MouseStatus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\MyLib\MouseStatus\MouseStatus.ixx">
+      <Filter>MyLib\MouseStatus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

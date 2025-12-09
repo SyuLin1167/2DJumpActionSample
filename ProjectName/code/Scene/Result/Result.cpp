@@ -14,23 +14,26 @@ namespace scene
 {
     Result::Result()
     {
+        // 画像読み込み
         gameSystem::AppCtx::AssetMgr().LoadAsync<asset::Graph>("Result", "Result.png");
     }
 
-    std::shared_ptr<SceneBase> Result::Update()
+    SceneCmd Result::Update()
     {
         // Rキーでリトライ（タイトルへ）
         if (input::KeyStatus::CheckKey(keyType.R, ON_PRESS))
         {
-            return std::make_shared<Title>();
+            return CmdReplace{ [](){ return std::make_shared<Title>(); } };
         }
-        return shared_from_this();
+
+        // 継続
+        return std::monostate{};
     }
 
     void Result::Draw()
     {
         // 背景描画
         DrawGraph(0, 0, gameSystem::AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("Result"), FALSE);
-        DrawFormatString(500, 300, GetColor(255, 255, 255), "CLEAR! Rキーでタイトルへ");
+        DrawFormatString(850, 950, GetColor(0, 0, 0), "CLEAR! Rキーでタイトルへ");
     }
 }

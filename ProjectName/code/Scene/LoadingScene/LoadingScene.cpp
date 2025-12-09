@@ -54,7 +54,7 @@ namespace scene
         co_return;
     }
 
-    std::shared_ptr<SceneBase> LoadingScene::Update()
+    SceneCmd LoadingScene::Update()
     {
         // ポリシーに基づいた行進処理
         if (m_policy & (LoadPolicy::COROUTINE | LoadPolicy::PROGRESS))
@@ -73,7 +73,7 @@ namespace scene
                         elapsed += gameSystem::FrameRate::GetDeltaTime();
                         if (elapsed < waitPtr->seconds)
                         {
-                            return shared_from_this();
+                            return std::monostate{};
                         }
                     }
                 }
@@ -84,7 +84,7 @@ namespace scene
                     {
                         if (!waitPtr->pred())
                         {
-                            return shared_from_this();
+                            return std::monostate{};
                         }
                     }
                 }
@@ -95,7 +95,8 @@ namespace scene
                 // コルーチン完了確認
                 if (m_coroutine.handle.done())
                 {
-                    return m_nextScene;
+                    auto next = m_nextScene;
+                    return CmdReplace{ [next]() { return next; } };
                 }
             }
         }
@@ -104,12 +105,13 @@ namespace scene
             // 読み込み完了確認
             if (!task::LoadingContext::Get()->IsLoading())
             {
-                return m_nextScene;
+                auto next = m_nextScene;
+                return CmdReplace{ [next]() { return next; } };
             }
         }
 
-        // 保持しているシーンの更新
-        return shared_from_this();
+        // 継続（何もしない）
+        return std::monostate{};
     }
 
     void LoadingScene::Draw()
