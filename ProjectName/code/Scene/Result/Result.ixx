@@ -30,8 +30,8 @@ export namespace scene
         /// <summary>
         /// 更新処理
         /// </summary>
-        /// <returns>次シーンのポインタ</returns>
-        std::shared_ptr<SceneBase> Update() override;
+        /// <returns>次フレーム適用のコマンド</returns>
+        SceneCmd Update() override;
 
         /// <summary>
         /// 描画処理

@@ -3,8 +3,10 @@ export module Scene.SceneManager;
 import <memory>;
 import <unordered_map>;
 import <stack>;
+import <variant>;
 
 import Asset.Graph;
+export import Scene.SceneBase;
 
 /// <summary>
 /// シーン関連
@@ -51,7 +53,8 @@ export namespace scene
         /// </summary>
         void ChangeScene();
 
-        std::stack<std::shared_ptr<SceneBase>> m_nowScene;     //現在のシーン
-        std::shared_ptr<SceneBase> m_nextScene;                   //次シーン
+        std::stack<std::shared_ptr<SceneBase>> m_nowScene;  //現在のシーン
+        SceneCmd m_pendingCmd;                              //次フレームに適用するコマンド
+        bool m_isRunning;                                   //ゲームループ継続フラグ
     };
 }

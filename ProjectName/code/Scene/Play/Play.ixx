@@ -32,7 +32,7 @@ export namespace scene
         /// <summary>
         /// 更新処理
         /// </summary>
-        std::shared_ptr<SceneBase> Update() override;
+        SceneCmd Update() override;
 
         /// <summary>
         /// 描画処理
@@ -40,6 +40,12 @@ export namespace scene
         void Draw() override;
 
     private:
+        /// <summary>
+        /// スクロール背景描画
+        /// </summary>
+        /// <param name="parallax">視差効果の強さ（0.0～1.0）</param>
+        void DrawScrollingBackground(float parallax = 0.5f);
+
         bool m_cleared;     // クリアフラグ
     };
 }

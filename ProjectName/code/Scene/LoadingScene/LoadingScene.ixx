@@ -65,7 +65,7 @@ export namespace scene
         /// <summary>
         /// XVˆ—
         /// </summary>
-        std::shared_ptr<SceneBase> Update() override;
+        SceneCmd Update() override;
 
         /// <summary>
         /// •`‰æˆ—
