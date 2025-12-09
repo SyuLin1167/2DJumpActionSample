@@ -19,7 +19,7 @@ namespace object
 
     Enemy::~Enemy()
     {
-        ObjCtx::ColMgr().DestroyCollider(id);
+        ObjCtx::ColMgr().Destroy(id);
     }
     
     void Enemy::Init()

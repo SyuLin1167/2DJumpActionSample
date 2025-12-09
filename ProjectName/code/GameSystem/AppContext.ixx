@@ -4,6 +4,7 @@ import <optional>;
 
 export import MyLib.File.FileSystem;
 export import Asset.AssetManager;
+export import UI.UIManager;
 
 /// <summary>
 /// オブジェクト関連
@@ -22,6 +23,7 @@ export namespace gameSystem
         {
             fileSystem.emplace();
             assetMgr.emplace();
+            uiMgr.emplace();
         }
 
         /// <summary>
@@ -31,6 +33,7 @@ export namespace gameSystem
         {
             fileSystem.reset();
             assetMgr.reset();
+            uiMgr.reset();
         }
 
         /// <summary>
@@ -51,9 +54,19 @@ export namespace gameSystem
             return *assetMgr;
         }
 
+        /// <summary>
+        /// UI管理のインスタンスを返す
+        /// </summary>
+        /// <returns>UI管理のインスタンス</returns>
+        static ui::UIManager& UIMgr()
+        {
+            return *uiMgr;
+        }
+
     private:
-        inline static std::optional<file::FileSystem> fileSystem{};   // ファイルシステムのインスタンス
-        inline static std::optional<asset::AssetManager> assetMgr{};   // アセット管理のインスタンス
+        inline static std::optional<file::FileSystem> fileSystem{};     // ファイルシステムのインスタンス
+        inline static std::optional<asset::AssetManager> assetMgr{};    // アセット管理のインスタンス
+        inline static std::optional<ui::UIManager> uiMgr{};             // UI管理のインスタンス
     };
 
     using AppCtx = AppContext;

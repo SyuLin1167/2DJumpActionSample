@@ -4,26 +4,28 @@ namespace col2d
 {
     ColliderID ColliderManager::CreateID()
     {
-        ColliderID cID{};
+        ColliderID id{};
 
         // 未使用のコライダーのインデックスがあれば再利用し世代も新規にする
-        if (!m_freeIndexes.empty())
+        if (!m_freeID.empty())
         {
-            cID.index = m_freeIndexes.front();
-            m_freeIndexes.pop();
-            cID.generation = 0;
+            id = m_freeID.front();
+            m_freeID.pop();
+            ++id.generation;
         }
         else
         {
             // 新しいコライダーのインデックスを割り当てる
-            cID.index = static_cast<uint32_t>(m_colliders.size());
-            cID.generation = 0;
+            id.index = static_cast<uint32_t>(m_colliders.size());
+            id.generation = 0;
         }
 
-        return cID;
+        m_generations[id.index] = id.generation;
+
+        return id;
     }
 
-    void ColliderManager::DestroyCollider(const ColliderID& id)
+    void ColliderManager::Destroy(const ColliderID& id)
     {
         // コライダーを解放
         if (auto it = m_colliders.find(id.index); it != m_colliders.end())
@@ -38,8 +40,27 @@ namespace col2d
 
             // コライダーを削除してインデックスを再利用可能にする
             m_colliders.erase(it);
-            m_freeIndexes.push(id.index);
+            m_generations.erase(id.index);
+            m_freeID.push(id);
         }
+    }
+
+    Collider* ColliderManager::GetCollider(const ColliderID& id) const
+    {
+        // 世代が一致するか確認
+        auto generation = m_generations.find(id.index);
+        if (generation == m_generations.end() || generation->second != id.generation)
+        {
+            return nullptr;
+        }
+
+        // インデックスが存在するか確認
+        if (auto it = m_colliders.find(id.index); it != m_colliders.end())
+        {
+            return it->second.get();
+        }
+
+        return nullptr;
     }
 
     void ColliderManager::Step()
