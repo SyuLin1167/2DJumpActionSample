@@ -50,7 +50,6 @@ git clone https://github.com/2DJumpActionSample/project.git
 >* etc.
 
 ## 	:book:今後予定されているもの
-![image](https://github.com/user-attachments/assets/06099263-f422-4928-8ad5-9d7eecda33b7)
 * SDLでの実装
 * アニメーション機能の実装
 * IMGUIの学習
