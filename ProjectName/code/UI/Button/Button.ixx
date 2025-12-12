@@ -1,5 +1,6 @@
 export module UI.Button;
 
+import <memory>;
 import <string>;
 import <functional>;
 import UI.UIBase;
@@ -71,31 +72,45 @@ export namespace ui
         /// </summary>
         void Draw() override;
 
-        // ホバー時処理
+        /// <summary>
+        /// ホバー時イベント追加
+        /// </summary>
+        /// <param name="hoverEvent">追加するイベント</param>
         void SetOnMouseHover(std::function<void()> hoverEvent)
         {
             m_def->onHover = std::move(hoverEvent);
         }
 
-        // クリック時処理
+        /// <summary>
+        /// クリック時イベント
+        /// </summary>
+        /// <param name="clickEvent">追加するイベント</param>
         void SetOnClicked(std::function<void()> clickEvent)
         {
             m_def->onClicked = std::move(clickEvent);
         }
 
-        // クリック後の処理
+        /// <summary>
+        /// クリック解放時イベント
+        /// </summary>
+        /// <param name="releaseEvent">追加するイベント</param>
         void SetOnReleased(std::function<void()> releaseEvent)
         {
             m_def->onReleased = std::move(releaseEvent);
         }
 
     private:
-        // クリック時処理
+        /// <summary>
+        /// クリック時処理
+        /// </summary>
         void OnClick();
 
+        /// <summary>
+        /// クリック解放時処理
+        /// </summary>
         void OnReleased();
 
-        bool m_onClicked;
-        std::unique_ptr<ButtonDef> m_def;
+        bool m_onClicked;                   // クリック状態
+        std::unique_ptr<ButtonDef> m_def;   // ボタン定義
     };
 }

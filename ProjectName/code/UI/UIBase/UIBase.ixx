@@ -1,12 +1,7 @@
-module;
-#include <DxLib.h>
-
 export module UI.UIBase;
 
-import <memory>;
 import <vector>;
 import <functional>;
-import <cstdint>;
 import MyLib.Math.Vector2;
 
 using namespace math;
@@ -19,7 +14,7 @@ export namespace ui
     /// <summary>
     /// UI—v‘f‚ÌŠî’êƒNƒ‰ƒX
     /// </summary>
-    export class UIBase : public std::enable_shared_from_this<UIBase>
+    export class UIBase
     {
     public:
         /// <summary>

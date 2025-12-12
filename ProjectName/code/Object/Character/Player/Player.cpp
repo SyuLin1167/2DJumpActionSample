@@ -92,14 +92,5 @@ namespace object
     {
         const Vector2f sp = gameSystem::Camera::Instance().WorldToScreen(m_pos);
         DrawGraph((int)sp.x, (int)sp.y, AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("body"), true);
-
-        DrawFormatString(1000, 10, GetColor(250, 250, 20), "move:←→\njump:Aキー");
-
-        // デバッグ表示: ワールド座標 / スクリーン座標 / カメラオフセット / 速度
-        const auto camOffset = gameSystem::Camera::Instance().GetOffset();
-        DrawFormatString(10, 10, GetColor(250, 250, 20),
-            "World:(%.1f,%.1f)\nScreen:(%.1f,%.1f)\nCamOff:(%.1f,%.1f)\nVel:(%.2f,%.2f)",
-            m_pos.x, m_pos.y, sp.x, sp.y, camOffset.x, camOffset.y, m_velocity.x, m_velocity.y);
-
     }
 }
