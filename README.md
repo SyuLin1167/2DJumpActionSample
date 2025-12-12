@@ -6,7 +6,7 @@
 <div align="center">
     <img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat">
     
-[![Dxlib](https://img.shields.io/badge/Dxlib版-v1.1.1-orange.svg)](https://github.com/SyuLin1167/2DJumpActionSample/tree/develop-dxlib/ProjectName)
+[![Dxlib](https://img.shields.io/badge/Dxlib版-v1.2.1-orange.svg)](https://github.com/SyuLin1167/2DJumpActionSample/tree/develop-dxlib/ProjectName)
 [![nlohman-json](https://img.shields.io/badge/SDL版-'-orange.svg)]()  
 </div>
 
@@ -39,10 +39,9 @@ git clone https://github.com/2DJumpActionSample/project.git
 ## :eyes: 使用技術
 > [!NOTE]
 >* コンポーネント指向
->* クラス間の繋がりが少ない設計
 >* コルーチン
 >* 非同期読み込み
->* シーン遷移時に行う読み込み処理の複数アプローチ
+>* デザインパターン(ビジターパターンやステートメント)
 >* 当たり判定の簡易設定とフィルタリング
 >* 衝突判定時のすり抜け防止機能
 >* メモリマップファイルでのファイル読み込み
@@ -54,7 +53,5 @@ git clone https://github.com/2DJumpActionSample/project.git
 ![image](https://github.com/user-attachments/assets/06099263-f422-4928-8ad5-9d7eecda33b7)
 * SDLでの実装
 * アニメーション機能の実装
-* UIの機能の実装
 * IMGUIの学習
 * サウンドエンジンであるFMODの学習
-* シェーダーでのマップチップ描画
