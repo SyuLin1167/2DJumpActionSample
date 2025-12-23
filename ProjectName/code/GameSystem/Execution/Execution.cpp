@@ -17,17 +17,24 @@ namespace gameSystem
 {
     Execution::Execution()
     {
+#ifdef DEBUG
+        //リソースフォルダをデバッグ・リリースフォルダへコピー
+        fs::path resourcesSrc = AppCtx::FileSystem().GetResourcesDir();
+
+        // Debugフォルダへコピー
+        fs::path resourcesDst = AppCtx::FileSystem().GetResourcesDir() / "../Debug/resources";
+        AppCtx::FileSystem().CopyDir(resourcesSrc, resourcesDst);
+
+        // Releaseフォルダへコピー
+        resourcesDst = AppCtx::FileSystem().GetResourcesDir() / "../Release/resources";
+        AppCtx::FileSystem().CopyDir(resourcesSrc, resourcesDst);
+#endif // DEBUG
+
         //ゲーム実行に必要なクラスのインスタンスを生成、初期化
         Window::Init();
-        m_library.reset(new Library);
+        m_library = std::make_unique<Library>();
         AppCtx::Activate();
-        m_scene.reset(new scene::SceneManager);
-
-        // 実行に必要な resources フォルダを実行ファイルの場所に複製
-        // ソリューション階層に存在する resources を exe と同階層にコピー
-        fs::path resourcesSrc = AppCtx::FileSystem().GetExeDir() / "../../resources";
-        fs::path resourcesDst = AppCtx::FileSystem().GetExeDir() / "resources";
-        AppCtx::FileSystem().CopyDir(resourcesSrc, resourcesDst);
+        m_scene = std::make_unique<scene::SceneManager>();
     }
 
     Execution::~Execution()
