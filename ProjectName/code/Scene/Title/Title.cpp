@@ -32,7 +32,7 @@ namespace scene
         buttonRect.pos = EXIT_BTN_POS;
         ui::ButtonDef exitButtonDef("Exit", buttonRect, GetColor(150, 100, 80));
         exitButtonDef.onReleased = [this]() { m_toExit = true; };
-        AppCtx::UIMgr().Create<ui::Button>(&exitButtonDef);
+        m_exitButtonID = AppCtx::UIMgr().Create<ui::Button>(&exitButtonDef);
     }
 
     Title::~Title()
