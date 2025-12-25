@@ -398,5 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Include Library
-include
-!include/MyLib
+ProjectName/include/DxLib/
+ProjectName/include/nlohmann/
