@@ -4,71 +4,71 @@ import MyLib.Math.Vector2;
 using namespace math;
 
 /// <summary>
-/// Œ`óŠÖ˜A
+/// å½¢çŠ¶é–¢é€£
 /// </summary>
 export namespace shape
 {
     /// <summary>
-    /// ‹éŒ`
+    /// çŸ©å½¢
     /// </summary>
     export struct Rect
     {
     public:
-        Vector2f pos;     //À•W(¶ã)
-        Vector2f size;    //ƒTƒCƒY
+        Vector2f pos;     //åº§æ¨™(å·¦ä¸Š)
+        Vector2f size;    //ã‚µã‚¤ã‚º
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Rect() :pos(), size() {};
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="pos">À•W</param>
-        /// <param name="size">ƒTƒCƒY</param>
+        /// <param name="pos">åº§æ¨™</param>
+        /// <param name="size">ã‚µã‚¤ã‚º</param>
         Rect(const Vector2f& pos, Vector2f size) : pos(pos), size(size) {};
 
         /// <summary>
-        /// ’†SÀ•W
+        /// ä¸­å¿ƒåº§æ¨™
         /// </summary>
-        /// <returns>’†SÀ•W</returns>
+        /// <returns>ä¸­å¿ƒåº§æ¨™</returns>
         Vector2f Center() const
         {
             return pos + size.Half();
         }
 
         /// <summary>
-        /// ¶À•W
+        /// å·¦åº§æ¨™
         /// </summary>
-        /// <returns>xÀ•W</returns>
+        /// <returns>xåº§æ¨™</returns>
         float Left() const
         {
             return pos.x;
         }
 
         /// <summary>
-        /// ‰EÀ•W
+        /// å³åº§æ¨™
         /// </summary>
-        /// <returns>xÀ•W+‰¡•</returns>
+        /// <returns>xåº§æ¨™+æ¨ªå¹…</returns>
         float Right() const
         {
             return pos.x + size.x;
         }
 
         /// <summary>
-        /// ’¸“_À•W
+        /// é ‚ç‚¹åº§æ¨™
         /// </summary>
-        /// <returns>yÀ•W</returns>
+        /// <returns>yåº§æ¨™</returns>
         float Top() const
         {
             return pos.y;
         }
 
         /// <summary>
-        /// ’ê•ÓÀ•W
+        /// åº•è¾ºåº§æ¨™
         /// </summary>
-        /// <returns>yÀ•W+‚‚³</returns>
+        /// <returns>yåº§æ¨™+é«˜ã•</returns>
         float Bottom() const
         {
             return pos.y + size.y;
@@ -83,7 +83,7 @@ export namespace shape
         };
 
         /// <summary>
-        /// ‹éŒ`‚ÌÕ“Ë”»’è
+        /// çŸ©å½¢ã®è¡çªåˆ¤å®š
         /// </summary>
         bool AABB(const Rect& other) const
         {

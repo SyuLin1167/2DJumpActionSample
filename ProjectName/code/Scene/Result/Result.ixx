@@ -2,39 +2,39 @@ export module Scene.Result;
 import Scene.SceneBase;
 
 /// <summary>
-/// ƒV[ƒ“ŠÖ˜A
+/// ã‚·ãƒ¼ãƒ³é–¢é€£
 /// </summary>
 export namespace scene
 {
     /// <summary>
-    /// ƒŠƒUƒ‹ƒgƒV[ƒ“‚ğ’S“–
+    /// ãƒªã‚¶ãƒ«ãƒˆã‚·ãƒ¼ãƒ³ã‚’æ‹…å½“
     /// </summary>
     export class Result final : public SceneBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Result();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Result() = default;
 
         /// <summary>
-        ///@‰Šú‰»ˆ—
+        ///ã€€åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         void Init() override {}
         
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
-        /// <returns>ŸƒtƒŒ[ƒ€“K—p‚ÌƒRƒ}ƒ“ƒh</returns>
+        /// <returns>æ¬¡ãƒ•ãƒ¬ãƒ¼ãƒ é©ç”¨ã®ã‚³ãƒãƒ³ãƒ‰</returns>
         SceneCmd Update() override;
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         void Draw() override;
     };

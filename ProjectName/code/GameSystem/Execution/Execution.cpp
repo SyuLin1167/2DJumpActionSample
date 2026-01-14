@@ -1,4 +1,4 @@
-﻿module;
+・ｿmodule;
 #include <Dxlib.h>
 #include <filesystem>
 
@@ -18,19 +18,19 @@ namespace gameSystem
     Execution::Execution()
     {
 #ifdef DEBUG
-        //リソースフォルダをデバッグ・リリースフォルダへコピー
+        //繝ｪ繧ｽ繝ｼ繧ｹ繝輔か繝ｫ繝繧偵ョ繝舌ャ繧ｰ繝ｻ繝ｪ繝ｪ繝ｼ繧ｹ繝輔か繝ｫ繝縺ｸ繧ｳ繝斐・
         fs::path resourcesSrc = AppCtx::FileSystem().GetResourcesDir();
 
-        // Debugフォルダへコピー
+        // Debug繝輔か繝ｫ繝縺ｸ繧ｳ繝斐・
         fs::path resourcesDst = AppCtx::FileSystem().GetResourcesDir() / "../Debug/resources";
         AppCtx::FileSystem().CopyDir(resourcesSrc, resourcesDst);
 
-        // Releaseフォルダへコピー
+        // Release繝輔か繝ｫ繝縺ｸ繧ｳ繝斐・
         resourcesDst = AppCtx::FileSystem().GetResourcesDir() / "../Release/resources";
         AppCtx::FileSystem().CopyDir(resourcesSrc, resourcesDst);
 #endif // DEBUG
 
-        //ゲーム実行に必要なクラスのインスタンスを生成、初期化
+        //繧ｲ繝ｼ繝螳溯｡後↓蠢・ｦ√↑繧ｯ繝ｩ繧ｹ縺ｮ繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繧堤函謌舌∝・譛溷喧
         Window::Init();
         m_library = std::make_unique<Library>();
         AppCtx::Activate();
@@ -46,16 +46,13 @@ namespace gameSystem
 
     int Execution::Run()
     {
-        //ライブラリ初期化
-        if (!m_library->InitSuccess())
+        //繝ｩ繧､繝悶Λ繝ｪ蛻晄悄蛹・        if (!m_library->InitSuccess())
         {
             return -1;
         }
 
-        //ゲームループ
-        m_scene->GameLoop();
+        //繧ｲ繝ｼ繝繝ｫ繝ｼ繝・        m_scene->GameLoop();
 
-        //ソフトの正常終了
-        return _CrtDumpMemoryLeaks();
+        //繧ｽ繝輔ヨ縺ｮ豁｣蟶ｸ邨ゆｺ・        return _CrtDumpMemoryLeaks();
     }
 }

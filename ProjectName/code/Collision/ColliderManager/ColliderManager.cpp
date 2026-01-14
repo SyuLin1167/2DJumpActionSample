@@ -6,7 +6,7 @@ namespace col2d
     {
         ColliderID id{};
 
-        // –¢g—p‚ÌƒRƒ‰ƒCƒ_[‚ÌƒCƒ“ƒfƒbƒNƒX‚ª‚ ‚ê‚ÎÄ—˜—p‚µ¢‘ã‚àV‹K‚É‚·‚é
+        // æœªä½¿ç”¨ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒã‚ã‚Œã°å†åˆ©ç”¨ã—ä¸–ä»£ã‚‚æ–°è¦ã«ã™ã‚‹
         if (!m_freeID.empty())
         {
             id = m_freeID.front();
@@ -15,7 +15,7 @@ namespace col2d
         }
         else
         {
-            // V‚µ‚¢ƒRƒ‰ƒCƒ_[‚ÌƒCƒ“ƒfƒbƒNƒX‚ğŠ„‚è“–‚Ä‚é
+            // æ–°ã—ã„ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å‰²ã‚Šå½“ã¦ã‚‹
             id.index = static_cast<uint32_t>(m_colliders.size());
             id.generation = 0;
         }
@@ -27,10 +27,10 @@ namespace col2d
 
     void ColliderManager::Destroy(const ColliderID& id)
     {
-        // ƒRƒ‰ƒCƒ_[‚ğ‰ğ•ú
+        // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è§£æ”¾
         if (auto it = m_colliders.find(id.index); it != m_colliders.end())
         {
-            // ‘¼‚ÌƒRƒ‰ƒCƒ_[‚©‚ç‚Ìƒ}ƒXƒN‚ÆƒCƒxƒ“ƒg‚ğíœ
+            // ä»–ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‹ã‚‰ã®ãƒã‚¹ã‚¯ã¨ã‚¤ãƒ™ãƒ³ãƒˆã‚’å‰Šé™¤
             auto& category = it->second->GetFilter().category;
             for (auto& [index, collider] : m_colliders)
             {
@@ -38,7 +38,7 @@ namespace col2d
                 collider->DeleteEvent(category);
             }
 
-            // ƒRƒ‰ƒCƒ_[‚ğíœ‚µ‚ÄƒCƒ“ƒfƒbƒNƒX‚ğÄ—˜—p‰Â”\‚É‚·‚é
+            // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å‰Šé™¤ã—ã¦ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å†åˆ©ç”¨å¯èƒ½ã«ã™ã‚‹
             m_colliders.erase(it);
             m_generations.erase(id.index);
             m_freeID.push(id);
@@ -47,14 +47,14 @@ namespace col2d
 
     Collider* ColliderManager::GetCollider(const ColliderID& id) const
     {
-        // ¢‘ã‚ªˆê’v‚·‚é‚©Šm”F
+        // ä¸–ä»£ãŒä¸€è‡´ã™ã‚‹ã‹ç¢ºèª
         auto generation = m_generations.find(id.index);
         if (generation == m_generations.end() || generation->second != id.generation)
         {
             return nullptr;
         }
 
-        // ƒCƒ“ƒfƒbƒNƒX‚ª‘¶İ‚·‚é‚©Šm”F
+        // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª
         if (auto it = m_colliders.find(id.index); it != m_colliders.end())
         {
             return it->second.get();
@@ -65,21 +65,21 @@ namespace col2d
 
     void ColliderManager::Step()
     {
-        // ƒRƒ‰ƒCƒ_[‚ÌXVˆ—
+        // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®æ›´æ–°å‡¦ç†
         for (auto& [index, collider] : m_colliders)
         {
             for (auto& otherCollider : m_colliders)
             {
-                // “¯‚¶ƒRƒ‰ƒCƒ_[“¯m‚ÌÕ“Ë‚Í–³‹
+                // åŒã˜ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼åŒå£«ã®è¡çªã¯ç„¡è¦–
                 if (collider == otherCollider.second)
                 {
                     continue;
                 }
 
-                // ƒtƒBƒ‹ƒ^[‚ğŠm”F‚µ‚ÄÕ“Ë”»’è‚ğs‚¤
+                // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ã‚’ç¢ºèªã—ã¦è¡çªåˆ¤å®šã‚’è¡Œã†
                 if (collider->GetFilter().HasMask(otherCollider.second->GetFilter().category))
                 {
-                    // ƒRƒ‰ƒCƒ_[“¯m‚ÌÕ“Ë”»’è
+                    // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼åŒå£«ã®è¡çªåˆ¤å®š
                     collider->CollideWith(*otherCollider.second);
                 }
             }

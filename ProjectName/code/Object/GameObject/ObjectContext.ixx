@@ -6,17 +6,17 @@ export import Collider;
 export import Collider.ColliderManager;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace object
 {
     /// <summary>
-    /// ƒIƒuƒWƒFƒNƒgƒRƒ“ƒeƒLƒXƒg
+    /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
     /// </summary>
     export struct ObjectContext final
     {
         /// <summary>
-        /// ƒAƒNƒeƒBƒu‰»
+        /// ã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
         /// </summary>
         static void Activate()
         {
@@ -24,7 +24,7 @@ export namespace object
         }
 
         /// <summary>
-        /// ”ñƒAƒNƒeƒBƒu‰»
+        /// éã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
         /// </summary>
         static void Deactivate()
         {
@@ -32,16 +32,16 @@ export namespace object
         }
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[ŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <returns>ƒRƒ‰ƒCƒ_[ŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static col2d::ColliderManager& ColMgr()
         {
             return *colMgr;
         }
 
     private:
-        inline static std::optional<col2d::ColliderManager> colMgr{};   // ƒRƒ‰ƒCƒ_[ŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+        inline static std::optional<col2d::ColliderManager> colMgr{};   // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     };
 
     using ObjCtx = ObjectContext;

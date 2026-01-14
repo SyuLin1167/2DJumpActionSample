@@ -3,35 +3,35 @@ export module GameSystem.FrameRate;
 import <memory>;
 
 /// <summary>
-/// ƒVƒXƒeƒ€ŠÖ˜A
+/// ã‚·ã‚¹ãƒ†ãƒ é–¢é€£
 /// </summary>
 export namespace gameSystem
 {
     /// <summary>
-    /// ƒtƒŒ[ƒ€ƒŒ[ƒg‚ÌZo
+    /// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®ç®—å‡º
     /// </summary>
     export class FrameRate final
     {
     public:
         /// <summary>
-        /// ƒRƒs[‹Ö~—ß
+        /// ã‚³ãƒ”ãƒ¼ç¦æ­¢ä»¤
         /// </summary>
         FrameRate(const FrameRate&) = delete;
         FrameRate(FrameRate&&) = delete;
 
         /// <summary>
-        /// ‘ã“ü‹Ö~—ß
+        /// ä»£å…¥ç¦æ­¢ä»¤
         /// </summary>
         FrameRate& operator=(const FrameRate&) = delete;
         FrameRate& operator=(FrameRate&&) = delete;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~FrameRate() = default;
 
         /// <summary>
-        /// ƒtƒŒ[ƒ€ƒŒ[ƒg‚ğZo
+        /// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã‚’ç®—å‡º
         /// </summary>
         static void CalcFrameRate()
         {
@@ -39,9 +39,9 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// ƒfƒ‹ƒ^ƒ^ƒCƒ€æ“¾
+        /// ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ å–å¾—
         /// </summary>
-        /// <returns>ƒfƒ‹ƒ^ƒ^ƒCƒ€</returns>
+        /// <returns>ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </returns>
         static const float& GetDeltaTime()
         {
             return Instance().m_deltaTime;
@@ -49,16 +49,16 @@ export namespace gameSystem
 
 #ifdef _DEBUG
         /// <summary>
-        /// FPS(ƒtƒŒ[ƒ€ƒŒ[ƒg)•`‰æ
+        /// FPS(ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ)æç”»
         /// </summary>
         static void DrawFrameRate();
 #endif // _DEBUG
 
     private:
         /// <summary>
-        /// ©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// è‡ªèº«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <returns>©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>è‡ªèº«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static FrameRate& Instance()
         {
             static FrameRate instance;
@@ -66,20 +66,20 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         FrameRate();
 
         void CalcFrameRateImpl();
 
-        inline static constexpr float MICRO_SEC = 1000000.0f;     //ƒ}ƒCƒNƒ•b
+        inline static constexpr float MICRO_SEC = 1000000.0f;     //ãƒã‚¤ã‚¯ãƒ­ç§’
         inline static constexpr float FPS_60 = 60.0f;             //60fps
 
-        long long m_startTime;                    //ŠJn
-        long long m_nowTime;                      //Œ»İ
-        long long m_prevTime;                     //1ƒtƒŒ[ƒ€‘O‚Ì
-        float m_deltaTime;                        //ƒfƒ‹ƒ^ƒ^ƒCƒ€
+        long long m_startTime;                    //é–‹å§‹æ™‚åˆ»
+        long long m_nowTime;                      //ç¾åœ¨æ™‚åˆ»
+        long long m_prevTime;                     //1ãƒ•ãƒ¬ãƒ¼ãƒ å‰ã®æ™‚åˆ»
+        float m_deltaTime;                        //ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ 
         float m_fps;                              //FramePerSecond
-        float m_frameCount;                       //ƒtƒŒ[ƒ€ƒJƒEƒ“ƒg
+        float m_frameCount;                       //ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆ
     };
 }

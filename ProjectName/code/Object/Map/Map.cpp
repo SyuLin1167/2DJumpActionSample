@@ -1,4 +1,4 @@
-﻿module;
+・ｿmodule;
 #include <DxLib.h>
 #include <json.hpp>
 #include <fstream>
@@ -23,30 +23,26 @@ namespace object
 {
     Map::Map()
     {
-        // マップ構成読み込み
+        // 繝槭ャ繝玲ｧ区・隱ｭ縺ｿ霎ｼ縺ｿ
         auto path = AppCtx::FileSystem().Resolve("data://MapTip.csv");
         auto mapDataSf = AppCtx::FileSystem().csvIO.CreateArrayAsync<size_t>(path).share();
 
-        // タイル情報読み込み
+        // 繧ｿ繧､繝ｫ諠・ｱ隱ｭ縺ｿ霎ｼ縺ｿ
         auto mapInfoSf = AppCtx::FileSystem().jsonIO.LoadAsync(AppCtx::FileSystem().Resolve("data://MapData")).share(); 
 
-        // 最終的な MapInfo を届けるための promise/future
+        // 譛邨ら噪縺ｪ MapInfo 繧貞ｱ翫￠繧九◆繧√・ promise/future
         auto infoPromise = std::make_shared<std::promise<object::MapInfo>>();
 
-        // マップ生成
-        task::LoadingContext::Get()->AddTask(task::INIT, [this, mapDataSf, mapInfoSf, infoPromise]() {
-            // マップデータ取得
-            const auto& dataArray = mapDataSf.get();
+        // 繝槭ャ繝礼函謌・        task::LoadingContext::Get()->AddTask(task::INIT, [this, mapDataSf, mapInfoSf, infoPromise]() {
+            // 繝槭ャ繝励ョ繝ｼ繧ｿ蜿門ｾ・            const auto& dataArray = mapDataSf.get();
             m_mapInfo.FromJson(mapInfoSf.get());
 
-            // チャンクサイズを取得
-            m_mapInfo.chunkSize = Window::GetWindowData()->SIZE / m_mapInfo.tileSize.Half();
+            // 繝√Ε繝ｳ繧ｯ繧ｵ繧､繧ｺ繧貞叙蠕・            m_mapInfo.chunkSize = Window::GetWindowData()->SIZE / m_mapInfo.tileSize.Half();
 
             
             infoPromise->set_value(m_mapInfo);
 
-            //チャンク化してマップデータ格納
-            m_mapData = tile::BuildChunkedGrid<size_t>(
+            //繝√Ε繝ｳ繧ｯ蛹悶＠縺ｦ繝槭ャ繝励ョ繝ｼ繧ｿ譬ｼ邏・            m_mapData = tile::BuildChunkedGrid<size_t>(
                 m_mapInfo.mapSize.x,
                 m_mapInfo.mapSize.y,
                 m_mapInfo.chunkSize,
@@ -56,12 +52,11 @@ namespace object
                 });
             });
 
-        // 当たり判定生成
-        col2d::ColliderDef def;
+        // 蠖薙◆繧雁愛螳夂函謌・        col2d::ColliderDef def;
         def.isActive = true;
         colID = ObjectContext::ColMgr().CreateTileCollider(&def, infoPromise->get_future().share(), "MapTip.csv", MyObjectTag());
 
-        // マップ画像読み込み
+        // 繝槭ャ繝礼判蜒剰ｪｭ縺ｿ霎ｼ縺ｿ
         AppCtx::AssetMgr().LoadAsync<asset::DivisionGraph>("map", "map.png");
     }
 
@@ -72,31 +67,28 @@ namespace object
 
     void Map::Init()
     {
-        // ワールドサイズ設定
-        Vector2f worldSize
+        // 繝ｯ繝ｼ繝ｫ繝峨し繧､繧ｺ險ｭ螳・        Vector2f worldSize
         {
             m_mapInfo.mapSize.x * m_mapInfo.tileSize.x,
             m_mapInfo.mapSize.y * m_mapInfo.tileSize.y
         };
         gameSystem::Camera::Instance().SetWorldSize(worldSize);
 
-        // 衝突マスク追加
+        // 陦晉ｪ√・繧ｹ繧ｯ霑ｽ蜉
         ObjectContext::ColMgr().AddMask(colID, col2d::RECT, PLAYER);
     }
 
     void Map::Draw()
     {
-        // マップ未生成なら描画しない
-        if (m_mapData.empty())
+        // 繝槭ャ繝玲悴逕滓・縺ｪ繧画緒逕ｻ縺励↑縺・        if (m_mapData.empty())
         {
             return;
         }
 
-        // カメラオフセット取得
-        Vector2f camOffset = gameSystem::Camera::Instance().GetOffset();
+        // 繧ｫ繝｡繝ｩ繧ｪ繝輔そ繝・ヨ蜿門ｾ・        Vector2f camOffset = gameSystem::Camera::Instance().GetOffset();
         const auto winSize = Window::GetWindowData()->SIZE;
 
-        // 描画範囲算出
+        // 謠冗判遽・峇邂怜・
         const int startTileX = (std::max)(0, static_cast<int>(camOffset.x / m_mapInfo.tileSize.x));
         const int startTileY = (std::max)(0, static_cast<int>(camOffset.y / m_mapInfo.tileSize.y));
         const int endTileX = (std::min)(static_cast<int>(m_mapInfo.mapSize.x) - 1,
@@ -104,29 +96,24 @@ namespace object
         const int endTileY = (std::min)(static_cast<int>(m_mapInfo.mapSize.y) - 1,
             static_cast<int>((camOffset.y + winSize.y) / m_mapInfo.tileSize.y) + 1);
 
-        // 描画範囲設定
-        rangeX = { static_cast<size_t>(startTileX), static_cast<size_t>(endTileX) };
+        // 謠冗判遽・峇險ｭ螳・        rangeX = { static_cast<size_t>(startTileX), static_cast<size_t>(endTileX) };
         rangeY = { static_cast<size_t>(startTileY), static_cast<size_t>(endTileY) };
 
-        // 描画ループ
-        for (size_t i = rangeY.first; i <= rangeY.second; i++)
+        // 謠冗判繝ｫ繝ｼ繝・        for (size_t i = rangeY.first; i <= rangeY.second; i++)
         {
             for (size_t j = rangeX.first; j <= rangeX.second; j++)
             {
-                // チャンクに沿ったキーを生成
-                auto key = (static_cast<uint64_t>(i / m_mapInfo.chunkSize.y) << 32) | static_cast<uint64_t>(j / m_mapInfo.chunkSize.x);
+                // 繝√Ε繝ｳ繧ｯ縺ｫ豐ｿ縺｣縺溘く繝ｼ繧堤函謌・                auto key = (static_cast<uint64_t>(i / m_mapInfo.chunkSize.y) << 32) | static_cast<uint64_t>(j / m_mapInfo.chunkSize.x);
 
-                // ローカルインデックスでタイル取得
-                const size_t localY = i % m_mapInfo.chunkSize.y;
+                // 繝ｭ繝ｼ繧ｫ繝ｫ繧､繝ｳ繝・ャ繧ｯ繧ｹ縺ｧ繧ｿ繧､繝ｫ蜿門ｾ・                const size_t localY = i % m_mapInfo.chunkSize.y;
                 const size_t localX = j % m_mapInfo.chunkSize.x;
                 const size_t localIndex = localY * m_mapInfo.chunkSize.x + localX;
 
-                // 座標に沿ったハンドル取得
-                auto mapIt = m_mapData.find(key);
+                // 蠎ｧ讓吶↓豐ｿ縺｣縺溘ワ繝ｳ繝峨Ν蜿門ｾ・                auto mapIt = m_mapData.find(key);
                 if (mapIt == m_mapData.end()) continue;
                 int handle = AppCtx::AssetMgr().Fetch<asset::DivisionGraph>()->GetHandle("map", mapIt->second.at(localIndex));
 
-                // チャンクに沿った座標に描画
+                // 繝√Ε繝ｳ繧ｯ縺ｫ豐ｿ縺｣縺溷ｺｧ讓吶↓謠冗判
                 float x = j * m_mapInfo.tileSize.x;
                 float y = i * m_mapInfo.tileSize.y;
                 Vector2f camPos = gameSystem::Camera::Instance().WorldToScreen({ x, y });
@@ -137,7 +124,7 @@ namespace object
 
     void Map::CalcDrawRange(int pos, std::pair<size_t, size_t>& range, size_t length)
     {
-        // 範囲算出
+        // 遽・峇邂怜・
         if (length == 0)
         {
             range = {0, 0};

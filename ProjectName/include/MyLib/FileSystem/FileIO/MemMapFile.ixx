@@ -5,61 +5,61 @@ module;
 export module MyLib.File.MemMapFile;
 
 /// <summary>
-/// ƒtƒ@ƒCƒ‹ŠÖ˜A
+/// ãƒ•ã‚¡ã‚¤ãƒ«é–¢é€£
 /// </summary>
 export namespace file
 {
     /// <summary>
-    /// ƒƒ‚ƒŠƒ}ƒbƒvƒtƒ@ƒCƒ‹‚ÉŠÖ‚·‚éˆ—‚ğs‚¤
+    /// ãƒ¡ãƒ¢ãƒªãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã«é–¢ã™ã‚‹å‡¦ç†ã‚’è¡Œã†
     /// </summary>
     export class MemMapFile
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         MemMapFile();
 
-        // ƒRƒs[•s‰Â
+        // ã‚³ãƒ”ãƒ¼ä¸å¯
         MemMapFile(const MemMapFile&) = delete;
         MemMapFile& operator=(const MemMapFile&) = delete;
 
-        // ƒ€[ƒu‰Â
+        // ãƒ ãƒ¼ãƒ–å¯
         MemMapFile(MemMapFile&&) noexcept;
         MemMapFile& operator=(MemMapFile&&) noexcept;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~MemMapFile();
 
         /// <summary>
-        /// ƒtƒ@ƒCƒ‹‚ğŠJ‚­(“Ç‚İ‚İ)
+        /// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã(èª­ã¿è¾¼ã¿)
         /// </summary>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-        /// <returns>ŠJ‚¯‚½‚©‚Ç‚¤‚©</returns>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+        /// <returns>é–‹ã‘ãŸã‹ã©ã†ã‹</returns>
         bool Open(const char* fileName);
 
         /// <summary>
-        /// ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚Ìæ“¾
+        /// ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—
         /// </summary>
-        /// <param name="ptr">ƒ|ƒCƒ“ƒ^</param>
+        /// <param name="ptr">ãƒã‚¤ãƒ³ã‚¿</param>
         char* GetPtr() noexcept { return m_ptr; };
         const char* GetPtr() const noexcept { return m_ptr; };
 
         /// <summary>
-        /// ƒtƒ@ƒCƒ‹ƒTƒCƒY‚Ìæ“¾
+        /// ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºã®å–å¾—
         /// </summary>
-        /// <returns>ƒtƒ@ƒCƒ‹ƒTƒCƒY</returns>
+        /// <returns>ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚º</returns>
         size_t GetFileSize() const noexcept;
 
         /// <summary>
-        /// ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+        /// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
         /// </summary>
         void Close();
     private:
-        HANDLE m_fileHandle;  //ƒtƒ@ƒCƒ‹ƒnƒ“ƒhƒ‹
-        HANDLE m_mapHandle;   //ƒ}ƒbƒsƒ“ƒOƒnƒ“ƒhƒ‹
-        char* m_ptr;      //ƒ|ƒCƒ“ƒ^
+        HANDLE m_fileHandle;  //ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ³ãƒ‰ãƒ«
+        HANDLE m_mapHandle;   //ãƒãƒƒãƒ”ãƒ³ã‚°ãƒãƒ³ãƒ‰ãƒ«
+        char* m_ptr;      //ãƒã‚¤ãƒ³ã‚¿
     };
 }

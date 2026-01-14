@@ -3,60 +3,60 @@ export module Object.Enemy;
 import Object.GameObject;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace object
 {
-    constexpr float MAX_HEALTH = 1.0f;  // Å‘å‘Ì—Í
+    constexpr float MAX_HEALTH = 1.0f;  // æœ€å¤§ä½“åŠ›
 
     /// <summary>
-    /// “G‚Ì–ðŠ„
+    /// æ•µã®å½¹å‰²
     /// </summary>
     export class Enemy final :public GameObject
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Enemy();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Enemy();
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         void Init() override;
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         void Update() override;
 
         /// <summary>
-        /// ŒãXVˆ—
+        /// å¾Œæ›´æ–°å‡¦ç†
         /// </summary>
         void LateUpdate() override {};
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         void Draw() override;
 
         /// <summary>
-        /// Ž©g‚Ìƒ^ƒO
+        /// è‡ªèº«ã®ã‚¿ã‚°
         /// </summary>
-        /// <returns>“G</returns>
+        /// <returns>æ•µ</returns>
         ObjectTag MyObjectTag() const override
         {
             return ObjectTag::ENEMY;
         }
 
     private:
-        col2d::ColliderID id;   // ƒRƒ‰ƒCƒ_[ID
-        float m_health;        // ‘Ì—Í
-        float m_damage;        // ƒ_ƒ[ƒW
+        col2d::ColliderID id;   // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ID
+        float m_health;        // ä½“åŠ›
+        float m_damage;        // ãƒ€ãƒ¡ãƒ¼ã‚¸
     };
 }

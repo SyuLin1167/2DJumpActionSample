@@ -17,44 +17,44 @@ import Object.MapInfo;
 using namespace math;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
     /// <summary>
-    /// ƒRƒ‰ƒCƒ_[‚Ì¯•Êq
+    /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­
     /// </summary>
     export struct ColliderID
     {
-        uint32_t index;          // ƒCƒ“ƒfƒbƒNƒX
-        uint16_t generation;     // ¶¬¢‘ã
+        uint32_t index;          // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+        uint16_t generation;     // ç”Ÿæˆä¸–ä»£
     };
 
     /// <summary>
-    /// ƒRƒ‰ƒCƒ_[ŠÇ—
+    /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç®¡ç†
     /// </summary>
     export class ColliderManager final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ColliderManager() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~ColliderManager() = default;
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚ğ¶¬
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <typeparam name="T">ƒRƒ‰ƒCƒ_[‚ÌŒ^</typeparam>
-        /// <typeparam name="Args">ƒRƒ‰ƒCƒ_[‚Ì¶¬‚É“n‚·ˆø”‚ÌŒ^</typeparam>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
-        /// <param name="ownerID">Š—LÒ‚ÌID</param>
-        /// <param name="args">ƒRƒ‰ƒCƒ_[¶¬‚É“n‚·ˆø”</param>
-        /// <returns>¶¬‚³‚ê‚½ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</returns>
+        /// <typeparam name="T">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®å‹</typeparam>
+        /// <typeparam name="Args">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ç”Ÿæˆæ™‚ã«æ¸¡ã™å¼•æ•°ã®å‹</typeparam>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
+        /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
+        /// <param name="args">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç”Ÿæˆæ™‚ã«æ¸¡ã™å¼•æ•°</param>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</returns>
         template<typename T, typename... Args>
         [[nodiscard]] inline ColliderID CreateCollider(ColliderDef* def, const uint32_t& ownerID, Args&&... args)
         {
@@ -66,75 +66,75 @@ export namespace col2d
         }
 
         /// <summary>
-        /// ‹éŒ`ƒRƒ‰ƒCƒ_[‚ğ¶¬
+        /// çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
-        /// <param name="size">ƒTƒCƒY</param>
-        /// <param name="ownerID">Š—LÒ‚ÌID</param>
-        /// <returns>¶¬‚³‚ê‚½ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</returns>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
+        /// <param name="size">ã‚µã‚¤ã‚º</param>
+        /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</returns>
         [[nodiscard]] inline ColliderID CreateRectCollider(ColliderDef* def, const Vector2f& size, const uint32_t& ownerID = 0)
         {
             return CreateCollider<RectCollider>(def, ownerID, size);
         }
 
         /// <summary>
-        /// ‰~ƒRƒ‰ƒCƒ_[‚ğ¶¬
+        /// å††ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
-        /// <param name="radius">”¼Œa</param>
-        /// <param name="ownerID">Š—LÒ‚ÌID</param>
-        /// <returns>¶¬‚³‚ê‚½ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</returns>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
+        /// <param name="radius">åŠå¾„</param>
+        /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</returns>
         [[nodiscard]] inline ColliderID CreateCircleCollider(ColliderDef* def, float radius, const uint32_t& ownerID = 0)
         {
             return CreateCollider<CircleCollider>(def, ownerID, radius);
         }
 
         /// <summary>
-        /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ğ¶¬
+        /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
-        /// <param name="ownerID">Š—LÒ‚ÌID</param>
-        /// <returns>¶¬‚³‚ê‚½ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</returns>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
+        /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</returns>
         [[nodiscard]] inline ColliderID CreateTileCollider(ColliderDef* def, const object::MapInfo& info, std::string fileName, const uint32_t& ownerID = 0)
         {
             return CreateCollider<TileCollider>(def, ownerID, info, fileName);
         }
 
         /// <summary>
-        /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ğ¶¬
+        /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
-        /// <param name="ownerID">Š—LÒ‚ÌID</param>
-        /// <returns>¶¬‚³‚ê‚½ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</returns>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
+        /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</returns>
         [[nodiscard]] inline ColliderID CreateTileCollider(ColliderDef* def, std::shared_future<object::MapInfo> info, std::string fileName, const uint32_t& ownerID = 0)
         {
             return CreateCollider<TileCollider>(def, ownerID, info, fileName);
         }
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚ğíœ
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å‰Šé™¤
         /// </summary>
-        /// <param name="id">ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</param>
+        /// <param name="id">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</param>
         void Destroy(const ColliderID& id);
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚ğæ“¾
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å–å¾—
         /// </summary>
-        /// <param name="id">ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</param>
-        /// <returns>ƒRƒ‰ƒCƒ_[‚Ö‚Ìƒ|ƒCƒ“ƒ^</returns>
+        /// <param name="id">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</param>
+        /// <returns>ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã¸ã®ãƒã‚¤ãƒ³ã‚¿</returns>
         Collider* GetCollider(const ColliderID& id) const;
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚ÌXVˆ—
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®æ›´æ–°å‡¦ç†
         /// </summary>
         void Step();
 
         /// <summary>
-        /// ƒ}ƒXƒN‚ğ’Ç‰Á
+        /// ãƒã‚¹ã‚¯ã‚’è¿½åŠ 
         /// </summary>
-        /// <param name="id">ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</param>
-        /// <param name="shape">Œ`ó‚Ìí—Ş</param>
-        /// <param name="ownerID">Š—LÒ‚ÌID</param>
+        /// <param name="id">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</param>
+        /// <param name="shape">å½¢çŠ¶ã®ç¨®é¡</param>
+        /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
         void AddMask(const ColliderID& id, const uint32_t& shape, const uint32_t& ownerID)
         {
             if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
@@ -143,11 +143,11 @@ export namespace col2d
         }
 
         /// <summary>
-        /// Õ“ËƒCƒxƒ“ƒg‚ğ’Ç‰Á
+        /// è¡çªæ™‚ã‚¤ãƒ™ãƒ³ãƒˆã‚’è¿½åŠ 
         /// </summary>
-        /// <param name="id">ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</param>
-        /// <param name="key">‘ÎÛ‚ÌƒCƒxƒ“ƒg‚ğ¯•Ê‚·‚é‚½‚ß‚ÌƒL[</param>
-        /// <param name="event">’Ç‰Á‚·‚éƒCƒxƒ“ƒg</param>
+        /// <param name="id">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</param>
+        /// <param name="key">å¯¾è±¡ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’è­˜åˆ¥ã™ã‚‹ãŸã‚ã®ã‚­ãƒ¼</param>
+        /// <param name="event">è¿½åŠ ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ</param>
         void AddEvent(const ColliderID& id, const uint64_t& key, ContactListener event)
         {
             if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
@@ -157,13 +157,13 @@ export namespace col2d
 
     private:
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚Ì¯•Êq‚ğ¶¬
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <returns>¶¬‚³‚ê‚½ƒRƒ‰ƒCƒ_[‚Ì¯•Êq</returns>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è­˜åˆ¥å­</returns>
         ColliderID CreateID();
 
-        std::queue<ColliderID> m_freeID; // –¢g—p‚ÌƒRƒ‰ƒCƒ_[ID
-        std::unordered_map<uint32_t, uint16_t> m_generations; // Œ»İ‚Ì¢‘ã‚ğŠÇ—
-        std::unordered_map<uint32_t, std::unique_ptr<Collider>> m_colliders; // ƒRƒ‰ƒCƒ_[‚Ìƒ}ƒbƒv
+        std::queue<ColliderID> m_freeID; // æœªä½¿ç”¨ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ID
+        std::unordered_map<uint32_t, uint16_t> m_generations; // ç¾åœ¨ã®ä¸–ä»£ã‚’ç®¡ç†
+        std::unordered_map<uint32_t, std::unique_ptr<Collider>> m_colliders; // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ãƒãƒƒãƒ—
     };
 }

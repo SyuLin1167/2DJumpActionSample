@@ -9,7 +9,7 @@ namespace col2d
 {
     void RectColliderResolver::Resolve(RectCollider& issue, const RectCollider& other)
     {
-        // ·•ª‚ğZo
+        // å·®åˆ†ã‚’ç®—å‡º
         Vector2f diffX
         {
             other.GetRect().Left() - issue.GetRect().Right(),
@@ -21,20 +21,20 @@ namespace col2d
             other.GetRect().Bottom() - issue.GetRect().Top()
         };
 
-        // ²‚²‚Æ‰Ÿ‚µ–ß‚µ—Ê‚ğo‚·
+        // è»¸ã”ã¨æŠ¼ã—æˆ»ã—é‡ã‚’å‡ºã™
         float dx = (std::abs(diffX.x) < std::abs(diffX.y)) ? diffX.x : diffX.y;
         float dy = (std::abs(diffY.x) < std::abs(diffY.y)) ? diffY.x : diffY.y;
 
-        // ‘ÎŠp“¯’l‚Í‰½‚à‚µ‚È‚¢
+        // å¯¾è§’åŒå€¤ã¯ä½•ã‚‚ã—ãªã„
         if (std::abs(dx) == std::abs(dy))
         {
             return;
         }
 
-        // Å‚à‹ß‚¢•ûŒü‚É‰Ÿ‚µ–ß‚·
+        // æœ€ã‚‚è¿‘ã„æ–¹å‘ã«æŠ¼ã—æˆ»ã™
         if (std::abs(dx) < std::abs(dy))
         {
-            // “¯‚¶•ûŒü‚Ö‚Ì‰Ÿ‚µ–ß‚µ‚Íó‚¯•t‚¯‚È‚¢‚æ‚¤‚É‚·‚é
+            // åŒã˜æ–¹å‘ã¸ã®æŠ¼ã—æˆ»ã—ã¯å—ã‘ä»˜ã‘ãªã„ã‚ˆã†ã«ã™ã‚‹
             if ((dx < 0 && issue.GetVelocity().x > 0) || (dx > 0 && issue.GetVelocity().x < 0))
             {
                 issue.AddVelocity(Vector2f(dx, 0.0f));
@@ -43,7 +43,7 @@ namespace col2d
         }
         else
         {
-            // “¯‚¶•ûŒü‚Ö‚Ì‰Ÿ‚µ–ß‚µ‚Íó‚¯•t‚¯‚È‚¢‚æ‚¤‚É‚·‚é
+            // åŒã˜æ–¹å‘ã¸ã®æŠ¼ã—æˆ»ã—ã¯å—ã‘ä»˜ã‘ãªã„ã‚ˆã†ã«ã™ã‚‹
             if ((dy < 0 && issue.GetVelocity().y > 0) || (dy > 0 && issue.GetVelocity().y < 0))
             {
                 issue.AddVelocity(Vector2f(0.0f, dy));
@@ -54,24 +54,24 @@ namespace col2d
 
     void RectColliderResolver::Resolve(RectCollider& issue, const CircleCollider& other)
     {
-        // ’†S‚©‚çÅ‚à‹ß‚¢•Ó‚ğ‹‚ß‚é
+        // ä¸­å¿ƒã‹ã‚‰æœ€ã‚‚è¿‘ã„è¾ºã‚’æ±‚ã‚ã‚‹
         Vector2f nearest
         {
             std::clamp(other.GetCircle().center.x, issue.GetRect().Left(), issue.GetRect().Right()),
             std::clamp(other.GetCircle().center.y, issue.GetRect().Top(), issue.GetRect().Bottom())
         };
 
-        // ·•ª‚ğZo
+        // å·®åˆ†ã‚’ç®—å‡º
         Vector2f diff = nearest - other.GetCircle().center;
         float distSq = diff.LengthSq();
         float penetration = other.GetCircle().radius - std::sqrt(distSq);
         
-        // ‰Ÿ‚µ–ß‚µ•ûŒü‚Æ—Ê‚ğŒvZ
+        // æŠ¼ã—æˆ»ã—æ–¹å‘ã¨é‡ã‚’è¨ˆç®—
         Vector2f normal = diff.Norm();
         Vector2f push = normal * penetration;
         issue.AddVelocity(push);
 
-        // ‰Ÿ‚µ–ß‚µŒã‚Ì‘¬“x¬•ªœ‹
+        // æŠ¼ã—æˆ»ã—å¾Œã®é€Ÿåº¦æˆåˆ†é™¤å»
         Vector2f v = issue.GetVelocity();
         float vn = v.Dot(normal);
         issue.SetVelocity(v - normal * vn);

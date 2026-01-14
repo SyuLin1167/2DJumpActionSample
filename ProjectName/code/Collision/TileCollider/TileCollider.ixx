@@ -11,106 +11,106 @@ import Collider.RectCollider;
 using namespace math;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
-    // ‘O•ûéŒ¾
+    // å‰æ–¹å®£è¨€
     class TileColliderVisitor;
 
     /// <summary>
-    /// ƒ^ƒCƒ‹‚Ì—×Úƒtƒ‰ƒO
+    /// ã‚¿ã‚¤ãƒ«ã®éš£æ¥ãƒ•ãƒ©ã‚°
     /// </summary>
     export enum TileFlag : uint8_t
     {
-        NONE = 0,            // ‚È‚µ
-        LEFT = 1u << 1,      // ¶‘¤
-        RIGHT = 1u << 2,     // ‰E‘¤
-        TOP = 1u << 3,       // ã‘¤
-        BOTTOM = 1u << 4,    // ‰º‘¤
-        ALL = LEFT | RIGHT | TOP | BOTTOM  // ‘S•ûŒü
+        NONE = 0,            // ãªã—
+        LEFT = 1u << 1,      // å·¦å´
+        RIGHT = 1u << 2,     // å³å´
+        TOP = 1u << 3,       // ä¸Šå´
+        BOTTOM = 1u << 4,    // ä¸‹å´
+        ALL = LEFT | RIGHT | TOP | BOTTOM  // å…¨æ–¹å‘
     };
 
     /// <summary>
-    /// ƒ^ƒCƒ‹‚Ìí—Ş
+    /// ã‚¿ã‚¤ãƒ«ã®ç¨®é¡
     /// </summary>
     export enum class TileType : uint8_t
     {
-        SOLID = 1, // ’ÊíƒuƒƒbƒN
-        ONE_WAY_TOP = 2  // ã‚©‚ç‚Ì‚İ“–‚½‚èi‘«êj
+        SOLID = 1, // é€šå¸¸ãƒ–ãƒ­ãƒƒã‚¯
+        ONE_WAY_TOP = 2  // ä¸Šã‹ã‚‰ã®ã¿å½“ãŸã‚Šï¼ˆè¶³å ´ï¼‰
     };
 
     /// <summary>
-    /// ƒ^ƒCƒ‹î•ñ
+    /// ã‚¿ã‚¤ãƒ«æƒ…å ±
     /// </summary>
     struct TileInfo
     {
-        TileType type;                          // ƒ^ƒCƒ‹‚Ìí—Ş
-        uint8_t adjacentFlag;                   // —×Ú‚·‚éƒ^ƒCƒ‹‚Ìƒtƒ‰ƒO
-        std::unique_ptr<RectCollider> collider; // ƒ^ƒCƒ‹‚É‘Î‰‚·‚é‹éŒ`ƒRƒ‰ƒCƒ_[
+        TileType type;                          // ã‚¿ã‚¤ãƒ«ã®ç¨®é¡
+        uint8_t adjacentFlag;                   // éš£æ¥ã™ã‚‹ã‚¿ã‚¤ãƒ«ã®ãƒ•ãƒ©ã‚°
+        std::unique_ptr<RectCollider> collider; // ã‚¿ã‚¤ãƒ«ã«å¯¾å¿œã™ã‚‹çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
     };
 
     /// <summary>
-    /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[
+    /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
     /// </summary>
     /// <remarks>
-    /// ƒ^ƒCƒ‹ƒ}ƒbƒv‚Ìƒ^ƒCƒ‹‚É‘Î‚·‚éƒRƒ‰ƒCƒ_[
+    /// ã‚¿ã‚¤ãƒ«ãƒãƒƒãƒ—ã®ã‚¿ã‚¤ãƒ«ã«å¯¾ã™ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
     /// </remarks>
     export class TileCollider final :public Collider
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
-        /// <param name="info">ƒ}ƒbƒvî•ñ</param>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹–¼</param>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
+        /// <param name="info">ãƒãƒƒãƒ—æƒ…å ±</param>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
         TileCollider(ColliderDef* def, const object::MapInfo& info, std::string fileName);
         
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
-        /// <param name="info">ƒ}ƒbƒvî•ñ</param>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹–¼</param>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
+        /// <param name="info">ãƒãƒƒãƒ—æƒ…å ±</param>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
         TileCollider(ColliderDef* def, std::shared_future<object::MapInfo> info, std::string fileName);
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~TileCollider() override;
 
         /// <summary>
-        /// ƒJƒeƒSƒŠ[‚Ì¶¬
+        /// ã‚«ãƒ†ã‚´ãƒªãƒ¼ã®ç”Ÿæˆ
         /// </summary>
-        /// <param name="ownerID">Š—LÒ‚ÌID</param>
+        /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
         void GenerateCategory(uint32_t ownerID = 0) override
         {
             m_filter.category = MakeKey(ShapeType::TILE, ownerID);
         }
 
         /// <summary>
-        /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ÌÕ“Ë”»’è
+        /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è¡çªåˆ¤å®š
         /// </summary>
-        /// <param name="rect">‹éŒ`</param>
-        /// <returns>Õ“Ë‚µ‚Ä‚¢‚é‚©</returns>
+        /// <param name="rect">çŸ©å½¢</param>
+        /// <returns>è¡çªã—ã¦ã„ã‚‹ã‹</returns>
         bool IsColliding(const shape::Rect& rect);
 
         /// <summary>
-        /// ƒqƒbƒg‚µ‚½ƒ^ƒCƒ‹‚ÌƒL[‚ğæ“¾
+        /// ãƒ’ãƒƒãƒˆã—ãŸã‚¿ã‚¤ãƒ«ã®ã‚­ãƒ¼ã‚’å–å¾—
         /// </summary>
-        /// <returns>ƒqƒbƒg‚µ‚½ƒ^ƒCƒ‹‚ÌƒL[/returns>
+        /// <returns>ãƒ’ãƒƒãƒˆã—ãŸã‚¿ã‚¤ãƒ«ã®ã‚­ãƒ¼/returns>
         std::queue<std::pair<size_t, size_t>> TakeHitTileKeys()
         {
             return std::exchange(m_hitTileKeys, {});
         }
 
         /// <summary>
-        /// ƒ^ƒCƒ‹î•ñ‚ğæ“¾
+        /// ã‚¿ã‚¤ãƒ«æƒ…å ±ã‚’å–å¾—
         /// </summary>
-        /// <param name="key">ƒ^ƒCƒ‹‚ÌƒL[</param>
-        /// <param name="index">ƒ^ƒCƒ‹‚ÌƒCƒ“ƒfƒbƒNƒX</param>
-        /// <returns>ƒ^ƒCƒ‹î•ñ‚Ö‚Ìƒ|ƒCƒ“ƒ^</returns>
+        /// <param name="key">ã‚¿ã‚¤ãƒ«ã®ã‚­ãƒ¼</param>
+        /// <param name="index">ã‚¿ã‚¤ãƒ«ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
+        /// <returns>ã‚¿ã‚¤ãƒ«æƒ…å ±ã¸ã®ãƒã‚¤ãƒ³ã‚¿</returns>
         inline const TileInfo* GetTileInfo(size_t key, size_t index) const
         {
             if (auto it = m_tileColliders.find(key); it != m_tileColliders.end())
@@ -124,9 +124,9 @@ export namespace col2d
         }
 
         /// <summary>
-        /// ƒ^ƒCƒ‹ƒTƒCƒY‚ğæ“¾
+        /// ã‚¿ã‚¤ãƒ«ã‚µã‚¤ã‚ºã‚’å–å¾—
         /// </summary>
-        /// <returns>ƒ^ƒCƒ‹ƒTƒCƒY</returns>
+        /// <returns>ã‚¿ã‚¤ãƒ«ã‚µã‚¤ã‚º</returns>
         const Vector2f& GetTileSize() const
         {
             return m_mapInfo.tileSize;
@@ -134,51 +134,51 @@ export namespace col2d
 
     private:
         /// <summary>
-        /// ƒ^ƒCƒ‹‚ÌƒL[‚ğ¶¬
+        /// ã‚¿ã‚¤ãƒ«ã®ã‚­ãƒ¼ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <param name="cx">ƒ`ƒƒƒ“ƒN‚ÌXÀ•W</param>
-        /// <param name="cy">ƒ`ƒƒƒ“ƒN‚ÌYÀ•W</param>
-        /// <returns>¶¬‚³‚ê‚½ƒL[</returns>
+        /// <param name="cx">ãƒãƒ£ãƒ³ã‚¯ã®Xåº§æ¨™</param>
+        /// <param name="cy">ãƒãƒ£ãƒ³ã‚¯ã®Yåº§æ¨™</param>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸã‚­ãƒ¼</returns>
         static inline uint64_t MakeTileKey(uint32_t cx, uint32_t cy)
         {
             return (static_cast<uint64_t>(cy) << 32) | static_cast<uint64_t>(cx);
         }
 
         /// <summary>
-        /// ’l‚ğw’è‚Ì”ÍˆÍ‚Åè—]‰‰Z
+        /// å€¤ã‚’æŒ‡å®šã®ç¯„å›²ã§å‰°ä½™æ¼”ç®—
         /// </summary>
-        /// <param name="value">’l</param>
-        /// <param name="mod">è—]‚Ì’l</param>
-        /// <returns>è—]‰‰Z‚ÌŒ‹‰Ê</returns>
+        /// <param name="value">å€¤</param>
+        /// <param name="mod">å‰°ä½™ã®å€¤</param>
+        /// <returns>å‰°ä½™æ¼”ç®—ã®çµæœ</returns>
         static inline size_t Mod(size_t value, size_t mod)
         {
             return value % mod;
         }
 
         /// <summary>
-        /// —×Ú‚·‚éƒ^ƒCƒ‹‚Ìƒtƒ‰ƒO‚ğæ“¾
+        /// éš£æ¥ã™ã‚‹ã‚¿ã‚¤ãƒ«ã®ãƒ•ãƒ©ã‚°ã‚’å–å¾—
         /// <summary>
-        /// <param name="tileLayer">ƒ^ƒCƒ‹ƒŒƒCƒ„[</param>
-        /// <param name="x">ƒ^ƒCƒ‹‚ÌXÀ•W</param>
-        /// <param name="y">ƒ^ƒCƒ‹‚ÌYÀ•W</param>
+        /// <param name="tileLayer">ã‚¿ã‚¤ãƒ«ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+        /// <param name="x">ã‚¿ã‚¤ãƒ«ã®Xåº§æ¨™</param>
+        /// <param name="y">ã‚¿ã‚¤ãƒ«ã®Yåº§æ¨™</param>
         uint8_t AdjacentTileAt(const std::vector<size_t>& mapData, size_t x, size_t y) const;
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚ğ–K–â
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è¨ªå•
         /// </summary>
-        /// <param name="visitor">–K–â‚·‚éƒrƒWƒ^[</param>
+        /// <param name="visitor">è¨ªå•ã™ã‚‹ãƒ“ã‚¸ã‚¿ãƒ¼</param>
         void Accept(ColliderVisitor& visitor) override {}
 
         /// <summary>
-        /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚Ì¶¬
+        /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ç”Ÿæˆ
         /// </summary>
-        /// <param name="mapData">ƒ}ƒbƒvƒf[ƒ^</param>
+        /// <param name="mapData">ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿</param>
         void BuildTileColliders(std::vector<size_t> mapData);
 
-        object::MapInfo m_mapInfo;      // ƒ}ƒbƒvî•ñ
+        object::MapInfo m_mapInfo;      // ãƒãƒƒãƒ—æƒ…å ±
 
-        std::unordered_map<size_t, std::vector<TileInfo>> m_tileColliders;  // ƒ^ƒCƒ‹ó‚ÌƒRƒ‰ƒCƒ_[‚ğ•Û‚·‚éƒxƒNƒ^[
-        std::queue<std::pair<size_t, size_t>> m_hitTileKeys;                // ƒqƒbƒg‚µ‚½ƒ^ƒCƒ‹‚ÌƒL[
+        std::unordered_map<size_t, std::vector<TileInfo>> m_tileColliders;  // ã‚¿ã‚¤ãƒ«çŠ¶ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ä¿æŒã™ã‚‹ãƒ™ã‚¯ã‚¿ãƒ¼
+        std::queue<std::pair<size_t, size_t>> m_hitTileKeys;                // ãƒ’ãƒƒãƒˆã—ãŸã‚¿ã‚¤ãƒ«ã®ã‚­ãƒ¼
     };
 }
 

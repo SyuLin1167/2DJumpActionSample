@@ -1,4 +1,4 @@
-﻿module;
+・ｿmodule;
 #include <DxLib.h>
 
 module GameSystem.FrameRate;
@@ -18,12 +18,12 @@ namespace gameSystem
 
     void FrameRate::CalcFrameRateImpl()
     {
-        //デルタタイムを算出
+        //繝・Ν繧ｿ繧ｿ繧､繝繧堤ｮ怜・
         m_nowTime = GetNowHiPerformanceCount();
         m_deltaTime = (m_nowTime - m_prevTime) / MICRO_SEC;
         m_prevTime = m_nowTime;
 
-        //fps算出
+        //fps邂怜・
         if (m_frameCount == FPS_60)
         {
             m_fps = MICRO_SEC / ((m_nowTime - m_startTime) / FPS_60);

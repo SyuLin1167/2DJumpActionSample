@@ -20,9 +20,9 @@ export namespace object
             : id()
             , m_cleared(cleared)
         {
-            // 画像読み込み
+            // 逕ｻ蜒剰ｪｭ縺ｿ霎ｼ縺ｿ
             //AppCtx::AssetMgr().LoadAsync<asset::Graph>("goal", "goal.png");
-            m_pos = { 2100.0f, 1000.0f }; // 仮のゴール位置
+            m_pos = { 2100.0f, 1000.0f }; // 莉ｮ縺ｮ繧ｴ繝ｼ繝ｫ菴咲ｽｮ
         }
 
         ~Goal()
@@ -33,7 +33,7 @@ export namespace object
 
         void Init() override
         {
-            // コライダー作成
+            // 繧ｳ繝ｩ繧､繝繝ｼ菴懈��
             col2d::ColliderDef def{};
             def.type = col2d::Type::STATIC;
             def.localPos = m_pos;
@@ -42,7 +42,7 @@ export namespace object
             id = ObjCtx::ColMgr().CreateCircleCollider(&def, 16.0f, MyObjectTag());
             ObjCtx::ColMgr().AddMask(id, col2d::RECT, ObjectTag::PLAYER);
 
-            // 衝突イベント登録
+            // 陦晉ｪ√う繝吶Φ繝育匳骭ｲ
             col2d::ContactListener listener;
             listener.when = [&]() {return true; };
             listener.event = [&]() { m_cleared = true; };

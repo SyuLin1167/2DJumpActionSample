@@ -5,78 +5,78 @@ import <typeindex>;
 import Scene.SceneBase;
 import MyLib.Coroutine;
 
-// ‘O•ûéŒ¾
+// å‰æ–¹å®£è¨€
 export namespace task
 {
     class Loading;
 }
 
 /// <summary>
-/// ƒV[ƒ“ŠÖ˜A
+/// ã‚·ãƒ¼ãƒ³é–¢é€£
 /// </summary>
 export namespace scene
 {
     /// <summary>
-    /// ƒ[ƒfƒBƒ“ƒO‹K–ñ
+    /// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°è¦ç´„
     /// </summary>
     export enum LoadPolicy :int8_t
     {
-        NONE = 0,               // ‚È‚µ
-        COROUTINE = 1 << 0,     // ƒRƒ‹[ƒ`ƒ“
-        PROGRESS = 1 << 1,      // i’»•\¦
-        DONE = 1 << 2,          // Œ‹‰Ê‚Ì‚İ
+        NONE = 0,               // ãªã—
+        COROUTINE = 1 << 0,     // ã‚³ãƒ«ãƒ¼ãƒãƒ³
+        PROGRESS = 1 << 1,      // é€²æ—è¡¨ç¤º
+        DONE = 1 << 2,          // çµæœã®ã¿
     };
 
     /// <summary>
-    /// ƒ[ƒfƒBƒ“ƒO‰æ–Ê‚ğ’S“–
+    /// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ç”»é¢ã‚’æ‹…å½“
     /// </summary>
     export class LoadingScene final :public SceneBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         LoadingScene() = default;
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="policy">ƒ|ƒŠƒV[</param>
-        /// <param name="nextScene">ŸƒV[ƒ“‚ğ•Ô‚·ŠÖ”</param>
-        /// <param name="draw">•`‰æˆ—</param>
+        /// <param name="policy">ãƒãƒªã‚·ãƒ¼</param>
+        /// <param name="nextScene">æ¬¡ã‚·ãƒ¼ãƒ³ã‚’è¿”ã™é–¢æ•°</param>
+        /// <param name="draw">æç”»å‡¦ç†</param>
         LoadingScene(int8_t policy, std::function<std::shared_ptr<SceneBase>()> nextScene, std::shared_ptr<SceneBase> holdScene = nullptr);
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~LoadingScene();
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         void Init() override {};
 
         /// <summary>
-        /// ƒRƒ‹[ƒ`ƒ““Ç‚İ‚İ
+        /// ã‚³ãƒ«ãƒ¼ãƒãƒ³èª­ã¿è¾¼ã¿
         /// </summary>
-        /// <returns>¶¬Œã‚ÌƒRƒ‹[ƒ`ƒ“</returns>
+        /// <returns>ç”Ÿæˆå¾Œã®ã‚³ãƒ«ãƒ¼ãƒãƒ³</returns>
         Coroutine LoadCoroutine();
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         SceneCmd Update() override;
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         void Draw() override;
 
     private:
-        uint8_t m_policy;                                 //ƒ|ƒŠƒV[
-        std::shared_ptr<SceneBase> m_holdScene;           //ˆêŠm•Û—p‚ÌƒV[ƒ“
-        std::shared_ptr<SceneBase> m_nextScene;           //ŸƒV[ƒ“
-        std::function<std::shared_ptr<SceneBase>()> m_loadScene;  //ŸƒV[ƒ““Ç‚İ‚İˆ—
-        Coroutine m_coroutine;                            //ƒRƒ‹[ƒ`ƒ“
+        uint8_t m_policy;                                 //ãƒãƒªã‚·ãƒ¼
+        std::shared_ptr<SceneBase> m_holdScene;           //ä¸€æ™‚ç¢ºä¿ç”¨ã®ã‚·ãƒ¼ãƒ³
+        std::shared_ptr<SceneBase> m_nextScene;           //æ¬¡ã‚·ãƒ¼ãƒ³
+        std::function<std::shared_ptr<SceneBase>()> m_loadScene;  //æ¬¡ã‚·ãƒ¼ãƒ³èª­ã¿è¾¼ã¿å‡¦ç†
+        Coroutine m_coroutine;                            //ã‚³ãƒ«ãƒ¼ãƒãƒ³
     };
 }

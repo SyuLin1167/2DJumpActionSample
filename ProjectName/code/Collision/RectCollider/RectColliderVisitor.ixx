@@ -6,48 +6,48 @@ import MyLib.Math.Vector2;
 using namespace math;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
-    // ‘O•ûéŒ¾
+    // å‰æ–¹å®£è¨€
     class RectCollider;
     class CircleCollider;
 
     /// <summary>
-    /// ‹éŒ`ƒRƒ‰ƒCƒ_[ƒrƒWƒ^[
+    /// çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒ“ã‚¸ã‚¿ãƒ¼
     /// </summary>
     /// <remarks>
     export class RectColliderVisitor final : public ColliderVisitor
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         RectColliderVisitor(RectCollider& issue);
 
-        // ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ííœ
+        // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯å‰Šé™¤
         RectColliderVisitor() = delete;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~RectColliderVisitor() = default;
 
         /// <summary>
-        /// ‹éŒ`ƒRƒ‰ƒCƒ_[‚ğ–K–â
+        /// çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è¨ªå•
         /// </summary>
-        /// <param name="_target">–K–â‚·‚é‹éŒ`ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="_target">è¨ªå•ã™ã‚‹çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         void Visit(RectCollider& target) override;
 
         /// <summary>
-        /// ‰~Œ`ƒRƒ‰ƒCƒ_[‚ğ–K–â
+        /// å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è¨ªå•
         /// </summary>
-        /// <param name="_target">–K–â‚·‚é‰~Œ`ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="_target">è¨ªå•ã™ã‚‹å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         void Visit(CircleCollider& target) override;
 
     private:
-        RectCollider& m_issue; // –K–â‚·‚é‹éŒ`ƒRƒ‰ƒCƒ_[‚ÌQÆ
-        RectColliderResolver m_resolver; // ‹éŒ`ƒRƒ‰ƒCƒ_[‚Ì‰ğŒˆˆ—‚ğs‚¤ƒŠƒ]ƒ‹ƒo[
+        RectCollider& m_issue; // è¨ªå•ã™ã‚‹çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®å‚ç…§
+        RectColliderResolver m_resolver; // çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è§£æ±ºå‡¦ç†ã‚’è¡Œã†ãƒªã‚¾ãƒ«ãƒãƒ¼
     };
 }

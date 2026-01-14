@@ -19,16 +19,16 @@ namespace scene
 {
     Title::Title()
     {
-        // ”wŒi‰æ‘œ“Ç‚İ‚İ
+        // èƒŒæ™¯ç”»åƒèª­ã¿è¾¼ã¿
         AppCtx::AssetMgr().LoadAsync<asset::Graph>("Title", "Title.png");
 
-        // ƒXƒ^[ƒgƒ{ƒ^ƒ“ì¬
+        // ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³ä½œæˆ
         shape::Rect buttonRect(START_BTN_POS, BTN_SIZE);
         ui::ButtonDef startButtonDef("Start", buttonRect, GetColor(150, 100,80));
         startButtonDef.onReleased = [this]() { m_toNextScene = true; };
         m_startButtonID = AppCtx::UIMgr().Create<ui::Button>(&startButtonDef);
 
-        // Exitƒ{ƒ^ƒ“ì¬
+        // Exitãƒœã‚¿ãƒ³ä½œæˆ
         buttonRect.pos = EXIT_BTN_POS;
         ui::ButtonDef exitButtonDef("Exit", buttonRect, GetColor(150, 100, 80));
         exitButtonDef.onReleased = [this]() { m_toExit = true; };
@@ -37,10 +37,10 @@ namespace scene
 
     Title::~Title()
     {
-        // ”wŒi‰æ‘œƒnƒ“ƒhƒ‹íœ
+        // èƒŒæ™¯ç”»åƒãƒãƒ³ãƒ‰ãƒ«å‰Šé™¤
         gameSystem::AppCtx::AssetMgr().DeleteHandle<asset::Graph>("Title");
 
-        // ƒ{ƒ^ƒ“”jŠü
+        // ãƒœã‚¿ãƒ³ç ´æ£„
         AppCtx::UIMgr().Destroy(m_startButtonID);
         AppCtx::UIMgr().Destroy(m_exitButtonID);
     }
@@ -49,10 +49,10 @@ namespace scene
     {
         AppCtx::UIMgr().Update();
 
-        //EƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚çƒV[ƒ“ˆÚ“®
+        //Eã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰ã‚·ãƒ¼ãƒ³ç§»å‹•
         if (m_toNextScene)
         {
-            // ƒ[ƒfƒBƒ“ƒOƒV[ƒ“‚ÖˆÚ“®
+            // ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã‚·ãƒ¼ãƒ³ã¸ç§»å‹•
             return CmdReplace{
                 [hold = shared_from_this()]() mutable {
                     return std::make_shared<LoadingScene>(LoadPolicy::PROGRESS,
@@ -62,30 +62,30 @@ namespace scene
             };
         }
 
-        // Exitƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚çI—¹—v‹
+        // Exitãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰çµ‚äº†è¦æ±‚
         if (m_toExit)
         {
             return CmdQuit{};
         }
 
-        // Œp‘±
+        // ç¶™ç¶š
         return std::monostate{};
     }
 
     void Title::Draw()
     {
-        // ƒ^ƒCƒgƒ‹‰æ–Ê•`‰æ
+        // ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢æç”»
         DrawGraph(0, 0, AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("Title"), true);
 
-        // UI•`‰æ
+        // UIæç”»
         AppCtx::UIMgr().Draw();
     }
 
     void Title::DrawLoading()
     {
-        // ƒ[ƒfƒBƒ“ƒOi’»“x•\¦
+        // ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°é€²æ—åº¦è¡¨ç¤º
         float progress = task::LoadingContext::Get()->NowProgress() * 100.0f;
-        DrawFormatString(PROGRESS_TEXT_POS.x, PROGRESS_TEXT_POS.y, GetColor(100, 250, 150), "ƒ[ƒfƒBƒ“ƒOi’»“xF%.2f“", progress);
+        DrawFormatString(PROGRESS_TEXT_POS.x, PROGRESS_TEXT_POS.y, GetColor(100, 250, 150), "ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°é€²æ—åº¦ï¼š%.2fï¼…", progress);
         DrawBox(PROGRESS_TEXT_POS.x, PROGRESS_TEXT_POS.y - 50, PROGRESS_TEXT_POS.x + static_cast<int>(progress * 2), PROGRESS_TEXT_POS.y - 20, GetColor(0, 255, 0), true);
     }
 }

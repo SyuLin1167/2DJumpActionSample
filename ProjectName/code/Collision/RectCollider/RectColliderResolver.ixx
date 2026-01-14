@@ -1,45 +1,45 @@
 export module Collider.RectColliderResolver;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
-    // ‘O•ûéŒ¾
+    // å‰æ–¹å®£è¨€
     class RectCollider;
     class CircleCollider;
 
     /// <summary>
-    /// ‹éŒ`ƒRƒ‰ƒCƒ_[‚Ì‰ğŒˆˆ—
+    /// çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è§£æ±ºå‡¦ç†
     /// </summary>
     /// <remarks>
-    /// ‹éŒ`ƒRƒ‰ƒCƒ_[‚ÌÕ“Ë‰ğŒˆ‚ğs‚¤
+    /// çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è¡çªè§£æ±ºã‚’è¡Œã†
     /// </remarks>
     export class RectColliderResolver final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         RectColliderResolver() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~RectColliderResolver() = default;
 
         /// <summary>
-        /// ‰ğŒˆˆ—
+        /// è§£æ±ºå‡¦ç†
         /// </summary>
-        /// <param name="issue">‰ğŒˆ‘ÎÛ‚Ì‹éŒ`ƒRƒ‰ƒCƒ_[</param>
-        /// <param name="other">‘¼‚Ì‹éŒ`ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="issue">è§£æ±ºå¯¾è±¡ã®çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <param name="other">ä»–ã®çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         void Resolve(RectCollider& issue, const RectCollider& other);
 
         /// <summary>
-        /// ‰ğŒˆˆ—
+        /// è§£æ±ºå‡¦ç†
         /// </summary>
-        /// <param name="issue">‰ğŒˆ‘ÎÛ‚Ì‹éŒ`ƒRƒ‰ƒCƒ_[</param>
-        /// <param name="other">‘¼‚Ì‰~Œ`ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="issue">è§£æ±ºå¯¾è±¡ã®çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <param name="other">ä»–ã®å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         void Resolve(RectCollider& issue, const CircleCollider& other);
     };
 }

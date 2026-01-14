@@ -2,26 +2,26 @@ export module MyLib.ClickStatus;
 
 import <unordered_map>;
 
-export constexpr int8_t CLICK_ON_RELEASE = 0x0001;   // –¢“ü—Í
-export constexpr int8_t CLICK_RELEASING  = 0x0002;   // –¢“ü—Í’†
-export constexpr int8_t CLICK_ON_PRESS   = 0x0004;   // “ü—Í
-export constexpr int8_t CLICK_PRESSING   = 0x0008;   // “ü—Í’†
+export constexpr int8_t CLICK_ON_RELEASE = 0x0001;   // æœªå…¥åŠ›æ™‚
+export constexpr int8_t CLICK_RELEASING  = 0x0002;   // æœªå…¥åŠ›ä¸­
+export constexpr int8_t CLICK_ON_PRESS   = 0x0004;   // å…¥åŠ›æ™‚
+export constexpr int8_t CLICK_PRESSING   = 0x0008;   // å…¥åŠ›ä¸­
 
 /// <summary>
-/// “ü—ÍŠÖ˜AiƒNƒŠƒbƒNj
+/// å…¥åŠ›é–¢é€£ï¼ˆã‚¯ãƒªãƒƒã‚¯ï¼‰
 /// </summary>
 export namespace input
 {
     /// <summary>
-    /// ƒNƒŠƒbƒNî•ñ‚ÌŠÇ—
+    /// ã‚¯ãƒªãƒƒã‚¯æƒ…å ±ã®ç®¡ç†
     /// </summary>
     export class ClickStatus final
     {
     public:
         /// <summary>
-        /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <returns>©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>è‡ªèº«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static ClickStatus& Instance()
         {
             static ClickStatus instance;
@@ -29,7 +29,7 @@ export namespace input
         }
 
         /// <summary>
-        /// ƒNƒŠƒbƒNî•ñXV
+        /// ã‚¯ãƒªãƒƒã‚¯æƒ…å ±æ›´æ–°
         /// </summary>
         inline void UpdateClickState()
         {
@@ -37,35 +37,35 @@ export namespace input
         }
 
         /// <summary>
-        /// ƒNƒŠƒbƒNî•ñ”»’è
+        /// ã‚¯ãƒªãƒƒã‚¯æƒ…å ±åˆ¤å®š
         /// </summary>
-        /// <param name="button">‘ÎÛƒ{ƒ^ƒ“i—á: ¶=0, ‰E=1 ‚È‚Çj</param>
-        /// <param name="state">‘ÎÛƒXƒe[ƒ^ƒX</param>
-        /// <returns>ˆê’v:true | •sˆê’v:false</returns>
+        /// <param name="button">å¯¾è±¡ãƒœã‚¿ãƒ³ï¼ˆä¾‹: å·¦=0, å³=1 ãªã©ï¼‰</param>
+        /// <param name="state">å¯¾è±¡ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+        /// <returns>ä¸€è‡´:true | ä¸ä¸€è‡´:false</returns>
         static bool CheckClick(const int& button, const int& state)
         {
             return Instance().CheckClickImpl(button, state);
         }
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~ClickStatus() = default;
 
     private:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ClickStatus();
 
-        // À‘•—pƒƒ\ƒbƒh
+        // å®Ÿè£…ç”¨ãƒ¡ã‚½ãƒƒãƒ‰
         void UpdateClickStateImpl();
         bool CheckClickImpl(const int button, const int state)
         {
-            //‰Ÿ‰º’†”»’èŒ‹‰Ê‚ğ•Ô‚·
+            //æŠ¼ä¸‹ä¸­åˆ¤å®šçµæœã‚’è¿”ã™
             return (clickData[button] & state);
         }
 
-        std::unordered_map<int, int> clickData;          // ƒNƒŠƒbƒNî•ñ
+        std::unordered_map<int, int> clickData;          // ã‚¯ãƒªãƒƒã‚¯æƒ…å ±
     };
 }

@@ -6,29 +6,29 @@ export import Object.ObjectManager;
 export import AppContext;
 
 /// <summary>
-/// ƒV[ƒ“ŠÖ˜A
+/// ã‚·ãƒ¼ãƒ³é–¢é€£
 /// </summary>
 export namespace scene
 {
-    export class SceneBase; // ‘O•ûéŒ¾
+    export class SceneBase; // å‰æ–¹å®£è¨€
 
-    export using SceneBuilder = std::function<std::shared_ptr<SceneBase>()>;    // ƒV[ƒ“\’zŠÖ”
+    export using SceneBuilder = std::function<std::shared_ptr<SceneBase>()>;    // ã‚·ãƒ¼ãƒ³æ§‹ç¯‰é–¢æ•°
 
-    export struct CmdPush { SceneBuilder build; };      // ƒV[ƒ“‚ğÏ‚Ş
-    export struct CmdReplace { SceneBuilder build; };   // ƒV[ƒ“‚ğ’u‚«Š·‚¦‚é
-    export struct CmdPop {};                            // ƒV[ƒ“‚ğíœ‚·‚é
-    export struct CmdQuit {};                           // I—¹—v‹
+    export struct CmdPush { SceneBuilder build; };      // ã‚·ãƒ¼ãƒ³ã‚’ç©ã‚€
+    export struct CmdReplace { SceneBuilder build; };   // ã‚·ãƒ¼ãƒ³ã‚’ç½®ãæ›ãˆã‚‹
+    export struct CmdPop {};                            // ã‚·ãƒ¼ãƒ³ã‚’å‰Šé™¤ã™ã‚‹
+    export struct CmdQuit {};                           // çµ‚äº†è¦æ±‚
 
-    export using SceneCmd = std::variant<std::monostate, CmdPush, CmdReplace, CmdPop, CmdQuit>; // ƒV[ƒ“ƒRƒ}ƒ“ƒh
+    export using SceneCmd = std::variant<std::monostate, CmdPush, CmdReplace, CmdPop, CmdQuit>; // ã‚·ãƒ¼ãƒ³ã‚³ãƒãƒ³ãƒ‰
 
     /// <summary>
-    /// ƒV[ƒ“‚ÌŠî’êƒNƒ‰ƒX
+    /// ã‚·ãƒ¼ãƒ³ã®åŸºåº•ã‚¯ãƒ©ã‚¹
     /// </summary>
     export class SceneBase : public std::enable_shared_from_this<SceneBase>
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         SceneBase()
         {
@@ -36,31 +36,31 @@ export namespace scene
         }
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         virtual ~SceneBase() = default;
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         virtual void Init() = 0;
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         virtual SceneCmd Update() = 0;
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         virtual void Draw() = 0;
 
         /// <summary>
-        /// ƒ[ƒfƒBƒ“ƒO‰æ–Ê•`‰æˆ—
+        /// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ç”»é¢æç”»å‡¦ç†
         /// </summary>
         virtual void DrawLoading() {};
 
     protected:
-        std::unique_ptr<object::ObjectManager> m_objManager;        //ƒIƒuƒWƒFƒNƒgŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+        std::unique_ptr<object::ObjectManager> m_objManager;        //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     };
 }

@@ -4,7 +4,7 @@ namespace ui
 {
     void UIManager::Destroy(const UIElementID& id)
     {
-        // UI—v‘f‚ğ‰ğ•ú
+        // UIè¦ç´ ã‚’è§£æ”¾
         m_elements.erase(id.index);
         m_generations.erase(id.index);
         m_freeID.push(id);
@@ -30,7 +30,7 @@ namespace ui
     {
         UIElementID id{};
 
-        // –¢g—p‚ÌƒCƒ“ƒfƒbƒNƒX‚ª‚ ‚ê‚ÎÄ—˜—p‚µ¢‘ã‚àV‹K‚É‚·‚é
+        // æœªä½¿ç”¨ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒã‚ã‚Œã°å†åˆ©ç”¨ã—ä¸–ä»£ã‚‚æ–°è¦ã«ã™ã‚‹
         if (!m_freeID.empty())
         {
             id = m_freeID.front();
@@ -39,7 +39,7 @@ namespace ui
         }
         else
         {
-            // V‚µ‚¢ƒCƒ“ƒfƒbƒNƒX‚ğŠ„‚è“–‚Ä‚é
+            // æ–°ã—ã„ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å‰²ã‚Šå½“ã¦ã‚‹
             id.index = static_cast<uint32_t>(m_elements.size());
             id.generation = 0;
         }

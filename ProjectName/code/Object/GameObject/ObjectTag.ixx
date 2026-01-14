@@ -6,12 +6,12 @@ import <unordered_map>;
 import <string>;
 
 /// <summary>
-/// �I�u�W�F�N�g�֘A
+/// オブジェクト関連
 /// </summary>
 export namespace object
 {
     /// <summary>
-    /// �I�u�W�F�N�g�^�O
+    /// オブジェクトタグ
     /// </summary>
     export enum ObjectTag :uint32_t
     {
@@ -23,7 +23,7 @@ export namespace object
     };
 
     /// <summary>
-    /// �^�O�Q
+    /// タグ群
     /// </summary>
     export constexpr std::array OBJECT_TAGS
     {
@@ -35,7 +35,7 @@ export namespace object
     };
 
     /// <summary>
-    /// �^�O���當����ւ̕ϊ�
+    /// タグから文字列への変換
     /// </summary>
     export const std::unordered_map<uint32_t, std::string> TagToString
     {
@@ -47,7 +47,7 @@ export namespace object
     };
 
     /// <summary>
-    /// �����񂩂�^�O�ւ̕ϊ�
+    /// 文字列からタグへの変換
     /// </summary>
     export const std::unordered_map<std::string, uint32_t> StringToTag
     {

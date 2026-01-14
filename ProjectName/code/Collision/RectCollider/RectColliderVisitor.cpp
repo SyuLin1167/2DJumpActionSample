@@ -11,19 +11,19 @@ namespace col2d
     RectColliderVisitor::RectColliderVisitor(RectCollider& issue)
         :m_issue(issue)
     {
-        // ˆ—‚È‚µ
+        // å‡¦ç†ãªã—
     }
 
     void RectColliderVisitor::Visit(col2d::RectCollider& target)
     {
-        // ƒRƒ‰ƒCƒ_[‚ª—LŒø‚Å‚È‚¢ê‡‚Íˆ—‚ğs‚í‚È‚¢
+        // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒæœ‰åŠ¹ã§ãªã„å ´åˆã¯å‡¦ç†ã‚’è¡Œã‚ãªã„
         if (!m_issue.GetColliderDef()->isActive || !target.GetColliderDef()->isActive)
         {
             return;
         }
         m_hadContact = false;
 
-        // ƒTƒuƒXƒeƒbƒv”‚ğŒˆ’è
+        // ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—æ•°ã‚’æ±ºå®š
         Vector2f vel = m_issue.GetVelocity();
         float longest = std::max(std::abs(vel.x), std::abs(vel.y));
         auto selfRect = m_issue.GetRect();
@@ -32,17 +32,17 @@ namespace col2d
         vel /= static_cast<float>(N);
         Vector2f accumulatedMove{ 0.0f, 0.0f };
 
-        // ƒTƒuƒXƒeƒbƒv‚Å‰¼‘zˆÚ“®‚µ‚ÄÕ“Ë‰ğŒˆ
+        // ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—ã§ä»®æƒ³ç§»å‹•ã—ã¦è¡çªè§£æ±º
         for (int i = 0; i < N; ++i)
         {
-            // ‰¼‘zˆÚ“®
+            // ä»®æƒ³ç§»å‹•
             m_issue.AddVelocity(vel);
             accumulatedMove += vel;
 
-            // Õ“Ë‚µ‚Ä‚¢‚½‚ç‰ğŒˆ‚·‚é
+            // è¡çªã—ã¦ã„ãŸã‚‰è§£æ±ºã™ã‚‹
             if (m_issue.IsColliding(target))
             {
-                // Õ“Ëˆ—‚ğs‚¢A‘±s•s‰Â‚È‚çƒ‹[ƒv‚ğ”²‚¯‚é
+                // è¡çªå‡¦ç†ã‚’è¡Œã„ã€ç¶šè¡Œä¸å¯ãªã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
                 if (!HandleContact<RectCollider, RectCollider, RectColliderResolver>(m_issue, target, m_resolver))
                 {
                     break;
@@ -50,27 +50,27 @@ namespace col2d
             }
         }
 
-        // Õ“Ë‚µ‚Ä‚¢‚ê‚ÎƒCƒxƒ“ƒg‚ğÀ{‚·‚é
+        // è¡çªã—ã¦ã„ã‚Œã°ã‚¤ãƒ™ãƒ³ãƒˆã‚’å®Ÿæ–½ã™ã‚‹
         if (m_hadContact)
         {
             m_issue.TriggerEvent(target.GetFilter().category);
             target.TriggerEvent(m_issue.GetFilter().category);
         }
 
-        // ƒTƒuƒXƒeƒbƒv‚Åi‚ß‚½ƒˆ‚È‘Oi•ª‚¾‚¯‚ğ•K‚¸Šª‚«–ß‚·
+        // ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—ã§é€²ã‚ãŸç´”ç²‹ãªå‰é€²åˆ†ã ã‘ã‚’å¿…ãšå·»ãæˆ»ã™
         m_issue.AddVelocity(accumulatedMove * -1.0f);
     }
 
     void RectColliderVisitor::Visit(col2d::CircleCollider& target)
     {
-        // ƒRƒ‰ƒCƒ_[‚ª—LŒø‚Å‚È‚¢ê‡‚Íˆ—‚ğs‚í‚È‚¢
+        // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒæœ‰åŠ¹ã§ãªã„å ´åˆã¯å‡¦ç†ã‚’è¡Œã‚ãªã„
         if (!m_issue.GetColliderDef()->isActive || !target.GetColliderDef()->isActive)
         {
             return;
         }
         m_hadContact = false;
 
-        // ƒTƒuƒXƒeƒbƒv”‚ğŒˆ’è
+        // ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—æ•°ã‚’æ±ºå®š
         Vector2f vel = m_issue.GetVelocity();
         float longest = std::max(std::abs(vel.x), std::abs(vel.y));
         auto selfRect = m_issue.GetRect();
@@ -79,17 +79,17 @@ namespace col2d
         vel /= static_cast<float>(N);
         Vector2f accumulatedMove{ 0.0f, 0.0f };
 
-        // ƒTƒuƒXƒeƒbƒv‚Å‰¼‘zˆÚ“®‚µ‚ÄÕ“Ë‰ğŒˆ
+        // ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—ã§ä»®æƒ³ç§»å‹•ã—ã¦è¡çªè§£æ±º
         for (int i = 0; i < N; ++i)
         {
-            // ‰¼‘zˆÚ“®
+            // ä»®æƒ³ç§»å‹•
             m_issue.AddVelocity(vel);
             accumulatedMove += vel;
 
-            // Õ“Ë‚µ‚Ä‚¢‚½‚ç‰ğŒˆ‚·‚é
+            // è¡çªã—ã¦ã„ãŸã‚‰è§£æ±ºã™ã‚‹
             if (m_issue.IsColliding(target))
             {
-                // Õ“Ëˆ—‚ğs‚¢A‘±s•s‰Â‚È‚çƒ‹[ƒv‚ğ”²‚¯‚é
+                // è¡çªå‡¦ç†ã‚’è¡Œã„ã€ç¶šè¡Œä¸å¯ãªã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
                 if (!HandleContact<RectCollider, CircleCollider, RectColliderResolver>(m_issue, target, m_resolver))
                 {
                     break;
@@ -97,14 +97,14 @@ namespace col2d
             }
         }
 
-        // Õ“Ë‚µ‚Ä‚¢‚ê‚ÎƒCƒxƒ“ƒg‚ğÀ{‚·‚é
+        // è¡çªã—ã¦ã„ã‚Œã°ã‚¤ãƒ™ãƒ³ãƒˆã‚’å®Ÿæ–½ã™ã‚‹
         if (m_hadContact)
         {
             m_issue.TriggerEvent(target.GetFilter().category);
             target.TriggerEvent(m_issue.GetFilter().category);
         }
 
-        // ƒTƒuƒXƒeƒbƒv‚Åi‚ß‚½ƒˆ‚È‘Oi•ª‚¾‚¯‚ğ•K‚¸Šª‚«–ß‚·
+        // ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—ã§é€²ã‚ãŸç´”ç²‹ãªå‰é€²åˆ†ã ã‘ã‚’å¿…ãšå·»ãæˆ»ã™
         m_issue.AddVelocity(accumulatedMove * -1.0f);
     }
 };

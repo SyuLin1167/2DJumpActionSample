@@ -14,7 +14,7 @@ namespace asset
 {
     DivisionGraph::~DivisionGraph()
     {
-        //Šm•Û‚µ‚½‰æ‘œ‚Ì‰ğ•ú
+        //ç¢ºä¿ã—ãŸç”»åƒã®è§£æ”¾
         for (auto& info : m_handles)
         {
             for (int i = 0; i < info.second.total; i++)
@@ -26,14 +26,14 @@ namespace asset
 
     void DivisionGraph::CreateHandle(std::string handleName, std::string graphName)
     {
-        // ˆÈ‘O‚Ìƒnƒ“ƒhƒ‹‚ğíœ
+        // ä»¥å‰ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’å‰Šé™¤
         DeleteHandle(handleName);
 
-        // ‰æ‘œ“Ç‚İ‚İ
+        // ç”»åƒèª­ã¿è¾¼ã¿
         auto fpath = gameSystem::AppCtx::FileSystem().Resolve(std::format("assets://{}", graphName));
         int img = LoadGraph(fpath.string().c_str());
 
-        // “Ç‚İ‚ñ‚¾‰æ‘œ‚©‚ç•ªŠ„“Ç‚İ‚İ‚É•K—v‚Èî•ñ‚ğ•Û‘¶
+        // èª­ã¿è¾¼ã‚“ã ç”»åƒã‹ã‚‰åˆ†å‰²èª­ã¿è¾¼ã¿ã«å¿…è¦ãªæƒ…å ±ã‚’ä¿å­˜
         int imgW, imgH;
         GetGraphSize(img, &imgW, &imgH);
         DeleteGraph(img);
@@ -42,23 +42,23 @@ namespace asset
         m_handles[handleName].total = col * row;
         m_handles[handleName].handle = new int[m_handles[handleName].total];
 
-        //æ“¾‚µ‚½î•ñ‚©‚ç‰æ‘œ•ªŠ„“Ç‚İ‚İ
+        //å–å¾—ã—ãŸæƒ…å ±ã‹ã‚‰ç”»åƒåˆ†å‰²èª­ã¿è¾¼ã¿
         LoadDivGraph(fpath.string().c_str(), m_handles[handleName].total, col, row, m_divW, m_divH, m_handles[handleName].handle);
     }
 
     void DivisionGraph::CreateHandleAsync(std::string handleName, std::string graphName)
     {
-        // ˆÈ‘O‚Ìƒnƒ“ƒhƒ‹‚ğíœ
+        // ä»¥å‰ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’å‰Šé™¤
         DeleteHandle(handleName);
 
-        // î•ñæ“¾‚Ìˆ×Aˆê”ñ“¯Šúƒ‚[ƒh‰ğœ
+        // æƒ…å ±å–å¾—ã®ç‚ºã€ä¸€æ™‚éåŒæœŸãƒ¢ãƒ¼ãƒ‰è§£é™¤
         SetUseASyncLoadFlag(false);
 
-        // ‰æ‘œ“Ç‚İ‚İ
+        // ç”»åƒèª­ã¿è¾¼ã¿
         auto fpath = gameSystem::AppCtx::FileSystem().Resolve(std::format("assets://{}", graphName));
         int img = LoadGraph(fpath.string().c_str());
 
-        // “Ç‚İ‚ñ‚¾‰æ‘œ‚©‚ç•ªŠ„“Ç‚İ‚İ‚É•K—v‚Èî•ñ‚ğ•Û‘¶
+        // èª­ã¿è¾¼ã‚“ã ç”»åƒã‹ã‚‰åˆ†å‰²èª­ã¿è¾¼ã¿ã«å¿…è¦ãªæƒ…å ±ã‚’ä¿å­˜
         int imgW, imgH;
         GetGraphSize(img, &imgW, &imgH);
         DeleteGraph(img);
@@ -67,18 +67,18 @@ namespace asset
         m_handles[handleName].total = col * row;
         m_handles[handleName].handle = new int[m_handles[handleName].total](-1);
 
-        // ”ñ“¯Šúƒ‚[ƒhÄŠJ
+        // éåŒæœŸãƒ¢ãƒ¼ãƒ‰å†é–‹
         SetUseASyncLoadFlag(true);
 
-        // æ“¾‚µ‚½î•ñ‚©‚ç‰æ‘œ•ªŠ„“Ç‚İ‚İ
+        // å–å¾—ã—ãŸæƒ…å ±ã‹ã‚‰ç”»åƒåˆ†å‰²èª­ã¿è¾¼ã¿
         LoadDivGraph(fpath.string().c_str(), m_handles[handleName].total, col, row, m_divW, m_divH, m_handles[handleName].handle);
         
         auto task = [this, fpath, handleName]()
             {
-                // ƒ‹[ƒv§Œä—p‚Ì•Ï”
+                // ãƒ«ãƒ¼ãƒ—åˆ¶å¾¡ç”¨ã®å¤‰æ•°
                 int total = m_handles[handleName].total;
 
-                // ”ñ“¯Šú“Ç‚İ‚İŠ®—¹‘Ò‚¿// •ªŠ„•ª‚Ìƒnƒ“ƒhƒ‹‚ÌŠ®—¹ó‹µ‚ğŒ©‚é
+                // éåŒæœŸèª­ã¿è¾¼ã¿å®Œäº†å¾…ã¡// åˆ†å‰²åˆ†ã®ãƒãƒ³ãƒ‰ãƒ«ã®å®Œäº†çŠ¶æ³ã‚’è¦‹ã‚‹
                 int x = 0;
                 for (int i = 0; i < total; i++)
                 {
@@ -92,7 +92,7 @@ namespace asset
                 }
             };
 
-        // ”ñ“¯Šú“Ç‚İ‚İ’†‚È‚çƒ^ƒXƒN‚É“o˜^
+        // éåŒæœŸèª­ã¿è¾¼ã¿ä¸­ãªã‚‰ã‚¿ã‚¹ã‚¯ã«ç™»éŒ²
         if (task::LoadingContext::Get())
         {
             task::LoadingContext::Get()->AddTask(task::GRAPH, task);
@@ -105,7 +105,7 @@ namespace asset
 
     void DivisionGraph::DeleteHandle(std::string name)
     {
-        //ƒnƒ“ƒhƒ‹‚ğŒŸõ‚µ‚Äíœ
+        //ãƒãƒ³ãƒ‰ãƒ«ã‚’æ¤œç´¢ã—ã¦å‰Šé™¤
         auto it = m_handles.find(name);
         if (it == m_handles.end())
         {

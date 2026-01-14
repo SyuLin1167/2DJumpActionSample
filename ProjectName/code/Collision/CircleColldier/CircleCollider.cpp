@@ -14,10 +14,10 @@ namespace col2d
         : Collider(def)
         , m_baseCircle()
     {
-        // ƒrƒWƒ^[‚Ì‰Šú‰»
+        // ãƒ“ã‚¸ã‚¿ãƒ¼ã®åˆæœŸåŒ–
         m_visitor = std::make_unique<CircleColliderVisitor>(*this);
 
-        // ‰~‚Ì‰Šú‰»
+        // å††ã®åˆæœŸåŒ–
         m_baseCircle.center = def->localPos;
         m_baseCircle.radius = radius;
     }
@@ -26,30 +26,30 @@ namespace col2d
 
     bool CircleCollider::IsCollider(const Vector2f& point)
     {
-        // ˜A‘±Õ“ËŒŸo‚ğs‚¤ê‡
+        // é€£ç¶šè¡çªæ¤œå‡ºã‚’è¡Œã†å ´åˆ
         if (m_colDef->shouldCCD)
         {
             return IsColliderSegmentPoint(point);
         }
 
-        // ’Êí”»’è
+        // é€šå¸¸åˆ¤å®š
         return m_baseCircle.IsInside(point);
     }
 
     inline bool CircleCollider::IsColliderSegmentPoint(const Vector2f& point)
     {
-        // ˆÚ“®ƒxƒNƒgƒ‹‚Ì’·‚³‚Ì“ñæ‚ğŒvZ
+        // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã®äºŒä¹—ã‚’è¨ˆç®—
         float lenSq = m_velocity.LengthSq();
         float t = 0.0f;
 
-        // ˆÚ“®ƒxƒNƒgƒ‹‚É‘Î‚·‚éË‰e‚ğŒvZ‚µA0‚©‚ç1‚Ì”ÍˆÍ‚ÉƒNƒ‰ƒ“ƒv
+        // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã«å¯¾ã™ã‚‹å°„å½±ã‚’è¨ˆç®—ã—ã€0ã‹ã‚‰1ã®ç¯„å›²ã«ã‚¯ãƒ©ãƒ³ãƒ—
         if (lenSq > EPSILON)
         {
             t = (point - m_baseCircle.center).Dot(m_velocity) / lenSq;
             t = std::clamp(t, 0.0f, 1.0f);
         }
 
-        // Å‚à‹ß‚¢“_‚ğŒvZ‚µ‚Ä”»’è
+        // æœ€ã‚‚è¿‘ã„ç‚¹ã‚’è¨ˆç®—ã—ã¦åˆ¤å®š
         Vector2f closest = m_baseCircle.center + m_velocity * t;
         Vector2f diff = point - closest;
         return diff.LengthSq() <= m_baseCircle.radius * m_baseCircle.radius;
@@ -57,40 +57,40 @@ namespace col2d
 
     bool CircleCollider::IsCollider(const RectCollider& other)
     {
-        // ˜A‘±Õ“ËŒŸo‚ğs‚¤ê‡
+        // é€£ç¶šè¡çªæ¤œå‡ºã‚’è¡Œã†å ´åˆ
         if(m_colDef->shouldCCD || other.GetColliderDef()->shouldCCD)
         {
             return IsColliderSegmentRect(other.GetRect());
         }
 
-        // ’†S‚©‚çÅ‚à‹ß‚¢•Ó‚ğ‹‚ß‚é
+        // ä¸­å¿ƒã‹ã‚‰æœ€ã‚‚è¿‘ã„è¾ºã‚’æ±‚ã‚ã‚‹
         Vector2f nearest
         {
             std::clamp(m_baseCircle.center.x, other.GetRect().Left(), other.GetRect().Right()),
             std::clamp(m_baseCircle.center.y, other.GetRect().Top(), other.GetRect().Bottom())
         };
 
-        // ’†S‚Æ•Ó‚Ì‹——£‚ğŒvZ‚µ‚Ä”»’è
+        // ä¸­å¿ƒã¨è¾ºã®è·é›¢ã‚’è¨ˆç®—ã—ã¦åˆ¤å®š
         Vector2f diff = m_baseCircle.center - nearest;
         return diff.LengthSq() <= (m_baseCircle.radius * m_baseCircle.radius);
     }
 
     inline bool CircleCollider::IsColliderSegmentRect(const shape::Rect& rect)
     {
-        // Šg’£‚³‚ê‚½‹éŒ`‚Ì‹«ŠE‚ğŒvZ
+        // æ‹¡å¼µã•ã‚ŒãŸçŸ©å½¢ã®å¢ƒç•Œã‚’è¨ˆç®—
         float minX = rect.Left() - m_baseCircle.radius;
         float maxX = rect.Right() + m_baseCircle.radius;
         float minY = rect.Top() - m_baseCircle.radius;
         float maxY = rect.Bottom() + m_baseCircle.radius;
 
-        // ŠÔ‚Ì‰Šú‰»
+        // æ™‚é–“ã®åˆæœŸåŒ–
         float tMin = 0.0f;
         float tMax = 1.0f;
 
-        // X²‚Ì”»’è
+        // Xè»¸ã®åˆ¤å®š
         if (std::fabs(m_velocity.x) < EPSILON)
         {
-            // X²‚É‰ˆ‚Á‚ÄˆÚ“®‚µ‚È‚¢ê‡
+            // Xè»¸ã«æ²¿ã£ã¦ç§»å‹•ã—ãªã„å ´åˆ
             if (m_baseCircle.center.x < minX || m_baseCircle.center.x > maxX)
             {
                 return false;
@@ -98,7 +98,7 @@ namespace col2d
         }
         else
         {
-            // X²‚ÌˆÚ“®‚É‘Î‚·‚é‹t”‚ğŒvZ
+            // Xè»¸ã®ç§»å‹•ã«å¯¾ã™ã‚‹é€†æ•°ã‚’è¨ˆç®—
             float invDx = 1.0f / m_velocity.x;
             float t1 = (minX - m_baseCircle.center.x) * invDx;
             float t2 = (maxX - m_baseCircle.center.x) * invDx;
@@ -109,17 +109,17 @@ namespace col2d
             tMin = std::max(tMin, t1);
             tMax = std::min(tMax, t2);
 
-            // Œğ·‚µ‚È‚¢ê‡
+            // äº¤å·®ã—ãªã„å ´åˆ
             if (tMax < tMin)
             {
                 return false;
             }
         }
 
-        // Y²‚Ì”»’è
+        // Yè»¸ã®åˆ¤å®š
         if (std::fabs(m_velocity.y) < EPSILON)
         {
-            // Y²‚É‰ˆ‚Á‚ÄˆÚ“®‚µ‚È‚¢ê‡
+            // Yè»¸ã«æ²¿ã£ã¦ç§»å‹•ã—ãªã„å ´åˆ
             if (m_baseCircle.center.y < minY || m_baseCircle.center.y > maxY)
             {
                 return false;
@@ -127,7 +127,7 @@ namespace col2d
         }
         else
         {
-            // Y²‚ÌˆÚ“®‚É‘Î‚·‚é‹t”‚ğŒvZ
+            // Yè»¸ã®ç§»å‹•ã«å¯¾ã™ã‚‹é€†æ•°ã‚’è¨ˆç®—
             float invDy = 1.0f / m_velocity.y;
             float t1 = (minY - m_baseCircle.center.y) * invDy;
             float t2 = (maxY - m_baseCircle.center.y) * invDy;
@@ -138,20 +138,20 @@ namespace col2d
             tMin = std::max(tMin, t1);
             tMax = std::min(tMax, t2);
 
-            // Œğ·‚µ‚È‚¢ê‡
+            // äº¤å·®ã—ãªã„å ´åˆ
             if (tMax < tMin)
             {
                 return false;
             }
         }
 
-        // 0`1 ‹æŠÔ‚ÉŒğ·‚ª‘¶İ‚·‚é‚©‚Ç‚¤‚©
+        // 0ï½1 åŒºé–“ã«äº¤å·®æ™‚åˆ»ãŒå­˜åœ¨ã™ã‚‹ã‹ã©ã†ã‹
         return (tMin <= 1.0f && tMax >= 0.0f);
     }
 
     bool CircleCollider::IsCollider(const CircleCollider& other)
     {
-        // ˜A‘±Õ“ËŒŸo‚ğs‚¤ê‡
+        // é€£ç¶šè¡çªæ¤œå‡ºã‚’è¡Œã†å ´åˆ
         if(m_colDef->shouldCCD || other.GetColliderDef()->shouldCCD)
         {
             return IsColliderSegmentCircle(other);
@@ -162,35 +162,35 @@ namespace col2d
 
     inline bool CircleCollider::IsColliderSegmentCircle(const CircleCollider& other)
     {
-        // ‘Š‘Î‘¬“x‚ÌZo
+        // ç›¸å¯¾é€Ÿåº¦ã®ç®—å‡º
         Vector2f vRel = m_velocity - other.GetVelocity();
         Vector2f d = m_baseCircle.center - other.m_baseCircle.center;
         float r = m_baseCircle.radius + other.m_baseCircle.radius;
 
-        // ‰Šúd‚È‚è”»’è
+        // åˆæœŸé‡ãªã‚Šåˆ¤å®š
         if (d.LengthSq() <= r * r)
         {
             return true;
         }
 
-        // ‘Š‘Î‘¬“x‚ª0‚Ìê‡‚ÍÕ“Ë‚µ‚È‚¢
+        // ç›¸å¯¾é€Ÿåº¦ãŒ0ã®å ´åˆã¯è¡çªã—ãªã„
         if (vRel.LengthSq() < EPSILON)
         {
             return false;
         }
 
-        // “ñŸ•û’ö®‚ÌŒW”‚ğŒvZ
+        // äºŒæ¬¡æ–¹ç¨‹å¼ã®ä¿‚æ•°ã‚’è¨ˆç®—
         float b = 2.0f * d.Dot(vRel);
         float c = d.LengthSq() - r * r;
 
-        // ”»•Ê®‚ğŒvZ‚µ‚ÄÕ“Ë”»’è
+        // åˆ¤åˆ¥å¼ã‚’è¨ˆç®—ã—ã¦è¡çªåˆ¤å®š
         float discriminant = b * b - 4.0f * vRel.LengthSq() * c;
         if (discriminant < 0.0f)
         {
             return false;
         }
 
-        // ”»•Ê®‚ª0‚Ìê‡‚ÍÚG‚µ‚Ä‚¢‚é
+        // åˆ¤åˆ¥å¼ãŒ0ã®å ´åˆã¯æ¥è§¦ã—ã¦ã„ã‚‹
         float sqrtDisc = std::sqrt(discriminant);
         float t = (-b - sqrtDisc) / (2.0f * vRel.LengthSq());
 

@@ -7,21 +7,21 @@ import <vector>;
 import <memory>;
 
 /// <summary>
-/// ゲームの操作に必要なキー
+/// 繧ｲ繝ｼ繝縺ｮ謫堺ｽ懊↓蠢�隕√↑繧ｭ繝ｼ
 /// </summary>
 export constexpr struct KeyType
 {
-    const int ESCAPE = KEY_INPUT_ESCAPE;    //エスケープキー
-    const int E = KEY_INPUT_E;              //Eキー
-    const int R = KEY_INPUT_R;              //Rキー
-    const int SPACE = KEY_INPUT_SPACE;      //SPACEキー
-    const int LEFT = KEY_INPUT_LEFT;        //左キー
-    const int RIGHT = KEY_INPUT_RIGHT;      //右キー
+    const int ESCAPE = KEY_INPUT_ESCAPE;    //繧ｨ繧ｹ繧ｱ繝ｼ繝励く繝ｼ
+    const int E = KEY_INPUT_E;              //E繧ｭ繝ｼ
+    const int R = KEY_INPUT_R;              //R繧ｭ繝ｼ
+    const int SPACE = KEY_INPUT_SPACE;      //SPACE繧ｭ繝ｼ
+    const int LEFT = KEY_INPUT_LEFT;        //蟾ｦ繧ｭ繝ｼ
+    const int RIGHT = KEY_INPUT_RIGHT;      //蜿ｳ繧ｭ繝ｼ
 }keyType;
 
 
 /// <summary>
-/// ループ制御用キー一覧
+/// 繝ｫ繝ｼ繝怜宛蠕｡逕ｨ繧ｭ繝ｼ荳隕ｧ
 /// </summary>
 export const std::vector<int> KEYS =
 {

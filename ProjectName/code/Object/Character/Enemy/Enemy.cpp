@@ -24,14 +24,14 @@ namespace object
     
     void Enemy::Init()
     {
-        // コライダー作成
+        // 繧ｳ繝ｩ繧､繝繝ｼ菴懈��
         col2d::ColliderDef def{};
         def.type = col2d::Type::STATIC;
         def.localPos = m_pos;
         def.isActive = true;
         id = ObjCtx::ColMgr().CreateCircleCollider(&def, 16.0f, MyObjectTag());
 
-        // 衝突イベント登録
+        // 陦晉ｪ√う繝吶Φ繝育匳骭ｲ
         col2d::ContactListener listener;
         listener.when = [&]() {return true; };
         listener.event = [&]() {m_health -= m_damage * m_deltaTime; };

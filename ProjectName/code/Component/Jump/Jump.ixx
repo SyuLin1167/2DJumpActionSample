@@ -6,51 +6,51 @@ export module Component.Jump;
 import Component;
 
 /// <summary>
-/// ƒRƒ“ƒ|[ƒlƒ“ƒgŠÖ˜A
+/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆé–¢é€£
 /// </summary>
 export namespace component
 {
-    constexpr float GRAVITY = 3.8f;             //d—Í‰Á‘¬“x
-    constexpr float FALL_SPEED = 5.0f;          //—‰º‘¬“x
-    constexpr float DEFAULT_JUMP_POWER = 5.0f;  //ƒfƒtƒHƒ‹ƒg‚ÌƒWƒƒƒ“ƒv—Í
+    constexpr float GRAVITY = 3.8f;             //é‡åŠ›åŠ é€Ÿåº¦
+    constexpr float FALL_SPEED = 5.0f;          //è½ä¸‹é€Ÿåº¦
+    constexpr float DEFAULT_JUMP_POWER = 5.0f;  //ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
 
     /// <summary>
-    /// ƒWƒƒƒ“ƒvˆ—
+    /// ã‚¸ãƒ£ãƒ³ãƒ—å‡¦ç†
     /// </summary>
     export class Jump final :public ComponentBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Jump() = default;
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="owner">Š—LÒ</param>
-        /// <param name="jumpPower">ƒWƒƒƒ“ƒv—Í</param>
-        /// <param name="trigger">ƒWƒƒƒ“ƒv‚Ì‚½‚ß‚ÌƒgƒŠƒK[</param>
+        /// <param name="owner">æ‰€æœ‰è€…</param>
+        /// <param name="jumpPower">ã‚¸ãƒ£ãƒ³ãƒ—åŠ›</param>
+        /// <param name="trigger">ã‚¸ãƒ£ãƒ³ãƒ—ã®ãŸã‚ã®ãƒˆãƒªã‚¬ãƒ¼</param>
         Jump(object::GameObject* owner, const float& jumpPower = DEFAULT_JUMP_POWER, std::function<bool()> trigger = {});
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Jump() = default;
 
         /// <summary>
-        /// XV
+        /// æ›´æ–°
         /// </summary>
-        /// <param name="deltaTime">ƒfƒ‹ƒ^ƒ^ƒCƒ€</param>
+        /// <param name="deltaTime">ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </param>
         void Update(const float& deltaTime) override;
 
         /// <summary>
-        /// ƒWƒƒƒ“ƒv‚ÌÀs
+        /// ã‚¸ãƒ£ãƒ³ãƒ—ã®å®Ÿè¡Œ
         /// </summary>
         void TryJump(const float& deltaTime);
 
         /// <summary>
-        /// ƒWƒƒƒ“ƒv‰Â”\‚É‚·‚é
+        /// ã‚¸ãƒ£ãƒ³ãƒ—å¯èƒ½ã«ã™ã‚‹
         /// </summary>
         void CanJump()
         {
@@ -58,10 +58,10 @@ export namespace component
         }
 
     private:
-        const float JUMP_POWER;    //ƒWƒƒƒ“ƒv—Í
-        static constexpr float MAX_FALL_VELOCITY = 30.0f;      //Å‘å—‰º‘¬“x
-        bool m_nowJump;                             //ƒWƒƒƒ“ƒvó‘Ô”»’è
-        std::function<bool()> m_trigger;            //ƒgƒŠƒK[
+        const float JUMP_POWER;    //ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
+        static constexpr float MAX_FALL_VELOCITY = 30.0f;      //æœ€å¤§è½ä¸‹é€Ÿåº¦
+        bool m_nowJump;                             //ã‚¸ãƒ£ãƒ³ãƒ—çŠ¶æ…‹åˆ¤å®š
+        std::function<bool()> m_trigger;            //ãƒˆãƒªã‚¬ãƒ¼
     };
 }
 

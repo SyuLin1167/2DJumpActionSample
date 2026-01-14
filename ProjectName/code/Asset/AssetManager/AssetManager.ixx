@@ -8,23 +8,23 @@ import <unordered_map>;
 import Asset.AssetBase;
 
 /// <summary>
-/// ƒAƒZƒbƒgŠÖ˜A
+/// ã‚¢ã‚»ãƒƒãƒˆé–¢é€£
 /// </summary>
 export namespace asset
 {
     /// <summary>
-    /// ƒAƒZƒbƒg‘S”Ê‚ğŠÇ—‚·‚é
+    /// ã‚¢ã‚»ãƒƒãƒˆå…¨èˆ¬ã‚’ç®¡ç†ã™ã‚‹
     /// </summary>
     export class AssetManager final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         AssetManager() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~AssetManager()
         {
@@ -32,12 +32,12 @@ export namespace asset
         }
 
         /// <summary>
-        /// ƒAƒZƒbƒg“Ç‚İ‚İ
+        /// ã‚¢ã‚»ãƒƒãƒˆèª­ã¿è¾¼ã¿
         /// </summary>
-        /// <typeparam name="T">ƒAƒZƒbƒg‚Ìí—Ş</typeparam>
-        /// <typeparam name="...Args">ˆø”</typeparam>
-        /// <param name="name">ƒAƒZƒbƒg–¼</param>
-        /// <param name="path">ƒtƒ@ƒCƒ‹ƒpƒX</param>
+        /// <typeparam name="T">ã‚¢ã‚»ãƒƒãƒˆã®ç¨®é¡</typeparam>
+        /// <typeparam name="...Args">å¼•æ•°</typeparam>
+        /// <param name="name">ã‚¢ã‚»ãƒƒãƒˆå</param>
+        /// <param name="path">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
         template<typename T, typename... Args>
         void Load(std::string name, std::string path)
         {
@@ -45,12 +45,12 @@ export namespace asset
         }
 
         /// <summary>
-        /// ƒAƒZƒbƒg“Ç‚İ‚İ(”ñ“¯Šú
+        /// ã‚¢ã‚»ãƒƒãƒˆèª­ã¿è¾¼ã¿(éåŒæœŸ
         /// </summary>
-        /// <typeparam name="T">ƒAƒZƒbƒg‚Ìí—Ş</typeparam>
-        /// <typeparam name="...Args">ˆø”</typeparam>
-        /// <param name="name">ƒAƒZƒbƒg–¼</param>
-        /// <param name="path">ƒtƒ@ƒCƒ‹ƒpƒX</param>
+        /// <typeparam name="T">ã‚¢ã‚»ãƒƒãƒˆã®ç¨®é¡</typeparam>
+        /// <typeparam name="...Args">å¼•æ•°</typeparam>
+        /// <param name="name">ã‚¢ã‚»ãƒƒãƒˆå</param>
+        /// <param name="path">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
         template<typename T, typename... Args>
         void LoadAsync(std::string name, std::string path)
         {
@@ -58,30 +58,30 @@ export namespace asset
         }
 
         /// <summary>
-        /// ƒtƒFƒbƒ`
+        /// ãƒ•ã‚§ãƒƒãƒ
         /// </summary>
-        /// <typeparam name="T">ƒAƒZƒbƒg‚Ìí—Ş</typeparam>
-        /// <returns>ƒAƒZƒbƒg</returns>
+        /// <typeparam name="T">ã‚¢ã‚»ãƒƒãƒˆã®ç¨®é¡</typeparam>
+        /// <returns>ã‚¢ã‚»ãƒƒãƒˆ</returns>
         template<typename T>
         T* Fetch()
         {
-            // ‘¶İ‚·‚éê‡‚Í‚»‚ê‚ğ•Ô‚·
+            // å­˜åœ¨ã™ã‚‹å ´åˆã¯ãã‚Œã‚’è¿”ã™
             auto it = m_registry.find(typeid(T));
             if (it != m_registry.end())
             {
                 return static_cast<T*>(it->second.get());
             }
 
-            // ‘¶İ‚µ‚È‚¢ê‡‚ÍV‹Kì¬‚µ‚Ä•Ô‚·
+            // å­˜åœ¨ã—ãªã„å ´åˆã¯æ–°è¦ä½œæˆã—ã¦è¿”ã™
             m_registry[typeid(T)] = std::make_unique<T>();
             return static_cast<T*>(m_registry.at(typeid(T)).get());
         }
 
         /// <summary>
-        /// ƒAƒZƒbƒgíœ
+        /// ã‚¢ã‚»ãƒƒãƒˆå‰Šé™¤
         /// </summary>
-        /// <typeparam name="T">ƒAƒZƒbƒg‚Ìí—Ş</typeparam>
-        /// <param name="name">ƒAƒZƒbƒg–¼</param>
+        /// <typeparam name="T">ã‚¢ã‚»ãƒƒãƒˆã®ç¨®é¡</typeparam>
+        /// <param name="name">ã‚¢ã‚»ãƒƒãƒˆå</param>
         template<typename T>
         void DeleteHandle(std::string name)
         {
@@ -89,6 +89,6 @@ export namespace asset
         }
 
     private:
-        std::unordered_map<std::type_index, std::unique_ptr<AssetBase>> m_registry;   //ƒAƒZƒbƒg“o˜^ŒQ
+        std::unordered_map<std::type_index, std::unique_ptr<AssetBase>> m_registry;   //ã‚¢ã‚»ãƒƒãƒˆç™»éŒ²ç¾¤
     };
 }

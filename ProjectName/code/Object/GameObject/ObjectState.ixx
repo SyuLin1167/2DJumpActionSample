@@ -2,17 +2,17 @@ export module ObjectState;
 import <cstdint>;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace object
 {
     /// <summary>
-    /// ƒƒCƒ“ƒXƒe[ƒ^ƒX
+    /// ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
     /// </summary>
     export enum MainState :uint32_t
     {
-        ACTIVE = 0,           //ƒAƒNƒeƒBƒuó‘Ô
-        PAUSE = 1 << 0,       //’â~ó‘Ô
-        DEAD = 1 << 1,        //€–Só‘Ô
+        ACTIVE = 0,           //ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹
+        PAUSE = 1 << 0,       //åœæ­¢çŠ¶æ…‹
+        DEAD = 1 << 1,        //æ­»äº¡çŠ¶æ…‹
     };
 }

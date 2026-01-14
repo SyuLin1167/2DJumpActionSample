@@ -7,17 +7,17 @@ export import Asset.AssetManager;
 export import UI.UIManager;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace gameSystem
 {
     /// <summary>
-    /// ‹¤—LƒRƒ“ƒeƒLƒXƒg
+    /// å…±æœ‰ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
     /// </summary>
     export struct AppContext final
     {
         /// <summary>
-        /// ƒAƒNƒeƒBƒu‰»
+        /// ã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
         /// </summary>
         static void Activate()
         {
@@ -27,7 +27,7 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// ”ñƒAƒNƒeƒBƒu‰»
+        /// éã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
         /// </summary>
         static void Deactivate()
         {
@@ -37,36 +37,36 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// ƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <returns>ƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static file::FileSystem& FileSystem()
         {
             return *fileSystem;
         }
 
         /// <summary>
-        /// ƒAƒZƒbƒgŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// ã‚¢ã‚»ãƒƒãƒˆç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <returns>ƒAƒZƒbƒgŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>ã‚¢ã‚»ãƒƒãƒˆç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static asset::AssetManager& AssetMgr()
         {
             return *assetMgr;
         }
 
         /// <summary>
-        /// UIŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// UIç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <returns>UIŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>UIç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static ui::UIManager& UIMgr()
         {
             return *uiMgr;
         }
 
     private:
-        inline static std::optional<file::FileSystem> fileSystem{};     // ƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-        inline static std::optional<asset::AssetManager> assetMgr{};    // ƒAƒZƒbƒgŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-        inline static std::optional<ui::UIManager> uiMgr{};             // UIŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+        inline static std::optional<file::FileSystem> fileSystem{};     // ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+        inline static std::optional<asset::AssetManager> assetMgr{};    // ã‚¢ã‚»ãƒƒãƒˆç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+        inline static std::optional<ui::UIManager> uiMgr{};             // UIç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     };
 
     using AppCtx = AppContext;

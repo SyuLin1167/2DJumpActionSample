@@ -1,46 +1,46 @@
 export module Component;
 
-// ‘O•ûéŒ¾
+// å‰æ–¹å®£è¨€
 export namespace object
 {
     class GameObject;
 }
 
 /// <summary>
-/// ƒRƒ“ƒ|[ƒlƒ“ƒgŠÖ˜A
+/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆé–¢é€£
 /// </summary>
 export namespace component
 {
     /// <summary>
-    /// ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌŠî’êƒNƒ‰ƒX
+    /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®åŸºåº•ã‚¯ãƒ©ã‚¹
     /// </summary>
     export class ComponentBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ComponentBase() = default;
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="owner">Š—LÒ</param>
-        /// <param name="order">XV‡”Ô</param>
+        /// <param name="owner">æ‰€æœ‰è€…</param>
+        /// <param name="order">æ›´æ–°é †ç•ª</param>
         explicit ComponentBase(class object::GameObject* owner);
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         virtual ~ComponentBase() = default;
 
         /// <summary>
-        /// XV
+        /// æ›´æ–°
         /// </summary>
-        /// <param name="deltaTime">ƒfƒ‹ƒ^ƒ^ƒCƒ€</param>
+        /// <param name="deltaTime">ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </param>
         virtual void Update(const float& deltaTime) {};
 
     protected:
-        class object::GameObject* m_owner;  //Š—LÒ
+        class object::GameObject* m_owner;  //æ‰€æœ‰è€…
     };
 }

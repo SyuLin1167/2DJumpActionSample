@@ -1,4 +1,4 @@
-﻿module Component;
+・ｿmodule Component;
 import Object.GameObject;
 
 namespace component
@@ -6,6 +6,5 @@ namespace component
     ComponentBase::ComponentBase(object::GameObject* owner)
         : m_owner(owner)
     {
-        //処理なし
-    }
+        //蜃ｦ逅・↑縺・    }
 }

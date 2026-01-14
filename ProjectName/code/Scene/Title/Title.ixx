@@ -5,56 +5,56 @@ import MyLib.Math.Vector2;
 using namespace math;
 
 /// <summary>
-/// ƒV[ƒ“ŠÖ˜A
+/// ã‚·ãƒ¼ãƒ³é–¢é€£
 /// </summary>
 export namespace scene
 {
     /// <summary>
-    /// ƒ^ƒCƒgƒ‹ƒV[ƒ“‚ğ’S“–
+    /// ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã‚’æ‹…å½“
     /// </summary>
     export class Title final :public SceneBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Title();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Title();
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         void Init() override {};
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         SceneCmd Update() override;
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         void Draw() override;
 
         /// <summary>
-        /// ƒ[ƒfƒBƒ“ƒO‰æ–Ê•`‰æˆ—
+        /// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ç”»é¢æç”»å‡¦ç†
         /// </summary>
         void DrawLoading() override;
 
     private:
-        static constexpr Vector2f START_BTN_POS = { 900.0f, 900.0f };     // ƒXƒ^[ƒgƒ{ƒ^ƒ“ˆÊ’u
-        static constexpr Vector2f EXIT_BTN_POS  = { 900.0f, 980.0f };     // Exitƒ{ƒ^ƒ“ˆÊ’u
-        static constexpr Vector2f BTN_SIZE      = { 120.0f, 50.0f };      // ƒ{ƒ^ƒ“ƒTƒCƒY
-        static constexpr Vector2f PROGRESS_TEXT_POS = { 1600.0f, 1050.0f }; // ƒvƒƒOƒŒƒXƒeƒLƒXƒgˆÊ’u
+        static constexpr Vector2f START_BTN_POS = { 900.0f, 900.0f };     // ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³ä½ç½®
+        static constexpr Vector2f EXIT_BTN_POS  = { 900.0f, 980.0f };     // Exitãƒœã‚¿ãƒ³ä½ç½®
+        static constexpr Vector2f BTN_SIZE      = { 120.0f, 50.0f };      // ãƒœã‚¿ãƒ³ã‚µã‚¤ã‚º
+        static constexpr Vector2f PROGRESS_TEXT_POS = { 1600.0f, 1050.0f }; // ãƒ—ãƒ­ã‚°ãƒ¬ã‚¹ãƒ†ã‚­ã‚¹ãƒˆä½ç½®
 
-        bool m_toNextScene = false;         // ŸƒV[ƒ“‚ÖˆÚ“®ƒtƒ‰ƒO
-        bool m_toExit = false;              // I—¹ƒtƒ‰ƒO
-        ui::UIElementID m_startButtonID;    // ƒXƒ^[ƒgƒ{ƒ^ƒ“ID
-        ui::UIElementID m_exitButtonID;     // Exitƒ{ƒ^ƒ“ID
+        bool m_toNextScene = false;         // æ¬¡ã‚·ãƒ¼ãƒ³ã¸ç§»å‹•ãƒ•ãƒ©ã‚°
+        bool m_toExit = false;              // çµ‚äº†ãƒ•ãƒ©ã‚°
+        ui::UIElementID m_startButtonID;    // ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³ID
+        ui::UIElementID m_exitButtonID;     // Exitãƒœã‚¿ãƒ³ID
     };
 }
 

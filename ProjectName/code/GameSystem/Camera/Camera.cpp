@@ -15,7 +15,7 @@ namespace gameSystem
         , m_worldSize(0.0f, 0.0f)
         , m_followStrength(0.15f)
     {
-        // ˆ—‚È‚µ
+        // å‡¦ç†ãªã—
     }
 
     void Camera::Update()
@@ -25,13 +25,13 @@ namespace gameSystem
             return;
         }
 
-        // ƒEƒBƒ“ƒhƒEƒTƒCƒYŽæ“¾
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºå–å¾—
         auto winSize = Window::GetWindowData()->SIZE;
 
-        // ƒXƒNƒ[ƒ‹‚·‚éƒ^[ƒQƒbƒg‚ÌÀ•W
+        // ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®åº§æ¨™
         Vector2f target = *m_target - winSize / 3;
 
-        // üŒ`•âŠÔ‚Å’Ç”ö
+        // ç·šå½¢è£œé–“ã§è¿½å°¾
         m_pos += (target - m_pos) * std::clamp(m_followStrength, 0.0f, 1.0f);
 
         ClampPosition();
@@ -41,7 +41,7 @@ namespace gameSystem
     {
         auto winSize = Window::GetWindowData()->SIZE;
 
-        // ƒ}ƒbƒvƒTƒCƒY‚ª–¢Ý’è‚Ìê‡‚ÍƒNƒ‰ƒ“ƒv•s‰Â
+        // ãƒžãƒƒãƒ—ã‚µã‚¤ã‚ºãŒæœªè¨­å®šã®å ´åˆã¯ã‚¯ãƒ©ãƒ³ãƒ—ä¸å¯
         if (m_worldSize.x <= 0.0f || m_worldSize.y <= 0.0f)
         {
             m_pos.x = std::max(0.0f, m_pos.x);
@@ -49,11 +49,11 @@ namespace gameSystem
             return;
         }
 
-        // ƒJƒƒ‰ˆÊ’u‚ðƒ[ƒ‹ƒhƒTƒCƒY“à‚ÉƒNƒ‰ƒ“ƒv
+        // ã‚«ãƒ¡ãƒ©ä½ç½®ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰ã‚µã‚¤ã‚ºå†…ã«ã‚¯ãƒ©ãƒ³ãƒ—
         float maxX = std::max(0.0f, m_worldSize.x - winSize.x);
         float maxY = std::max(0.0f, m_worldSize.y - winSize.y);
 
-        // ƒNƒ‰ƒ“ƒvŽÀs
+        // ã‚¯ãƒ©ãƒ³ãƒ—å®Ÿè¡Œ
         m_pos.x = std::clamp(m_pos.x, 0.0f, maxX);
         m_pos.y = std::clamp(m_pos.y, 0.0f, maxY);
     }

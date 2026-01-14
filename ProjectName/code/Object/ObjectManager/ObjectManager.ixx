@@ -6,81 +6,81 @@ import <vector>;
 import <unordered_map>;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace object
 {
     /// <summary>
-    /// ƒIƒuƒWƒFƒNƒg‚ğŠÇ—‚·‚é
+    /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç®¡ç†ã™ã‚‹
     /// </summary>
     export class ObjectManager final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ObjectManager();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~ObjectManager();
 
         /// <summary>
-        /// ƒIƒuƒWƒFƒNƒg’Ç‰Á
+        /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè¿½åŠ 
         /// </summary>
-        /// <param name="object">’Ç‰Á‚·‚éƒIƒuƒWƒFƒNƒg</param>
+        /// <param name="object">è¿½åŠ ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
         template<typename... Args>
         inline void AddObject(GameObject* object, Args&&... args)
         {
-            // XV’†‚È‚çˆê•Û‘¶A‚»‚¤‚Å‚È‚¢‚È‚çV‹K’Ç‰Á
+            // æ›´æ–°ä¸­ãªã‚‰ä¸€æ™‚ä¿å­˜ã€ãã†ã§ãªã„ãªã‚‰æ–°è¦è¿½åŠ 
             if (isUpdate)
             {
                 pendingObjects.emplace_back(object);
                 return;
             }
 
-            // V‹K’Ç‰Á
+            // æ–°è¦è¿½åŠ 
             auto obj = std::shared_ptr<GameObject>(object, std::forward<Args>(args)...);
             objects[object->MyObjectTag()].emplace_back(obj);
         }
 
         /// <summary>
-        /// ƒIƒuƒWƒFƒNƒgœ‹
+        /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé™¤å»
         /// </summary>
-        /// <param name="object">œ‹‚·‚éƒIƒuƒWƒFƒNƒg</param>
+        /// <param name="object">é™¤å»ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
         void RemoveObject(GameObject* object);
 
         /// <summary>
-        /// XVˆ—‘O‚Ì‰Šú‰»
+        /// æ›´æ–°å‡¦ç†å‰ã®åˆæœŸåŒ–
         /// </summary>
         void InitBeforeUpdate();
 
         /// <summary>
-        /// ƒIƒuƒWƒFƒNƒgXV
+        /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
         /// </summary>
         void Update();
 
         /// <summary>
-        /// ƒIƒuƒWƒFƒNƒg”z—ñ‚Ö‚Ì”½‰f
+        /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—ã¸ã®åæ˜ 
         /// </summary>
         void RefreshObjects();
 
         /// <summary>
-        /// ƒIƒuƒWƒFƒNƒgæ“¾
+        /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå–å¾—
         /// </summary>
-        /// <param name="tag">ƒ^ƒO</param>
-        /// <returns>ƒ^ƒO‚ÉŠY“–‚·‚éƒIƒuƒWƒFƒNƒgŒQ</returns>
+        /// <param name="tag">ã‚¿ã‚°</param>
+        /// <returns>ã‚¿ã‚°ã«è©²å½“ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç¾¤</returns>
         std::vector<std::shared_ptr<GameObject>> GetObjForTag(uint32_t tag);
 
         /// <summary>
-        /// ƒIƒuƒWƒFƒNƒg•`‰æ
+        /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»
         /// </summary>
         void Draw();
 
     private:
-        std::unordered_map<uint32_t, std::vector<std::shared_ptr<GameObject>>> objects;     //ƒIƒuƒWƒFƒNƒg”z—ñ
-        std::vector<GameObject*> pendingObjects;    //ˆê•Û‘¶ƒIƒuƒWƒFƒNƒg”z—ñ
-        bool isUpdate;                              //XVó‹µ
+        std::unordered_map<uint32_t, std::vector<std::shared_ptr<GameObject>>> objects;     //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—
+        std::vector<GameObject*> pendingObjects;    //ä¸€æ™‚ä¿å­˜ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—
+        bool isUpdate;                              //æ›´æ–°çŠ¶æ³
     };
 }

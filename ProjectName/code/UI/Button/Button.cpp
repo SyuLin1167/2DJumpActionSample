@@ -22,20 +22,20 @@ namespace ui
 
     void Button::Update()
     {
-        // •s‰Â‹‚È‚çXV•s—v
+        // ä¸å¯è¦–ãªã‚‰æ›´æ–°ä¸è¦
         if (!IsVisible())
         {
             return;
         }
 
-        // À•W‚ÆƒTƒCƒY‚ğXV
+        // åº§æ¨™ã¨ã‚µã‚¤ã‚ºã‚’æ›´æ–°
         m_def->buttonRect.pos = m_pos;
         m_def->buttonRect.size = m_size;
 
-        // ƒ}ƒEƒXÀ•Wæ“¾
+        // ãƒã‚¦ã‚¹åº§æ¨™å–å¾—
         const Vector2i& mousePos = input::MouseStatus::GetMousePos();
 
-        // ƒ{ƒ^ƒ“‚ÌƒCƒxƒ“ƒg‚ğÀ{
+        // ãƒœã‚¿ãƒ³ã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’å®Ÿæ–½
         if (m_def->buttonRect.IsInside({ mousePos.x, mousePos.y }))
         {
             if (m_def->onHover)
@@ -49,18 +49,18 @@ namespace ui
 
     void Button::Draw()
     {
-        // •s‰Â‹‚È‚ç•`‰æ•s—v
+        // ä¸å¯è¦–ãªã‚‰æç”»ä¸è¦
         if (!IsVisible())
         {
             return;
         }
 
-        // ƒ{ƒ^ƒ“•`‰æ
+        // ãƒœã‚¿ãƒ³æç”»
         DrawBoxAA(m_def->buttonRect.pos.x, m_def->buttonRect.pos.y,
             m_def->buttonRect.pos.x + m_def->buttonRect.size.x, m_def->buttonRect.pos.y + m_def->buttonRect.size.y,
             m_def->color, true);
 
-        // ƒeƒLƒXƒg•`‰æ
+        // ãƒ†ã‚­ã‚¹ãƒˆæç”»
         DrawString(static_cast<int>(m_def->buttonRect.pos.x + 8),
             static_cast<int>(m_def->buttonRect.pos.y + 8),
             m_def->text.c_str(), GetColor(0, 0, 0));
@@ -68,10 +68,10 @@ namespace ui
 
     void Button::OnClick()
     {
-        // ƒNƒŠƒbƒNó‘Ôƒ`ƒFƒbƒN
+        // ã‚¯ãƒªãƒƒã‚¯çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
         if (input::MouseStatus::CheckClick(MOUSE_INPUT_LEFT, CLICK_ON_PRESS))
         {
-            // ƒNƒŠƒbƒNƒCƒxƒ“ƒgÀs
+            // ã‚¯ãƒªãƒƒã‚¯æ™‚ã‚¤ãƒ™ãƒ³ãƒˆå®Ÿè¡Œ
             if (m_def->onClicked)
             {
                 m_def->onClicked();
@@ -82,12 +82,12 @@ namespace ui
 
     void Button::OnReleased()
     {
-        // ƒNƒŠƒbƒN‰ğœó‘Ôƒ`ƒFƒbƒN
+        // ã‚¯ãƒªãƒƒã‚¯è§£é™¤çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
         if (m_onClicked)
         {
             if (input::MouseStatus::CheckClick(MOUSE_INPUT_LEFT, CLICK_ON_RELEASE))
             {
-                // ƒNƒŠƒbƒN‰ğœƒCƒxƒ“ƒgÀs
+                // ã‚¯ãƒªãƒƒã‚¯è§£é™¤æ™‚ã‚¤ãƒ™ãƒ³ãƒˆå®Ÿè¡Œ
                 if (m_def->onReleased)
                 {
                     m_def->onReleased();

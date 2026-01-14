@@ -2,43 +2,43 @@ export module GameSystem.Execution;
 
 import <memory>;
 
-// ‘O•ûéŒ¾
+// å‰æ–¹å®£è¨€
 export namespace scene
 {
     class SceneManager;
 }
 
 /// <summary>
-/// ƒVƒXƒeƒ€ŠÖ˜A
+/// ã‚·ã‚¹ãƒ†ãƒ é–¢é€£
 /// </summary>
 export namespace gameSystem
 {
     class Library;
 
     /// <summary>
-    /// ƒQ[ƒ€‚ÌÀs‚ğs‚¤
+    /// ã‚²ãƒ¼ãƒ ã®å®Ÿè¡Œã‚’è¡Œã†
     /// </summary>
     export class Execution final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Execution();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Execution();
 
         /// <summary>
-        /// ƒQ[ƒ€Àsˆ—
+        /// ã‚²ãƒ¼ãƒ å®Ÿè¡Œå‡¦ç†
         /// </summary>
-        /// <returns>-1:ƒGƒ‰[|0:³íI—¹</returns>
+        /// <returns>-1:ã‚¨ãƒ©ãƒ¼|0:æ­£å¸¸çµ‚äº†</returns>
         int Run();
 
     private:
-        std::unique_ptr<class Library> m_library;         //ƒ‰ƒCƒuƒ‰ƒŠŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-        std::unique_ptr<scene::SceneManager> m_scene;     //ƒV[ƒ“ŠÇ—‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+        std::unique_ptr<class Library> m_library;         //ãƒ©ã‚¤ãƒ–ãƒ©ãƒªç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+        std::unique_ptr<scene::SceneManager> m_scene;     //ã‚·ãƒ¼ãƒ³ç®¡ç†ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     };
 }

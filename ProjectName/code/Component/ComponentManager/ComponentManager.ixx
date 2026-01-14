@@ -7,39 +7,39 @@ import <typeindex>;
 import Component;
 
 /// <summary>
-/// ƒRƒ“ƒ|[ƒlƒ“ƒgŠÖ˜A
+/// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆé–¢é€£
 /// </summary>
 export namespace component
 {
     /// <summary>
-    /// ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğŠÇ—‚·‚é
+    /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ç®¡ç†ã™ã‚‹
     /// </summary>
     export class ComponentManager final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ComponentManager() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~ComponentManager() = default;
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
-        /// <param name="deltaTime">ƒfƒ‹ƒ^ƒ^ƒCƒ€</param>
+        /// <param name="deltaTime">ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </param>
         void Update(const float& deltaTime);
 
         /// <summary>
-        /// ƒRƒ“ƒ|[ƒlƒ“ƒg’Ç‰Á
+        /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆè¿½åŠ 
         /// </summary>
-        /// <typeparam name="T">ƒRƒ“ƒ|[ƒlƒ“ƒg–¼</typeparam>
-        /// <typeparam name="...Args">ˆø”ŒQ</typeparam>
-        /// <param name="...args">ˆø”ŒQ</param>
-        /// <returns>’Ç‰Á‚µ‚½ƒRƒ“ƒ|[ƒlƒ“ƒg</returns>
+        /// <typeparam name="T">ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå</typeparam>
+        /// <typeparam name="...Args">å¼•æ•°ç¾¤</typeparam>
+        /// <param name="...args">å¼•æ•°ç¾¤</param>
+        /// <returns>è¿½åŠ ã—ãŸã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ</returns>
         template<typename T, typename... Args>
         std::shared_ptr<T> AddComponent(Args&&... args)
         {
@@ -49,10 +49,10 @@ export namespace component
         }
 
         /// <summary>
-        /// ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾
+        /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
         /// </summary>
-        /// <typeparam name="T">æ“¾‘ÎÛ‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg–¼</typeparam>
-        /// <returns>ƒRƒ“ƒ|[ƒlƒ“ƒg</returns>
+        /// <typeparam name="T">å–å¾—å¯¾è±¡ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå</typeparam>
+        /// <returns>ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ</returns>
         template<typename T>
         std::shared_ptr<T> GetComponent()
         {
@@ -64,10 +64,10 @@ export namespace component
         }
 
         /// <summary>
-        /// ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ì‘¶İŠm”F
+        /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å­˜åœ¨ç¢ºèª
         /// </summary>
-        /// <typeparam name="T">Šm”F‘ÎÛ‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg</typeparam>
-        /// <returns>‘¶İ‚·‚é‚©‚Ç‚¤‚©</returns>
+        /// <typeparam name="T">ç¢ºèªå¯¾è±¡ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ</typeparam>
+        /// <returns>å­˜åœ¨ã™ã‚‹ã‹ã©ã†ã‹</returns>
         template<typename T>
         bool HasComponent()
         {
@@ -75,9 +75,9 @@ export namespace component
         }
 
         /// <summary>
-        /// ƒRƒ“ƒ|[ƒlƒ“ƒgíœ
+        /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå‰Šé™¤
         /// </summary>
-        /// <param name="component">íœ‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg</param>
+        /// <param name="component">å‰Šé™¤ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ</param>
         template<typename T>
         void RemoveComponent()
         {
@@ -85,6 +85,6 @@ export namespace component
         }
 
     private:
-        std::unordered_map<std::type_index, std::shared_ptr<component::ComponentBase>> m_components;   //ƒRƒ“ƒ|[ƒlƒ“ƒgŒQ
+        std::unordered_map<std::type_index, std::shared_ptr<component::ComponentBase>> m_components;   //ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç¾¤
     };
 }

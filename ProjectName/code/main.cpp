@@ -1,4 +1,4 @@
-﻿#include<Windows.h>
+・ｿ#include<Windows.h>
 #include <memory>
 import GameSystem.Execution;
 

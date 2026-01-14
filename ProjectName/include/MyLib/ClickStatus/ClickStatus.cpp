@@ -7,7 +7,7 @@ namespace input
 {
     ClickStatus::ClickStatus()
     {
-        // g—p‚·‚éƒNƒŠƒbƒNƒ{ƒ^ƒ“‚Ì‰Šú‰»
+        // ä½¿ç”¨ã™ã‚‹ã‚¯ãƒªãƒƒã‚¯ãƒœã‚¿ãƒ³ã®åˆæœŸåŒ–
         const int buttons[] =
         {
             MOUSE_INPUT_LEFT,
@@ -25,13 +25,13 @@ namespace input
     {
         int mouseState = GetMouseInput();
         
-        //ƒL[‚ÌƒXƒe[ƒ^ƒX‚ğˆê’Ê‚èØ‚è‘Ö‚¦‚é
+        //ã‚­ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ä¸€é€šã‚Šåˆ‡ã‚Šæ›¿ãˆã‚‹
         for (auto& click : clickData)
         {
-            // ‰Ÿ‰º’†‚©‚Ç‚¤‚©‚Åê‡•ª‚¯
+            // æŠ¼ä¸‹ä¸­ã‹ã©ã†ã‹ã§å ´åˆåˆ†ã‘
             if (mouseState & click.first)
             {
-                // ‰Ÿ‰º’†‚Ìê‡
+                // æŠ¼ä¸‹ä¸­ã®å ´åˆ
                 if (click.second & (CLICK_ON_RELEASE | CLICK_RELEASING))
                 {
                     click.second = CLICK_ON_PRESS;
@@ -41,7 +41,7 @@ namespace input
             }
             else
             {
-                // ‰Ÿ‰º‚³‚ê‚Ä‚¢‚È‚¢ê‡
+                // æŠ¼ä¸‹ã•ã‚Œã¦ã„ãªã„å ´åˆ
                 if (click.second & (CLICK_ON_PRESS | CLICK_PRESSING))
                 {
                     click.second = CLICK_ON_RELEASE;

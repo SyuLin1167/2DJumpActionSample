@@ -2,51 +2,51 @@ export module Asset.Graph;
 import Asset.AssetBase;
 
 /// <summary>
-/// ƒAƒZƒbƒgŠÖ˜A
+/// ã‚¢ã‚»ãƒƒãƒˆé–¢é€£
 /// </summary>
 export namespace asset
 {
     /// <summary>
-    /// ‰æ‘œ‚ÌŠÇ—‚ğ’S“–
+    /// ç”»åƒã®ç®¡ç†ã‚’æ‹…å½“
     /// </summary>
     export class Graph final :public AssetBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Graph();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Graph();
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹¶¬
+        /// ãƒãƒ³ãƒ‰ãƒ«ç”Ÿæˆ
         /// </summary>
-        /// <param name="handleName">ƒnƒ“ƒhƒ‹–¼</param>
-        /// <param name="graphName">‰æ‘œ–¼</param>
+        /// <param name="handleName">ãƒãƒ³ãƒ‰ãƒ«å</param>
+        /// <param name="graphName">ç”»åƒå</param>
         void CreateHandle(std::string handleName, std::string graphName) override;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹¶¬(”ñ“¯Šú)
+        /// ãƒãƒ³ãƒ‰ãƒ«ç”Ÿæˆ(éåŒæœŸ)
         /// </summary>
-        /// <param name="handleName">ƒnƒ“ƒhƒ‹–¼</param>
-        /// <param name="graphName">‰æ‘œ–¼</param>
+        /// <param name="handleName">ãƒãƒ³ãƒ‰ãƒ«å</param>
+        /// <param name="graphName">ç”»åƒå</param>
         void CreateHandleAsync(std::string handleName, std::string graphName) override;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹íœ
+        /// ãƒãƒ³ãƒ‰ãƒ«å‰Šé™¤
         /// </summary>
-        /// <param name="name">íœ‚·‚éƒnƒ“ƒhƒ‹–¼</param>
+        /// <param name="name">å‰Šé™¤ã™ã‚‹ãƒãƒ³ãƒ‰ãƒ«å</param>
         void DeleteHandle(std::string name) override;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹æ“¾
+        /// ãƒãƒ³ãƒ‰ãƒ«å–å¾—
         /// </summary>
-        /// <param name="name">æ“¾‚·‚éƒnƒ“ƒhƒ‹–¼</param>
-        /// <returns>ƒnƒ“ƒhƒ‹</returns>
+        /// <param name="name">å–å¾—ã™ã‚‹ãƒãƒ³ãƒ‰ãƒ«å</param>
+        /// <returns>ãƒãƒ³ãƒ‰ãƒ«</returns>
         int GetHandle(const std::string& name) const
         {
             if (auto it = handles.find(name); it != handles.end())
@@ -56,7 +56,7 @@ export namespace asset
             return -1;
         }
     private:
-        std::unordered_map<std::string, int> handles;   //ƒnƒ“ƒhƒ‹ŒQ
+        std::unordered_map<std::string, int> handles;   //ãƒãƒ³ãƒ‰ãƒ«ç¾¤
     };
 }
 

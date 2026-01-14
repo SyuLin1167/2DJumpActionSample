@@ -13,58 +13,58 @@ import MyLib.Loading.LoadingContext;
 import MyLib.File.MemMapFile;
 
 /// <summary>
-/// ƒtƒ@ƒCƒ‹ŠÖ˜A
+/// ãƒ•ã‚¡ã‚¤ãƒ«é–¢é€£
 /// </summary>
 export namespace file
 {
     /// <summary>
-    /// Csvƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‘‚«‚ğs‚¤
+    /// Csvãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿æ›¸ãã‚’è¡Œã†
     /// </summary>
     export class CsvIO final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         CsvIO() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~CsvIO() = default;
 
         /// <summary>
-        /// Csvƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+        /// Csvãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
         /// </summary>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹–¼</param>
-        /// <returns>ƒƒ‚ƒŠƒ}ƒbƒvƒtƒ@ƒCƒ‹</returns>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+        /// <returns>ãƒ¡ãƒ¢ãƒªãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«</returns>
         file::MemMapFile Load(std::filesystem::path fileName)
         {
-            // Šg’£q‚ª–³‚¯‚ê‚Î•t—^‚·‚é
+            // æ‹¡å¼µå­ãŒç„¡ã‘ã‚Œã°ä»˜ä¸ã™ã‚‹
             if (fileName.extension() != ".csv") {
                 fileName += ".csv";
             }
 
-            // ƒƒ‚ƒŠƒ}ƒbƒv‚ÅŠJ‚­
+            // ãƒ¡ãƒ¢ãƒªãƒãƒƒãƒ—ã§é–‹ã
             file::MemMapFile mmf;
             mmf.Open(fileName.string().c_str());
             return mmf;
         }
 
         /// <summary>
-        /// Csvƒtƒ@ƒCƒ‹‚Ì“¯Šú“Ç‚İ‚İ
+        /// Csvãƒ•ã‚¡ã‚¤ãƒ«ã®åŒæœŸèª­ã¿è¾¼ã¿
         /// </summary>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹–¼</param>
-        /// <returns>ƒƒ‚ƒŠƒ}ƒbƒvƒtƒ@ƒCƒ‹‚Ì”ñ“¯ŠúŒ‹‰Ê</returns>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+        /// <returns>ãƒ¡ãƒ¢ãƒªãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«ã®éåŒæœŸçµæœ</returns>
         std::future<file::MemMapFile> LoadAsync(std::filesystem::path fileName)
         {
-            // ”ñ“¯Šúƒ^ƒXƒN‚ğì¬
+            // éåŒæœŸã‚¿ã‚¹ã‚¯ã‚’ä½œæˆ
             auto task = std::make_shared<std::packaged_task<file::MemMapFile()>>(
                 [this, fileName]() {
                     return Load(fileName);
                 });
 
-            // ƒ[ƒfƒBƒ“ƒOƒRƒ“ƒeƒLƒXƒg‚ª‚ ‚ê‚Îƒ^ƒXƒN‚ğ“o˜^A‚È‚¯‚ê‚Î‘¦Às
+            // ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆãŒã‚ã‚Œã°ã‚¿ã‚¹ã‚¯ã‚’ç™»éŒ²ã€ãªã‘ã‚Œã°å³æ™‚å®Ÿè¡Œ
             auto fut = task->get_future();
             if (task::LoadingContext::Get())
             {
@@ -80,19 +80,19 @@ export namespace file
         }
 
         /// <summary>
-        /// Csvƒtƒ@ƒCƒ‹‚Ìƒp[ƒX
+        /// Csvãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ãƒ¼ã‚¹
         /// </summary>
-        /// <param name="mmf">ƒƒ‚ƒŠƒ}ƒbƒvƒtƒ@ƒCƒ‹</param>
-        /// <returns>ƒp[ƒXŒ‹‰Ê</returns>
+        /// <param name="mmf">ãƒ¡ãƒ¢ãƒªãƒãƒƒãƒ—ãƒ•ã‚¡ã‚¤ãƒ«</param>
+        /// <returns>ãƒ‘ãƒ¼ã‚¹çµæœ</returns>
         std::vector<std::string_view> Parse(const file::MemMapFile& mmf)
         {
-            // ƒƒ‚ƒŠƒ}ƒbƒv‚©‚çƒf[ƒ^æ“¾
+            // ãƒ¡ãƒ¢ãƒªãƒãƒƒãƒ—ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿å–å¾—
             const char* ptr = mmf.GetPtr();
             size_t size = mmf.GetFileSize();
             std::vector<std::string_view> data;
             size_t start = 0;
 
-            // ƒJƒ“ƒ}E‰üs‚Å•ªŠ„
+            // ã‚«ãƒ³ãƒãƒ»æ”¹è¡Œã§åˆ†å‰²
             for (size_t i = 0; i < size; ++i) {
                 if (ptr[i] == ',' || ptr[i] == '\n' || ptr[i] == '\r')
                 {
@@ -103,7 +103,7 @@ export namespace file
                 }
             }
 
-            // ÅŒã‚Ìƒf[ƒ^‚ğ’Ç‰Á
+            // æœ€å¾Œã®ãƒ‡ãƒ¼ã‚¿ã‚’è¿½åŠ 
             if (start < size) {
                 data.emplace_back(&ptr[start], size - start);
             }
@@ -112,27 +112,27 @@ export namespace file
         }
 
         /// <summary>
-        /// Csvƒf[ƒ^‚©‚ç”z—ñ‚ğì¬
+        /// Csvãƒ‡ãƒ¼ã‚¿ã‹ã‚‰é…åˆ—ã‚’ä½œæˆ
         /// </summary>
-        /// <typeparam name="T">”z—ñ‚ÌŒ^</typeparam>
-        /// <param name="data">Csvƒf[ƒ^</param>
-        /// <returns>ì¬‚µ‚½”z—ñ</returns>
+        /// <typeparam name="T">é…åˆ—ã®å‹</typeparam>
+        /// <param name="data">Csvãƒ‡ãƒ¼ã‚¿</param>
+        /// <returns>ä½œæˆã—ãŸé…åˆ—</returns>
         template<typename T>
         std::vector<T> CreateArray(const std::vector<std::string_view>& data)
         {
-            // ”z—ñ‚Ì€”õ
+            // é…åˆ—ã®æº–å‚™
             std::vector<T> result;
             result.reserve(data.size());
 
-            // •¶š—ñ‚ğŒ^‚É•ÏŠ·‚µ‚Ä”z—ñ‚É’Ç‰Á
+            // æ–‡å­—åˆ—ã‚’å‹ã«å¤‰æ›ã—ã¦é…åˆ—ã«è¿½åŠ 
             for (const auto& item : data)
             {
-                // •ÏŠ·—p•Ï”
+                // å¤‰æ›ç”¨å¤‰æ•°
                 T value{};
                 std::errc ec{};
                 const char* end = nullptr;
 
-                // •ÏŠ·
+                // å¤‰æ›
                 if constexpr (std::is_floating_point_v<T>) {
                     auto [p, e] = std::from_chars(item.data(), item.data() + item.size(), value, std::chars_format::general);
                     end = p;
@@ -144,7 +144,7 @@ export namespace file
                     ec = e;
                 }
 
-                // •ÏŠ·¬Œ÷‚Ì‚İ’Ç‰Á
+                // å¤‰æ›æˆåŠŸæ™‚ã®ã¿è¿½åŠ 
                 if (ec == std::errc())
                 {
                     result.emplace_back(value);
@@ -158,11 +158,11 @@ export namespace file
         }
 
         /// <summary>
-        /// Csvƒtƒ@ƒCƒ‹‚©‚ç”z—ñ‚ğì¬
+        /// Csvãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰é…åˆ—ã‚’ä½œæˆ
         /// </summary>
-        /// <typeparam name="T">”z—ñ‚ÌŒ^</typeparam>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹–¼</param>
-        /// <returns>ì¬‚µ‚½”z—ñ</returns>
+        /// <typeparam name="T">é…åˆ—ã®å‹</typeparam>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+        /// <returns>ä½œæˆã—ãŸé…åˆ—</returns>
         template<typename T>
         inline std::vector<T> CreateArray(std::filesystem::path fileName)
         {
@@ -172,21 +172,21 @@ export namespace file
         }
 
         /// <summary>
-        /// Csvƒtƒ@ƒCƒ‹‚©‚ç”z—ñ‚ğ”ñ“¯Šúì¬
+        /// Csvãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰é…åˆ—ã‚’éåŒæœŸä½œæˆ
         /// </summary>
-        /// <typeparam name="T">”z—ñ‚ÌŒ^</typeparam>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹–¼</param>
-        /// <returns>ì¬‚µ‚½”z—ñ‚Ì”ñ“¯ŠúŒ‹‰Ê</returns>
+        /// <typeparam name="T">é…åˆ—ã®å‹</typeparam>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+        /// <returns>ä½œæˆã—ãŸé…åˆ—ã®éåŒæœŸçµæœ</returns>
         template<typename T>
         void CreateArrayAsync(std::filesystem::path fileName, std::vector<T>& result)
         {
-            // ”ñ“¯Šúƒ^ƒXƒN‚ğì¬
+            // éåŒæœŸã‚¿ã‚¹ã‚¯ã‚’ä½œæˆ
             auto task = std::make_shared<std::packaged_task<std::vector<T>()>>(
                 [this, fileName]() {
                     return CreateArray<T>(fileName);
                 });
 
-            // ƒ[ƒfƒBƒ“ƒOƒRƒ“ƒeƒLƒXƒg‚ª‚ ‚ê‚Îƒ^ƒXƒN‚ğ“o˜^A‚È‚¯‚ê‚Î‘¦Às
+            // ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆãŒã‚ã‚Œã°ã‚¿ã‚¹ã‚¯ã‚’ç™»éŒ²ã€ãªã‘ã‚Œã°å³æ™‚å®Ÿè¡Œ
             if (task::LoadingContext::Get())
             {
                 task::LoadingContext::Get()->AddTask(task::DATA, [&result, task = std::move(task)]() mutable {
@@ -202,20 +202,20 @@ export namespace file
         }
 
         /// <summary>
-        /// Csvƒtƒ@ƒCƒ‹‚©‚ç”z—ñ‚ğ”ñ“¯Šúì¬
+        /// Csvãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰é…åˆ—ã‚’éåŒæœŸä½œæˆ
         /// </summary>
-        /// <typeparam name="T">”z—ñ‚ÌŒ^</typeparam>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹–¼</param>
-        /// <returns>ì¬‚µ‚½”z—ñ‚Ì”ñ“¯ŠúŒ‹‰Ê</returns>
+        /// <typeparam name="T">é…åˆ—ã®å‹</typeparam>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«å</param>
+        /// <returns>ä½œæˆã—ãŸé…åˆ—ã®éåŒæœŸçµæœ</returns>
         template<typename T>
         std::future<std::vector<T>> CreateArrayAsync(std::filesystem::path fileName)
         {
-            // ”ñ“¯Šúƒ^ƒXƒN‚ğì¬
+            // éåŒæœŸã‚¿ã‚¹ã‚¯ã‚’ä½œæˆ
             auto task = std::make_shared<std::packaged_task<std::vector<T>()>>(
                 [this, fileName]() {
                     return CreateArray<T>(fileName);
                 });
-            // ƒ[ƒfƒBƒ“ƒOƒRƒ“ƒeƒLƒXƒg‚ª‚ ‚ê‚Îƒ^ƒXƒN‚ğ“o˜^A‚È‚¯‚ê‚Î‘¦Às
+            // ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆãŒã‚ã‚Œã°ã‚¿ã‚¹ã‚¯ã‚’ç™»éŒ²ã€ãªã‘ã‚Œã°å³æ™‚å®Ÿè¡Œ
             auto fut = task->get_future();
             if (task::LoadingContext::Get())
             {

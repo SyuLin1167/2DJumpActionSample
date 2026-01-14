@@ -7,12 +7,12 @@ import MyLib.Math.Vector2;
 using namespace math;
 
 /// <summary>
-/// ƒVƒXƒeƒ€ŠÖ˜A
+/// ã‚·ã‚¹ãƒ†ãƒ é–¢é€£
 /// </summary>
 export namespace gameSystem
 {
     /// <summary>
-    /// ƒEƒBƒ“ƒhƒE‚ÌŠÇ—
+    /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ç®¡ç†
     /// </summary>
     export class Window final
     {
@@ -20,19 +20,19 @@ export namespace gameSystem
 
     public:
         /// <summary>
-        /// ƒRƒs[‹Ö~—ß
+        /// ã‚³ãƒ”ãƒ¼ç¦æ­¢ä»¤
         /// </summary>
         Window(const Window&) = delete;
         Window(Window&&) = delete;
 
         /// <summary>
-        /// ‘ã“ü‹Ö~—ß
+        /// ä»£å…¥ç¦æ­¢ä»¤
         /// </summary>
         Window& operator=(const Window&) = delete;
         Window& operator=(Window&&) = delete;
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         static void Init()
         {
@@ -40,14 +40,14 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Window() = default;
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒEî•ñæ“¾
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æƒ…å ±å–å¾—
         /// </summary>
-        /// <returns>ƒEƒBƒ“ƒhƒEî•ñ</returns>
+        /// <returns>ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æƒ…å ±</returns>
         static const Info* GetWindowData()
         {
             return Instance().m_winInfo.get();
@@ -55,9 +55,9 @@ export namespace gameSystem
 
     private:
         /// <summary>
-        /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <returns>©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>è‡ªèº«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static Window& Instance()
         {
             static Window instance;
@@ -65,20 +65,20 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Window();
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒEî•ñ
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æƒ…å ±
         /// </summary>
         const struct Info
         {
-            const Vector2<uint32_t> SIZE{ 1920, 1080 };    //ƒEƒBƒ“ƒhƒEƒTƒCƒY
-            const int COLOR_BIT = 32;    //ƒJƒ‰[ƒrƒbƒg
+            const Vector2<uint32_t> SIZE{ 1920, 1080 };    //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚º
+            const int COLOR_BIT = 32;    //ã‚«ãƒ©ãƒ¼ãƒ“ãƒƒãƒˆ
         };
 
-        std::unique_ptr<Info> m_winInfo;        //ƒEƒBƒ“ƒhƒEî•ñ
+        std::unique_ptr<Info> m_winInfo;        //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æƒ…å ±
     };
 }
 

@@ -3,36 +3,36 @@ export module MyLib.Loading.LoadingContext;
 export import MyLib.Loading;
 
 /// <summary>
-/// ƒ^ƒXƒNŠÖ˜A
+/// ã‚¿ã‚¹ã‚¯é–¢é€£
 /// </summary>
 export namespace task
 {
     /// <summary>
-    /// Loading—pƒXƒR[ƒvƒRƒ“ƒeƒLƒXƒg
+    /// Loadingç”¨ã‚¹ã‚³ãƒ¼ãƒ—ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
     /// </summary>
     export class LoadingContext final
     {
     public:
         /// <summary>
-        /// LoadingƒNƒ‰ƒX‚ÌŠm•Û
+        /// Loadingã‚¯ãƒ©ã‚¹ã®ç¢ºä¿
         /// </summary>
-        /// <param name="loading">Šm•Û‚·‚éLoading</param>
+        /// <param name="loading">ç¢ºä¿ã™ã‚‹Loading</param>
         static void Set(Loading* loading)
         {
             m_current = loading;
         }
 
         /// <summary>
-        /// Loading‚Ìæ“¾
+        /// Loadingã®å–å¾—
         /// </summary>
-        /// <returns>Šm•Û’†‚ÌLoading</returns>
+        /// <returns>ç¢ºä¿ä¸­ã®Loading</returns>
         static Loading* Get()
         {
             return m_current;
         }
 
         /// <summary>
-        /// Loading‚Ì‰ğ•ú
+        /// Loadingã®è§£æ”¾
         /// </summary>
         static void Release()
         {
@@ -40,6 +40,6 @@ export namespace task
             m_current = nullptr;
         }
     private:
-        static inline thread_local Loading* m_current = nullptr;  //Šm•Û’†‚ÌLoading
+        static inline thread_local Loading* m_current = nullptr;  //ç¢ºä¿ä¸­ã®Loading
     };
 }

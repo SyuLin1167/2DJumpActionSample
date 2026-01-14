@@ -5,50 +5,50 @@ import Collider.TileCollider;
 import MyLib.Shape.Rect;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
     /// <summary>
-    /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚Ì‰ğŒˆˆ—
+    /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è§£æ±ºå‡¦ç†
     /// </summary>
     /// <remarks>
-    /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ÌÕ“Ë‰ğŒˆ‚ğs‚¤
+    /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è¡çªè§£æ±ºã‚’è¡Œã†
     /// </remarks>
     export class TileColliderResolver
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         TileColliderResolver() = default;
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~TileColliderResolver() = default;
 
         /// <summary>
-        /// ‰ğŒˆˆ—
+        /// è§£æ±ºå‡¦ç†
         /// </summary>
-        /// <param name="issue">‰ğŒˆ‘ÎÛ‚Ìƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[</param>
-        /// <param name="tileInfo">ƒ^ƒCƒ‹î•ñ</param>
+        /// <param name="issue">è§£æ±ºå¯¾è±¡ã®ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <param name="tileInfo">ã‚¿ã‚¤ãƒ«æƒ…å ±</param>
         void Resolve(RectCollider& issue, const TileInfo& tileInfo);
 
-        // ‰Ÿ‚µ–ß‚µ—Ê‚ÌŒvZ
+        // æŠ¼ã—æˆ»ã—é‡ã®è¨ˆç®—
         math::Vector2f CalcPushBack(const RectCollider& issue,const uint8_t adjacentFlag, const shape::Rect& tileRect);
 
         /// <summary>
-        /// ’ÊíƒuƒƒbƒN‚Ì‰ğŒˆˆ—
+        /// é€šå¸¸ãƒ–ãƒ­ãƒƒã‚¯ã®è§£æ±ºå‡¦ç†
         /// </summary>
-        /// <param name="issue">‰ğŒˆ‘ÎÛ‚Ìƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[</param>
-        /// <param name="tileInfo">ƒ^ƒCƒ‹î•ñ</param>
+        /// <param name="issue">è§£æ±ºå¯¾è±¡ã®ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <param name="tileInfo">ã‚¿ã‚¤ãƒ«æƒ…å ±</param>
         void ResolveSolid(RectCollider& issue, const TileInfo& tileInfo);
 
         /// <summary>
-        /// ã‚©‚ç‚Ì‚İ“–‚½‚éƒuƒƒbƒN‚Ì‰ğŒˆˆ—
+        /// ä¸Šã‹ã‚‰ã®ã¿å½“ãŸã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®è§£æ±ºå‡¦ç†
         /// </summary>
-        /// <param name="issue">‰ğŒˆ‘ÎÛ‚Ìƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[</param>
-        /// <param name="tileInfo">ƒ^ƒCƒ‹î•ñ</param>
+        /// <param name="issue">è§£æ±ºå¯¾è±¡ã®ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <param name="tileInfo">ã‚¿ã‚¤ãƒ«æƒ…å ±</param>
         void ResolveOneWayTop(RectCollider& issue, const TileInfo& tileInfo);
     };
 }

@@ -12,18 +12,18 @@ namespace component
         , m_nowJump(false)
         , m_trigger(trigger)
     {
-        //ˆ—‚È‚µ
+        //å‡¦ç†ãªã—
     }
 
     void Jump::Update(const float& deltaTime)
     {
-        //ƒgƒŠƒK[‚ªˆø‚©‚ê‚½‚çƒWƒƒƒ“ƒv‚ğÀ{
+        //ãƒˆãƒªã‚¬ãƒ¼ãŒå¼•ã‹ã‚ŒãŸã‚‰ã‚¸ãƒ£ãƒ³ãƒ—ã‚’å®Ÿæ–½
         if (m_trigger())
         {
             TryJump(deltaTime);
         }
         
-        // ƒWƒƒƒ“ƒv’†‚È‚çÅ‘å—‰º‘¬“x‚Ü‚Åd—Í‚ğ‰ÁZ‚·‚é
+        // ã‚¸ãƒ£ãƒ³ãƒ—ä¸­ãªã‚‰æœ€å¤§è½ä¸‹é€Ÿåº¦ã¾ã§é‡åŠ›ã‚’åŠ ç®—ã™ã‚‹
         if (m_owner->AccessVel().NowY() < MAX_FALL_VELOCITY)
         {
             m_owner->AccessVel().Add(PropVector2<float>::Y, FALL_SPEED * GRAVITY * deltaTime);
@@ -32,7 +32,7 @@ namespace component
 
     void Jump::TryJump(const float& deltaTime)
     {
-        //ƒWƒƒƒ“ƒv’†‚Å‚È‚¯‚ê‚ÎƒWƒƒƒ“ƒv‚ğÀ{
+        //ã‚¸ãƒ£ãƒ³ãƒ—ä¸­ã§ãªã‘ã‚Œã°ã‚¸ãƒ£ãƒ³ãƒ—ã‚’å®Ÿæ–½
         if (!m_nowJump)
         {
             m_nowJump = true;

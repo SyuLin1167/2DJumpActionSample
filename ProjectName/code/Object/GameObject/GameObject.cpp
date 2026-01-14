@@ -1,4 +1,4 @@
-﻿module Object.GameObject;
+・ｿmodule Object.GameObject;
 import GameSystem.FrameRate;
 
 namespace object

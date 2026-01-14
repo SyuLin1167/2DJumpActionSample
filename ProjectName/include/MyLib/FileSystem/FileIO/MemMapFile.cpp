@@ -1,4 +1,4 @@
-﻿module;
+・ｿmodule;
 #include <Windows.h>
 
 module MyLib.File.MemMapFile;
@@ -10,8 +10,7 @@ namespace file
         , m_mapHandle()
         , m_ptr()
     {
-        //処理なし
-    }
+        //蜃ｦ逅・↑縺・    }
 
     MemMapFile::MemMapFile(MemMapFile&& other) noexcept
         : m_fileHandle(other.m_fileHandle)
@@ -47,21 +46,20 @@ namespace file
     {
         Close();
 
-        //ファイルハンドルの作成
+        //繝輔ぃ繧､繝ｫ繝上Φ繝峨Ν縺ｮ菴懈・
         m_fileHandle = CreateFile(fileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
         if (m_fileHandle == INVALID_HANDLE_VALUE)
         {
             return false;
         }
 
-        // サイズ0のファイルは MapViewできないので特別扱い
-        if (GetFileSize() == 0) {
+        // 繧ｵ繧､繧ｺ0縺ｮ繝輔ぃ繧､繝ｫ縺ｯ MapView縺ｧ縺阪↑縺・・縺ｧ迚ｹ蛻･謇ｱ縺・        if (GetFileSize() == 0) {
             m_mapHandle = nullptr;
             m_ptr = nullptr;
             return true;
         }
 
-        //ハンドルのマッピング
+        //繝上Φ繝峨Ν縺ｮ繝槭ャ繝斐Φ繧ｰ
         m_mapHandle = CreateFileMapping(m_fileHandle, 0, PAGE_READONLY, 0, 0, 0);
         if (!m_mapHandle)
         {
@@ -70,8 +68,7 @@ namespace file
             return false;
         }
 
-        //マッピングデータをポインタへ格納
-        m_ptr = static_cast<char*>(MapViewOfFile(m_mapHandle, FILE_MAP_READ, 0, 0, 0));
+        //繝槭ャ繝斐Φ繧ｰ繝・・繧ｿ繧偵・繧､繝ｳ繧ｿ縺ｸ譬ｼ邏・        m_ptr = static_cast<char*>(MapViewOfFile(m_mapHandle, FILE_MAP_READ, 0, 0, 0));
         return true;
     }
 
@@ -90,21 +87,21 @@ namespace file
 
     void MemMapFile::Close()
     {
-        // 確保したリソースの解放
+        // 遒ｺ菫昴＠縺溘Μ繧ｽ繝ｼ繧ｹ縺ｮ隗｣謾ｾ
         if (m_ptr)
         {
             UnmapViewOfFile(m_ptr);
             m_ptr = nullptr;
         }
 
-        // マッピングハンドルの解放
+        // 繝槭ャ繝斐Φ繧ｰ繝上Φ繝峨Ν縺ｮ隗｣謾ｾ
         if (m_mapHandle)
         {
             CloseHandle(m_mapHandle);
             m_mapHandle = nullptr;
         }
 
-        // ファイルハンドルの解放
+        // 繝輔ぃ繧､繝ｫ繝上Φ繝峨Ν縺ｮ隗｣謾ｾ
         if (m_fileHandle != INVALID_HANDLE_VALUE)
         {
             CloseHandle(m_fileHandle);

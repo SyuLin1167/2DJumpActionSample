@@ -2,32 +2,32 @@ export module Asset.DivisionGraph;
 import Asset.AssetBase;
 
 /// <summary>
-/// ƒAƒZƒbƒgŠÖ˜A
+/// ã‚¢ã‚»ãƒƒãƒˆé–¢é€£
 /// </summary>
 export namespace asset
 {
     /// <summary>
-    /// •ªŠ„‰æ‘œ‚ÌŠÇ—‚ğ’S“–
+    /// åˆ†å‰²ç”»åƒã®ç®¡ç†ã‚’æ‹…å½“
     /// </summary>
     export class DivisionGraph final :public AssetBase
     {
         struct Info;
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         DivisionGraph() :m_divW(32), m_divH(32) {};
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~DivisionGraph();
 
         /// <summary>
-        /// •ªŠ„ƒTƒCƒY•ÏX
+        /// åˆ†å‰²ã‚µã‚¤ã‚ºå¤‰æ›´
         /// </summary>
-        /// <param name="divW">•ªŠ„‚·‚é‰¡•</param>
-        /// <param name="divH">•ªŠ„‚·‚é—§•</param>
+        /// <param name="divW">åˆ†å‰²ã™ã‚‹æ¨ªå¹…</param>
+        /// <param name="divH">åˆ†å‰²ã™ã‚‹ç«‹å¹…</param>
         void ChangeDivSize(int divW, int divH)
         {
             m_divW = divW;
@@ -35,30 +35,30 @@ export namespace asset
         }
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹¶¬
+        /// ãƒãƒ³ãƒ‰ãƒ«ç”Ÿæˆ
         /// </summary>
-        /// <param name="handleName">ƒnƒ“ƒhƒ‹–¼</param>
-        /// <param name="graphName">‰æ‘œ–¼</param>
+        /// <param name="handleName">ãƒãƒ³ãƒ‰ãƒ«å</param>
+        /// <param name="graphName">ç”»åƒå</param>
         void CreateHandle(std::string handleName, std::string graphName) override;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹¶¬(”ñ“¯Šú)
+        /// ãƒãƒ³ãƒ‰ãƒ«ç”Ÿæˆ(éåŒæœŸ)
         /// </summary>
-        /// <param name="handleName">ƒnƒ“ƒhƒ‹–¼</param>
-        /// <param name="graphName">‰æ‘œ–¼</param>
+        /// <param name="handleName">ãƒãƒ³ãƒ‰ãƒ«å</param>
+        /// <param name="graphName">ç”»åƒå</param>
         void CreateHandleAsync(std::string handleName, std::string graphName) override;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹íœ
+        /// ãƒãƒ³ãƒ‰ãƒ«å‰Šé™¤
         /// </summary>
-        /// <param name="name">íœ‚·‚éƒnƒ“ƒhƒ‹–¼</param>
+        /// <param name="name">å‰Šé™¤ã™ã‚‹ãƒãƒ³ãƒ‰ãƒ«å</param>
         void DeleteHandle(std::string name) override;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹æ“¾
+        /// ãƒãƒ³ãƒ‰ãƒ«å–å¾—
         /// </summary>
-        /// <param name="name">æ“¾‚·‚éƒnƒ“ƒhƒ‹–¼</param>
-        /// <param name="num">æ“¾‚·‚é“Y‚¦š</param>
+        /// <param name="name">å–å¾—ã™ã‚‹ãƒãƒ³ãƒ‰ãƒ«å</param>
+        /// <param name="num">å–å¾—ã™ã‚‹æ·»ãˆå­—</param>
         /// <returns></returns>
         int GetHandle(std::string name, size_t index) const
         {
@@ -67,7 +67,7 @@ export namespace asset
 
     private:
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹î•ñ
+        /// ãƒãƒ³ãƒ‰ãƒ«æƒ…å ±
         /// </summary>
         struct Info
         {
@@ -75,8 +75,8 @@ export namespace asset
             int total;
         };
 
-        int m_divW;       //•ªŠ„•(‰¡)
-        int m_divH;       //•ªŠ„•(c)
-        std::unordered_map<std::string, Info> m_handles;  //ƒnƒ“ƒhƒ‹ŒQ
+        int m_divW;       //åˆ†å‰²å¹…(æ¨ª)
+        int m_divH;       //åˆ†å‰²å¹…(ç¸¦)
+        std::unordered_map<std::string, Info> m_handles;  //ãƒãƒ³ãƒ‰ãƒ«ç¾¤
     };
 }

@@ -1,4 +1,4 @@
-﻿module;
+・ｿmodule;
 #include <DxLib.h>
 
 module GameSystem.Window;

@@ -9,52 +9,52 @@ import Asset.Graph;
 export import Scene.SceneBase;
 
 /// <summary>
-/// ƒV[ƒ“ŠÖ˜A
+/// ã‚·ãƒ¼ãƒ³é–¢é€£
 /// </summary>
 export namespace scene
 {
-    // ‘O•ûéŒ¾
+    // å‰æ–¹å®£è¨€
     export class SceneBase;
 
     /// <summary>
-    /// ƒV[ƒ“‚ğŠÇ—‚·‚é
+    /// ã‚·ãƒ¼ãƒ³ã‚’ç®¡ç†ã™ã‚‹
     /// </summary>
     export class SceneManager final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         SceneManager();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~SceneManager() = default;
 
         /// <summary>
-        /// ƒV[ƒ“‚Ìƒ‹[ƒvˆ—
+        /// ã‚·ãƒ¼ãƒ³ã®ãƒ«ãƒ¼ãƒ—å‡¦ç†
         /// </summary>
         void GameLoop();
 
     private:
         /// <summary>
-        /// ƒV[ƒ“‚ÌXVˆ—
+        /// ã‚·ãƒ¼ãƒ³ã®æ›´æ–°å‡¦ç†
         /// </summary>
         void Update();
 
         /// <summary>
-        /// ƒV[ƒ“‚Ì•`‰æˆ—
+        /// ã‚·ãƒ¼ãƒ³ã®æç”»å‡¦ç†
         /// </summary>
         void Draw();
 
         /// <summary>
-        /// ƒV[ƒ“‚ÌØ‚è‘Ö‚¦ˆ—
+        /// ã‚·ãƒ¼ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆå‡¦ç†
         /// </summary>
         void ChangeScene();
 
-        std::stack<std::shared_ptr<SceneBase>> m_nowScene;  //Œ»İ‚ÌƒV[ƒ“
-        SceneCmd m_pendingCmd;                              //ŸƒtƒŒ[ƒ€‚É“K—p‚·‚éƒRƒ}ƒ“ƒh
-        bool m_isRunning;                                   //ƒQ[ƒ€ƒ‹[ƒvŒp‘±ƒtƒ‰ƒO
+        std::stack<std::shared_ptr<SceneBase>> m_nowScene;  //ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³
+        SceneCmd m_pendingCmd;                              //æ¬¡ãƒ•ãƒ¬ãƒ¼ãƒ ã«é©ç”¨ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰
+        bool m_isRunning;                                   //ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ç¶™ç¶šãƒ•ãƒ©ã‚°
     };
 }

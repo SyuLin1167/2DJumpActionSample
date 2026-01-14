@@ -5,35 +5,35 @@ export import <functional>;
 export import <variant>;
 
 /// <summary>
-/// ‘Ò‹@ŠÔ
+/// å¾…æ©Ÿæ™‚é–“
 /// </summary>
 export struct WaitForSeconds
 {
-    float seconds;                  //‘Ò‹@‚·‚é•b”
+    float seconds;                  //å¾…æ©Ÿã™ã‚‹ç§’æ•°
 };
 
 /// <summary>
-/// ‘Ò‹@ˆ—
+/// å¾…æ©Ÿå‡¦ç†
 /// </summary>
 export struct WaitUntil
 {
-    std::function<bool()> pred;     //‘Ò‹@‚·‚éˆ—
+    std::function<bool()> pred;     //å¾…æ©Ÿã™ã‚‹å‡¦ç†
 };
 
-export using YieldType = std::variant<std::monostate, WaitForSeconds, WaitUntil>;      //co_yield‚Ì‘Ò‹@—pvariant
+export using YieldType = std::variant<std::monostate, WaitForSeconds, WaitUntil>;      //co_yieldã®å¾…æ©Ÿç”¨variant
 
 /// <summary>
-/// ƒRƒ‹[ƒ`ƒ“
+/// ã‚³ãƒ«ãƒ¼ãƒãƒ³
 /// </summary>
 export struct Coroutine
 {
     struct promise_type;
 
-    // ƒRƒs[‹Ö~
+    // ã‚³ãƒ”ãƒ¼ç¦æ­¢
     Coroutine(const Coroutine&) = delete;
     Coroutine& operator=(const Coroutine&) = delete;
 
-    //std::move‚Ì‚İ‹–‰Â‚·‚é
+    //std::moveã®ã¿è¨±å¯ã™ã‚‹
     Coroutine(Coroutine&& other) noexcept : handle(other.handle)
     {
         other.handle = nullptr;
@@ -49,18 +49,18 @@ export struct Coroutine
     }
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Coroutine() : handle(nullptr) {};
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
-    /// <param name="h">ì¬‚·‚écoroutine_handle</param>
+    /// <param name="h">ä½œæˆã™ã‚‹coroutine_handle</param>
     Coroutine(std::coroutine_handle<promise_type> _handle) : handle(_handle) {}
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~Coroutine()
     {
@@ -71,46 +71,46 @@ export struct Coroutine
     }
 
     /// <summary>
-    /// ƒRƒ‹[ƒ`ƒ““WŠJ—pƒ‹[ƒ‹
+    /// ã‚³ãƒ«ãƒ¼ãƒãƒ³å±•é–‹ç”¨ãƒ«ãƒ¼ãƒ«
     /// </summary>
     struct promise_type
     {
         /// <summary>
-        /// •ÔŠÒƒIƒuƒWƒFƒNƒgæ“¾
+        /// è¿”é‚„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå–å¾—
         /// </summary>
-        /// <returns>CoroutinŒ^ƒIƒuƒWƒFƒNƒg</returns>
+        /// <returns>Coroutinå‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</returns>
         Coroutine get_return_object()
         {
             return { std::coroutine_handle<promise_type>::from_promise(*this) };
         }
 
         /// <summary>
-        /// ƒRƒ‹[ƒ`ƒ“ŠJnˆ—
+        /// ã‚³ãƒ«ãƒ¼ãƒãƒ³é–‹å§‹å‡¦ç†
         /// </summary>
-        /// <returns>suspendó‘Ô</returns>
+        /// <returns>suspendçŠ¶æ…‹</returns>
         std::suspend_always initial_suspend()
         {
             return {};
         }
 
         /// <summary>
-        /// ƒRƒ‹[ƒ`ƒ“I—¹ˆ—
+        /// ã‚³ãƒ«ãƒ¼ãƒãƒ³çµ‚äº†å‡¦ç†
         /// </summary>
-        /// <returns>suspendó‘Ô</returns>
+        /// <returns>suspendçŠ¶æ…‹</returns>
         std::suspend_always final_suspend() noexcept
         {
             return {};
         }
 
         /// <summary>
-        /// co_returnŒÄ‚Ño‚µ—p
+        /// co_returnå‘¼ã³å‡ºã—ç”¨
         /// </summary>
         void return_void() {}
 
         /// <summary>
-        /// co_yieldŒÄ‚Ño‚µ—p
+        /// co_yieldå‘¼ã³å‡ºã—ç”¨
         /// </summary>
-        /// <param name="">‘Ò‹@—pƒ‹[ƒ‹</param>
+        /// <param name="">å¾…æ©Ÿç”¨ãƒ«ãƒ¼ãƒ«</param>
         std::suspend_always yield_value(YieldType _yT)
         {
             yieldType = _yT;
@@ -118,20 +118,20 @@ export struct Coroutine
         }
 
         /// <summary>
-        /// —áŠO”­¶ˆ—
+        /// ä¾‹å¤–ç™ºç”Ÿæ™‚å‡¦ç†
         /// </summary>
         void unhandled_exception()
         {
             throw;
         }
 
-        YieldType yieldType;    //yieldó‹µ
+        YieldType yieldType;    //yieldçŠ¶æ³
     };
 
     /// <summary>
-    /// 1ƒXƒeƒbƒvi‚ß‚é
+    /// 1ã‚¹ãƒ†ãƒƒãƒ—é€²ã‚ã‚‹
     /// </summary>
-    /// <returns>si‰Â”\ó‹µ</returns>
+    /// <returns>è¡Œé€²å¯èƒ½çŠ¶æ³</returns>
     bool resume() const
     {
         if (!handle || handle.done())
@@ -143,13 +143,13 @@ export struct Coroutine
     }
 
     /// <summary>
-    /// ‘Ò‹@w¦‚ÌŠm”F
+    /// å¾…æ©ŸæŒ‡ç¤ºã®ç¢ºèª
     /// </summary>
-    /// <returns>‘Ò‹@w¦</returns>
+    /// <returns>å¾…æ©ŸæŒ‡ç¤º</returns>
     YieldType get_yield_type() const
     {
         return handle.promise().yieldType;
     }
 
-    std::coroutine_handle<promise_type> handle;     //resume()—pƒnƒ“ƒhƒ‹
+    std::coroutine_handle<promise_type> handle;     //resume()ç”¨ãƒãƒ³ãƒ‰ãƒ«
 };

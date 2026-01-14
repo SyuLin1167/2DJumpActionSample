@@ -1,4 +1,4 @@
-﻿module Object.ObjectManager;
+・ｿmodule Object.ObjectManager;
 import ObjectContext;
 import GameSystem.Camera;
 
@@ -18,7 +18,7 @@ namespace object
     {
         ObjectTag tag = object->MyObjectTag();
 
-        //オブジェクトを削除
+        //繧ｪ繝悶ず繧ｧ繧ｯ繝医ｒ蜑企勁
         auto iter = std::find_if(objects[tag].begin(), objects[tag].end(), [object](const std::shared_ptr<GameObject>& ptr) { return ptr.get() == object; });
         if (iter != objects[tag].end())
         {
@@ -28,8 +28,7 @@ namespace object
 
     void ObjectManager::InitBeforeUpdate()
     {
-        //自身に必要なオブジェクトを取得
-        for (auto tag : OBJECT_TAGS)
+        //閾ｪ霄ｫ縺ｫ蠢・ｦ√↑繧ｪ繝悶ず繧ｧ繧ｯ繝医ｒ蜿門ｾ・        for (auto tag : OBJECT_TAGS)
         {
             for (auto& object : objects[tag])
             {
@@ -47,7 +46,7 @@ namespace object
         isUpdate = true;
         for (auto tag : OBJECT_TAGS)
         {
-            //オブジェクトを更新
+            //繧ｪ繝悶ず繧ｧ繧ｯ繝医ｒ譖ｴ譁ｰ
             for (auto& object : objects[tag])
             {
                 object->UpdateComponents();
@@ -55,7 +54,7 @@ namespace object
             }
         }
 
-        //当たり判定の更新
+        //蠖薙◆繧雁愛螳壹・譖ｴ譁ｰ
         ObjectContext::ColMgr().Step();
 
         for (auto tag : OBJECT_TAGS)
@@ -67,8 +66,7 @@ namespace object
         }
         gameSystem::Camera::Instance().Update();
 
-        // 更新終了後の処理
-        isUpdate = false;
+        // 譖ｴ譁ｰ邨ゆｺ・ｾ後・蜃ｦ逅・        isUpdate = false;
         RefreshObjects();
     }
 
@@ -76,7 +74,7 @@ namespace object
     {
         for (auto tag : OBJECT_TAGS)
         {
-            //死亡状態のオブジェクトを削除
+            //豁ｻ莠｡迥ｶ諷九・繧ｪ繝悶ず繧ｧ繧ｯ繝医ｒ蜑企勁
             for (auto& object : objects[tag])
             {
                 if (object->NowState() & MainState::DEAD)
@@ -85,8 +83,7 @@ namespace object
                 }
             }
 
-            //更新時に追加したオブジェクトを配列に格納
-            if (!pendingObjects.empty())
+            //譖ｴ譁ｰ譎ゅ↓霑ｽ蜉縺励◆繧ｪ繝悶ず繧ｧ繧ｯ繝医ｒ驟榊・縺ｫ譬ｼ邏・            if (!pendingObjects.empty())
             {
                 for (auto pendingObj : pendingObjects)
                 {
@@ -110,7 +107,7 @@ namespace object
     {
         for (auto tag : OBJECT_TAGS)
         {
-            //オブジェクトを描画
+            //繧ｪ繝悶ず繧ｧ繧ｯ繝医ｒ謠冗判
             for (auto& object : objects[tag])
             {
                 object->Draw();
