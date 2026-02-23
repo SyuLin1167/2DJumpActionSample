@@ -41,7 +41,7 @@ git clone https://github.com/2DJumpActionSample/project.git
 >* コンポーネント指向
 >* コルーチン
 >* 非同期読み込み
->* デザインパターン(ビジターパターンやステートメント)
+>* デザインパターン(ビジターパターンやコマンドパターン)
 >* 当たり判定の簡易設定とフィルタリング
 >* 衝突判定時のすり抜け防止機能
 >* メモリマップファイルでのファイル読み込み
@@ -54,3 +54,5 @@ git clone https://github.com/2DJumpActionSample/project.git
 * アニメーション機能の実装
 * IMGUIの学習
 * サウンドエンジンであるFMODの学習
+* デバッグに関する機能と学習
+* シェーダーの学習
