@@ -1,4 +1,4 @@
-export module Object.Map;
+ï»¿export module Object.Map;
 
 import Object.GameObject;
 import Object.MapInfo;
@@ -12,46 +12,46 @@ using json = nlohmann::json;
 using namespace math;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace object
 {
     /// <summary>
-    /// ƒ^ƒCƒ‹ƒ}ƒbƒv‚ÉŠÖ‚·‚éˆ—‚ğs‚¤
+    /// ã‚¿ã‚¤ãƒ«ãƒãƒƒãƒ—ã«é–¢ã™ã‚‹å‡¦ç†ã‚’è¡Œã†
     /// </summary>
     export class Map final :public GameObject
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Map();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Map();
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         void Init() override;
 
         /// <summary>
-        /// •`‰æ
+        /// æç”»
         /// </summary>
         void Draw() override;
 
         /// <summary>
-        /// •`‰æ”ÍˆÍZo
+        /// æç”»ç¯„å›²ç®—å‡º
         /// </summary>
-        /// <param name="pos">À•W</param>
-        /// <param name="range">”ÍˆÍ</param>
-        /// <param name="length">ŒÀŠE”ÍˆÍ</param>
+        /// <param name="pos">åº§æ¨™</param>
+        /// <param name="range">ç¯„å›²</param>
+        /// <param name="length">é™ç•Œç¯„å›²</param>
         void CalcDrawRange(int pos, std::pair < size_t, size_t>& range, size_t length);
 
         /// <summary>
-        /// ©g‚Ìƒ^ƒO
+        /// è‡ªèº«ã®ã‚¿ã‚°
         /// </summary>
         /// <returns>Map</returns>
         ObjectTag MyObjectTag() const override
@@ -60,12 +60,12 @@ export namespace object
         }
 
     private:
-        MapInfo m_mapInfo;                  // ƒ}ƒbƒvî•ñ
-        std::unordered_map<size_t, std::vector<size_t>> m_mapData;   //ƒ}ƒbƒvƒf[ƒ^
+        MapInfo m_mapInfo;                  // ãƒãƒƒãƒ—æƒ…å ±
+        std::unordered_map<size_t, std::vector<size_t>> m_mapData;   //ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿
 
-        std::pair<size_t, size_t> rangeX;           //•`‰æ”ÍˆÍX
-        std::pair<size_t, size_t> rangeY;           //•`‰æ”ÍˆÍY
+        std::pair<size_t, size_t> rangeX;           //æç”»ç¯„å›²X
+        std::pair<size_t, size_t> rangeY;           //æç”»ç¯„å›²Y
 
-        col2d::ColliderID colID;            // ƒRƒ‰ƒCƒ_[ID
+        col2d::ColliderID colID;            // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ID
     };
 }

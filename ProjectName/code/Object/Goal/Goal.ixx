@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <DxLib.h>
 
 export module Object.Goal;
@@ -20,9 +20,9 @@ export namespace object
             : id()
             , m_cleared(cleared)
         {
-            // ‰æ‘œ“Ç‚İ‚İ
+            // ç”»åƒèª­ã¿è¾¼ã¿
             //AppCtx::AssetMgr().LoadAsync<asset::Graph>("goal", "goal.png");
-            m_pos = { 2100.0f, 1000.0f }; // ‰¼‚ÌƒS[ƒ‹ˆÊ’u
+            m_pos = { 2100.0f, 1000.0f }; // ä»®ã®ã‚´ãƒ¼ãƒ«ä½ç½®
         }
 
         ~Goal()
@@ -33,7 +33,7 @@ export namespace object
 
         void Init() override
         {
-            // ƒRƒ‰ƒCƒ_[ì¬
+            // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ä½œæˆ
             col2d::ColliderDef def{};
             def.type = col2d::Type::STATIC;
             def.localPos = m_pos;
@@ -42,7 +42,7 @@ export namespace object
             id = ObjCtx::ColMgr().CreateCircleCollider(&def, 16.0f, MyObjectTag());
             ObjCtx::ColMgr().AddMask(id, col2d::RECT, ObjectTag::PLAYER);
 
-            // Õ“ËƒCƒxƒ“ƒg“o˜^
+            // è¡çªã‚¤ãƒ™ãƒ³ãƒˆç™»éŒ²
             col2d::ContactListener listener;
             listener.when = [&]() {return true; };
             listener.event = [&]() { m_cleared = true; };

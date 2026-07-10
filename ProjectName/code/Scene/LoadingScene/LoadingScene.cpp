@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <DxLib.h>
 
 module Scene.LoadingScene;
@@ -16,13 +16,13 @@ namespace scene
     {
         m_objManager.reset();
 
-        // ƒ[ƒfƒBƒ“ƒOŠJn
+        // ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°é–‹å§‹
         SetUseASyncLoadFlag(true);
         task::LoadingContext::Set(std::make_unique<task::Loading>().release());
         task::LoadingContext::Get()->StartLoading();
         task::LoadingContext::Get()->WatchProgress();
 
-        // ƒ|ƒŠƒV[•Êˆ—
+        // ãƒãƒªã‚·ãƒ¼åˆ¥å‡¦ç†
         if (m_policy & (LoadPolicy::COROUTINE | LoadPolicy::PROGRESS))
         {
             m_coroutine = std::move(LoadCoroutine());
@@ -41,32 +41,32 @@ namespace scene
 
     Coroutine LoadingScene::LoadCoroutine()
     {
-        // ŸƒV[ƒ“‚Ìƒ[ƒfƒBƒ“ƒOˆ—
+        // æ¬¡ã‚·ãƒ¼ãƒ³ã®ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°å‡¦ç†
         m_nextScene = m_loadScene();
 
-        // “Ç‚İ‚İŠ®—¹‚Ü‚Å‘Ò‹@
+        // èª­ã¿è¾¼ã¿å®Œäº†ã¾ã§å¾…æ©Ÿ
         co_yield WaitUntil{ [this] { return !task::LoadingContext::Get()->IsLoading(); } };
 
-        // 100“•\¦—p‚Ì‘Ò‹@ŠÔ
+        // 100ï¼…è¡¨ç¤ºç”¨ã®å¾…æ©Ÿæ™‚é–“
         co_yield WaitForSeconds{ 0.5f };
 
-        // “Ç‚İ‚İŠ®—¹
+        // èª­ã¿è¾¼ã¿å®Œäº†
         co_return;
     }
 
     SceneCmd LoadingScene::Update()
     {
-        // ƒ|ƒŠƒV[‚ÉŠî‚Ã‚¢‚½siˆ—
+        // ãƒãƒªã‚·ãƒ¼ã«åŸºã¥ã„ãŸè¡Œé€²å‡¦ç†
         if (m_policy & (LoadPolicy::COROUTINE | LoadPolicy::PROGRESS))
         {
-            // ƒRƒ‹[ƒ`ƒ“Às
+            // ã‚³ãƒ«ãƒ¼ãƒãƒ³å®Ÿè¡Œ
             if (m_coroutine.handle)
             {
-                // ‘Ò‹@ˆ—
+                // å¾…æ©Ÿå‡¦ç†
                 auto yieldType = m_coroutine.get_yield_type();
                 if (std::holds_alternative<WaitForSeconds>(yieldType))
                 {
-                    // w’èŠÔ‘Ò‹@
+                    // æŒ‡å®šæ™‚é–“å¾…æ©Ÿ
                     if (auto waitPtr = std::get_if<WaitForSeconds>(&yieldType))
                     {
                         static float elapsed = 0.0f;
@@ -79,7 +79,7 @@ namespace scene
                 }
                 else if (std::holds_alternative<WaitUntil>(yieldType))
                 {
-                    // w’èğŒŠ®—¹Šm”F
+                    // æŒ‡å®šæ¡ä»¶å®Œäº†ç¢ºèª
                     if (auto waitPtr = std::get_if<WaitUntil>(&yieldType))
                     {
                         if (!waitPtr->pred())
@@ -89,10 +89,10 @@ namespace scene
                     }
                 }
 
-                // ƒRƒ‹[ƒ`ƒ“ÄŠJ
+                // ã‚³ãƒ«ãƒ¼ãƒãƒ³å†é–‹
                 m_coroutine.resume();
 
-                // ƒRƒ‹[ƒ`ƒ“Š®—¹Šm”F
+                // ã‚³ãƒ«ãƒ¼ãƒãƒ³å®Œäº†ç¢ºèª
                 if (m_coroutine.handle.done())
                 {
                     auto next = m_nextScene;
@@ -102,7 +102,7 @@ namespace scene
         }
         else if (m_policy & LoadPolicy::DONE)
         {
-            // “Ç‚İ‚İŠ®—¹Šm”F
+            // èª­ã¿è¾¼ã¿å®Œäº†ç¢ºèª
             if (!task::LoadingContext::Get()->IsLoading())
             {
                 auto next = m_nextScene;
@@ -110,7 +110,7 @@ namespace scene
             }
         }
 
-        // Œp‘±i‰½‚à‚µ‚È‚¢j
+        // ç¶™ç¶šï¼ˆä½•ã‚‚ã—ãªã„ï¼‰
         return std::monostate{};
     }
 

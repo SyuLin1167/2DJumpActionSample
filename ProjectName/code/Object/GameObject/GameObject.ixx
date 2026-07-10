@@ -1,4 +1,4 @@
-export module Object.GameObject;
+ï»¿export module Object.GameObject;
 
 import <memory>;
 import <typeindex>;
@@ -15,94 +15,94 @@ export import Component.ComponentManager;
 using namespace math;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace object
 {
     /// <summary>
-    /// ƒQ[ƒ€“àƒIƒuƒWƒFƒNƒg‚ÌŠî’êƒNƒ‰ƒX
+    /// ã‚²ãƒ¼ãƒ å†…ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åŸºåº•ã‚¯ãƒ©ã‚¹
     /// </summary>
     export class GameObject
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         GameObject();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         virtual ~GameObject();
 
         /// <summary>
-        ///  QÆ‚·‚éƒIƒuƒWƒFƒNƒgæ“¾
+        ///  å‚ç…§ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå–å¾—
         /// </summary>
         virtual void GetReferenceObject(std::function<std::vector<std::shared_ptr<GameObject>>(uint32_t)> referenceObj) {};
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         virtual void Init() = 0;
 
         /// <summary>
-        /// XV
+        /// æ›´æ–°
         /// </summary>
         virtual void Update() {};
 
         /// <summary>
-        /// ŒãXV
+        /// å¾Œæ›´æ–°
         /// </summary>
         virtual void LateUpdate() {};
 
         /// <summary>
-        /// ƒRƒ“ƒ|[ƒlƒ“ƒgXV
+        /// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆæ›´æ–°
         /// </summary>
         void UpdateComponents();
 
         /// <summary>
-        /// •`‰æ
+        /// æç”»
         /// </summary>
         virtual void Draw() = 0;
 
         /// <summary>
-        /// Œ»İ‚Ìó‘Ô
+        /// ç¾åœ¨ã®çŠ¶æ…‹
         /// </summary>
-        /// <returns>ó‘Ô</returns>
+        /// <returns>çŠ¶æ…‹</returns>
         uint32_t NowState() const
         {
             return m_state;
         };
 
         /// <summary>
-        /// À•W(ƒAƒNƒZƒbƒT[)
+        /// åº§æ¨™(ã‚¢ã‚¯ã‚»ãƒƒã‚µãƒ¼)
         /// </summary>
-        /// <returns>À•W(ŠO•”—p)</returns>
+        /// <returns>åº§æ¨™(å¤–éƒ¨ç”¨)</returns>
         PropVector2<float> AccessPos()
         {
             return PropVector2<float>(m_pos);
         }
 
         /// <summary>
-        /// ‘¬“x(ƒAƒNƒZƒbƒT[)
+        /// é€Ÿåº¦(ã‚¢ã‚¯ã‚»ãƒƒã‚µãƒ¼)
         /// </summary>
-        /// <returns>‘¬“x(ŠO•”—p)</returns>
+        /// <returns>é€Ÿåº¦(å¤–éƒ¨ç”¨)</returns>
         PropVector2<float> AccessVel()
         {
             return PropVector2<float>(m_velocity);
         }
 
         /// <summary>
-        /// ©g‚Ìƒ^ƒO‚ğæ“¾
+        /// è‡ªèº«ã®ã‚¿ã‚°ã‚’å–å¾—
         /// </summary>
-        /// <returns>©g‚Ìƒ^ƒO</returns>
+        /// <returns>è‡ªèº«ã®ã‚¿ã‚°</returns>
         virtual ObjectTag MyObjectTag() const = 0;
 
     protected:
-        std::shared_ptr<component::ComponentManager> m_compMgr;   //ƒRƒ“ƒ|[ƒlƒ“ƒgƒ}ƒl[ƒWƒƒ[
-        const float& m_deltaTime;             //ƒfƒ‹ƒ^ƒ^ƒCƒ€
-        Vector2f m_pos;           //À•W
-        Vector2f m_velocity;      //‘¬‚³
-        uint32_t m_state;         //ó‘Ô
+        std::shared_ptr<component::ComponentManager> m_compMgr;   //ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
+        const float& m_deltaTime;             //ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ 
+        Vector2f m_pos;           //åº§æ¨™
+        Vector2f m_velocity;      //é€Ÿã•
+        uint32_t m_state;         //çŠ¶æ…‹
     };
 }

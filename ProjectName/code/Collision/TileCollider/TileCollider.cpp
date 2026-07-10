@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <json.hpp>
 #include <thread>
 #include <fstream>
@@ -22,24 +22,24 @@ namespace col2d
     TileCollider::TileCollider(ColliderDef* def, const object::MapInfo& info, std::string fileName)
         : Collider(def)
     {
-        // ƒrƒWƒ^[‚Ì‰Šú‰»
+        // ãƒ“ã‚¸ã‚¿ãƒ¼ã®åˆæœŸåŒ–
         m_visitor = std::make_unique<TileColliderVisitor>(*this);
 
-        // ƒ}ƒbƒv\‘¢‚Ì“Ç‚İ‚İ
+        // ãƒãƒƒãƒ—æ§‹é€ ã®èª­ã¿è¾¼ã¿
         auto path = AppCtx::FileSystem().Resolve("data://" + fileName);
         auto mapDataSf = AppCtx::FileSystem().csvIO.CreateArrayAsync<size_t>(path).share();
 
-        // ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[¶¬ƒ^ƒXƒN
+        // ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç”Ÿæˆã‚¿ã‚¹ã‚¯
         auto task = [this, mapDataSf, info]()
         {
-            // ƒ}ƒbƒvî•ñæ“¾
+            // ãƒãƒƒãƒ—æƒ…å ±å–å¾—
             m_mapInfo = info;
             const auto& mapData = mapDataSf.get();
-            // ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[¶¬
+            // ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç”Ÿæˆ
             BuildTileColliders(mapData);
         };
 
-        // ƒ^ƒXƒN‚Ì“o˜^‚Ü‚½‚Í‘¦Às
+        // ã‚¿ã‚¹ã‚¯ã®ç™»éŒ²ã¾ãŸã¯å³æ™‚å®Ÿè¡Œ
         if (task::LoadingContext::Get())
         {
             task::LoadingContext::Get()->AddTask(task::INIT, task);
@@ -53,31 +53,31 @@ namespace col2d
     TileCollider::TileCollider(ColliderDef* def, std::shared_future<object::MapInfo> info, std::string fileName)
         : Collider(def)
     {
-        // ƒrƒWƒ^[‚Ì‰Šú‰»
+        // ãƒ“ã‚¸ã‚¿ãƒ¼ã®åˆæœŸåŒ–
         m_visitor = std::make_unique<TileColliderVisitor>(*this);
 
-        // ƒ}ƒbƒv\‘¢‚Ì“Ç‚İ‚İ
+        // ãƒãƒƒãƒ—æ§‹é€ ã®èª­ã¿è¾¼ã¿
         auto path = AppCtx::FileSystem().Resolve("data://" + fileName);
         auto mapDataSf = AppCtx::FileSystem().csvIO.CreateArrayAsync<size_t>(path).share();
  
-        // ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[¶¬ƒ^ƒXƒN
+        // ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç”Ÿæˆã‚¿ã‚¹ã‚¯
         auto task = [this, mapDataSf, info]()
         {
-            // ƒ}ƒbƒvî•ñæ“¾
+            // ãƒãƒƒãƒ—æƒ…å ±å–å¾—
             m_mapInfo = info.get();
             const auto& mapData = mapDataSf.get();
 
-            // ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[¶¬
+            // ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç”Ÿæˆ
             BuildTileColliders(mapData);
         };
-        // ƒ^ƒXƒN‚Ì“o˜^‚Ü‚½‚Í‘¦Às
+        // ã‚¿ã‚¹ã‚¯ã®ç™»éŒ²ã¾ãŸã¯å³æ™‚å®Ÿè¡Œ
         if (task::LoadingContext::Get())
         {
             task::LoadingContext::Get()->AddTask(task::INIT, task);
         }
         else
         {
-            // ƒGƒ‰[‚ğ’Ê’m
+            // ã‚¨ãƒ©ãƒ¼ã‚’é€šçŸ¥
             throw std::runtime_error("TileCollider must be created within a LoadingContext.");
         }
     }
@@ -91,7 +91,7 @@ namespace col2d
             m_hitTileKeys.pop();
         }
 
-        // ƒ^ƒCƒ‹”ÍˆÍ‚ğŒvZ(0`ƒ^ƒCƒ‹•)
+        // ã‚¿ã‚¤ãƒ«ç¯„å›²ã‚’è¨ˆç®—(0ï½ã‚¿ã‚¤ãƒ«å¹…)
         Vector2f tileLeft = rect.pos / m_mapInfo.tileSize;
         tileLeft.x = std::floor(tileLeft.x);
         tileLeft.y = std::floor(tileLeft.y);
@@ -99,7 +99,7 @@ namespace col2d
         tileRight.x = std::ceil(tileRight.x) - 1;
         tileRight.y = std::ceil(tileRight.y) - 1;
 
-        // ƒ^ƒCƒ‹”ÍˆÍ‚ª–³Œø‚Èê‡‚Ífalse‚ğ•Ô‚·
+        // ã‚¿ã‚¤ãƒ«ç¯„å›²ãŒç„¡åŠ¹ãªå ´åˆã¯falseã‚’è¿”ã™
         if (tileLeft.x > tileRight.x || tileLeft.y > tileRight.y)
         {
             return false;
@@ -111,10 +111,10 @@ namespace col2d
             return false;
         }
 
-        // ƒ`ƒƒƒ“ƒNƒTƒCƒY‚ğæ“¾
+        // ãƒãƒ£ãƒ³ã‚¯ã‚µã‚¤ã‚ºã‚’å–å¾—
         auto chunkSize = m_mapInfo.chunkSize;
 
-        // ƒ`ƒƒƒ“ƒN”ÍˆÍ‚ğŒvZ
+        // ãƒãƒ£ãƒ³ã‚¯ç¯„å›²ã‚’è¨ˆç®—
         Vector2u chunkLeft{};
         chunkLeft.x = static_cast<uint32_t>(std::floor(tileLeft.x / chunkSize.x));
         chunkLeft.y = static_cast<uint32_t>(std::floor(tileLeft.y / chunkSize.y));
@@ -122,22 +122,22 @@ namespace col2d
         chunkRight.x = static_cast<uint32_t>(std::floor(tileRight.x / chunkSize.x));
         chunkRight.y = static_cast<uint32_t>(std::floor(tileRight.y / chunkSize.y));
 
-        // ƒ`ƒƒƒ“ƒN“à‚Ìƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ğ‘–¸
+        // ãƒãƒ£ãƒ³ã‚¯å†…ã®ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’èµ°æŸ»
         for (uint32_t cy = chunkLeft.y; cy <= chunkRight.y; ++cy)
         {
             for (uint32_t cx = chunkLeft.x; cx <= chunkRight.x; ++cx)
             {
-                // ƒ`ƒƒƒ“ƒN‚ÌƒL[‚ğ¶¬
+                // ãƒãƒ£ãƒ³ã‚¯ã®ã‚­ãƒ¼ã‚’ç”Ÿæˆ
                 size_t key = MakeTileKey(cx, cy);
 
-                // ƒ`ƒƒƒ“ƒN‚Ìƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ğæ“¾
+                // ãƒãƒ£ãƒ³ã‚¯ã®ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å–å¾—
                 auto iter = m_tileColliders.find(key);
                 if (iter == m_tileColliders.end())
                 {
                     continue;
                 }
 
-                // ƒ`ƒƒƒ“ƒN“à‚Ìƒ^ƒCƒ‹”ÍˆÍ‚ğŒvZ
+                // ãƒãƒ£ãƒ³ã‚¯å†…ã®ã‚¿ã‚¤ãƒ«ç¯„å›²ã‚’è¨ˆç®—
                 Vector2<size_t> localLeft{};
                 localLeft.x = (cx == chunkLeft.x) ? Mod(static_cast<size_t>(tileLeft.x), chunkSize.x) : 0;
                 localLeft.y = (cy == chunkLeft.y) ? Mod(static_cast<size_t>(tileLeft.y), chunkSize.y) : 0;
@@ -145,15 +145,15 @@ namespace col2d
                 localRight.x = (cx == chunkRight.x) ? Mod(static_cast<size_t>(tileRight.x), chunkSize.x) : (chunkSize.x - 1);
                 localRight.y = (cy == chunkRight.y) ? Mod(static_cast<size_t>(tileRight.y), chunkSize.y) : (chunkSize.y - 1);
 
-                // ƒ`ƒƒƒ“ƒN“à‚Ìƒ^ƒCƒ‹”ÍˆÍ‚ğ‘–¸
+                // ãƒãƒ£ãƒ³ã‚¯å†…ã®ã‚¿ã‚¤ãƒ«ç¯„å›²ã‚’èµ°æŸ»
                 for (size_t ty = localLeft.y; ty <= localRight.y; ++ty)
                 {
                     for (size_t tx = localLeft.x; tx <= localRight.x; ++tx)
                     {
-                        // ƒ^ƒCƒ‹‚ÌƒCƒ“ƒfƒbƒNƒX‚ğ¶¬
+                        // ã‚¿ã‚¤ãƒ«ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ç”Ÿæˆ
                         size_t index = ty * chunkSize.x + tx;
 
-                        // ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ª‘¶İ‚·‚é‚©Šm”F
+                        // ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª
                         if (index >= iter->second.size() || !iter->second[index].collider)
                         {
                             continue;
@@ -168,13 +168,13 @@ namespace col2d
             }
         }
 
-        // ”ÍˆÍ“à‚Éƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ª‘¶İ‚·‚éê‡‚Ítrue‚ğ•Ô‚·
+        // ç¯„å›²å†…ã«ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯trueã‚’è¿”ã™
         if (!m_hitTileKeys.empty())
         {
             return true;
         }
 
-        // ”ÍˆÍ“à‚Éƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ª‘¶İ‚µ‚È‚¢ê‡‚Ífalse‚ğ•Ô‚·
+        // ç¯„å›²å†…ã«ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒå­˜åœ¨ã—ãªã„å ´åˆã¯falseã‚’è¿”ã™
         return false;
     }
 
@@ -183,22 +183,22 @@ namespace col2d
         uint8_t flag = 0;
         const size_t tileIndex = _y * m_mapInfo.mapSize.x + _x;
 
-        // ¶‚Ìƒ^ƒCƒ‹‚ª‘¶İ‚·‚é‚©
+        // å·¦ã®ã‚¿ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹
         if (_x > 0 && _mapData[tileIndex - 1] != 0)
         {
             flag |= TileFlag::LEFT;
         }
-        // ‰E‚Ìƒ^ƒCƒ‹‚ª‘¶İ‚·‚é‚©
+        // å³ã®ã‚¿ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹
         if (_x < m_mapInfo.mapSize.x - 1 && _mapData[tileIndex + 1] != 0)
         {
             flag |= TileFlag::RIGHT;
         }
-        // ã‚Ìƒ^ƒCƒ‹‚ª‘¶İ‚·‚é‚©
+        // ä¸Šã®ã‚¿ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹
         if (_y > 0 && _mapData[tileIndex - m_mapInfo.mapSize.x] != 0)
         {
             flag |= TileFlag::TOP;
         }
-        // ‰º‚Ìƒ^ƒCƒ‹‚ª‘¶İ‚·‚é‚©
+        // ä¸‹ã®ã‚¿ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹
         if (_y < m_mapInfo.mapSize.y - 1 && _mapData[tileIndex + m_mapInfo.mapSize.x] != 0)
         {
             flag |= TileFlag::BOTTOM;
@@ -208,7 +208,7 @@ namespace col2d
 
     void TileCollider::BuildTileColliders(std::vector<size_t> mapData)
     {
-        // ƒ`ƒƒƒ“ƒN‰»‚µ‚Äƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[¶¬
+        // ãƒãƒ£ãƒ³ã‚¯åŒ–ã—ã¦ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ç”Ÿæˆ
         m_tileColliders = tile::BuildChunkedGrid<TileInfo>(
             m_mapInfo.mapSize.x,
             m_mapInfo.mapSize.y,

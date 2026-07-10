@@ -1,4 +1,4 @@
-export module UI.UIBase;
+ï»¿export module UI.UIBase;
 
 import <vector>;
 import <functional>;
@@ -7,93 +7,93 @@ import MyLib.Math.Vector2;
 using namespace math;
 
 /// <summary>
-/// UIŠÖ˜A
+/// UIé–¢é€£
 /// </summary>
 export namespace ui
 {
     /// <summary>
-    /// UI—v‘f‚ÌŠî’êƒNƒ‰ƒX
+    /// UIè¦ç´ ã®åŸºåº•ã‚¯ãƒ©ã‚¹
     /// </summary>
     export class UIBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         UIBase(): m_pos{ 0.0f, 0.0f }, m_size{ 0.0f, 0.0f }, m_visible{ true } {}
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         virtual ~UIBase() = default;
 
         /// <summary>
-        /// ˆÊ’uİ’è
+        /// ä½ç½®è¨­å®š
         /// </summary>
-        /// <param name="pos">ˆÊ’u</param>
+        /// <param name="pos">ä½ç½®</param>
         void SetPosition(const Vector2f& pos)
         {
             m_pos = pos;
         }
 
         /// <summary>
-        /// ƒTƒCƒYİ’è
+        /// ã‚µã‚¤ã‚ºè¨­å®š
         /// </summary>
-        /// <param name="size">ƒTƒCƒY</param>
+        /// <param name="size">ã‚µã‚¤ã‚º</param>
         void SetSize(const Vector2f& size)
         {
             m_size = size;
         }
 
         /// <summary>
-        /// •\¦İ’è
+        /// è¡¨ç¤ºè¨­å®š
         /// </summary>
-        /// <param name="visible">•\¦ó‘Ô</param>
+        /// <param name="visible">è¡¨ç¤ºçŠ¶æ…‹</param>
         void SetVisible(bool visible)
         {
             m_visible = visible;
         }
 
         /// <summary>
-        /// ˆÊ’uæ“¾
+        /// ä½ç½®å–å¾—
         /// </summary>
-        /// <returns>ˆÊ’u</returns>
+        /// <returns>ä½ç½®</returns>
         const Vector2f& GetPosition() const
         {
             return m_pos;
         }
 
         /// <summary>
-        /// ƒTƒCƒYæ“¾
+        /// ã‚µã‚¤ã‚ºå–å¾—
         /// </summary>
-        /// <returns>ƒTƒCƒY</returns>
+        /// <returns>ã‚µã‚¤ã‚º</returns>
         const Vector2f& GetSize() const
         {
             return m_size;
         }
 
         /// <summary>
-        /// •\¦ó‘Ôæ“¾
+        /// è¡¨ç¤ºçŠ¶æ…‹å–å¾—
         /// </summary>
-        /// <returns>•\¦ó‘Ô</returns>
+        /// <returns>è¡¨ç¤ºçŠ¶æ…‹</returns>
         bool IsVisible() const
         {
             return m_visible;
         }
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         virtual void Update() {}
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         virtual void Draw() {}
 
     protected:
-        Vector2f m_pos;     // ˆÊ’u
-        Vector2f m_size;    // ƒTƒCƒY
-        bool m_visible;     // •\¦ó‘Ô
+        Vector2f m_pos;     // ä½ç½®
+        Vector2f m_size;    // ã‚µã‚¤ã‚º
+        bool m_visible;     // è¡¨ç¤ºçŠ¶æ…‹
     };
 }

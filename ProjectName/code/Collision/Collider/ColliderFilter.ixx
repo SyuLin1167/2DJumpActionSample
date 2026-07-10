@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <ranges>
 
 export module ColliderFilter;
@@ -7,75 +7,75 @@ import <cstdint>;
 import <algorithm>;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
     /// <summary>
-    /// Œ`ó‚Ìí—Ş
+    /// å½¢çŠ¶ã®ç¨®é¡
     /// </summary>
     export enum ShapeType : uint32_t
     {
-        RECT = 1u << 0,   //‹éŒ`
-        CIRCLE = 1u << 1,    // ‰~
-        POLY = 1u << 2,   // ‘½ŠpŒ`
-        TILE = 1u << 3,   // ƒ^ƒCƒ‹
+        RECT = 1u << 0,   //çŸ©å½¢
+        CIRCLE = 1u << 1,    // å††
+        POLY = 1u << 2,   // å¤šè§’å½¢
+        TILE = 1u << 3,   // ã‚¿ã‚¤ãƒ«
     };
 
     /// <summary>
-    /// Œ`ó‚ÌãˆÊƒrƒbƒg‚ğæ“¾
+    /// å½¢çŠ¶ã®ä¸Šä½ãƒ“ãƒƒãƒˆã‚’å–å¾—
     /// </summary>
-    /// <param name="_shape">Œ`ó‚Ìí—Ş</param>
-    /// <returns>ãˆÊƒrƒbƒg</returns>
+    /// <param name="_shape">å½¢çŠ¶ã®ç¨®é¡</param>
+    /// <returns>ä¸Šä½ãƒ“ãƒƒãƒˆ</returns>
     export inline uint64_t ShapeHi(uint32_t shape)
     {
         return static_cast<uint64_t>(shape) << 32;
     }
 
     /// <summary>
-    /// ƒL[‚ğ¶¬
+    /// ã‚­ãƒ¼ã‚’ç”Ÿæˆ
     /// </summary>
-    /// <param name="shape">Œ`ó‚Ìí—Ş</param>
-    /// <param name="ownerID">Š—LÒ‚ÌID</param>
-    /// <returns>¶¬‚³‚ê‚½ƒL[</returns>
+    /// <param name="shape">å½¢çŠ¶ã®ç¨®é¡</param>
+    /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
+    /// <returns>ç”Ÿæˆã•ã‚ŒãŸã‚­ãƒ¼</returns>
     export inline uint64_t MakeKey(uint32_t shape, uint32_t ownerID)
     {
         return ShapeHi(shape) | static_cast<uint64_t>(ownerID);
     }
 
     /// <summary>
-    /// Å¬‚Ì•„†•t‚«ƒrƒbƒg‚ğæ“¾
+    /// æœ€å°ã®ç¬¦å·ä»˜ããƒ“ãƒƒãƒˆã‚’å–å¾—
     /// </summary>
-    /// <param name="value">’l</param>
-    /// <returns>Å¬‚Ì•„†•t‚«ƒrƒbƒg</returns>
+    /// <param name="value">å€¤</param>
+    /// <returns>æœ€å°ã®ç¬¦å·ä»˜ããƒ“ãƒƒãƒˆ</returns>
     export inline uint32_t LeastSignBit(const uint32_t& value)
     {
         return value & (~value + 1);
     }
 
     /// <summary>
-    /// ƒtƒBƒ‹ƒ^
+    /// ãƒ•ã‚£ãƒ«ã‚¿
     /// </summary>
     export struct Filter final
     {
-        uint64_t category; // ƒJƒeƒSƒŠ[
-        std::vector<uint64_t> masks; // ƒ}ƒXƒN
+        uint64_t category; // ã‚«ãƒ†ã‚´ãƒªãƒ¼
+        std::vector<uint64_t> masks; // ãƒã‚¹ã‚¯
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Filter() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Filter() = default;
 
         /// <summary>
-        /// ƒ}ƒXƒN‚ğ’Ç‰Á
+        /// ãƒã‚¹ã‚¯ã‚’è¿½åŠ 
         /// </summary>
-        /// <param name="shape">’Ç‰Á‚·‚éŒ`ó</param>
-        /// <param name="ownerID">’Ç‰Á‚·‚éŠ—LÒID</param>
+        /// <param name="shape">è¿½åŠ ã™ã‚‹å½¢çŠ¶</param>
+        /// <param name="ownerID">è¿½åŠ ã™ã‚‹æ‰€æœ‰è€…ID</param>
         void AddMask(uint32_t shape, uint32_t ownerID)
         {
             while (shape)
@@ -83,7 +83,7 @@ export namespace col2d
                 uint32_t lsb = LeastSignBit(shape);
 
 
-                // Šù‚É“¯‚¶ƒ}ƒXƒN‚ª‘¶İ‚·‚é‚©Šm”F
+                // æ—¢ã«åŒã˜ãƒã‚¹ã‚¯ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª
                 if (std::ranges::find(masks, MakeKey(lsb, ownerID)) != masks.end())
                 {
                     shape &= ~lsb;
@@ -91,7 +91,7 @@ export namespace col2d
                 }
 
 
-                // Šù‚É“¯‚¶Œ`ó‚Ìƒ}ƒXƒN‚ª‘¶İ‚·‚éê‡‚ÍAŠ—LÒID‚ğ’Ç‰Á
+                // æ—¢ã«åŒã˜å½¢çŠ¶ã®ãƒã‚¹ã‚¯ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯ã€æ‰€æœ‰è€…IDã‚’è¿½åŠ 
                 if (auto it = std::ranges::find_if(masks, [&lsb](uint64_t mask) { return (mask >> 32) == lsb; });
                     it != masks.end())
                 {
@@ -100,16 +100,16 @@ export namespace col2d
                     continue;
                 }
 
-                // V‚µ‚¢ƒ}ƒXƒN‚ğ’Ç‰Á
+                // æ–°ã—ã„ãƒã‚¹ã‚¯ã‚’è¿½åŠ 
                 masks.push_back(MakeKey(lsb, ownerID));
                 shape &= ~lsb;
             }
         }
 
         /// <summary>
-        /// ƒ}ƒXƒN‚ğíœ
+        /// ãƒã‚¹ã‚¯ã‚’å‰Šé™¤
         /// </summary>
-        /// <param name="_mask">íœ‚·‚éƒ}ƒXƒN</param>
+        /// <param name="_mask">å‰Šé™¤ã™ã‚‹ãƒã‚¹ã‚¯</param>
         void RemoveMask(const uint64_t& mask)
         {
             if (auto it = std::find(masks.begin(), masks.end(), mask); it != masks.end())
@@ -119,7 +119,7 @@ export namespace col2d
         }
 
         /// <summary>
-        /// ƒ}ƒXƒN‚ğƒNƒŠƒA
+        /// ãƒã‚¹ã‚¯ã‚’ã‚¯ãƒªã‚¢
         /// </summary>
         void ClearMasks()
         {
@@ -127,10 +127,10 @@ export namespace col2d
         }
 
         /// <summary>
-        /// ƒ}ƒXƒN‚ªŠÜ‚Ü‚ê‚Ä‚¢‚é‚©Šm”F
+        /// ãƒã‚¹ã‚¯ãŒå«ã¾ã‚Œã¦ã„ã‚‹ã‹ç¢ºèª
         /// </summary>
-        /// <param name="_mask">Šm”F‚·‚éƒ}ƒXƒN</param>
-        /// <returns>ŠÜ‚Ü‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="_mask">ç¢ºèªã™ã‚‹ãƒã‚¹ã‚¯</param>
+        /// <returns>å«ã¾ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹</returns>
         bool HasMask(const uint64_t& mask) const
         {
             return std::find(masks.begin(), masks.end(), mask) != masks.end();

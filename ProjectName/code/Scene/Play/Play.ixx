@@ -1,51 +1,51 @@
-export module Scene.Play;
+ï»¿export module Scene.Play;
 import Scene.SceneBase;
 import MyLib.Math.Vector2;
 import Asset.Graph;
 
 /// <summary>
-/// ƒV[ƒ“ŠÖ˜A
+/// ã‚·ãƒ¼ãƒ³é–¢é€£
 /// </summary>
 export namespace scene
 {
     /// <summary>
-    /// ƒvƒŒƒCƒV[ƒ“‚ğ’S“–
+    /// ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã‚’æ‹…å½“
     /// </summary>
     export class Play final :public SceneBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Play();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Play();
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         void Init() override;
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         SceneCmd Update() override;
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         void Draw() override;
 
     private:
         /// <summary>
-        /// ƒXƒNƒ[ƒ‹”wŒi•`‰æ
+        /// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«èƒŒæ™¯æç”»
         /// </summary>
-        /// <param name="parallax">‹·Œø‰Ê‚Ì‹­‚³i0.0`1.0j</param>
+        /// <param name="parallax">è¦–å·®åŠ¹æœã®å¼·ã•ï¼ˆ0.0ï½1.0ï¼‰</param>
         void DrawScrollingBackground(float parallax = 0.5f);
 
-        bool m_cleared;     // ƒNƒŠƒAƒtƒ‰ƒO
+        bool m_cleared;     // ã‚¯ãƒªã‚¢ãƒ•ãƒ©ã‚°
     };
 }

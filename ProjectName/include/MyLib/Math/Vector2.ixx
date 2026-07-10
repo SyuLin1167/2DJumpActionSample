@@ -1,15 +1,15 @@
-module;
+ï»¿module;
 #include <cmath>
 
 export module MyLib.Math.Vector2;
 
 /// <summary>
-/// ”ŠwŠÖ˜A
+/// æ•°å­¦é–¢é€£
 /// </summary>
 export namespace math
 {
     /// <summary>
-    /// “ñŸŒ³ƒxƒNƒgƒ‹
+    /// äºŒæ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«
     /// </summary>
     export template <typename T>
     struct Vector2 final
@@ -18,47 +18,47 @@ export namespace math
         T y; // y
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Vector2() = default;
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="_x">“ü—Í’lX</param>
-        /// <param name="_y">“ü—Í’lY</param>
+        /// <param name="_x">å…¥åŠ›å€¤X</param>
+        /// <param name="_y">å…¥åŠ›å€¤Y</param>
         constexpr Vector2(T _x, T _y) : x(_x), y(_y) {}
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="_x">“ü—Í’lX</param>
-        /// <param name="_y">“ü—Í’lY</param>
+        /// <param name="_x">å…¥åŠ›å€¤X</param>
+        /// <param name="_y">å…¥åŠ›å€¤Y</param>
         template <typename U>
         constexpr Vector2(U _x, U _y) : x(static_cast<T>(_x)), y(static_cast<T>(_y)) {}
 
         /// <summary>
-        /// ©g‚Ì’·‚³
+        /// è‡ªèº«ã®é•·ã•
         /// </summary>
-        /// <returns>©g‚Ì’·‚³</returns>
+        /// <returns>è‡ªèº«ã®é•·ã•</returns>
         inline T Length() const
         {
             return static_cast<T>(std::sqrt(x * x + y * y));
         }
 
         /// <summary>
-        /// ©g‚Ì’·‚³‚Ì“ñæ
+        /// è‡ªèº«ã®é•·ã•ã®äºŒä¹—
         /// </summary>
-        /// <returns>©g‚Ì’·‚³‚Ì“ñæ</returns>
+        /// <returns>è‡ªèº«ã®é•·ã•ã®äºŒä¹—</returns>
         inline T LengthSq() const
         {
             return static_cast<T>(x * x + y * y);
         }
 
         /// <summary>
-        /// ³‹K‰»
+        /// æ­£è¦åŒ–
         /// </summary>
-        /// <returns>³‹K‰»Œã‚Ì’l</returns>
+        /// <returns>æ­£è¦åŒ–å¾Œã®å€¤</returns>
         inline Vector2 Norm() const
         {
             if (T len = Length(); len > 0)
@@ -69,80 +69,80 @@ export namespace math
         }
 
         /// <summary>
-        /// ©g‚Æ‚Ì‹——£
+        /// è‡ªèº«ã¨ã®è·é›¢
         /// </summary>
-        /// <param name="_rhs">‘ÎÛ‚ÌƒxƒNƒgƒ‹</param>
-        /// <returns>©g‚Æ‘ÎÛ‚Æ‚Ì‹——£</returns>
+        /// <param name="_rhs">å¯¾è±¡ã®ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>è‡ªèº«ã¨å¯¾è±¡ã¨ã®è·é›¢</returns>
         constexpr T Distance(const Vector2& _rhs) const
         {
             return static_cast<T>(std::sqrt((x - _rhs.x) * (x - _rhs.x) + (y - _rhs.y) * (y - _rhs.y)));
         }
 
         /// <summary>
-        /// “ñ“™•ª
+        /// äºŒç­‰åˆ†
         /// </summary>
-        /// <returns>“ñ“™•ª‚µ‚½’l</returns>
+        /// <returns>äºŒç­‰åˆ†ã—ãŸå€¤</returns>
         constexpr Vector2<float> Half() const
         {
             return Vector2<float>(static_cast<float>(x) / 2, static_cast<float>(y) / 2);
         }
 
         /// <summary>
-        /// “àÏ
+        /// å†…ç©
         /// </summary>
-        /// <param name="_rhs">‘ÎÛ‚ÌƒxƒNƒgƒ‹</param>
-        /// <returns>“àÏ</returns>
+        /// <param name="_rhs">å¯¾è±¡ã®ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>å†…ç©</returns>
         inline T Dot(const Vector2& _rhs) const
         {
             return x * _rhs.x + y * _rhs.y;
         }
 
         /// <summary>
-        /// ŠOÏ
+        /// å¤–ç©
         /// </summary>
-        /// <param name="_rhs">‘ÎÛ‚ÌƒxƒNƒgƒ‹</param>
-        /// <returns>ŠOÏ</returns>
+        /// <param name="_rhs">å¯¾è±¡ã®ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>å¤–ç©</returns>
         inline T Cross(const Vector2& _rhs) const
         {
             return x * _rhs.y - y * _rhs.x;
         }
 
         /// <summary>
-        /// ‰ÁZ
+        /// åŠ ç®—
         /// </summary>
-        /// <param name="_rhs">‰ÁZƒxƒNƒgƒ‹</param>
-        /// <returns>‰ÁZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">åŠ ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>åŠ ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator +(const Vector2& _rhs) const
         {
             return Vector2(x + _rhs.x, y + _rhs.y);
         }
 
         /// <summary>
-        /// ‰ÁZ
+        /// åŠ ç®—
         /// </summary>
-        /// <param name="_value">‰ÁZ’l</param>
-        /// <returns>‰ÁZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">åŠ ç®—å€¤</param>
+        /// <returns>åŠ ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr  Vector2 operator +(T _value) const
         {
             return Vector2(x + _value, y + _value);
         }
 
         /// <summary>
-        /// ‰ÁZ
+        /// åŠ ç®—
         /// </summary>
-        /// <typeparam name="U">‘¼‚ÌŒ^</typeparam>
-        /// <param name="_value">‰ÁZ’l</param>
-        /// <returns>‰ÁZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <typeparam name="U">ä»–ã®å‹</typeparam>
+        /// <param name="_value">åŠ ç®—å€¤</param>
+        /// <returns>åŠ ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         template<typename U>
         constexpr Vector2 operator +(const Vector2<U>& _value) const
         {
             return Vector2(x + static_cast<T>(_value.x), y + static_cast<T>(_value.y));
         }
 
-        /// ‰ÁZ
+        /// åŠ ç®—
         /// </summary>
-        /// <param name="_rhs">‰ÁZƒxƒNƒgƒ‹</param>
-        /// <returns>‰ÁZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">åŠ ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>åŠ ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2& operator +=(const Vector2& _rhs)
         {
             x += _rhs.x;
@@ -151,10 +151,10 @@ export namespace math
         }
 
         /// <summary>
-        /// ‰ÁZ
+        /// åŠ ç®—
         /// </summary>
-        /// <param name="_value">‰ÁZ’l</param>
-        /// <returns>‰ÁZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">åŠ ç®—å€¤</param>
+        /// <returns>åŠ ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2& operator +=(float _value)
         {
             x += _value;
@@ -163,30 +163,30 @@ export namespace math
         }
 
         /// <summary>
-        /// Œ¸Z
+        /// æ¸›ç®—
         /// </summary>
-        /// <param name="_rhs">Œ¸ZƒxƒNƒgƒ‹</param>
-        /// <returns>Œ¸ZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">æ¸›ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>æ¸›ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator -(const Vector2& _rhs) const
         {
             return Vector2(x - _rhs.x, y - _rhs.y);
         }
 
         /// <summary>
-        /// Œ¸Z
+        /// æ¸›ç®—
         /// </summary>
-        /// <param name="_value">Œ¸Z’l</param>
-        /// <returns>Œ¸ZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">æ¸›ç®—å€¤</param>
+        /// <returns>æ¸›ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator -(float _value) const
         {
             return Vector2(x - _value, y - _value);
         }
 
         /// <summary>
-        /// Œ¸Z
+        /// æ¸›ç®—
         /// </summary>
-        /// <typeparam name="U">‘¼‚ÌŒ^</typeparam>
-        /// <param name="_value">Œ¸Z’l</param>
+        /// <typeparam name="U">ä»–ã®å‹</typeparam>
+        /// <param name="_value">æ¸›ç®—å€¤</param>
         template<typename U>
         constexpr Vector2 operator -(const Vector2<U>& _value) const
         {
@@ -194,10 +194,10 @@ export namespace math
         }
 
         /// <summary>
-        /// Œ¸Z
+        /// æ¸›ç®—
         /// </summary>
-        /// <param name="_rhs">Œ¸ZƒxƒNƒgƒ‹</param>
-        /// <returns>Œ¸ZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">æ¸›ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>æ¸›ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2& operator -=(const Vector2& _rhs)
         {
             x -= _rhs.x;
@@ -206,10 +206,10 @@ export namespace math
         }
 
         /// <summary>
-        /// Œ¸Z
+        /// æ¸›ç®—
         /// </summary>
-        /// <param name="_value">Œ¸Z’l</param>
-        /// <returns>Œ¸ZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">æ¸›ç®—å€¤</param>
+        /// <returns>æ¸›ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2& operator -=(T _value)
         {
             x -= _value;
@@ -218,31 +218,31 @@ export namespace math
         }
 
         /// <summary>
-        /// æZ
+        /// ä¹—ç®—
         /// </summary>
-        /// <param name="_rhs">æZƒxƒNƒgƒ‹</param>
-        /// <returns>æZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">ä¹—ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>ä¹—ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator *(const Vector2& _rhs) const
         {
             return Vector2(x * _rhs.x, y * _rhs.y);
         }
 
         /// <summary>
-        /// æZ
+        /// ä¹—ç®—
         /// </summary>
-        /// <param name="_value">æZ’l</param>
-        /// <returns>æZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">ä¹—ç®—å€¤</param>
+        /// <returns>ä¹—ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator *(T _value) const
         {
             return Vector2(x * _value, y * _value);
         }
 
         /// <summary>
-        /// æZ
+        /// ä¹—ç®—
         /// </summary>
-        /// <typeparam name="U">‘¼‚ÌŒ^</typeparam>
-        /// <param name="_value">æZ’l</param>
-        /// <returns>æZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <typeparam name="U">ä»–ã®å‹</typeparam>
+        /// <param name="_value">ä¹—ç®—å€¤</param>
+        /// <returns>ä¹—ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         template<typename U>
         constexpr Vector2 operator *(const Vector2<U>& _value) const
         {
@@ -250,10 +250,10 @@ export namespace math
         }
 
         /// <summary>
-        /// æZ
+        /// ä¹—ç®—
         /// </summary>
-        /// <param name="_rhs">æZƒxƒNƒgƒ‹</param>
-        /// <returns>æZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">ä¹—ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>ä¹—ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2& operator *=(const Vector2& _rhs)
         {
             x *= _rhs.x;
@@ -262,10 +262,10 @@ export namespace math
         }
 
         /// <summary>
-        /// æZ
+        /// ä¹—ç®—
         /// </summary>
-        /// <param name="_value">æZ’l</param>
-        /// <returns>æZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">ä¹—ç®—å€¤</param>
+        /// <returns>ä¹—ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2& operator *=(T _value)
         {
             x *= _value;
@@ -274,30 +274,30 @@ export namespace math
         }
 
         /// <summary>
-        /// œZ
+        /// é™¤ç®—
         /// </summary>
-        /// <param name="_rhs">œZƒxƒNƒgƒ‹</param>
-        /// <returns>œZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">é™¤ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>é™¤ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator /(const Vector2& _rhs) const
         {
             return Vector2(x / _rhs.x, y / _rhs.y);
         }
 
         /// <summary>
-        /// œZ
+        /// é™¤ç®—
         /// </summary>
-        /// <param name="_value">œZ’l</param>
-        /// <returns>œZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">é™¤ç®—å€¤</param>
+        /// <returns>é™¤ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator /(T _value) const
         {
             return Vector2(x / _value, y / _value);
         }
 
         /// <summary>
-        /// œZ
+        /// é™¤ç®—
         /// </summary>
-        /// <typeparam name="U">‘¼‚ÌŒ^</typeparam>
-        /// <param name="_value">œZ’l</param>
+        /// <typeparam name="U">ä»–ã®å‹</typeparam>
+        /// <param name="_value">é™¤ç®—å€¤</param>
         template<typename U>
         constexpr Vector2 operator /(const Vector2<U>& _value) const
         {
@@ -305,10 +305,10 @@ export namespace math
         }
 
         /// <summary>
-        /// œZ
+        /// é™¤ç®—
         /// </summary>
-        /// <param name="_rhs">œZƒxƒNƒgƒ‹</param>
-        /// <returns>œZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">é™¤ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>é™¤ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2& operator /=(const Vector2& _rhs)
         {
             x /= _rhs.x;
@@ -317,10 +317,10 @@ export namespace math
         }
 
         /// <summary>
-        /// œZ
+        /// é™¤ç®—
         /// </summary>
-        /// <param name="_value">œZ’l</param>
-        /// <returns>œZŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">é™¤ç®—å€¤</param>
+        /// <returns>é™¤ç®—å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2& operator /=(T _value)
         {
             x /= _value;
@@ -329,10 +329,10 @@ export namespace math
         }
 
         /// <summary>
-        /// ‘ã“ü
+        /// ä»£å…¥
         /// </summary>
-        /// <param name="_rhs">‘ã“ü‚·‚éƒxƒNƒgƒ‹</param>
-        /// <returns>‘ã“üŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_rhs">ä»£å…¥ã™ã‚‹ãƒ™ã‚¯ãƒˆãƒ«</param>
+        /// <returns>ä»£å…¥å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator =(const Vector2& _rhs)
         {
             x = _rhs.x;
@@ -341,10 +341,10 @@ export namespace math
         }
 
         /// <summary>
-        /// ‘ã“ü
+        /// ä»£å…¥
         /// </summary>
-        /// <param name="_value">‘ã“ü‚·‚é’l</param>
-        /// <returns>‘ã“üŒã‚ÌƒxƒNƒgƒ‹</returns>
+        /// <param name="_value">ä»£å…¥ã™ã‚‹å€¤</param>
+        /// <returns>ä»£å…¥å¾Œã®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         constexpr Vector2 operator =(T _value)
         {
             x = _value;
@@ -353,18 +353,18 @@ export namespace math
         }
 
         /// <summary>
-        /// “™‰¿”äŠr
+        /// ç­‰ä¾¡æ¯”è¼ƒ
         /// </summary>
-        /// <param name="_rhs">”äŠr‘ÎÛ‚ÌƒxƒNƒgƒ‹</param>
+        /// <param name="_rhs">æ¯”è¼ƒå¯¾è±¡ã®ãƒ™ã‚¯ãƒˆãƒ«</param>
         constexpr bool operator ==(const Vector2& _rhs) const
         {
             return (x == _rhs.x && y == _rhs.y);
         }
 
         /// <summary>
-        /// zeroƒxƒNƒgƒ‹‚ğæ“¾
+        /// zeroãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—
         /// </summary>
-        /// <returns>zeroƒxƒNƒgƒ‹</returns>
+        /// <returns>zeroãƒ™ã‚¯ãƒˆãƒ«</returns>
         static constexpr Vector2<T> ZERO_VEC() noexcept
         {
             Vector2<T> zero(T(0), T(0));
@@ -372,8 +372,8 @@ export namespace math
         };
     };
 
-    using Vector2f = Vector2<float>; // floatŒ^‚Ì“ñŸŒ³ƒxƒNƒgƒ‹
-    using Vector2i = Vector2<int>;   // intŒ^‚Ì“ñŸŒ³ƒxƒNƒgƒ‹
-    using Vector2d = Vector2<double>; // doubleŒ^‚Ì“ñŸŒ³ƒxƒNƒgƒ‹
-    using Vector2u = Vector2<unsigned>; // unsignedŒ^‚Ì“ñŸŒ³ƒxƒNƒgƒ‹
+    using Vector2f = Vector2<float>; // floatå‹ã®äºŒæ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«
+    using Vector2i = Vector2<int>;   // intå‹ã®äºŒæ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«
+    using Vector2d = Vector2<double>; // doubleå‹ã®äºŒæ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«
+    using Vector2u = Vector2<unsigned>; // unsignedå‹ã®äºŒæ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«
 }

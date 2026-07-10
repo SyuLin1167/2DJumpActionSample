@@ -1,4 +1,4 @@
-export module Collider;
+ï»¿export module Collider;
 
 import <memory>;
 import <functional>;
@@ -12,31 +12,31 @@ export import ColliderVisitor;
 using namespace math;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
-    constexpr float EPSILON = 1e-6f;    // •‚“®¬”“_Œë·‹–—e’l
+    constexpr float EPSILON = 1e-6f;    // æµ®å‹•å°æ•°ç‚¹èª¤å·®è¨±å®¹å€¤
 
     /// <summary>
-    /// ƒRƒ“ƒ^ƒNƒgƒŠƒXƒi[
+    /// ã‚³ãƒ³ã‚¿ã‚¯ãƒˆãƒªã‚¹ãƒŠãƒ¼
     /// </summary>
     export struct ContactListener
     {
-        std::function<bool()> when; // ğŒ
-        std::function<void()> event; // ˆ—
+        std::function<bool()> when; // æ¡ä»¶
+        std::function<void()> event; // å‡¦ç†
     };
 
     /// <summary>
-    /// ƒRƒ‰ƒCƒ_[
+    /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
     /// </summary>
     export class Collider
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
         explicit Collider(ColliderDef* def)
             : m_colDef(std::make_unique<ColliderDef>(*def))
             , m_filter()
@@ -44,42 +44,42 @@ export namespace col2d
         {}
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         virtual ~Collider() = default;
 
         /// <summary>
-        /// ƒJƒeƒSƒŠ[‚Ì¶¬
+        /// ã‚«ãƒ†ã‚´ãƒªãƒ¼ã®ç”Ÿæˆ
         /// </summary>
-        /// <param name="ownerID">Š—LÒ‚ÌID</param>
+        /// <param name="ownerID">æ‰€æœ‰è€…ã®ID</param>
         virtual void GenerateCategory(uint32_t ownerID = 0) = 0;
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚Ì’è‹`î•ñ‚ğæ“¾
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®å®šç¾©æƒ…å ±ã‚’å–å¾—
         /// </summary>
-        /// <returns>ƒRƒ‰ƒCƒ_[’è‹`î•ñ‚Ö‚Ìƒ|ƒCƒ“ƒ^</returns>
+        /// <returns>ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©æƒ…å ±ã¸ã®ãƒã‚¤ãƒ³ã‚¿</returns>
         ColliderDef* GetColliderDef() const noexcept
         {
             return m_colDef.get();
         }
 
         /// <summary>
-        /// ƒrƒWƒ^[‚Ìó‚¯“ü‚ê
+        /// ãƒ“ã‚¸ã‚¿ãƒ¼ã®å—ã‘å…¥ã‚Œ
         /// </summary>
-        /// /// <param name="visitor">‘¼‚ÌƒRƒ‰ƒCƒ_[ƒrƒWƒ^[</param>
+        /// /// <param name="visitor">ä»–ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒ“ã‚¸ã‚¿ãƒ¼</param>
         virtual void Accept(ColliderVisitor& visitor) = 0;
 
         /// <summary>
-        /// Õ“Ë”»’è
+        /// è¡çªåˆ¤å®š
         /// </summary>
-        /// <param name="other">‘¼‚ÌƒRƒ‰ƒCƒ_[</param>
+        /// <param name="other">ä»–ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         virtual void CollideWith(Collider& other)
         {
             other.Accept(*m_visitor);
         }
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚ÌƒtƒBƒ‹ƒ^î•ñ‚ğæ“¾
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ãƒ•ã‚£ãƒ«ã‚¿æƒ…å ±ã‚’å–å¾—
         /// </summary>
         Filter& GetFilter() noexcept
         {
@@ -87,7 +87,7 @@ export namespace col2d
         }
 
         /// <summary>
-        /// ˆÚ“®—Ê‚Ìİ’è
+        /// ç§»å‹•é‡ã®è¨­å®š
         /// </summary>
         void SetVelocity(const Vector2f& velocity) noexcept
         {
@@ -95,39 +95,39 @@ export namespace col2d
         }
 
         /// <summary>
-        /// ˆÚ“®—Ê‚Ìæ“¾
+        /// ç§»å‹•é‡ã®å–å¾—
         /// </summary>
-        /// <returns>ˆÚ“®—Ê</returns>
+        /// <returns>ç§»å‹•é‡</returns>
         Vector2f GetVelocity() const noexcept
         {
             return m_velocity;
         }
 
         /// <summary>
-        /// ˆÚ“®—Ê‚Ì’Ç‰Á
+        /// ç§»å‹•é‡ã®è¿½åŠ 
         /// </summary>
         virtual void AddVelocity() {};
 
         /// <summary>
-        /// ƒCƒxƒ“ƒg‚Ì’Ç‰Á
+        /// ã‚¤ãƒ™ãƒ³ãƒˆã®è¿½åŠ 
         /// </summary>
-        /// <param name="key">ƒCƒxƒ“ƒg‚ÌƒL[</param>
-        /// <param name="event">’Ç‰Á‚·‚éƒCƒxƒ“ƒg</param>
+        /// <param name="key">ã‚¤ãƒ™ãƒ³ãƒˆã®ã‚­ãƒ¼</param>
+        /// <param name="event">è¿½åŠ ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ</param>
         void AddEvent(const uint64_t& key, ContactListener event)
         {
             m_events[key].push_back(std::move(event));
         }
 
         /// <summary>
-        /// ƒCƒxƒ“ƒg‚Ì”­‰Î
+        /// ã‚¤ãƒ™ãƒ³ãƒˆã®ç™ºç«
         /// </summary>
-        /// <param name="key">ƒCƒxƒ“ƒg‚ÌƒL[</param>
+        /// <param name="key">ã‚¤ãƒ™ãƒ³ãƒˆã®ã‚­ãƒ¼</param>
         void TriggerEvent(const uint64_t& key);
 
         /// <summary>
-        /// ƒCƒxƒ“ƒg‚Ìíœ
+        /// ã‚¤ãƒ™ãƒ³ãƒˆã®å‰Šé™¤
         /// </summary>
-        /// <param name="key">ƒCƒxƒ“ƒg‚ÌƒL[</param>
+        /// <param name="key">ã‚¤ãƒ™ãƒ³ãƒˆã®ã‚­ãƒ¼</param>
         void DeleteEvent(const uint64_t& key)
         {
             if (m_events.find(key) != m_events.end())
@@ -138,15 +138,15 @@ export namespace col2d
 
     protected:
         /// <summary>
-        /// ˆÚ“®—Ê‚Ì’Ç‰Á
+        /// ç§»å‹•é‡ã®è¿½åŠ 
         /// </summary>
-        /// <param name="velocity">ˆÚ“®—Ê</param>
+        /// <param name="velocity">ç§»å‹•é‡</param>
         virtual void AddVelocity(const Vector2f& velocity) {};
 
-        Filter m_filter; // ƒRƒ‰ƒCƒ_[‚ÌƒtƒBƒ‹ƒ^î•ñ
-        std::unique_ptr<ColliderDef> m_colDef; // ƒRƒ‰ƒCƒ_[’è‹`î•ñ‚Ö‚Ìƒ|ƒCƒ“ƒ^
-        std::unique_ptr<ColliderVisitor> m_visitor; // ƒrƒWƒ^[
-        Vector2f m_velocity; // ‘¬“x
-        std::unordered_map<uint64_t, std::vector<ContactListener>> m_events; // ÚGƒCƒxƒ“ƒgƒŠƒXƒg
+        Filter m_filter; // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ãƒ•ã‚£ãƒ«ã‚¿æƒ…å ±
+        std::unique_ptr<ColliderDef> m_colDef; // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©æƒ…å ±ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+        std::unique_ptr<ColliderVisitor> m_visitor; // ãƒ“ã‚¸ã‚¿ãƒ¼
+        Vector2f m_velocity; // é€Ÿåº¦
+        std::unordered_map<uint64_t, std::vector<ContactListener>> m_events; // æ¥è§¦ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒˆ
     };
 }

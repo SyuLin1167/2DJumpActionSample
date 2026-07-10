@@ -1,4 +1,4 @@
-export module Component.MoveWithKey;
+ï»¿export module Component.MoveWithKey;
 
 import Component;
 export import MyLib.Math.Vector2;
@@ -11,36 +11,36 @@ export namespace component
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="owner">Š—LÒ</param>
+        /// <param name="owner">æ‰€æœ‰è€…</param>
         MoveWithKey(object::GameObject* owner);
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~MoveWithKey() = default;
 
         /// <summary>
-        /// …•½ˆÚ“®‚Ìİ’è
+        /// æ°´å¹³ç§»å‹•ã®è¨­å®š
         /// </summary>
-        /// <param name="leftKey">¶‚ÖˆÚ“®‚·‚é‚½‚ß‚ÌƒL[</param>
-        /// <param name="rightKey">‰E‚ÖˆÚ“®‚·‚é‚½‚ß‚ÌƒL[</param>
-        /// <param name="moveSpeed">ˆÚ“®‘¬“x</param>
+        /// <param name="leftKey">å·¦ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®ã‚­ãƒ¼</param>
+        /// <param name="rightKey">å³ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®ã‚­ãƒ¼</param>
+        /// <param name="moveSpeed">ç§»å‹•é€Ÿåº¦</param>
         void SetHorizontal(const int leftKey, const int rightKey, float moveSpeed);
 
         /// <summary>
-        /// ‚’¼ˆÚ“®‚Ìİ’è
+        /// å‚ç›´ç§»å‹•ã®è¨­å®š
         /// </summary>
-        /// <param name="upKey">ã‚ÖˆÚ“®‚·‚é‚½‚ß‚ÌƒL[</param>
-        /// <param name="downKey">‰º‚ÖˆÚ“®‚·‚é‚½‚ß‚ÌƒL[</param>
-        /// <param name="moveSpeed">ˆÚ“®‘¬“x</param>
+        /// <param name="upKey">ä¸Šã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®ã‚­ãƒ¼</param>
+        /// <param name="downKey">ä¸‹ã¸ç§»å‹•ã™ã‚‹ãŸã‚ã®ã‚­ãƒ¼</param>
+        /// <param name="moveSpeed">ç§»å‹•é€Ÿåº¦</param>
         void SetVertical(const int upKey, const int downKey, float moveSpeed);
 
         /// <summary>
-        /// XV
+        /// æ›´æ–°
         /// </summary>
-        /// <param name="deltaTime">ƒfƒ‹ƒ^ƒ^ƒCƒ€</param>
+        /// <param name="deltaTime">ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ </param>
         void Update(const float& deltaTime) override;
 
     private:

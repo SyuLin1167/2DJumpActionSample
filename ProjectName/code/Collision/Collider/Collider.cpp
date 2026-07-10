@@ -1,16 +1,16 @@
-module Collider;
+ï»¿module Collider;
 
 namespace col2d
 {
     void Collider::TriggerEvent(const uint64_t& key)
     {
-        // ƒCƒxƒ“ƒg‚ª‘¶İ‚µ‚È‚¯‚ê‚ÎÀ{‚µ‚È‚¢
+        // ã‚¤ãƒ™ãƒ³ãƒˆãŒå­˜åœ¨ã—ãªã‘ã‚Œã°å®Ÿæ–½ã—ãªã„
         if (m_events.find(key) == m_events.end())
         {
             return;
         }
 
-        // ğŒ‚ğ–‚½‚µ‚Ä‚¢‚ê‚ÎƒCƒxƒ“ƒg‚ğÀs
+        // æ¡ä»¶ã‚’æº€ãŸã—ã¦ã„ã‚Œã°ã‚¤ãƒ™ãƒ³ãƒˆã‚’å®Ÿè¡Œ
         for (auto& event : m_events[key])
         {
             if (!event.when || event.when())

@@ -1,4 +1,4 @@
-module Component.MoveWithKey;
+ï»¿module Component.MoveWithKey;
 
 import MyLib.KeyStatus;
 import Object.GameObject;
@@ -17,7 +17,7 @@ namespace component
         , m_canMoveX(false)
         , m_canMoveY(false)
     {
-        // ˆ—‚È‚µ
+        // å‡¦ç†ãªã—
     }
 
     void MoveWithKey::SetHorizontal(const int leftKey, const int rightKey, float moveSpeed)
@@ -38,7 +38,7 @@ namespace component
 
     void MoveWithKey::Update(const float& deltaTime)
     {
-        //ˆÚ“®ˆ—
+        //ç§»å‹•å‡¦ç†
         if (m_canMoveX)
         {
             float velocity = 0.0f;

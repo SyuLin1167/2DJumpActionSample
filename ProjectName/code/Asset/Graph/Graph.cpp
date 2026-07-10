@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <DxLib.h>
 #include <format>
 #include <future>
@@ -15,12 +15,12 @@ namespace asset
     Graph::Graph()
         :handles()
     {
-        //ˆ—‚È‚µ
+        //å‡¦ç†ãªã—
     }
 
     Graph::~Graph()
     {
-        //Šm•Û‚µ‚½‰æ‘œ‚Ì‰ğ•ú
+        //ç¢ºä¿ã—ãŸç”»åƒã®è§£æ”¾
         for (auto& handle : handles)
         {
             DeleteGraph(handle.second);
@@ -29,10 +29,10 @@ namespace asset
 
     void Graph::CreateHandle(std::string handleName, std::string graphName)
     {
-        // ˆÈ‘O‚Ìƒnƒ“ƒhƒ‹‚ğíœ
+        // ä»¥å‰ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’å‰Šé™¤
         DeleteHandle(handleName);
 
-        // ƒOƒ‰ƒtƒBƒbƒN“Ç‚İ‚İ
+        // ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯èª­ã¿è¾¼ã¿
         auto fpath = gameSystem::AppCtx::FileSystem().Resolve(std::format("assets://{}", graphName));
         int handle = LoadGraph(fpath.string().c_str());
 
@@ -41,13 +41,13 @@ namespace asset
 
     void Graph::CreateHandleAsync(std::string handleName, std::string graphName)
     {
-        // ˆÈ‘O‚Ìƒnƒ“ƒhƒ‹‚ğíœ
+        // ä»¥å‰ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’å‰Šé™¤
         DeleteHandle(handleName);
 
-        // ”ñ“¯Šúƒ^ƒXƒN‚ğì¬
+        // éåŒæœŸã‚¿ã‚¹ã‚¯ã‚’ä½œæˆ
         auto fpath = gameSystem::AppCtx::FileSystem().Resolve(std::format("assets://{}", graphName));
 
-        // ƒOƒ‰ƒtƒBƒbƒN“Ç‚İ‚İ
+        // ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯èª­ã¿è¾¼ã¿
         int handle = LoadGraph(fpath.string().c_str());
 
         auto task = [this, handle, handleName]()
@@ -59,7 +59,7 @@ namespace asset
                 handles[handleName] = handle;
             };
 
-        // ”ñ“¯Šú“Ç‚İ‚İ’†‚È‚çƒ^ƒXƒN‚É“o˜^
+        // éåŒæœŸèª­ã¿è¾¼ã¿ä¸­ãªã‚‰ã‚¿ã‚¹ã‚¯ã«ç™»éŒ²
         if (task::LoadingContext::Get())
         {
             task::LoadingContext::Get()->AddTask(task::GRAPH, task);
@@ -72,7 +72,7 @@ namespace asset
 
     void Graph::DeleteHandle(std::string name)
     {
-        //‘ÎÛ‚Ìƒnƒ“ƒhƒ‹‚ğŒ©‚Â‚¯‚Äíœ
+        //å¯¾è±¡ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’è¦‹ã¤ã‘ã¦å‰Šé™¤
         auto it = handles.find(name);
         if (it != handles.end())
         {

@@ -1,4 +1,4 @@
-module Collider.TileColliderVisitor;
+ï»¿module Collider.TileColliderVisitor;
 import MyLib.Math.Vector2;
 import Collider.TileCollider;
 
@@ -9,21 +9,21 @@ namespace col2d
     TileColliderVisitor::TileColliderVisitor(TileCollider& issue)
         : m_issue(issue)
     {
-        // ˆ—‚È‚µ
+        // å‡¦ç†ãªã—
     }
 
     void TileColliderVisitor::Visit(RectCollider& collider)
     {
-        // ƒRƒ‰ƒCƒ_[‚ª—LŒø‚Å‚È‚¢ê‡‚Íˆ—‚ğs‚í‚È‚¢
+        // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒæœ‰åŠ¹ã§ãªã„å ´åˆã¯å‡¦ç†ã‚’è¡Œã‚ãªã„
         if (!m_issue.GetColliderDef()->isActive || !collider.GetColliderDef()->isActive)
         {
             return;
         }
 
-        // Õ“Ë‚ª”­¶‚µ‚½‚©‚Ç‚¤‚©
+        // è¡çªãŒç™ºç”Ÿã—ãŸã‹ã©ã†ã‹
         m_hadContact = false;
 
-        // ˆÚ“®—Ê‚©‚çƒTƒuƒXƒeƒbƒv”‚ğŒˆ‚ß‚é
+        // ç§»å‹•é‡ã‹ã‚‰ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—æ•°ã‚’æ±ºã‚ã‚‹
         Vector2f vel = collider.GetVelocity();
         const float longest = std::max(std::abs(vel.x), std::abs(vel.y));
         const Vector2f tileSize = m_issue.GetTileSize();
@@ -32,25 +32,25 @@ namespace col2d
         vel /= N;
         Vector2f accumulatedMove{ 0.0f, 0.0f };
 
-        // ƒTƒuƒXƒeƒbƒv‚²‚Æ‚ÉÕ“Ë”»’è‚Æ‰ğŒˆ‚ğs‚¤
+        // ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—ã”ã¨ã«è¡çªåˆ¤å®šã¨è§£æ±ºã‚’è¡Œã†
         for (int i = 0; i < N; ++i)
         {
-            // ‰¼‘zˆÚ“®
+            // ä»®æƒ³ç§»å‹•
             collider.AddVelocity(vel);
             accumulatedMove += vel;
 
-            // Œ»İ—\’èˆÊ’u‚ÅÕ“Ë‚µ‚Ä‚¢‚éƒ^ƒCƒ‹‚ğûW(‚ ‚ê‚ÎÕ“Ë)
+            // ç¾åœ¨äºˆå®šä½ç½®ã§è¡çªã—ã¦ã„ã‚‹ã‚¿ã‚¤ãƒ«ã‚’åé›†(ã‚ã‚Œã°è¡çª)
             if (m_issue.IsColliding(collider.GetRect()))
             {
-                // Õ“Ëƒ^ƒCƒ‹‚²‚Æ‚Éˆ—
+                // è¡çªã‚¿ã‚¤ãƒ«ã”ã¨ã«å‡¦ç†
                 ProcessCollisionTiles(collider);
             }
         }
 
-        // ƒTƒuƒXƒeƒbƒv‚Åi‚ß‚½ƒˆ‚È‘Oi•ª‚¾‚¯‚ğ•K‚¸Šª‚«–ß‚·
+        // ã‚µãƒ–ã‚¹ãƒ†ãƒƒãƒ—ã§é€²ã‚ãŸç´”ç²‹ãªå‰é€²åˆ†ã ã‘ã‚’å¿…ãšå·»ãæˆ»ã™
         collider.AddVelocity((accumulatedMove - vel) * -1.0f);
 
-        // Õ“Ë‚µ‚Ä‚¢‚ê‚ÎƒCƒxƒ“ƒg‚ğÀ{‚·‚é
+        // è¡çªã—ã¦ã„ã‚Œã°ã‚¤ãƒ™ãƒ³ãƒˆã‚’å®Ÿæ–½ã™ã‚‹
         if (m_hadContact)
         {
             collider.TriggerEvent(m_issue.GetFilter().category);
@@ -62,18 +62,18 @@ namespace col2d
         auto hitTileKeys = m_issue.TakeHitTileKeys();
         while (!hitTileKeys.empty())
         {
-            // Õ“Ëƒ^ƒCƒ‹î•ñæ“¾
+            // è¡çªã‚¿ã‚¤ãƒ«æƒ…å ±å–å¾—
             auto& [key, index] = hitTileKeys.front();
             hitTileKeys.pop();
             auto tileInfo = m_issue.GetTileInfo(key, index);
 
-            // ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ª‘¶İ‚µ‚È‚¢ê‡‚ÍƒXƒLƒbƒv
+            // ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒå­˜åœ¨ã—ãªã„å ´åˆã¯ã‚¹ã‚­ãƒƒãƒ—
             if (!tileInfo || !tileInfo->collider)
             {
                 continue;
             }
 
-            // Œ»İˆÊ’u‚Å–{“–‚ÉÕ“Ë‚µ‚Ä‚¢‚é‚©ÄŠm”F
+            // ç¾åœ¨ä½ç½®ã§æœ¬å½“ã«è¡çªã—ã¦ã„ã‚‹ã‹å†ç¢ºèª
             if (collider.IsColliding(*tileInfo->collider))
             {
                 m_hadContact = true;

@@ -1,4 +1,4 @@
-export module UI.UIManager;
+ï»¿export module UI.UIManager;
 
 import UI.UIBase;
 import MyLib.MouseStatus;
@@ -8,41 +8,41 @@ import <queue>;
 import <algorithm>;
 
 /// <summary>
-/// UIŠÖ˜A
+/// UIé–¢é€£
 /// </summary>
 export namespace ui
 {
     /// <summary>
-    /// UI—v‘f‚Ì¯•Êq
+    /// UIè¦ç´ ã®è­˜åˆ¥å­
     /// </summary>
     export struct UIElementID
     {
-        uint32_t index;          // ƒCƒ“ƒfƒbƒNƒX
-        uint16_t generation;     // ¶¬¢‘ã
+        uint32_t index;          // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+        uint16_t generation;     // ç”Ÿæˆä¸–ä»£
     };
 
     /// <summary>
-    /// UI—v‘fŠÇ—
+    /// UIè¦ç´ ç®¡ç†
     /// </summary>
     export class UIManager
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         UIManager() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~UIManager() = default;
 
         /// <summary>
-        /// UI—v‘f‚ğ¶¬
+        /// UIè¦ç´ ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <typeparam name="T">¶¬‚·‚éUI—v‘f‚ÌŒ^</typeparam>
-        /// <param name="args">ƒRƒ“ƒXƒgƒ‰ƒNƒ^ˆø”</param>
-        /// <returns>¶¬‚³‚ê‚½UI—v‘f‚Ì¯•Êq</returns>
+        /// <typeparam name="T">ç”Ÿæˆã™ã‚‹UIè¦ç´ ã®å‹</typeparam>
+        /// <param name="args">ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿å¼•æ•°</param>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸUIè¦ç´ ã®è­˜åˆ¥å­</returns>
         template<typename T, typename... Args>
         UIElementID Create(Args&&... args)
         {
@@ -53,20 +53,20 @@ export namespace ui
         }
 
         /// <summary>
-        /// UI—v‘f‚ğæ“¾
+        /// UIè¦ç´ ã‚’å–å¾—
         /// </summary>
-        /// <param name="id">ŒŸõ‚·‚é—v‘f‚Ì¯•Êq</param>
-        /// <returns>UI—v‘f‚Ì¯•Êq</returns>
+        /// <param name="id">æ¤œç´¢ã™ã‚‹è¦ç´ ã®è­˜åˆ¥å­</param>
+        /// <returns>UIè¦ç´ ã®è­˜åˆ¥å­</returns>
         UIBase* GetElement(const UIElementID& id)
         {
-            // ¢‘ã‚ªˆê’v‚·‚é‚©Šm”F
+            // ä¸–ä»£ãŒä¸€è‡´ã™ã‚‹ã‹ç¢ºèª
             auto generation = m_generations.find(id.index);
             if (generation == m_generations.end() || generation->second != id.generation)
             {
                 return nullptr;
             }
 
-            // ƒCƒ“ƒfƒbƒNƒX‚ª‘¶İ‚·‚é‚©Šm”F
+            // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª
             if (auto it = m_elements.find(id.index); it != m_elements.end())
             {
                 return it->second.get();
@@ -75,13 +75,13 @@ export namespace ui
         }
 
         /// <summary>
-        /// UI—v‘f‚ğ”jŠü
+        /// UIè¦ç´ ã‚’ç ´æ£„
         /// </summary>
-        /// <param name="id">UI—v‘f‚Ì¯•Êq</param>
+        /// <param name="id">UIè¦ç´ ã®è­˜åˆ¥å­</param>
         void Destroy(const UIElementID& id);
 
         /// <summary>
-        /// UI—v‘f‚ğƒNƒŠƒA
+        /// UIè¦ç´ ã‚’ã‚¯ãƒªã‚¢
         /// </summary>
         void Clear()
         {
@@ -89,24 +89,24 @@ export namespace ui
         }
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         void Update();
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         void Draw();
 
     private:
         /// <summary>
-        /// UI—v‘f‚Ì¯•Êq‚ğ¶¬
+        /// UIè¦ç´ ã®è­˜åˆ¥å­ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <returns>¶¬‚³‚ê‚½UI—v‘f‚Ì¯•Êq</returns>
+        /// <returns>ç”Ÿæˆã•ã‚ŒãŸUIè¦ç´ ã®è­˜åˆ¥å­</returns>
         UIElementID CreateID();
 
-        std::queue<UIElementID> m_freeID; // –¢g—p‚ÌUI—v‘f‚ÌID
-        std::unordered_map<uint32_t, uint16_t> m_generations; // Œ»İ‚Ì¢‘ã‚ğŠÇ—
-        std::unordered_map<uint32_t, std::unique_ptr<UIBase>> m_elements; // UI—v‘f‚Ìƒ}ƒbƒv
+        std::queue<UIElementID> m_freeID; // æœªä½¿ç”¨ã®UIè¦ç´ ã®ID
+        std::unordered_map<uint32_t, uint16_t> m_generations; // ç¾åœ¨ã®ä¸–ä»£ã‚’ç®¡ç†
+        std::unordered_map<uint32_t, std::unique_ptr<UIBase>> m_elements; // UIè¦ç´ ã®ãƒãƒƒãƒ—
     };
 }

@@ -1,101 +1,101 @@
-export module MyLib.Math.PropVector2;
+ï»¿export module MyLib.Math.PropVector2;
 export import MyLib.Math.Vector2;
 
 /// <summary>
-/// ”ŠwŠÖ˜A
+/// æ•°å­¦é–¢é€£
 /// </summary>
 export namespace math
 {
     /// <summary>
-    /// “ñŸŒ³ƒxƒNƒgƒ‹(‘®«)
+    /// äºŒæ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«(å±æ€§)
     /// </summary>
-    /// <typeparam name="T">Œ^</typeparam>
+    /// <typeparam name="T">å‹</typeparam>
     export template<typename T>
     class PropVector2 final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         PropVector2() = default;
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="owner">ƒAƒNƒZƒXŒ³‚Ì“ñŸŒ³ƒxƒNƒgƒ‹</param>
+        /// <param name="owner">ã‚¢ã‚¯ã‚»ã‚¹å…ƒã®äºŒæ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«</param>
         explicit PropVector2(Vector2<T>& owner) :owner(owner) {};
 
         /// <summary>
-        /// ‰ÁZ
+        /// åŠ ç®—
         /// </summary>
-        /// <param name="axis">‰ÁZ‘ÎÛ‚Ì²</param>
-        /// <param name="value">‰ÁZ‚·‚é’l</param>
+        /// <param name="axis">åŠ ç®—å¯¾è±¡ã®è»¸</param>
+        /// <param name="value">åŠ ç®—ã™ã‚‹å€¤</param>
         void Add(T Vector2<T>::* axis, T value)
         {
             owner.*axis += value;
         }
 
         /// <summary>
-        /// ‰ÁZ
+        /// åŠ ç®—
         /// </summary>
-        /// <param name="other">‰ÁZƒxƒNƒgƒ‹</param>
+        /// <param name="other">åŠ ç®—ãƒ™ã‚¯ãƒˆãƒ«</param>
         void Add(Vector2<T> other)
         {
             owner += other;
         }
 
         /// <summary>
-        /// ‘ã“ü
+        /// ä»£å…¥
         /// </summary>
-        /// <param name="Axis">‘ã“ü‘ÎÛ‚Ì²</param>
-        /// <param name="value">‘ã“ü‚·‚é’l</param>
+        /// <param name="Axis">ä»£å…¥å¯¾è±¡ã®è»¸</param>
+        /// <param name="value">ä»£å…¥ã™ã‚‹å€¤</param>
         void Assign(T Vector2<T>::* Axis, T value)
         {
             owner.*Axis = value;
         }
 
         /// <summary>
-        /// ‘ã“ü
+        /// ä»£å…¥
         /// </summary>
-        /// <param name="otherX">‘ã“ü‚·‚é’lX</param>
-        /// <param name="otherY">‘ã“ü‚·‚é’lY</param>
+        /// <param name="otherX">ä»£å…¥ã™ã‚‹å€¤X</param>
+        /// <param name="otherY">ä»£å…¥ã™ã‚‹å€¤Y</param>
         void Assign(T otherX, T otherY)
         {
             owner = Vector2<T>(otherX, otherY);
         }
 
         /// <summary>
-        /// ‘ã“ü
+        /// ä»£å…¥
         /// </summary>
-        /// <param name="other">‘ã“ü‚·‚éƒxƒNƒgƒ‹’l</param>
+        /// <param name="other">ä»£å…¥ã™ã‚‹ãƒ™ã‚¯ãƒˆãƒ«å€¤</param>
         void Assign(Vector2<T> other)
         {
             owner = other;
         }
 
         /// <summary>
-        /// Œ»İ‚ÌˆÊ’u
+        /// ç¾åœ¨ã®ä½ç½®
         /// </summary>
-        /// <returns>ˆÊ’uƒxƒNƒgƒ‹</returns>
+        /// <returns>ä½ç½®ãƒ™ã‚¯ãƒˆãƒ«</returns>
         Vector2<T>& NowPos() const
         {
             return owner;
         }
 
         /// <summary>
-        /// Œ»İ‚ÌX‚Ì’l
+        /// ç¾åœ¨ã®Xã®å€¤
         /// </summary>
-        /// <returns>X‚Ì’l</returns>
+        /// <returns>Xã®å€¤</returns>
         T NowX() const
         {
             return owner.x;
         }
 
         /// <summary>
-         /// Œ»İ‚ÌX‚Ì’l
+         /// ç¾åœ¨ã®Xã®å€¤
          /// </summary>
-         /// <typeparam name="U">Œ^</typeparam>
-         /// <returns>X‚Ì’l</returns>
+         /// <typeparam name="U">å‹</typeparam>
+         /// <returns>Xã®å€¤</returns>
         template<typename U>
         U NowX() const
         {
@@ -103,29 +103,29 @@ export namespace math
         }
 
         /// <summary>
-        /// Œ»İ‚ÌY‚Ì’l
+        /// ç¾åœ¨ã®Yã®å€¤
         /// </summary>
-        /// <returns>Y‚Ì’l</returns>
+        /// <returns>Yã®å€¤</returns>
         T NowY() const
         {
             return owner.y;
         }
 
         /// <summary>
-        /// Œ»İ‚ÌY‚Ì’l
+        /// ç¾åœ¨ã®Yã®å€¤
         /// </summary>
-        /// <typeparam name="U">Œ^</typeparam>
-        /// <returns>Y‚Ì’l</returns>
+        /// <typeparam name="U">å‹</typeparam>
+        /// <returns>Yã®å€¤</returns>
         template<typename U>
         U NowY() const
         {
             return static_cast<U>(owner.y);
         }
 
-        static constexpr auto X = &Vector2<T>::x;  //X²
-        static constexpr auto Y = &Vector2<T>::y;  //Y²
+        static constexpr auto X = &Vector2<T>::x;  //Xè»¸
+        static constexpr auto Y = &Vector2<T>::y;  //Yè»¸
 
     private:
-        Vector2<T>& owner;   //QÆ‚·‚é“ñŸŒ³ƒxƒNƒgƒ‹
+        Vector2<T>& owner;   //å‚ç…§ã™ã‚‹äºŒæ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«
     };
 }

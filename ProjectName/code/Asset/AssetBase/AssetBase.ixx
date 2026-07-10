@@ -1,46 +1,46 @@
-export module Asset.AssetBase;
+ï»¿export module Asset.AssetBase;
 import <unordered_map>;
 import <string>;
 
 /// <summary>
-/// ƒAƒZƒbƒgŠÖ˜A
+/// ã‚¢ã‚»ãƒƒãƒˆé–¢é€£
 /// </summary>
 export namespace asset
 {
     /// <summary>
-    /// ƒAƒZƒbƒg‚ÌŠî’êƒNƒ‰ƒX
+    /// ã‚¢ã‚»ãƒƒãƒˆã®åŸºåº•ã‚¯ãƒ©ã‚¹
     /// </summary>
     export class AssetBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         AssetBase() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         virtual ~AssetBase() = default;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹¶¬
+        /// ãƒãƒ³ãƒ‰ãƒ«ç”Ÿæˆ
         /// </summary>
-        /// <param name="handleName">ƒnƒ“ƒhƒ‹–¼</param>
-        /// <param name="graphName">‰æ‘œ–¼</param>
+        /// <param name="handleName">ãƒãƒ³ãƒ‰ãƒ«å</param>
+        /// <param name="graphName">ç”»åƒå</param>
         virtual void CreateHandle(std::string handleName, std::string graphName) = 0;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹¶¬(”ñ“¯Šú)
+        /// ãƒãƒ³ãƒ‰ãƒ«ç”Ÿæˆ(éåŒæœŸ)
         /// </summary>
-        /// <param name="handleName">ƒnƒ“ƒhƒ‹–¼</param>
-        /// <param name="graphName">‰æ‘œ–¼</param>
+        /// <param name="handleName">ãƒãƒ³ãƒ‰ãƒ«å</param>
+        /// <param name="graphName">ç”»åƒå</param>
         virtual void CreateHandleAsync(std::string handleName, std::string graphName) = 0;
 
         /// <summary>
-        /// ƒnƒ“ƒhƒ‹íœ
+        /// ãƒãƒ³ãƒ‰ãƒ«å‰Šé™¤
         /// </summary>
-        /// <param name="name">íœ‚·‚éƒnƒ“ƒhƒ‹–¼</param>
+        /// <param name="name">å‰Šé™¤ã™ã‚‹ãƒãƒ³ãƒ‰ãƒ«å</param>
         virtual void DeleteHandle(std::string name) = 0;
     };
 }
