@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <fstream>
 #include <future>
 
@@ -12,29 +12,29 @@ import MyLib.Loading.LoadingContext;
 export using json = nlohmann::json;
 
 /// <summary>
-/// ƒtƒ@ƒCƒ‹ŠÖ˜A
+/// ãƒ•ã‚¡ã‚¤ãƒ«é–¢é€£
 /// </summary>
 export namespace file
 {
     /// <summary>
-    /// Jsonƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‘‚«‚ğs‚¤
+    /// Jsonãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿æ›¸ãã‚’è¡Œã†
     /// </summary>
     export class JsonIO final
     {
     public:
         /// <summary>
-        /// JSONƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+        /// JSONãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
         /// </summary>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-        /// <returns>“Ç‚İ‚ñ‚¾ƒf[ƒ^</returns>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+        /// <returns>èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿</returns>
         json Load(std::filesystem::path fileName)
         {
-            // Šg’£q‚ª–³‚¯‚ê‚Î•t—^‚·‚é
+            // æ‹¡å¼µå­ãŒç„¡ã‘ã‚Œã°ä»˜ä¸ã™ã‚‹
             if (fileName.extension() != ".json") {
                 fileName += ".json";
             }
 
-            // w’èƒtƒ@ƒCƒ‹‚©‚çƒf[ƒ^“Ç‚İ‚İ
+            // æŒ‡å®šãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
             std::ifstream ifs(fileName.string());
             if (!ifs.is_open())
             {
@@ -47,10 +47,10 @@ export namespace file
         }
 
         /// <summary>
-        /// JSONƒtƒ@ƒCƒ‹”ñ“¯Šú“Ç‚İ‚İ
+        /// JSONãƒ•ã‚¡ã‚¤ãƒ«éåŒæœŸèª­ã¿è¾¼ã¿
         /// </summary>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-        /// <returns>“Ç‚İ‚ñ‚¾ƒf[ƒ^‚Ìfuture</returns>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+        /// <returns>èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã®future</returns>
         std::future<json> LoadAsync(std::filesystem::path fileName)
         {
             auto task = std::make_shared<std::packaged_task<json()>>([this, fileName]() {
@@ -72,13 +72,13 @@ export namespace file
         }
 
         /// <summary>
-        /// JSONƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+        /// JSONãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
         /// </summary>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-        /// <param name="data">“Ç‚İ‚ñ‚¾ƒf[ƒ^‚ÌŠi”[æ</param>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+        /// <param name="data">èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã®æ ¼ç´å…ˆ</param>
         void Load(std::filesystem::path fileName, json& data)
         {
-            // Šg’£q‚ª–³‚¯‚ê‚Î•t—^‚·‚é
+            // æ‹¡å¼µå­ãŒç„¡ã‘ã‚Œã°ä»˜ä¸ã™ã‚‹
             if (fileName.extension() != ".json") {
                 fileName += ".json";
             }
@@ -95,26 +95,26 @@ export namespace file
         }
 
         /// <summary>
-        /// JSONƒtƒ@ƒCƒ‹‘‚«‚İ
+        /// JSONãƒ•ã‚¡ã‚¤ãƒ«æ›¸ãè¾¼ã¿
         /// </summary>
-        /// <param name="fileName">ƒtƒ@ƒCƒ‹ƒpƒX</param>
-        /// <param name="data">‘‚«‚Şƒf[ƒ^</param>
+        /// <param name="fileName">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+        /// <param name="data">æ›¸ãè¾¼ã‚€ãƒ‡ãƒ¼ã‚¿</param>
         void Write(std::filesystem::path fileName, json data)
         {
-            // eƒfƒBƒŒƒNƒgƒŠ‚ğ’Šo
+            // è¦ªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’æŠ½å‡º
             const auto parentDir = fileName.parent_path();
 
-            // ƒfƒBƒŒƒNƒgƒŠ‚ª‘¶İ‚µ‚È‚¯‚ê‚ÎÄ‹A“I‚Éì¬
+            // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãŒå­˜åœ¨ã—ãªã‘ã‚Œã°å†å¸°çš„ã«ä½œæˆ
             if (!std::filesystem::exists(parentDir)) {
                 std::filesystem::create_directories(parentDir);
             }
 
-            // Šg’£q‚ª–³‚¯‚ê‚Î•t—^‚·‚é
+            // æ‹¡å¼µå­ãŒç„¡ã‘ã‚Œã°ä»˜ä¸ã™ã‚‹
             if (fileName.extension() != ".json") {
                 fileName.string() += ".json";
             }
 
-            // w’èƒtƒ@ƒCƒ‹‚Éƒf[ƒ^‘‚«‚İ
+            // æŒ‡å®šãƒ•ã‚¡ã‚¤ãƒ«ã«ãƒ‡ãƒ¼ã‚¿æ›¸ãè¾¼ã¿
             std::ofstream ofs(fileName.string());
             if (!ofs.is_open())
             {

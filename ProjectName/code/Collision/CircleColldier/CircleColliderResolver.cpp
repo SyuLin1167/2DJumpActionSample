@@ -1,4 +1,4 @@
-module Collider.CircleColliderResolver;
+ï»¿module Collider.CircleColliderResolver;
 import MyLib.Math.Vector2;
 import MyLib.Shape.Rect;
 import Collider.CircleCollider;
@@ -10,7 +10,7 @@ namespace col2d
 {
     void CircleColliderResolver::Resolve(CircleCollider& issue, const RectCollider& other)
     {
-        // ·•ª‚ğZo
+        // å·®åˆ†ã‚’ç®—å‡º
         shape::Rect otherRect = other.GetRect();
         Vector2f closestPoint
         {
@@ -19,7 +19,7 @@ namespace col2d
         };
         Vector2f diff = issue.GetCircle().center - closestPoint;
         
-        // ”»’è‹——£‚Ì“ñæ‚ğŒvZ
+        // åˆ¤å®šè·é›¢ã®äºŒä¹—ã‚’è¨ˆç®—
         float distSq = diff.LengthSq();
         float radius = issue.GetCircle().radius;
         if (distSq >= radius * radius)
@@ -27,13 +27,13 @@ namespace col2d
             return;
         }
 
-        // ‰Ÿ‚µ–ß‚µ—Ê‚Æ•ûŒü‚ğŒvZ
+        // æŠ¼ã—æˆ»ã—é‡ã¨æ–¹å‘ã‚’è¨ˆç®—
         float dist = std::sqrt(distSq);
         float penetration = radius - dist;
         Vector2f push = diff.Norm() * penetration;
         issue.AddVelocity(push);
 
-        // ‰Ÿ‚µ–ß‚µŒã‚Ì‘¬“x¬•ªœ‹
+        // æŠ¼ã—æˆ»ã—å¾Œã®é€Ÿåº¦æˆåˆ†é™¤å»
         Vector2f normal = push.Norm();
         Vector2f v = issue.GetVelocity();
         float vn = v.Dot(normal);
@@ -42,19 +42,19 @@ namespace col2d
 
     void CircleColliderResolver::Resolve(CircleCollider& issue, const CircleCollider& other)
     {
-        // ·•ª‚ğZo
+        // å·®åˆ†ã‚’ç®—å‡º
         Vector2f diff = issue.GetCircle().center - other.GetCircle().center;
         float distSq = diff.LengthSq();
         float rSum = issue.GetCircle().radius + other.GetCircle().radius;
 
-        // ‰Ÿ‚µ–ß‚µ—Ê‚Æ•ûŒü‚ğŒvZ
+        // æŠ¼ã—æˆ»ã—é‡ã¨æ–¹å‘ã‚’è¨ˆç®—
         float dist = std::sqrt(distSq);
         float penetration = rSum - dist;
         Vector2f push = diff.Norm() * penetration;
 
         issue.AddVelocity(push);
 
-        // ‰Ÿ‚µ–ß‚µŒã‚Ì‘¬“x¬•ªœ‹
+        // æŠ¼ã—æˆ»ã—å¾Œã®é€Ÿåº¦æˆåˆ†é™¤å»
         Vector2f normal = push.Norm();
         Vector2f v = issue.GetVelocity();
         float vn = v.Dot(normal);

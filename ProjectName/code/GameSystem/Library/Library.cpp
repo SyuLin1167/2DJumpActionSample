@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include <Dxlib.h>
 
 module GameSystem.Library;

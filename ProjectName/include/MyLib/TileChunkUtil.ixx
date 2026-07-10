@@ -1,4 +1,4 @@
-export module MyLib.TileChunkUtil;
+ï»¿export module MyLib.TileChunkUtil;
 
 import <cstdint>;
 import <unordered_map>;
@@ -11,37 +11,37 @@ using namespace math;
 export namespace tile
 {
     /// <summary>
-    /// ƒ^ƒCƒ‹ƒ`ƒƒƒ“ƒNƒL[ì¬
+    /// ã‚¿ã‚¤ãƒ«ãƒãƒ£ãƒ³ã‚¯ã‚­ãƒ¼ä½œæˆ
     /// </summary>
-    /// <param name="cx">ƒ`ƒƒƒ“ƒNXÀ•W</param>
-    /// <param name="cy">ƒ`ƒƒƒ“ƒNYÀ•W</param>
-    /// <returns>ƒ^ƒCƒ‹ƒ`ƒƒƒ“ƒNƒL[</returns>
+    /// <param name="cx">ãƒãƒ£ãƒ³ã‚¯Xåº§æ¨™</param>
+    /// <param name="cy">ãƒãƒ£ãƒ³ã‚¯Yåº§æ¨™</param>
+    /// <returns>ã‚¿ã‚¤ãƒ«ãƒãƒ£ãƒ³ã‚¯ã‚­ãƒ¼</returns>
     inline size_t MakeTileKey(uint32_t cx, uint32_t cy)
     {
         return (static_cast<uint64_t>(cy) << 32) | static_cast<uint64_t>(cx);
     }
 
     /// <summary>
-    /// ƒ[ƒJƒ‹ƒCƒ“ƒfƒbƒNƒXZo
+    /// ãƒ­ãƒ¼ã‚«ãƒ«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç®—å‡º
     /// </summary>
-    /// <param name="x">ƒOƒŠƒbƒhXÀ•W</param>
-    /// <param name="y">ƒOƒŠƒbƒhYÀ•W</param>
-    /// <param name="chunkSize">ƒ`ƒƒƒ“ƒNƒTƒCƒY</param>
-    /// <returns>ƒ[ƒJƒ‹ƒCƒ“ƒfƒbƒNƒX</returns>
+    /// <param name="x">ã‚°ãƒªãƒƒãƒ‰Xåº§æ¨™</param>
+    /// <param name="y">ã‚°ãƒªãƒƒãƒ‰Yåº§æ¨™</param>
+    /// <param name="chunkSize">ãƒãƒ£ãƒ³ã‚¯ã‚µã‚¤ã‚º</param>
+    /// <returns>ãƒ­ãƒ¼ã‚«ãƒ«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</returns>
     inline size_t LocalIndex(size_t x, size_t y, const Vector2u& chunkSize)
     {
         return (y % chunkSize.y) * chunkSize.x + (x % chunkSize.x);
     }
 
     /// <summary>
-    /// ƒ`ƒƒƒ“ƒN‰»‚³‚ê‚½ƒOƒŠƒbƒh\’z
+    /// ãƒãƒ£ãƒ³ã‚¯åŒ–ã•ã‚ŒãŸã‚°ãƒªãƒƒãƒ‰æ§‹ç¯‰
     /// </summary>
-    /// <typeparam name="T">ƒf[ƒ^Œ^</typeparam>
-    /// <typeparam name="Provider">ƒf[ƒ^’ñ‹ŸŠÖ”Œ^</typeparam>
-    /// <param name="width">ƒOƒŠƒbƒh•</param>
-    /// <param name="height">ƒOƒŠƒbƒh‚‚³</param>
-    /// <param name="chunkSize">ƒ`ƒƒƒ“ƒNƒTƒCƒY</param>
-    /// <param name="provider">ƒf[ƒ^’ñ‹ŸŠÖ”</param>
+    /// <typeparam name="T">ãƒ‡ãƒ¼ã‚¿å‹</typeparam>
+    /// <typeparam name="Provider">ãƒ‡ãƒ¼ã‚¿æä¾›é–¢æ•°å‹</typeparam>
+    /// <param name="width">ã‚°ãƒªãƒƒãƒ‰å¹…</param>
+    /// <param name="height">ã‚°ãƒªãƒƒãƒ‰é«˜ã•</param>
+    /// <param name="chunkSize">ãƒãƒ£ãƒ³ã‚¯ã‚µã‚¤ã‚º</param>
+    /// <param name="provider">ãƒ‡ãƒ¼ã‚¿æä¾›é–¢æ•°</param>
     template<class T, class Provider>
     std::unordered_map<size_t, std::vector<T>> BuildChunkedGrid(size_t width, size_t height, const Vector2u& chunkSize, Provider&& provider)
     {
@@ -51,11 +51,11 @@ export namespace tile
         {
             for (size_t x = 0; x < width; ++x)
             {
-                // ƒ`ƒƒƒ“ƒNÀ•WZo
+                // ãƒãƒ£ãƒ³ã‚¯åº§æ¨™ç®—å‡º
                 const uint32_t cx = static_cast<uint32_t>(x / chunkSize.x);
                 const uint32_t cy = static_cast<uint32_t>(y / chunkSize.y);
 
-                // ƒL[‚ÆƒCƒ“ƒfƒbƒNƒX¶¬
+                // ã‚­ãƒ¼ã¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç”Ÿæˆ
                 const size_t key = MakeTileKey(cx, cy);
                 const size_t index = LocalIndex(x, y, chunkSize);
                 

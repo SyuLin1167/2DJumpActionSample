@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <DxLib.h>
 
 module Scene.Result;
@@ -14,26 +14,26 @@ namespace scene
 {
     Result::Result()
     {
-        // ‰æ‘œ“Ç‚İ‚İ
+        // ç”»åƒèª­ã¿è¾¼ã¿
         gameSystem::AppCtx::AssetMgr().LoadAsync<asset::Graph>("Result", "Result.png");
     }
 
     SceneCmd Result::Update()
     {
-        // RƒL[‚ÅƒŠƒgƒ‰ƒCiƒ^ƒCƒgƒ‹‚Öj
+        // Rã‚­ãƒ¼ã§ãƒªãƒˆãƒ©ã‚¤ï¼ˆã‚¿ã‚¤ãƒˆãƒ«ã¸ï¼‰
         if (input::KeyStatus::CheckKey(keyType.R, ON_PRESS))
         {
             return CmdReplace{ [](){ return std::make_shared<Title>(); } };
         }
 
-        // Œp‘±
+        // ç¶™ç¶š
         return std::monostate{};
     }
 
     void Result::Draw()
     {
-        // ”wŒi•`‰æ
+        // èƒŒæ™¯æç”»
         DrawGraph(0, 0, gameSystem::AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("Result"), FALSE);
-        DrawFormatString(850, 950, GetColor(0, 0, 0), "CLEAR! RƒL[‚Åƒ^ƒCƒgƒ‹‚Ö");
+        DrawFormatString(850, 950, GetColor(0, 0, 0), "CLEAR! Rã‚­ãƒ¼ã§ã‚¿ã‚¤ãƒˆãƒ«ã¸");
     }
 }

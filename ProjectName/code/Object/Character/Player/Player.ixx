@@ -1,4 +1,4 @@
-export module Object.Player;
+ï»¿export module Object.Player;
 
 import <future>;
 
@@ -6,50 +6,50 @@ import Object.GameObject;
 import Object.PlayerData;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace object
 {
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ì–ğŠ„
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å½¹å‰²
     /// </summary>
     export class Player final :public GameObject
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Player();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Player();
 
         /// <summary>
-        /// ‰Šú‰»ˆ—
+        /// åˆæœŸåŒ–å‡¦ç†
         /// </summary>
         void Init() override;
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         void Update() override;
 
         /// <summary>
-        /// ŒãXVˆ—
+        /// å¾Œæ›´æ–°å‡¦ç†
         /// </summary>
         void LateUpdate() override;
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         void Draw() override;
 
         /// <summary>
-        /// ©g‚Ìƒ^ƒO
+        /// è‡ªèº«ã®ã‚¿ã‚°
         /// </summary>
-        /// <returns>ƒvƒŒƒCƒ„[</returns>
+        /// <returns>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</returns>
         ObjectTag MyObjectTag() const override
         {
             return ObjectTag::PLAYER;

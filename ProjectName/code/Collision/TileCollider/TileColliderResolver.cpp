@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <math.h>
 #include <limits>
 
@@ -11,13 +11,13 @@ using namespace math;
 
 namespace col2d
 {
-    constexpr float INF = std::numeric_limits<float>::max();    // –³ŒÀ‘å
-    static constexpr float ONE_WAY_EPS = 5.0f;                  // ‘«ê”»’è‚Ì‹–—eŒë·
+    constexpr float INF = std::numeric_limits<float>::max();    // ç„¡é™å¤§
+    static constexpr float ONE_WAY_EPS = 5.0f;                  // è¶³å ´åˆ¤å®šã®è¨±å®¹èª¤å·®
 
 
     void TileColliderResolver::Resolve(RectCollider& issue, const TileInfo& tileInfo)
     {
-        // ‰Ÿ‚µ–ß‚µ—ÊŒvZ—p’è”
+        // æŠ¼ã—æˆ»ã—é‡è¨ˆç®—ç”¨å®šæ•°
         const uint8_t adjacentFlag = tileInfo.adjacentFlag;
         const shape::Rect tileRect = tileInfo.collider->GetRect();
 
@@ -36,7 +36,7 @@ namespace col2d
 
     math::Vector2f TileColliderResolver::CalcPushBack(const RectCollider& issue, const uint8_t adjacentFlag, const shape::Rect& tileRect)
     {
-        // ‚ß‚è‚İ—Ê‚ğŒvZ(—×Úƒ^ƒCƒ‹‚ª‚ ‚é•ûŒü‚Í–³Œø‰»)
+        // ã‚ã‚Šè¾¼ã¿é‡ã‚’è¨ˆç®—(éš£æ¥ã‚¿ã‚¤ãƒ«ãŒã‚ã‚‹æ–¹å‘ã¯ç„¡åŠ¹åŒ–)
         Vector2f diffX{};
         diffX.x = (adjacentFlag & TileFlag::LEFT) ? INF : tileRect.Left() - issue.GetRect().Right();
         diffX.y = (adjacentFlag & TileFlag::RIGHT) ? INF : tileRect.Right() - issue.GetRect().Left();
@@ -45,7 +45,7 @@ namespace col2d
         diffY.x = (adjacentFlag & TileFlag::TOP) ? INF : tileRect.Top() - issue.GetRect().Bottom();
         diffY.y = (adjacentFlag & TileFlag::BOTTOM) ? INF : tileRect.Bottom() - issue.GetRect().Top();
 
-        // ²‚²‚Æ‰Ÿ‚µ–ß‚µ—Ê‚ğo‚·
+        // è»¸ã”ã¨æŠ¼ã—æˆ»ã—é‡ã‚’å‡ºã™
         float dx = (std::abs(diffX.x) < std::abs(diffX.y)) ? diffX.x : diffX.y;
         float dy = (std::abs(diffY.x) < std::abs(diffY.y)) ? diffY.x : diffY.y;
 
@@ -55,29 +55,29 @@ namespace col2d
     void TileColliderResolver::ResolveSolid(RectCollider& issue, const TileInfo& tileInfo)
     {
 
-        // ‰Ÿ‚µ–ß‚µ—ÊŒvZ—p’è”
+        // æŠ¼ã—æˆ»ã—é‡è¨ˆç®—ç”¨å®šæ•°
         const uint8_t adjacentFlag = tileInfo.adjacentFlag;
         const shape::Rect& tileRect = tileInfo.collider->GetRect();
 
-        // ‰Ÿ‚µ–ß‚µ—ÊŒvZ
+        // æŠ¼ã—æˆ»ã—é‡è¨ˆç®—
         Vector2f pushBack = CalcPushBack(issue, adjacentFlag, tileRect);
 
-        // ‘ÎŠp“¯’l‚Í‰½‚à‚µ‚È‚¢
+        // å¯¾è§’åŒå€¤ã¯ä½•ã‚‚ã—ãªã„
         if (fabs(pushBack.x) == fabs(pushBack.y))
         {
             return;
         }
 
-        //Å‚à‹ß‚¢•ûŒü‚É‰Ÿ‚µ–ß‚·
+        //æœ€ã‚‚è¿‘ã„æ–¹å‘ã«æŠ¼ã—æˆ»ã™
         if (fabs(pushBack.x) < fabs(pushBack.y))
         {
-            // ‰Ÿ‚µ–ß‚µ‚ª‘å‚«‚·‚¬‚éê‡‚Í–³‹
+            // æŠ¼ã—æˆ»ã—ãŒå¤§ãã™ãã‚‹å ´åˆã¯ç„¡è¦–
             if (fabs(pushBack.x) >= tileRect.size.x)
             {
                 return;
             }
 
-            // ˆÚ“®•ûŒü‚Æ“¯‚¶•ûŒü‚É‰Ÿ‚µ–ß‚³‚È‚¢
+            // ç§»å‹•æ–¹å‘ã¨åŒã˜æ–¹å‘ã«æŠ¼ã—æˆ»ã•ãªã„
             if ((pushBack.x > 0.0f && issue.GetVelocity().x > 0.0f) ||
                 (pushBack.x < 0.0f && issue.GetVelocity().x < 0.0f))
             {
@@ -89,13 +89,13 @@ namespace col2d
         }
         else
         {
-            // ‰Ÿ‚µ–ß‚µ‚ª‘å‚«‚·‚¬‚éê‡‚Í–³‹
+            // æŠ¼ã—æˆ»ã—ãŒå¤§ãã™ãã‚‹å ´åˆã¯ç„¡è¦–
             if (fabs(pushBack.y) >= tileRect.size.y)
             {
                 return;
             }
 
-            // ˆÚ“®•ûŒü‚Æ“¯‚¶•ûŒü‚É‰Ÿ‚µ–ß‚³‚È‚¢
+            // ç§»å‹•æ–¹å‘ã¨åŒã˜æ–¹å‘ã«æŠ¼ã—æˆ»ã•ãªã„
             if ((pushBack.y > 0.0f && issue.GetVelocity().y > 0.0f) ||
                 (pushBack.y < 0.0f && issue.GetVelocity().y < 0.0f))
             {
@@ -109,7 +109,7 @@ namespace col2d
 
     void TileColliderResolver::ResolveOneWayTop(RectCollider& issue, const TileInfo& tileInfo)
     {
-        // ‰º•ûŒüi—‰º’†j‚Ì‚İ”»’è
+        // ä¸‹æ–¹å‘ï¼ˆè½ä¸‹ä¸­ï¼‰ã®ã¿åˆ¤å®š
         if (issue.GetVelocity().y <= 0.0f)
         {
             return;
@@ -118,29 +118,29 @@ namespace col2d
         const shape::Rect& tileRect = tileInfo.collider->GetRect();
         const shape::Rect& issueRect = issue.GetRect();
 
-        // …•½ƒI[ƒo[ƒ‰ƒbƒv‚È‚µ‚È‚ç–³‹
+        // æ°´å¹³ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—ãªã—ãªã‚‰ç„¡è¦–
         if (issueRect.Right() <= tileRect.Left() || issueRect.Left() >= tileRect.Right())
         {
             return;
         }
 
-        // N“ü‚µ‚Ä‚¢‚È‚¯‚ê‚Î–³‹
+        // ä¾µå…¥ã—ã¦ã„ãªã‘ã‚Œã°ç„¡è¦–
         if (issueRect.Bottom() <= tileRect.Top())
         {
             return;
         }
 
-        // ‘OƒtƒŒ[ƒ€‚ÅŠù‚É‘«ê“à•” / ‰º‘¤‚©‚çN“ü‚µ‚Ä‚¢‚½ê‡‚Í–³‹
+        // å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã§æ—¢ã«è¶³å ´å†…éƒ¨ / ä¸‹å´ã‹ã‚‰ä¾µå…¥ã—ã¦ã„ãŸå ´åˆã¯ç„¡è¦–
         float prevBottom = issueRect.Bottom() - issue.GetVelocity().y;
         if (prevBottom > tileRect.Top() + ONE_WAY_EPS)
         {
             return;
         }
 
-        // ‰Ÿ‚µ–ß‚µ—Ê
+        // æŠ¼ã—æˆ»ã—é‡
         float penetration = tileRect.Top() - issueRect.Bottom();
 
-        // ‘z’èŠO‚É‘å‚«‚·‚¬‚éN“ü‚Í–³‹
+        // æƒ³å®šå¤–ã«å¤§ãã™ãã‚‹ä¾µå…¥ã¯ç„¡è¦–
         if (fabs(penetration) >= tileRect.size.y)
         {
             return;

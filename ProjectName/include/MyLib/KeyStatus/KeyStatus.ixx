@@ -1,39 +1,39 @@
-export module MyLib.KeyStatus;
+ï»¿export module MyLib.KeyStatus;
 
 import <unordered_map>;
 
 export import MyLib.KeyStatus.KeyTag;
 
-export constexpr int8_t ON_RELEASE = 0x0001;      //–¢“ü—Í
-export constexpr int8_t RELEASING = 0x0002;       //–¢“ü—Í’†
-export constexpr int8_t ON_PRESS = 0x0004;        //“ü—Í
-export constexpr int8_t PRESSING = 0x0008;        //“ü—Í’†
+export constexpr int8_t ON_RELEASE = 0x0001;      //æœªå…¥åŠ›æ™‚
+export constexpr int8_t RELEASING = 0x0002;       //æœªå…¥åŠ›ä¸­
+export constexpr int8_t ON_PRESS = 0x0004;        //å…¥åŠ›æ™‚
+export constexpr int8_t PRESSING = 0x0008;        //å…¥åŠ›ä¸­
 
 /// <summary>
-/// “ü—ÍŠÖ˜A
+/// å…¥åŠ›é–¢é€£
 /// </summary>
 export namespace input
 {
     /// <summary>
-    /// “ü—Íî•ñ‚ÌŠÇ—
+    /// å…¥åŠ›æƒ…å ±ã®ç®¡ç†
     /// </summary>
     export class KeyStatus final
     {
     public:
         /// <summary>
-        /// ƒRƒs[‹Ö~—ß
+        /// ã‚³ãƒ”ãƒ¼ç¦æ­¢ä»¤
         /// </summary>
         KeyStatus(const KeyStatus&) = delete;
         KeyStatus(KeyStatus&&) = delete;
 
         /// <summary>
-        /// ‘ã“ü‹Ö~—ß
+        /// ä»£å…¥ç¦æ­¢ä»¤
         /// </summary>
         KeyStatus& operator=(const KeyStatus&) = delete;
         KeyStatus& operator=(KeyStatus&&) = delete;
 
         /// <summary>
-        /// ƒL[î•ñXV
+        /// ã‚­ãƒ¼æƒ…å ±æ›´æ–°
         /// </summary>
         static void UpdateKeyState()
         {
@@ -41,26 +41,26 @@ export namespace input
         }
 
         /// <summary>
-        /// ƒL[î•ñ”»’è
+        /// ã‚­ãƒ¼æƒ…å ±åˆ¤å®š
         /// </summary>
-        /// <param name="key">‘ÎÛƒL[</param>
-        /// <param name="state">‘ÎÛƒXƒe[ƒ^ƒX</param>
-        /// <returns>ˆê’v:true|•sˆê’v:false</returns>
+        /// <param name="key">å¯¾è±¡ã‚­ãƒ¼</param>
+        /// <param name="state">å¯¾è±¡ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
+        /// <returns>ä¸€è‡´:true|ä¸ä¸€è‡´:false</returns>
         [[nodiscard]] static bool CheckKey(const int key, const int state)
         {
             return Instance().CheckKeyImpl(key, state);
         }
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~KeyStatus() = default;
 
     private:
         /// <summary>
-        /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ•Ô‚·
+        /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
         /// </summary>
-        /// <returns>©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>è‡ªèº«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static KeyStatus& Instance()
         {
             static KeyStatus instance;
@@ -68,19 +68,19 @@ export namespace input
         }
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         KeyStatus();
 
-        // À‘•—pƒƒ\ƒbƒh
+        // å®Ÿè£…ç”¨ãƒ¡ã‚½ãƒƒãƒ‰
         void UpdateKeyStateImpl();
         bool CheckKeyImpl(const int key, const int state)
         {
-            //‰Ÿ‰º’†”»’èŒ‹‰Ê‚ğ•Ô‚·
+            //æŠ¼ä¸‹ä¸­åˆ¤å®šçµæœã‚’è¿”ã™
             return (keyData[key] & state);
         }
 
-        std::unordered_map<int, int> keyData;     //ƒL[î•ñ
+        std::unordered_map<int, int> keyData;     //ã‚­ãƒ¼æƒ…å ±
     };
 
 }

@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include <DxLib.h>
 
 module GameSystem.Window;

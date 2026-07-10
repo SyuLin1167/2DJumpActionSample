@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <json.hpp>
 
 export module Object.MapInfo;
@@ -9,24 +9,24 @@ using json = nlohmann::json;
 using namespace math;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgŠÖ˜A
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
 /// </summary>
 export namespace object
 {
     /// <summary>
-    /// ƒ}ƒbƒvî•ñ
+    /// ãƒãƒƒãƒ—æƒ…å ±
     /// </summary>
     export struct MapInfo
     {
-        Vector2<size_t> mapSize;    // ƒ}ƒbƒvƒTƒCƒY(ƒ^ƒCƒ‹”)
-        Vector2f tileSize; // ƒ^ƒCƒ‹ƒTƒCƒY(ƒsƒNƒZƒ‹”)
-        Vector2u chunkSize;               // ƒ`ƒƒƒ“ƒNƒTƒCƒY
+        Vector2<size_t> mapSize;    // ãƒãƒƒãƒ—ã‚µã‚¤ã‚º(ã‚¿ã‚¤ãƒ«æ•°)
+        Vector2f tileSize; // ã‚¿ã‚¤ãƒ«ã‚µã‚¤ã‚º(ãƒ”ã‚¯ã‚»ãƒ«æ•°)
+        Vector2u chunkSize;               // ãƒãƒ£ãƒ³ã‚¯ã‚µã‚¤ã‚º
 
         /// <summary>
-        /// JSON‚©‚çƒ}ƒbƒvî•ñ‚ğ¶¬
+        /// JSONã‹ã‚‰ãƒãƒƒãƒ—æƒ…å ±ã‚’ç”Ÿæˆ
         /// </summary>
-        /// <param name="j">JSONƒf[ƒ^</param>
-        /// <returns>ƒ}ƒbƒvî•ñ</returns>
+        /// <param name="j">JSONãƒ‡ãƒ¼ã‚¿</param>
+        /// <returns>ãƒãƒƒãƒ—æƒ…å ±</returns>
         MapInfo FromJson(const json& j)
         {
             mapSize.x = j.at("width").get<size_t>();

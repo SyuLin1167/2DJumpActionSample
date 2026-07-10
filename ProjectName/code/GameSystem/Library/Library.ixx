@@ -1,37 +1,37 @@
-export module GameSystem.Library;
+ï»¿export module GameSystem.Library;
 
 /// <summary>
-/// ƒVƒXƒeƒ€ŠÖ˜A
+/// ã‚·ã‚¹ãƒ†ãƒ é–¢é€£
 /// </summary>
 export namespace gameSystem
 {
     /// <summary>
-    /// ƒ‰ƒCƒuƒ‰ƒŠ‚ÌŠÇ—
+    /// ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ç®¡ç†
     /// </summary>
     export class Library final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Library();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Library();
 
         /// <summary>
-        /// ‰Šú‰»¬Œ÷”»’è
+        /// åˆæœŸåŒ–æˆåŠŸåˆ¤å®š
         /// </summary>
-        /// <returns>¬Œ÷:true|¸”s:false</returns>
+        /// <returns>æˆåŠŸ:true|å¤±æ•—:false</returns>
         const bool InitSuccess() const
         {
             return m_success;
         }
 
     private:
-        bool m_success;        //¬Œ÷ó‘Ô
+        bool m_success;        //æˆåŠŸçŠ¶æ…‹
     };
 }
 

@@ -1,47 +1,47 @@
-export module ColliderDef;
+ï»¿export module ColliderDef;
 
 import MyLib.Math.Vector2;
 
 using namespace math;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
     /// <summary>
-    /// ƒRƒ‰ƒCƒ_[‚Ìí—Ş
+    /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ç¨®é¡
     /// </summary>
     export enum class Type
     {
-        DYNAMIC,    // “®“I
-        STATIC      // Ã“I
+        DYNAMIC,    // å‹•çš„
+        STATIC      // é™çš„
     };
 
     /// <summary>
-    /// ƒRƒ‰ƒCƒ_[’è‹`
+    /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©
     /// </summary>
     /// <remarks>
-    /// ƒRƒ‰ƒCƒ_[‚Ì’è‹`î•ñ‚ğ•Û‚·‚é
+    /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®å®šç¾©æƒ…å ±ã‚’ä¿æŒã™ã‚‹
     /// </remarks>
     export struct ColliderDef final
     {
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ColliderDef() = default;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~ColliderDef() = default;
 
-        Type type{ Type::DYNAMIC }; // ƒRƒ‰ƒCƒ_[‚Ìí—Ş
-        Vector2f worldPos{ 0,0 };   // ƒ[ƒ‹ƒhÀ•W
-        Vector2f localPos{ 0,0 };   // ƒ[ƒJƒ‹À•W
-        bool shouldCCD;             // ˜A‘±Õ“ËŒŸo‚ğs‚¤‚©
-        bool isTrigger;             // ƒgƒŠƒK[‚©‚Ç‚¤‚©
-        bool isActive;              // —LŒø‚©‚Ç‚¤‚©
+        Type type{ Type::DYNAMIC }; // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®ç¨®é¡
+        Vector2f worldPos{ 0,0 };   // ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™
+        Vector2f localPos{ 0,0 };   // ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™
+        bool shouldCCD;             // é€£ç¶šè¡çªæ¤œå‡ºã‚’è¡Œã†ã‹
+        bool isTrigger;             // ãƒˆãƒªã‚¬ãƒ¼ã‹ã©ã†ã‹
+        bool isActive;              // æœ‰åŠ¹ã‹ã©ã†ã‹
     };
 }
 

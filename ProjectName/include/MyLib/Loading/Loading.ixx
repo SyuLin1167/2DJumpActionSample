@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <functional>
 #include <future>
 #include <atomic>
@@ -11,25 +11,25 @@ import <array>;
 import <vector>;
 
 /// <summary>
-/// ƒ^ƒXƒNŠÖ˜A
+/// ã‚¿ã‚¹ã‚¯é–¢é€£
 /// </summary>
 export namespace task
 {
     /// <summary>
-    /// “Ç‚İ‚İƒŒƒxƒ‹
+    /// èª­ã¿è¾¼ã¿ãƒ¬ãƒ™ãƒ«
     /// </summary>
     export enum Level :int16_t
     {
-        DATA,   // ƒf[ƒ^“Ç‚İ‚İ
-        INIT,   // ‰Šú‰»
-        GRAPH,  // ƒOƒ‰ƒtƒBƒbƒN
-        SOUND,  // ƒTƒEƒ“ƒh
-        FINAL,  // ÅI’²®
-        END,    // ƒŒƒxƒ‹I—¹ƒ}[ƒJ[
+        DATA,   // ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
+        INIT,   // åˆæœŸåŒ–
+        GRAPH,  // ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯
+        SOUND,  // ã‚µã‚¦ãƒ³ãƒ‰
+        FINAL,  // æœ€çµ‚èª¿æ•´
+        END,    // ãƒ¬ãƒ™ãƒ«çµ‚äº†ãƒãƒ¼ã‚«ãƒ¼
     };
 
     /// <summary>
-    /// ƒ[ƒfƒBƒ“ƒO‚ÉŠÖ‚·‚é‹@”\(”ñ“¯Šú)
+    /// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã«é–¢ã™ã‚‹æ©Ÿèƒ½(éåŒæœŸ)
     /// </summary>
     export class Loading final
     {
@@ -37,19 +37,19 @@ export namespace task
 
         struct Info
         {
-            std::atomic<int> totalTasks{ 0 };   // ‘ƒ^ƒXƒN”
-            std::atomic<int> finishTasks{ 0 };  // I—¹ƒ^ƒXƒN”
-            std::promise<void> promise;         // ‚±‚ÌƒŒƒxƒ‹‚ÌŠ®—¹ƒVƒOƒiƒ‹’Ê’m—p
-            std::shared_future<void> future;    // ‘¼ƒŒƒxƒ‹Š®—¹‘Ò‹@—p‹¤—Lƒtƒ…[ƒ`ƒƒ
-            std::vector<std::future<void>> tasks;   // ƒ^ƒXƒNŒQ
+            std::atomic<int> totalTasks{ 0 };   // ç·ã‚¿ã‚¹ã‚¯æ•°
+            std::atomic<int> finishTasks{ 0 };  // çµ‚äº†ã‚¿ã‚¹ã‚¯æ•°
+            std::promise<void> promise;         // ã“ã®ãƒ¬ãƒ™ãƒ«ã®å®Œäº†ã‚·ã‚°ãƒŠãƒ«é€šçŸ¥ç”¨
+            std::shared_future<void> future;    // ä»–ãƒ¬ãƒ™ãƒ«å®Œäº†å¾…æ©Ÿç”¨å…±æœ‰ãƒ•ãƒ¥ãƒ¼ãƒãƒ£
+            std::vector<std::future<void>> tasks;   // ã‚¿ã‚¹ã‚¯ç¾¤
 
             /// <summary>
-            /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+            /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
             /// </summary>
             Info() : future(promise.get_future().share()) {}
 
             /// <summary>
-            /// ƒŠƒZƒbƒg
+            /// ãƒªã‚»ãƒƒãƒˆ
             /// </summary>
             void Reset()
             {
@@ -62,17 +62,17 @@ export namespace task
         };
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Loading();
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Loading();
 
         /// <summary>
-        /// ƒ[ƒfƒBƒ“ƒOŠJn
+        /// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°é–‹å§‹
         /// </summary>
         void StartLoading()
         {
@@ -86,30 +86,30 @@ export namespace task
         }
 
         /// <summary>
-        /// ƒ^ƒXƒN‚Ì’Ç‰Á
+        /// ã‚¿ã‚¹ã‚¯ã®è¿½åŠ 
         /// </summary>
-        /// <param name="level">“Ç‚İ‚İƒŒƒxƒ‹</param>
-        /// <param name="task">’Ç‰Á‚·‚éƒ^ƒXƒN</param>
+        /// <param name="level">èª­ã¿è¾¼ã¿ãƒ¬ãƒ™ãƒ«</param>
+        /// <param name="task">è¿½åŠ ã™ã‚‹ã‚¿ã‚¹ã‚¯</param>
         void AddTask(Level level, std::function<void()> task);
 
         /// <summary>
-        /// i’»“x‚ÌŠÄ‹
+        /// é€²æ—åº¦ã®ç›£è¦–
         /// </summary>
         void WatchProgress();
 
         /// <summary>
-        /// ƒ[ƒfƒBƒ“ƒO’†‚©‚Ç‚¤‚©
+        /// ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ä¸­ã‹ã©ã†ã‹
         /// </summary>
-        /// <returns>ƒ[ƒfƒBƒ“ƒOó‹µ</returns>
+        /// <returns>ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°çŠ¶æ³</returns>
         bool IsLoading() const
         {
             return m_isLoading.load(std::memory_order_relaxed);
         }
 
         /// <summary>
-        /// Œ»İ‚Ìi’»“x
+        /// ç¾åœ¨ã®é€²æ—åº¦
         /// </summary>
-        /// <returns>i’»“x</returns>
+        /// <returns>é€²æ—åº¦</returns>
         float NowProgress() const
         {
             auto total = m_taskInfo[(int)Level::END].totalTasks.load();
@@ -118,9 +118,9 @@ export namespace task
         }
 
     private:
-        std::atomic<bool> m_isLoading;                         //ƒ[ƒfƒBƒ“ƒOó‹µ
-        std::array<Info, (int)Level::END + 1> m_taskInfo;   //ƒ^ƒXƒN
-        float m_progress;                         //i’»“x
+        std::atomic<bool> m_isLoading;                         //ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°çŠ¶æ³
+        std::array<Info, (int)Level::END + 1> m_taskInfo;   //ã‚¿ã‚¹ã‚¯
+        float m_progress;                         //é€²æ—åº¦
     };
 }
 

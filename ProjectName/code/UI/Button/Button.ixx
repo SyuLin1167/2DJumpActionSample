@@ -1,4 +1,4 @@
-export module UI.Button;
+ï»¿export module UI.Button;
 
 import <memory>;
 import <string>;
@@ -12,88 +12,88 @@ using namespace math;
 export namespace ui
 {
     /// <summary>
-    /// ƒ{ƒ^ƒ“’è‹`î•ñ
+    /// ãƒœã‚¿ãƒ³å®šç¾©æƒ…å ±
     /// </summary>
     export struct ButtonDef
     {
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="_text">ƒ{ƒ^ƒ“ƒeƒLƒXƒg</param>
-        /// <param name="_buttonRect">ƒ{ƒ^ƒ“‚ÌŒ`ó</param>
-        /// <param name="_color">ƒ{ƒ^ƒ“‚ÌF</param>
+        /// <param name="_text">ãƒœã‚¿ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ</param>
+        /// <param name="_buttonRect">ãƒœã‚¿ãƒ³ã®å½¢çŠ¶</param>
+        /// <param name="_color">ãƒœã‚¿ãƒ³ã®è‰²</param>
         ButtonDef(const std::string& _text, const shape::Rect& _buttonRect,const uint32_t _color)
             :text(_text)
             , buttonRect(_buttonRect)
             , color(_color)
         {}
 
-        std::string text;                   // ƒ{ƒ^ƒ“ƒeƒLƒXƒg
-        shape::Rect buttonRect;             // ƒ{ƒ^ƒ“‚ÌŒ`ó
-        uint32_t color;                     // ƒ{ƒ^ƒ“‚ÌF
-        std::function<void()> onHover;      // ƒzƒo[ƒCƒxƒ“ƒg
-        std::function<void()> onClicked;    // ƒNƒŠƒbƒNƒCƒxƒ“ƒg
-        std::function<void()> onReleased;   // ƒ{ƒ^ƒ“ƒNƒŠƒbƒNŒãƒCƒxƒ“ƒg
+        std::string text;                   // ãƒœã‚¿ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+        shape::Rect buttonRect;             // ãƒœã‚¿ãƒ³ã®å½¢çŠ¶
+        uint32_t color;                     // ãƒœã‚¿ãƒ³ã®è‰²
+        std::function<void()> onHover;      // ãƒ›ãƒãƒ¼æ™‚ã‚¤ãƒ™ãƒ³ãƒˆ
+        std::function<void()> onClicked;    // ã‚¯ãƒªãƒƒã‚¯æ™‚ã‚¤ãƒ™ãƒ³ãƒˆ
+        std::function<void()> onReleased;   // ãƒœã‚¿ãƒ³ã‚¯ãƒªãƒƒã‚¯å¾Œã‚¤ãƒ™ãƒ³ãƒˆ
     };
 
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚Ì‹@”\‚ğ’S“–
+    /// ãƒœã‚¿ãƒ³ã®æ©Ÿèƒ½ã‚’æ‹…å½“
     /// </summary>
     export class Button : public UIBase
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="def">ƒ{ƒ^ƒ“‚Ì’è‹`</param>
+        /// <param name="def">ãƒœã‚¿ãƒ³ã®å®šç¾©</param>
         Button(const ButtonDef* def);
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~Button();
 
         /// <summary>
-        /// ƒeƒLƒXƒg‚Ìİ’è
+        /// ãƒ†ã‚­ã‚¹ãƒˆã®è¨­å®š
         /// </summary>
-        /// <param name="text">İ’è‚·‚éƒeƒLƒXƒg</param>
+        /// <param name="text">è¨­å®šã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ</param>
         void SetText(const std::string& text)
         {
             m_def->text = text;
         }
 
         /// <summary>
-        /// XVˆ—
+        /// æ›´æ–°å‡¦ç†
         /// </summary>
         void Update() override;
 
         /// <summary>
-        /// •`‰æˆ—
+        /// æç”»å‡¦ç†
         /// </summary>
         void Draw() override;
 
         /// <summary>
-        /// ƒzƒo[ƒCƒxƒ“ƒg’Ç‰Á
+        /// ãƒ›ãƒãƒ¼æ™‚ã‚¤ãƒ™ãƒ³ãƒˆè¿½åŠ 
         /// </summary>
-        /// <param name="hoverEvent">’Ç‰Á‚·‚éƒCƒxƒ“ƒg</param>
+        /// <param name="hoverEvent">è¿½åŠ ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ</param>
         void SetOnMouseHover(std::function<void()> hoverEvent)
         {
             m_def->onHover = std::move(hoverEvent);
         }
 
         /// <summary>
-        /// ƒNƒŠƒbƒNƒCƒxƒ“ƒg
+        /// ã‚¯ãƒªãƒƒã‚¯æ™‚ã‚¤ãƒ™ãƒ³ãƒˆ
         /// </summary>
-        /// <param name="clickEvent">’Ç‰Á‚·‚éƒCƒxƒ“ƒg</param>
+        /// <param name="clickEvent">è¿½åŠ ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ</param>
         void SetOnClicked(std::function<void()> clickEvent)
         {
             m_def->onClicked = std::move(clickEvent);
         }
 
         /// <summary>
-        /// ƒNƒŠƒbƒN‰ğ•úƒCƒxƒ“ƒg
+        /// ã‚¯ãƒªãƒƒã‚¯è§£æ”¾æ™‚ã‚¤ãƒ™ãƒ³ãƒˆ
         /// </summary>
-        /// <param name="releaseEvent">’Ç‰Á‚·‚éƒCƒxƒ“ƒg</param>
+        /// <param name="releaseEvent">è¿½åŠ ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ</param>
         void SetOnReleased(std::function<void()> releaseEvent)
         {
             m_def->onReleased = std::move(releaseEvent);
@@ -101,16 +101,16 @@ export namespace ui
 
     private:
         /// <summary>
-        /// ƒNƒŠƒbƒNˆ—
+        /// ã‚¯ãƒªãƒƒã‚¯æ™‚å‡¦ç†
         /// </summary>
         void OnClick();
 
         /// <summary>
-        /// ƒNƒŠƒbƒN‰ğ•úˆ—
+        /// ã‚¯ãƒªãƒƒã‚¯è§£æ”¾æ™‚å‡¦ç†
         /// </summary>
         void OnReleased();
 
-        bool m_onClicked;                   // ƒNƒŠƒbƒNó‘Ô
-        std::unique_ptr<ButtonDef> m_def;   // ƒ{ƒ^ƒ“’è‹`
+        bool m_onClicked;                   // ã‚¯ãƒªãƒƒã‚¯çŠ¶æ…‹
+        std::unique_ptr<ButtonDef> m_def;   // ãƒœã‚¿ãƒ³å®šç¾©
     };
 }

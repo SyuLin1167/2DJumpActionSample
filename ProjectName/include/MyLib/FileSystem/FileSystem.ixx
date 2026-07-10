@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <Windows.h>
 #include <filesystem>
 #include <fstream>
@@ -15,31 +15,31 @@ export import MyLib.File.MemMapFile;
 namespace fs = std::filesystem;
 
 /// <summary>
-/// ƒtƒ@ƒCƒ‹ŠÖ˜A
+/// ãƒ•ã‚¡ã‚¤ãƒ«é–¢é€£
 /// </summary>
 export namespace file
 {
     /// <summary>
-    /// ƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚ğŠÇ—‚·‚é
+    /// ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã‚’ç®¡ç†ã™ã‚‹
     /// </summary>
     export class FileSystem final
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         FileSystem()
         {
-            // Àsƒtƒ@ƒCƒ‹‚ÌêŠ‚Ì‰Šú‰»
+            // å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ã®å ´æ‰€ã®åˆæœŸåŒ–
             InitExeDir();
 
-            // ƒŠƒ\[ƒXƒfƒBƒŒƒNƒgƒŠ‚Ìİ’è
+            // ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®è¨­å®š
             m_resourcesDir = m_exeDir / "resources";
             m_dataDir = m_resourcesDir / "data";
             m_assetsDir = m_resourcesDir / "assets";
             m_shaderDir = m_resourcesDir / "shader";
 
-            // ‰¼‘zƒpƒX‚ğƒ}ƒEƒ“ƒg
+            // ä»®æƒ³ãƒ‘ã‚¹ã‚’ãƒã‚¦ãƒ³ãƒˆ
             Mount("exe", m_exeDir);
             Mount("resources", m_resourcesDir);
             Mount("data", m_dataDir);
@@ -48,12 +48,12 @@ export namespace file
         }
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~FileSystem() = default;
 
         /// <summary>
-        /// Àsƒtƒ@ƒCƒ‹‚ÌêŠ‚Ì‰Šú‰»
+        /// å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ã®å ´æ‰€ã®åˆæœŸåŒ–
         /// </summary>
         void InitExeDir()
         {
@@ -63,33 +63,33 @@ export namespace file
         }
 
         /// <summary>
-        /// Àsƒtƒ@ƒCƒ‹‚ÌêŠ‚ğæ“¾
+        /// å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ã®å ´æ‰€ã‚’å–å¾—
         /// </summary>
-        /// <returns>Àsƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚éƒfƒBƒŒƒNƒgƒŠ‚ÌƒpƒX</returns>
+        /// <returns>å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ãƒ‘ã‚¹</returns>
         fs::path GetExeDir() const { return m_exeDir; }
 
         /// <summary>
-        /// resources ‚ÌêŠ
+        /// resources ã®å ´æ‰€
         /// </summary>
         fs::path GetResourcesDir() const { return m_resourcesDir; }
 
         /// <summary>
-        /// ƒf[ƒ^ƒtƒ@ƒCƒ‹‚ÌêŠ‚ğæ“¾
+        /// ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã®å ´æ‰€ã‚’å–å¾—
         /// </summary>
         fs::path GetDataDir() const { return m_dataDir; }
 
         /// <summary>
-        /// ƒAƒZƒbƒgƒfƒBƒŒƒNƒgƒŠ‚ÌêŠ‚ğæ“¾
+        /// ã‚¢ã‚»ãƒƒãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å ´æ‰€ã‚’å–å¾—
         /// </summary>
         fs::path GetAssetsDir() const { return m_assetsDir; }
 
         /// <summary>
-        /// ƒVƒF[ƒ_[ƒfƒBƒŒƒNƒgƒŠ‚ÌêŠ‚ğæ“¾
+        /// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å ´æ‰€ã‚’å–å¾—
         /// </summary>
         fs::path GetShaderDir() const { return m_shaderDir; }
 
         /// <summary>
-        /// ‰¼‘zƒpƒX‚Ìƒ}ƒEƒ“ƒg
+        /// ä»®æƒ³ãƒ‘ã‚¹ã®ãƒã‚¦ãƒ³ãƒˆ
         /// </summary>
         void Mount(const std::string& scheme, const fs::path& root)
         {
@@ -97,21 +97,21 @@ export namespace file
         }
 
         /// <summary>
-        /// ‰¼‘zƒpƒX‚Ì‰ğŒˆ
+        /// ä»®æƒ³ãƒ‘ã‚¹ã®è§£æ±º
         /// </summary>
         fs::path Resolve(std::string_view path) const
         {
-            // ƒXƒL[ƒ€‚ÌˆÊ’u‚ğŒŸõ
+            // ã‚¹ã‚­ãƒ¼ãƒ ã®ä½ç½®ã‚’æ¤œç´¢
             auto pos = path.find("://");
             if (pos == std::string_view::npos) {
                 return fs::path(std::string(path));
             }
 
-            // ƒXƒL[ƒ€‚ÆƒTƒuƒpƒX‚É•ªŠ„
+            // ã‚¹ã‚­ãƒ¼ãƒ ã¨ã‚µãƒ–ãƒ‘ã‚¹ã«åˆ†å‰²
             std::string scheme{ path.substr(0, pos) };
             std::string sub{ path.substr(pos + 3) };
             
-            // ƒ}ƒEƒ“ƒgƒ|ƒCƒ“ƒg‚ğ’T‚·
+            // ãƒã‚¦ãƒ³ãƒˆãƒã‚¤ãƒ³ãƒˆã‚’æ¢ã™
             auto it = m_mounts.find(scheme);
             if (it == m_mounts.end()) {
                 return fs::path(std::string(path));
@@ -120,7 +120,7 @@ export namespace file
         }
 
         /// <summary>
-        /// ƒfƒBƒŒƒNƒgƒŠ‚ÌÄ‹AƒRƒs[
+        /// ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å†å¸°ã‚³ãƒ”ãƒ¼
         /// </summary>
         void CopyDir(fs::path from, fs::path to)
         {
@@ -131,19 +131,19 @@ export namespace file
             }
             catch (const fs::filesystem_error& e)
             {
-                // ƒƒOo—ÍiDxLib‚È‚ç printfDx ‚Æ‚©‚Å‚àOKj
+                // ãƒ­ã‚°å‡ºåŠ›ï¼ˆDxLibãªã‚‰ printfDx ã¨ã‹ã§ã‚‚OKï¼‰
                 throw e;
             }
         }
 
-        JsonIO jsonIO;              // Json“üo—Í
-        CsvIO csvIO;                // CSV“üo—Í
+        JsonIO jsonIO;              // Jsonå…¥å‡ºåŠ›
+        CsvIO csvIO;                // CSVå…¥å‡ºåŠ›
     private:
-        fs::path m_exeDir;          // Àsƒtƒ@ƒCƒ‹ƒfƒBƒŒƒNƒgƒŠ
-        fs::path m_resourcesDir;    // resources ƒfƒBƒŒƒNƒgƒŠ
-        fs::path m_dataDir;         // data ƒfƒBƒŒƒNƒgƒŠ(resources ”z‰º)
-        fs::path m_assetsDir;       // assets ƒfƒBƒŒƒNƒgƒŠ(resources ”z‰º)
-        fs::path m_shaderDir;       // shader ƒfƒBƒŒƒNƒgƒŠ(resources ”z‰º)
-        std::unordered_map<std::string, fs::path> m_mounts; // ƒ}ƒEƒ“ƒgƒ|ƒCƒ“ƒg
+        fs::path m_exeDir;          // å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+        fs::path m_resourcesDir;    // resources ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+        fs::path m_dataDir;         // data ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª(resources é…ä¸‹)
+        fs::path m_assetsDir;       // assets ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª(resources é…ä¸‹)
+        fs::path m_shaderDir;       // shader ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª(resources é…ä¸‹)
+        std::unordered_map<std::string, fs::path> m_mounts; // ãƒã‚¦ãƒ³ãƒˆãƒã‚¤ãƒ³ãƒˆ
     };
 }

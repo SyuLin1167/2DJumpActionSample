@@ -1,4 +1,4 @@
-export module GameSystem.Camera;
+ï»¿export module GameSystem.Camera;
 
 import MyLib.Math.Vector2;
 import GameSystem.Window;
@@ -9,15 +9,15 @@ using namespace math;
 export namespace gameSystem
 {
     /// <summary>
-    /// 2DƒJƒƒ‰
+    /// 2Dã‚«ãƒ¡ãƒ©
     /// </summary>
     export class Camera final
     {
     public:
         /// <summary>
-        /// ƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+        /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
         /// </summary>
-        /// <returns>ƒJƒƒ‰ƒCƒ“ƒXƒ^ƒ“ƒX</returns>
+        /// <returns>ã‚«ãƒ¡ãƒ©ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</returns>
         static Camera& Instance()
         {
             static Camera inst;
@@ -25,18 +25,18 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// ’Ç”öƒ^[ƒQƒbƒgİ’è
+        /// è¿½å°¾ã‚¿ãƒ¼ã‚²ãƒƒãƒˆè¨­å®š
         /// </summary>
-        /// <param name="target">’Ç”ö‘ÎÛ‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg</param>
+        /// <param name="target">è¿½å°¾å¯¾è±¡ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
         void SetTarget(Vector2f* target)
         {
             m_target = target;
         }
 
         /// <summary>
-        /// ƒ[ƒ‹ƒh‘S‘ÌƒTƒCƒYİ’è
+        /// ãƒ¯ãƒ¼ãƒ«ãƒ‰å…¨ä½“ã‚µã‚¤ã‚ºè¨­å®š
         /// </summary>
-        /// <param name="worldSize">ƒ[ƒ‹ƒhƒTƒCƒY</param>
+        /// <param name="worldSize">ãƒ¯ãƒ¼ãƒ«ãƒ‰ã‚µã‚¤ã‚º</param>
         void SetWorldSize(const Vector2f& worldSize= Vector2f(1920.0f, 1080.0f))
         {
             m_worldSize = worldSize;
@@ -44,12 +44,12 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// XV
+        /// æ›´æ–°
         /// </summary>
         void Update();
 
         /// <summary>
-        /// Œ»İ‚ÌƒIƒtƒZƒbƒg
+        /// ç¾åœ¨ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
         /// </summary>
         Vector2f GetOffset() const
         {
@@ -57,21 +57,21 @@ export namespace gameSystem
         }
 
         /// <summary>
-        /// ƒ[ƒ‹ƒh¨ƒXƒNƒŠ[ƒ“À•W•ÏŠ·
+        /// ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™å¤‰æ›
         /// </summary>
-        /// <param name="worldPos">ƒ[ƒ‹ƒhÀ•W</param>
-        /// <returns>ƒXƒNƒŠ[ƒ“À•W</returns>
+        /// <param name="worldPos">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™</param>
+        /// <returns>ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™</returns>
         Vector2f WorldToScreen(const Vector2f& worldPos) const
         {
             return worldPos - m_pos;
         }
 
         /// <summary>
-        /// ƒ[ƒ‹ƒh¨ƒXƒNƒŠ[ƒ“À•W•ÏŠ·
+        /// ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™å¤‰æ›
         /// </summary>
-        /// <param name="x">ƒ[ƒ‹ƒhÀ•WX</param>
-        /// <param name="y">ƒ[ƒ‹ƒhÀ•WY</param>
-        /// <returns>ƒXƒNƒŠ[ƒ“À•W</returns>
+        /// <param name="x">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™X</param>
+        /// <param name="y">ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™Y</param>
+        /// <returns>ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™</returns>
         Vector2f WorldToScreen(float x, float y) const
         {
             return Vector2f(x, y) - m_pos;
@@ -79,18 +79,18 @@ export namespace gameSystem
 
     private:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Camera();
 
         /// <summary>
-        /// ˆÊ’uƒNƒ‰ƒ“ƒv
+        /// ä½ç½®ã‚¯ãƒ©ãƒ³ãƒ—
         /// </summary>
         void ClampPosition();
 
-        Vector2f* m_target;           // ’Ç”öƒ^[ƒQƒbƒg
-        Vector2f m_pos;              // ƒJƒƒ‰ˆÊ’uiƒIƒtƒZƒbƒgj
-        Vector2f m_worldSize;        // ƒ[ƒ‹ƒh‘S‘ÌƒTƒCƒY
-        float m_followStrength;      // ’Ç”ö‹­“x
+        Vector2f* m_target;           // è¿½å°¾ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+        Vector2f m_pos;              // ã‚«ãƒ¡ãƒ©ä½ç½®ï¼ˆã‚ªãƒ•ã‚»ãƒƒãƒˆï¼‰
+        Vector2f m_worldSize;        // ãƒ¯ãƒ¼ãƒ«ãƒ‰å…¨ä½“ã‚µã‚¤ã‚º
+        float m_followStrength;      // è¿½å°¾å¼·åº¦
     };
 }

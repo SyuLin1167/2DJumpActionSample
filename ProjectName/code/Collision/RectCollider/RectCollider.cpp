@@ -1,4 +1,4 @@
-module Collider.RectCollider;
+ï»¿module Collider.RectCollider;
 import <memory>;
 import MyLib.Math.Vector2;
 import MyLib.Shape.Circle;
@@ -14,14 +14,14 @@ namespace col2d
         , m_baseRect()
         , m_sweptRect()
     {
-        // ƒrƒWƒ^[‚Ì‰Šú‰»
+        // ãƒ“ã‚¸ã‚¿ãƒ¼ã®åˆæœŸåŒ–
         m_visitor = std::make_unique<RectColliderVisitor>(*this);
 
-        // ‹éŒ`‚Ì‰Šú‰»
+        // çŸ©å½¢ã®åˆæœŸåŒ–
         m_baseRect.pos = m_colDef->localPos;
         m_baseRect.size = size;
 
-        // ƒXƒC[ƒv‹éŒ`‚Ì‰Šú‰»
+        // ã‚¹ã‚¤ãƒ¼ãƒ—çŸ©å½¢ã®åˆæœŸåŒ–
         m_sweptRect.pos = m_colDef->localPos;
         m_sweptRect.size = m_baseRect.size;
     }
@@ -30,67 +30,67 @@ namespace col2d
 
     bool RectCollider::IsColliding(const Vector2f& point)
     {
-        // ƒXƒC[ƒv‹éŒ`‚ğg—p‚µ‚ÄÕ“Ë”»’è
+        // ã‚¹ã‚¤ãƒ¼ãƒ—çŸ©å½¢ã‚’ä½¿ç”¨ã—ã¦è¡çªåˆ¤å®š
         if (m_colDef->shouldCCD)
         {
             return IsCollidingSegmentPoint(point);
         }
 
-        //’Êí‚ÌÕ“Ë”»’è
+        //é€šå¸¸ã®è¡çªåˆ¤å®š
         return m_baseRect.IsInside(point);
     }
 
     bool RectCollider::IsCollidingSegmentPoint(const Vector2f& point)
     {
-        // ƒXƒC[ƒv‹éŒ`‚ğg—p‚µ‚ÄÕ“Ë”»’è
+        // ã‚¹ã‚¤ãƒ¼ãƒ—çŸ©å½¢ã‚’ä½¿ç”¨ã—ã¦è¡çªåˆ¤å®š
         CalcSweptRect(m_velocity);
         return m_sweptRect.IsInside(point);
     }
 
     bool RectCollider::IsColliding(const CircleCollider& circle)
     {
-        // ˜A‘±Õ“ËŒŸo‚ğs‚¤ê‡
+        // é€£ç¶šè¡çªæ¤œå‡ºã‚’è¡Œã†å ´åˆ
         if (m_colDef->shouldCCD || circle.GetColliderDef()->shouldCCD)
         {
             return IsCollidingSegmentCircle(circle);
         }
 
 
-        // ’†S‚©‚çÅ‚à‹ß‚¢•Ó‚ğ‹‚ß‚é
+        // ä¸­å¿ƒã‹ã‚‰æœ€ã‚‚è¿‘ã„è¾ºã‚’æ±‚ã‚ã‚‹
         Vector2f nearest
         {
             std::clamp(circle.GetCircle().center.x, m_baseRect.Left(), m_baseRect.Right()),
             std::clamp(circle.GetCircle().center.y, m_baseRect.Top(), m_baseRect.Bottom())
         };
 
-        // ’†S‚Æ•Ó‚Ì‹——£‚ğŒvZ‚µ‚Ä”»’è
+        // ä¸­å¿ƒã¨è¾ºã®è·é›¢ã‚’è¨ˆç®—ã—ã¦åˆ¤å®š
         Vector2f diff = circle.GetCircle().center - nearest;
         return diff.LengthSq() <= (circle.GetCircle().radius * circle.GetCircle().radius);
     }
 
     bool RectCollider::IsColliding(const RectCollider& other)
     {
-        // ˜A‘±Õ“ËŒŸo‚ğs‚¤ê‡
+        // é€£ç¶šè¡çªæ¤œå‡ºã‚’è¡Œã†å ´åˆ
         if (m_colDef->shouldCCD || other.GetColliderDef()->shouldCCD)
         {
             return IsCollidingSegmentRect(other);
         }
 
-        // ’Êí‚Ì‹éŒ`Õ“Ë”»’è
+        // é€šå¸¸ã®çŸ©å½¢è¡çªåˆ¤å®š
         return m_baseRect.AABB(other.GetRect());
     }
 
     bool RectCollider::IsCollidingSegmentRect(const RectCollider& other)
     {
-        // ‘Š‘Î‘¬“x‚ğŒvZ
+        // ç›¸å¯¾é€Ÿåº¦ã‚’è¨ˆç®—
         Vector2f vRel = m_velocity - other.GetVelocity();
         if(vRel.LengthSq() < EPSILON)
         {
-            // ‘Š‘Î‘¬“x‚ª‚Ù‚Úƒ[ƒ‚Ìê‡A’Êí‚ÌAABB”»’è‚ğs‚¤
+            // ç›¸å¯¾é€Ÿåº¦ãŒã»ã¼ã‚¼ãƒ­ã®å ´åˆã€é€šå¸¸ã®AABBåˆ¤å®šã‚’è¡Œã†
             return m_baseRect.AABB(other.GetRect());
         }
 
-        // ƒXƒC[ƒv‹éŒ`‚ğg—p‚µ‚ÄÕ“Ë”»’è
+        // ã‚¹ã‚¤ãƒ¼ãƒ—çŸ©å½¢ã‚’ä½¿ç”¨ã—ã¦è¡çªåˆ¤å®š
         CalcSweptRect(vRel);
         return m_sweptRect.AABB(other.GetRect());
 
@@ -98,17 +98,17 @@ namespace col2d
 
     bool RectCollider::IsCollidingSegmentCircle(const CircleCollider& other)
     {
-        // ƒXƒC[ƒv‹éŒ`‚ğg—p‚µ‚ÄÕ“Ë”»’è
+        // ã‚¹ã‚¤ãƒ¼ãƒ—çŸ©å½¢ã‚’ä½¿ç”¨ã—ã¦è¡çªåˆ¤å®š
         Vector2f vRel = m_velocity - other.GetVelocity();
         CalcSweptRect(vRel);
 
-        // ’†S‚©‚çÅ‚à‹ß‚¢•Ó‚ğ‹‚ß‚é
+        // ä¸­å¿ƒã‹ã‚‰æœ€ã‚‚è¿‘ã„è¾ºã‚’æ±‚ã‚ã‚‹
         Vector2f nearest
         {
             std::clamp(other.GetCircle().center.x, m_sweptRect.Left(), m_sweptRect.Right()),
             std::clamp(other.GetCircle().center.y, m_sweptRect.Top(), m_sweptRect.Bottom())
         };
-        // ’†S‚Æ•Ó‚Ì‹——£‚ğŒvZ‚µ‚Ä”»’è
+        // ä¸­å¿ƒã¨è¾ºã®è·é›¢ã‚’è¨ˆç®—ã—ã¦åˆ¤å®š
         Vector2f diff = other.GetCircle().center - nearest;
         return diff.LengthSq() <= (other.GetCircle().radius * other.GetCircle().radius);
     }

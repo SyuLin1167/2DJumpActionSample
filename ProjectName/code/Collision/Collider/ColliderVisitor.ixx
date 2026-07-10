@@ -1,58 +1,58 @@
-export module ColliderVisitor;
+ï»¿export module ColliderVisitor;
 import ColliderDef;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
-    // ‘O•ûéŒ¾
+    // å‰æ–¹å®£è¨€
     export class RectCollider;
     export class CircleCollider;
 
     /// <summary>
-    /// ƒRƒ‰ƒCƒ_[ƒrƒWƒ^[
+    /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒ“ã‚¸ã‚¿ãƒ¼
     /// </summary>
     export class ColliderVisitor
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ColliderVisitor() = default;
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         virtual ~ColliderVisitor() = default;
 
         /// <summary>
-        /// ‹éŒ`ƒRƒ‰ƒCƒ_[‚Ö–K–â
+        /// çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã¸è¨ªå•
         /// </summary>
         virtual void Visit(RectCollider& target) {};
 
         /// <summary>
-        /// ‰~Œ`ƒRƒ‰ƒCƒ_[‚Ö–K–â
+        /// å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã¸è¨ªå•
         /// </summary>
         virtual void Visit(CircleCollider& target) {};
 
         /// <summary>
-        /// Õ“ËŒã‚Ì‹¤’Êˆ—
+        /// è¡çªå¾Œã®å…±é€šå‡¦ç†
         /// </summary>
-        ///@<typeparam name="Issue">Õ“Ë‚ğ‹N‚±‚µ‚½ƒRƒ‰ƒCƒ_[‚ÌŒ^</typeparam>
-        ///@<typeparam name="Target">Õ“Ë‘Šè‚ÌƒRƒ‰ƒCƒ_[‚ÌŒ^</typeparam>
-        ///@<typeparam name="Resolve">‰ğŒˆˆ—‚ÌŒ^</typeparam>
+        ///ã€€<typeparam name="Issue">è¡çªã‚’èµ·ã“ã—ãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®å‹</typeparam>
+        ///ã€€<typeparam name="Target">è¡çªç›¸æ‰‹ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®å‹</typeparam>
+        ///ã€€<typeparam name="Resolve">è§£æ±ºå‡¦ç†ã®å‹</typeparam>
         template <class Issue, class Target, class Resolve>
         bool HandleContact(Issue& issue, Target& target, Resolve& resolve)
         {
             m_hadContact = true;
 
-            // ©g‚ªÃ“I‚È‚ç‰Ÿ‚µ–ß‚µ‚Ís‚í‚È‚¢iƒ‹[ƒvI—¹j
+            // è‡ªèº«ãŒé™çš„ãªã‚‰æŠ¼ã—æˆ»ã—ã¯è¡Œã‚ãªã„ï¼ˆãƒ«ãƒ¼ãƒ—çµ‚äº†ï¼‰
             if (issue.GetColliderDef()->type == Type::STATIC)
             {
                 return false;
             }
 
-            // ‚Ç‚¿‚ç‚©‚ªƒgƒŠƒK[‚È‚ç‰Ÿ‚µ–ß‚µ‚Ís‚í‚È‚¢
+            // ã©ã¡ã‚‰ã‹ãŒãƒˆãƒªã‚¬ãƒ¼ãªã‚‰æŠ¼ã—æˆ»ã—ã¯è¡Œã‚ãªã„
             if (!issue.GetColliderDef()->isTrigger || !target.GetColliderDef()->isTrigger)
             {
                 resolve.Resolve(issue, target);
@@ -62,6 +62,6 @@ export namespace col2d
         }
 
     protected:
-        bool m_hadContact; // Õ“Ë‚ª”­¶‚µ‚½‚©‚Ç‚¤‚©
+        bool m_hadContact; // è¡çªãŒç™ºç”Ÿã—ãŸã‹ã©ã†ã‹
     };
 }

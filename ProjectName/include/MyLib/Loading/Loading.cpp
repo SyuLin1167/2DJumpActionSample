@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <thread>
 #include <future>
 #include <chrono>
@@ -11,28 +11,28 @@ namespace task
         : m_progress(0.0f)
         , m_isLoading()
     {
-        // ˆ—‚È‚µ
+        // å‡¦ç†ãªã—
     }
 
     Loading::~Loading()
     {
-        // ˆ—‚È‚µ
+        // å‡¦ç†ãªã—
     }
 
     void Loading::AddTask(Level level, std::function<void()> task)
     {
-        // ƒ^ƒXƒN‘”‚ğ‰ÁZ
+        // ã‚¿ã‚¹ã‚¯ç·æ•°ã‚’åŠ ç®—
         auto& endInfo = m_taskInfo[(int)Level::END];
         endInfo.totalTasks.fetch_add(1, std::memory_order_relaxed);
 
-        // ƒŒƒxƒ‹•Êƒ^ƒXƒN‘”‚ğ‰ÁZ
+        // ãƒ¬ãƒ™ãƒ«åˆ¥ã‚¿ã‚¹ã‚¯ç·æ•°ã‚’åŠ ç®—
         auto& info = m_taskInfo[(int)level];
         info.totalTasks.fetch_add(1, std::memory_order_relaxed);
 
-        // ƒ^ƒXƒN‚Ì’Ç‰ÁÀs
+        // ã‚¿ã‚¹ã‚¯ã®è¿½åŠ å®Ÿè¡Œ
         m_taskInfo[(int)level].tasks.emplace_back(std::async(std::launch::async, [this, level, task]() {
 
-            // ‘OƒŒƒxƒ‹‚ÌŠ®—¹‘Ò‚¿
+            // å‰ãƒ¬ãƒ™ãƒ«ã®å®Œäº†å¾…ã¡
             if (level != Level::DATA)
             {
                 int prevIndex = (int)level - 1;
@@ -48,24 +48,24 @@ namespace task
                 }
             }
 
-            // ƒ^ƒXƒNÀs
+            // ã‚¿ã‚¹ã‚¯å®Ÿè¡Œ
             task();
 
-            // ‘S‘ÌƒŒƒxƒ‹‚ÌŠ®—¹”‚ğ‰ÁZ
+            // å…¨ä½“ãƒ¬ãƒ™ãƒ«ã®å®Œäº†æ•°ã‚’åŠ ç®—
             auto& endInf = m_taskInfo[(int)Level::END];
             endInf.finishTasks.fetch_add(1, std::memory_order_relaxed);
 
-            // ƒŒƒxƒ‹•Ê‚ÌŠ®—¹”‚ğ‰ÁZ
+            // ãƒ¬ãƒ™ãƒ«åˆ¥ã®å®Œäº†æ•°ã‚’åŠ ç®—
             auto& info = m_taskInfo[(int)level];
             int finish = info.finishTasks.fetch_add(1, std::memory_order_relaxed) + 1;
 
-            // ƒŒƒxƒ‹Š®—¹‚ÅƒVƒOƒiƒ‹
+            // ãƒ¬ãƒ™ãƒ«å®Œäº†ã§ã‚·ã‚°ãƒŠãƒ«
             if (finish == info.totalTasks.load(std::memory_order_relaxed))
             {
                 info.promise.set_value();
             }
 
-            // ‘SƒŒƒxƒ‹Š®—¹‚Åƒtƒ‰ƒO‚ğ‰º‚ë‚·
+            // å…¨ãƒ¬ãƒ™ãƒ«å®Œäº†ã§ãƒ•ãƒ©ã‚°ã‚’ä¸‹ã‚ã™
             if (endInf.finishTasks.load(std::memory_order_relaxed) == endInf.totalTasks.load(std::memory_order_relaxed))
             {
                 m_isLoading.store(false, std::memory_order_relaxed);
@@ -75,15 +75,15 @@ namespace task
 
     void Loading::WatchProgress()
     {
-        // ŠÄ‹—pƒ^ƒXƒN‚ª–¢“o˜^‚È‚ç“o˜^
+        // ç›£è¦–ç”¨ã‚¿ã‚¹ã‚¯ãŒæœªç™»éŒ²ãªã‚‰ç™»éŒ²
         if (m_taskInfo[Level::END].tasks.empty())
         {
-            // ŠÄ‹—pƒ^ƒXƒN‚ğ’Ç‰Á
+            // ç›£è¦–ç”¨ã‚¿ã‚¹ã‚¯ã‚’è¿½åŠ 
             m_taskInfo[Level::END].tasks.emplace_back(std::async(std::launch::async, [this]() {
                 auto& info = m_taskInfo[Level::END];
                 using namespace std::chrono_literals;
 
-                // ‘Sƒ^ƒXƒNI—¹‚Ü‚Åi’»‚ğXV
+                // å…¨ã‚¿ã‚¹ã‚¯çµ‚äº†ã¾ã§é€²æ—ã‚’æ›´æ–°
                 while (info.finishTasks.load(std::memory_order_relaxed) < info.totalTasks.load(std::memory_order_relaxed))
                 {
                     const auto total = std::max(1, info.totalTasks.load(std::memory_order_relaxed));

@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include <DxLib.h>
 
 export module MyLib.KeyStatus.KeyTag;
@@ -7,21 +7,21 @@ import <vector>;
 import <memory>;
 
 /// <summary>
-/// ƒQ[ƒ€‚Ì‘€ì‚É•K—v‚ÈƒL[
+/// ã‚²ãƒ¼ãƒ ã®æ“ä½œã«å¿…è¦ãªã‚­ãƒ¼
 /// </summary>
 export constexpr struct KeyType
 {
-    const int ESCAPE = KEY_INPUT_ESCAPE;    //ƒGƒXƒP[ƒvƒL[
-    const int E = KEY_INPUT_E;              //EƒL[
-    const int R = KEY_INPUT_R;              //RƒL[
-    const int SPACE = KEY_INPUT_SPACE;      //SPACEƒL[
-    const int LEFT = KEY_INPUT_LEFT;        //¶ƒL[
-    const int RIGHT = KEY_INPUT_RIGHT;      //‰EƒL[
+    const int ESCAPE = KEY_INPUT_ESCAPE;    //ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã‚­ãƒ¼
+    const int E = KEY_INPUT_E;              //Eã‚­ãƒ¼
+    const int R = KEY_INPUT_R;              //Rã‚­ãƒ¼
+    const int SPACE = KEY_INPUT_SPACE;      //SPACEã‚­ãƒ¼
+    const int LEFT = KEY_INPUT_LEFT;        //å·¦ã‚­ãƒ¼
+    const int RIGHT = KEY_INPUT_RIGHT;      //å³ã‚­ãƒ¼
 }keyType;
 
 
 /// <summary>
-/// ƒ‹[ƒv§Œä—pƒL[ˆê——
+/// ãƒ«ãƒ¼ãƒ—åˆ¶å¾¡ç”¨ã‚­ãƒ¼ä¸€è¦§
 /// </summary>
 export const std::vector<int> KEYS =
 {

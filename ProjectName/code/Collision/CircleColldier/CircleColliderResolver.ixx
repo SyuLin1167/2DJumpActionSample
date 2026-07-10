@@ -1,15 +1,15 @@
-export module Collider.CircleColliderResolver;
+ï»¿export module Collider.CircleColliderResolver;
 import MyLib.Math.Vector2;
 import Collider.RectCollider;
 import Collider.CircleCollider;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
     /// <summary>
-    /// ‰~Œ`ƒRƒ‰ƒCƒ_[‰ğŒˆ
+    /// å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼è§£æ±º
     /// </summary>
     export class CircleColliderResolver
     {
@@ -18,17 +18,17 @@ export namespace col2d
         ~CircleColliderResolver() = default;
 
         /// <summary>
-        /// ‰ğŒˆˆ—
+        /// è§£æ±ºå‡¦ç†
         /// </summary>
-        /// <param name="issue">‰ğŒˆ‘ÎÛ‚Ì‰~Œ`ƒRƒ‰ƒCƒ_[</param>
-        /// <param name="other">‘¼‚Ì‹éŒ`ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="issue">è§£æ±ºå¯¾è±¡ã®å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <param name="other">ä»–ã®çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         void Resolve(CircleCollider& issue, const RectCollider& other);
 
         /// <summary>
-        /// ‰ğŒˆˆ—
+        /// è§£æ±ºå‡¦ç†
         /// </summary>
-        /// <param name="issue">‰ğŒˆ‘ÎÛ‚Ì‰~Œ`ƒRƒ‰ƒCƒ_[</param>
-        /// <param name="other">‘¼‚Ì‰~Œ`ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="issue">è§£æ±ºå¯¾è±¡ã®å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <param name="other">ä»–ã®å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         void Resolve(CircleCollider& issue, const CircleCollider& other);
     };
 }

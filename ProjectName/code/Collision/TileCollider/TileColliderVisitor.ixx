@@ -1,53 +1,53 @@
-export module Collider.TileColliderVisitor;
+ï»¿export module Collider.TileColliderVisitor;
 export import ColliderVisitor;
 import Collider.TileColliderResolver;
 
 export namespace col2d
 {
-    // ‘O•ûéŒ¾
+    // å‰æ–¹å®£è¨€
     class TileCollider;
     class CircleCollider;
 
     /// <summary>
-    /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[ƒrƒWƒ^[
+    /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒ“ã‚¸ã‚¿ãƒ¼
     /// </summary>
     export class TileColliderVisitor final : public ColliderVisitor
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="issue">–K–â‚·‚éƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="issue">è¨ªå•ã™ã‚‹ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         TileColliderVisitor(TileCollider& issue);
 
-        // ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ííœ
+        // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯å‰Šé™¤
         TileColliderVisitor() = delete;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~TileColliderVisitor() = default;
 
         /// <summary>
-        /// ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ğ–K–â
+        /// ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è¨ªå•
         /// </summary>
-        /// <param name="collider">–K–â‚·‚éƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="collider">è¨ªå•ã™ã‚‹ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         void Visit(RectCollider& collider) override;
 
         /// <summary>
-        /// ‰~Œ`ƒRƒ‰ƒCƒ_[‚ğ–K–â
+        /// å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è¨ªå•
         /// </summary>
-        /// <param name="target">–K–â‚·‚é‰~Œ`ƒRƒ‰ƒCƒ_[</param>
+        /// <param name="target">è¨ªå•ã™ã‚‹å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
         void Visit(CircleCollider& target) override
         {
-            // ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚Í‰~Œ`ƒRƒ‰ƒCƒ_[‚É‘Î‰‚µ‚Ä‚¢‚È‚¢‚½‚ßAˆ—‚È‚µ
+            // ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã¯å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã«å¯¾å¿œã—ã¦ã„ãªã„ãŸã‚ã€å‡¦ç†ãªã—
         }
 
-        // Õ“Ëƒ^ƒCƒ‹–ˆ‚Éˆ—
+        // è¡çªã‚¿ã‚¤ãƒ«æ¯ã«å‡¦ç†
         void ProcessCollisionTiles(RectCollider& collider);
 
     private:
-        TileCollider& m_issue;              // –K–â‚·‚éƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚ÌQÆ
-        TileColliderResolver m_resolver;    // ƒ^ƒCƒ‹ƒRƒ‰ƒCƒ_[‚Ì‰ğŒˆˆ—‚ğs‚¤ƒŠƒ]ƒ‹ƒo[
+        TileCollider& m_issue;              // è¨ªå•ã™ã‚‹ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®å‚ç…§
+        TileColliderResolver m_resolver;    // ã‚¿ã‚¤ãƒ«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®è§£æ±ºå‡¦ç†ã‚’è¡Œã†ãƒªã‚¾ãƒ«ãƒãƒ¼
     };
 }

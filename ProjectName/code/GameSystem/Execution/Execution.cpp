@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include <Dxlib.h>
 #include <filesystem>
 
@@ -17,23 +17,16 @@ namespace gameSystem
 {
     Execution::Execution()
     {
-#ifdef DEBUG
+        AppCtx::Activate();
+
         //リソースフォルダをデバッグ・リリースフォルダへコピー
-        fs::path resourcesSrc = AppCtx::FileSystem().GetResourcesDir();
-
-        // Debugフォルダへコピー
-        fs::path resourcesDst = AppCtx::FileSystem().GetResourcesDir() / "../Debug/resources";
+        fs::path resourcesSrc = AppCtx::FileSystem().GetExeDir() / "../../resources";
+        fs::path resourcesDst = AppCtx::FileSystem().GetResourcesDir();
         AppCtx::FileSystem().CopyDir(resourcesSrc, resourcesDst);
-
-        // Releaseフォルダへコピー
-        resourcesDst = AppCtx::FileSystem().GetResourcesDir() / "../Release/resources";
-        AppCtx::FileSystem().CopyDir(resourcesSrc, resourcesDst);
-#endif // DEBUG
 
         //ゲーム実行に必要なクラスのインスタンスを生成、初期化
         Window::Init();
         m_library = std::make_unique<Library>();
-        AppCtx::Activate();
         m_scene = std::make_unique<scene::SceneManager>();
     }
 

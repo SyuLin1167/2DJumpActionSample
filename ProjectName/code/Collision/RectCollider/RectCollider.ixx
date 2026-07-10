@@ -1,109 +1,109 @@
-export module Collider.RectCollider;
+ï»¿export module Collider.RectCollider;
 import MyLib.Shape.Rect;
 import Collider;
 
 using namespace math;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 { 
-    // ‘O•ûéŒ¾
+    // å‰æ–¹å®£è¨€
     class RectColliderVisitor;
     class CircleCollider;
 
     /// <summary>
-    /// ‹éŒ`ƒRƒ‰ƒCƒ_[
+    /// çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
     /// </summary>
     export class RectCollider final : public Collider
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="def">ƒRƒ‰ƒCƒ_[’è‹`</param>
+        /// <param name="def">ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å®šç¾©</param>
         RectCollider(ColliderDef* def, const Vector2f& size = { 0,0 });
 
-        // ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ííœ
+        // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯å‰Šé™¤
         RectCollider() = delete;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~RectCollider() override;
 
         /// <summary>
-        /// ƒJƒeƒSƒŠ[‚Ì¶¬
+        /// ã‚«ãƒ†ã‚´ãƒªãƒ¼ã®ç”Ÿæˆ
         /// </summary>
-        /// <param name="_ownerID">Š—LÒ‚ÌID</param>
+        /// <param name="_ownerID">æ‰€æœ‰è€…ã®ID</param>
         void GenerateCategory(uint32_t _ownerID = 0) override
         {
             m_filter.category = MakeKey(ShapeType::RECT, _ownerID);
         }
 
         /// <summary>
-        /// ‹éŒ`‚ğæ“¾
+        /// çŸ©å½¢ã‚’å–å¾—
         /// </summary>
-        /// <returns>‹éŒ`</returns>
+        /// <returns>çŸ©å½¢</returns>
         shape::Rect GetRect() const
         {
             return m_baseRect;
         }
 
         /// <summary>
-        /// ‹éŒ`‚Æ“_‚ÌÕ“Ë”»’è
+        /// çŸ©å½¢ã¨ç‚¹ã®è¡çªåˆ¤å®š
         /// </summary>
-        /// <param name="point">Õ“Ë”»’è‚ğs‚¤“_</param>
-        /// <returns>Õ“Ë‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="point">è¡çªåˆ¤å®šã‚’è¡Œã†ç‚¹</param>
+        /// <returns>è¡çªã—ã¦ã„ã‚‹ã‹ã©ã†ã‹</returns>
         bool IsColliding(const Vector2f& point);
 
         /// <summary>
-        /// ‹éŒ`‚Æ“_‚Ì˜A‘±Õ“Ë”»’è
+        /// çŸ©å½¢ã¨ç‚¹ã®é€£ç¶šè¡çªåˆ¤å®š
         /// </summary>
-        /// <param name="point">Õ“Ë”»’è‚ğs‚¤“_</param>
-        /// <returns>Õ“Ë‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="point">è¡çªåˆ¤å®šã‚’è¡Œã†ç‚¹</param>
+        /// <returns>è¡çªã—ã¦ã„ã‚‹ã‹ã©ã†ã‹</returns>
         bool IsCollidingSegmentPoint(const Vector2f& point);
 
         /// <summary>
-        /// ‹éŒ`‚Æ‰~‚ÌÕ“Ë”»’è
+        /// çŸ©å½¢ã¨å††ã®è¡çªåˆ¤å®š
         /// </summary>
-        /// <param name="circle">Õ“Ë”»’è‚ğs‚¤‰~Œ`ƒRƒ‰ƒCƒ_[</param>
-        /// <returns>Õ“Ë‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="circle">è¡çªåˆ¤å®šã‚’è¡Œã†å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <returns>è¡çªã—ã¦ã„ã‚‹ã‹ã©ã†ã‹</returns>
         bool IsColliding(const CircleCollider& circle);
 
         /// <summary>
-        /// ‹éŒ`“¯m‚ÌÕ“Ë”»’è
+        /// çŸ©å½¢åŒå£«ã®è¡çªåˆ¤å®š
         /// </summary>
-        /// <param name="other">Õ“Ë”»’è‚ğs‚¤‘¼‚Ì‹éŒ`ƒRƒ‰ƒCƒ_[</param>
-        /// <returns>Õ“Ë‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="other">è¡çªåˆ¤å®šã‚’è¡Œã†ä»–ã®çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <returns>è¡çªã—ã¦ã„ã‚‹ã‹ã©ã†ã‹</returns>
         bool IsColliding(const RectCollider& other);
 
         /// <summary>
-        /// ‹éŒ`“¯m‚Ì˜A‘±Õ“Ë”»’è
+        /// çŸ©å½¢åŒå£«ã®é€£ç¶šè¡çªåˆ¤å®š
         /// </summary>
-        /// <param name="other">Õ“Ë”»’è‚ğs‚¤‹éŒ`ƒRƒ‰ƒCƒ_[</param>
-        /// <returns>Õ“Ë‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="other">è¡çªåˆ¤å®šã‚’è¡Œã†çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <returns>è¡çªã—ã¦ã„ã‚‹ã‹ã©ã†ã‹</returns>
         bool IsCollidingSegmentRect(const RectCollider& other);
 
         /// <summary>
-        /// ‹éŒ`“¯m‚Ì˜A‘±Õ“Ë”»’è
+        /// çŸ©å½¢åŒå£«ã®é€£ç¶šè¡çªåˆ¤å®š
         /// </summary>
-        /// <param name="other">Õ“Ë”»’è‚ğs‚¤‰~Œ`ƒRƒ‰ƒCƒ_[</param>
-        /// <returns>Õ“Ë‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="other">è¡çªåˆ¤å®šã‚’è¡Œã†å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼</param>
+        /// <returns>è¡çªã—ã¦ã„ã‚‹ã‹ã©ã†ã‹</returns>
         bool IsCollidingSegmentCircle(const CircleCollider& other);
 
         /// <summary>
-        /// ƒRƒ‰ƒCƒ_[‚ğ–K–â
+        /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è¨ªå•
         /// </summary>
-        /// <param name="visitor">–K–â‚·‚éƒrƒWƒ^[</param>
+        /// <param name="visitor">è¨ªå•ã™ã‚‹ãƒ“ã‚¸ã‚¿ãƒ¼</param>
         void Accept(ColliderVisitor& visitor) override
         {
             visitor.Visit(*this);
         }
 
         /// <summary>
-        /// ˆÚ“®—Ê‚Ì’Ç‰Á
+        /// ç§»å‹•é‡ã®è¿½åŠ 
         /// </summary>
         void AddVelocity(const Vector2f& _velocity) override
         {
@@ -112,7 +112,7 @@ export namespace col2d
         }
 
         /// <summary>
-        /// ˆÚ“®—Ê‚Ì’Ç‰Á
+        /// ç§»å‹•é‡ã®è¿½åŠ 
         /// </summary>
         void AddVelocity() override
         {
@@ -122,11 +122,11 @@ export namespace col2d
 
     private:
         /// <summary>
-        /// ƒXƒC[ƒv‹éŒ`‚ğZo
+        /// ã‚¹ã‚¤ãƒ¼ãƒ—çŸ©å½¢ã‚’ç®—å‡º
         /// </summary>
         void CalcSweptRect(Vector2f velocity);
 
-        shape::Rect m_baseRect;                         // Šî–{‚Ì‹éŒ`
-        shape::Rect m_sweptRect;                        // ƒXƒC[ƒv‹éŒ`
+        shape::Rect m_baseRect;                         // åŸºæœ¬ã®çŸ©å½¢
+        shape::Rect m_sweptRect;                        // ã‚¹ã‚¤ãƒ¼ãƒ—çŸ©å½¢
     };
 }

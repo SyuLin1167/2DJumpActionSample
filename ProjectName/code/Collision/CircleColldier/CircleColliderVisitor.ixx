@@ -1,47 +1,47 @@
-export module Collider.CircleColliderVisitor;
+ï»¿export module Collider.CircleColliderVisitor;
 import ColliderVisitor;
 import Collider.CircleColliderResolver;
 
 /// <summary>
-/// “–‚½‚è”»’èŠÖ˜A
+/// å½“ãŸã‚Šåˆ¤å®šé–¢é€£
 /// </summary>
 export namespace col2d
 {
-    // ‘O•ûéŒ¾
+    // å‰æ–¹å®£è¨€
     class CircleCollider;
     class RectCollider;
 
     /// <summary>
-    /// ‰~Œ`ƒRƒ‰ƒCƒ_[ƒrƒWƒ^[
+    /// å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒ“ã‚¸ã‚¿ãƒ¼
     /// </summary>
     export class CircleColliderVisitor final : public ColliderVisitor
     {
     public:
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         CircleColliderVisitor(CircleCollider& issue);
 
-        // ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ííœ
+        // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯å‰Šé™¤
         CircleColliderVisitor() = delete;
 
         /// <summary>
-        /// ƒfƒXƒgƒ‰ƒNƒ^
+        /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         ~CircleColliderVisitor() = default;
 
         /// <summary>
-        /// ‹éŒ`ƒRƒ‰ƒCƒ_[‚ğ–K–â
+        /// çŸ©å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è¨ªå•
         /// </summary>
         void Visit(RectCollider& target) override;
 
         /// <summary>
-        /// ‰~Œ`ƒRƒ‰ƒCƒ_[‚ğ–K–â
+        /// å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’è¨ªå•
         /// </summary>
         void Visit(CircleCollider& target) override;
 
     private:
-        CircleCollider& m_issue;                 // Õ“Ë”»’è‚ğs‚¤‰~Œ`ƒRƒ‰ƒCƒ_[
-        CircleColliderResolver m_resolver;       // ‰ğŒˆˆ—
+        CircleCollider& m_issue;                 // è¡çªåˆ¤å®šã‚’è¡Œã†å††å½¢ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
+        CircleColliderResolver m_resolver;       // è§£æ±ºå‡¦ç†
     };
 }

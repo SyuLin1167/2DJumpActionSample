@@ -1,4 +1,4 @@
-module;
+ï»¿module;
 #include<DxLib.h>
 
 module Object.Enemy;
@@ -24,14 +24,14 @@ namespace object
     
     void Enemy::Init()
     {
-        // ƒRƒ‰ƒCƒ_[ì¬
+        // ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ä½œæˆ
         col2d::ColliderDef def{};
         def.type = col2d::Type::STATIC;
         def.localPos = m_pos;
         def.isActive = true;
         id = ObjCtx::ColMgr().CreateCircleCollider(&def, 16.0f, MyObjectTag());
 
-        // Õ“ËƒCƒxƒ“ƒg“o˜^
+        // è¡çªã‚¤ãƒ™ãƒ³ãƒˆç™»éŒ²
         col2d::ContactListener listener;
         listener.when = [&]() {return true; };
         listener.event = [&]() {m_health -= m_damage * m_deltaTime; };

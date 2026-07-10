@@ -1,38 +1,38 @@
-export module MyLib.Shape.Circle;
+ï»¿export module MyLib.Shape.Circle;
 import MyLib.Math.Vector2;
 
 using namespace math;
 
 /// <summary>
-/// Œ`óŠÖ˜A
+/// å½¢çŠ¶é–¢é€£
 /// </summary>
 export namespace shape
 {
     /// <summary>
-    /// ‰~
+    /// å††
     /// </summary>
     export struct Circle
     {
-        Vector2f center; // ’†SÀ•W
-        float radius; // ”¼Œa
+        Vector2f center; // ä¸­å¿ƒåº§æ¨™
+        float radius; // åŠå¾„
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
         Circle() :center({ 0,0 }), radius(0.0f) {};
 
         /// <summary>
-        /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         /// </summary>
-        /// <param name="center">’†SÀ•W</param>
-        /// <param name="radius">”¼Œa</param>
+        /// <param name="center">ä¸­å¿ƒåº§æ¨™</param>
+        /// <param name="radius">åŠå¾„</param>
         Circle(const Vector2f& center, const float& radius) : center(center), radius(radius) {};
 
         /// <summary>
-        /// “_‚ª‰~‚Ì“à•”‚É‚ ‚é‚©”»’è
+        /// ç‚¹ãŒå††ã®å†…éƒ¨ã«ã‚ã‚‹ã‹åˆ¤å®š
         /// </summary>
-        /// <param name="point">”»’è‚·‚é“_</param>
-        /// <returns>‰~‚Ì“à•”‚É‚ ‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="point">åˆ¤å®šã™ã‚‹ç‚¹</param>
+        /// <returns>å††ã®å†…éƒ¨ã«ã‚ã‚‹ã‹ã©ã†ã‹</returns>
         bool IsInside(const Vector2f& point) const
         {
             Vector2f diff = point - center;
@@ -40,10 +40,10 @@ export namespace shape
         }
 
         /// <summary>
-        /// ‰~“¯m‚Ìd‚È‚è”»’è
+        /// å††åŒå£«ã®é‡ãªã‚Šåˆ¤å®š
         /// </summary>
-        /// <param name="other">”»’è‚·‚é‰~</param>
-        /// <returns>d‚È‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©</returns>
+        /// <param name="other">åˆ¤å®šã™ã‚‹å††</param>
+        /// <returns>é‡ãªã£ã¦ã„ã‚‹ã‹ã©ã†ã‹</returns>
         bool IsInside(const Circle& other) const
         {
             Vector2f diff = other.center - center;
