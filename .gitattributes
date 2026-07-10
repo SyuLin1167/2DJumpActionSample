@@ -4,3 +4,7 @@ ConcReco/include/** linguist-vendored
 # 自動生成ファイル除外
 *.dll linguist-generated
 *.exe linguist-generated
+
+# 改行コードの設定
+*.bat text eol=crlf
+*.cmd text eol=crlf
