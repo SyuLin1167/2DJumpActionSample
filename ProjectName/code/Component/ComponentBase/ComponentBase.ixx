@@ -1,4 +1,4 @@
-﻿export module Component;
+export module Component;
 
 // 前方宣言
 export namespace object
@@ -35,10 +35,15 @@ export namespace component
         virtual ~ComponentBase() = default;
 
         /// <summary>
-        /// 更新
+        /// 更新処理
         /// </summary>
         /// <param name="deltaTime">デルタタイム</param>
         virtual void Update(const float& deltaTime) {};
+
+        /// <summary>
+        /// 描画処理
+        /// </summary>
+        virtual void Draw() {};
 
     protected:
         class object::GameObject* m_owner;  //所有者

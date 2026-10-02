@@ -1,4 +1,4 @@
-﻿export module Component.ComponentManager;
+export module Component.ComponentManager;
 
 import <unordered_map>;
 import <memory>;
@@ -32,6 +32,11 @@ export namespace component
         /// </summary>
         /// <param name="deltaTime">デルタタイム</param>
         void Update(const float& deltaTime);
+
+        /// <summary>
+        /// 描画処理
+        /// </summary>
+        virtual void Draw();
 
         /// <summary>
         /// コンポーネント追加

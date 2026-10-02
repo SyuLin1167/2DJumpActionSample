@@ -1,0 +1,106 @@
+module;
+
+#include <DxLib.h>
+
+module Component.Animator;
+
+import AppContext;
+import Asset.Animation;
+
+using namespace gameSystem;
+
+namespace component
+{
+    Animator::Animator(object::GameObject* owner)
+        :ComponentBase(owner)
+        , m_states()
+    {
+        // 処理なし
+    }
+
+    void Animator::PlayAnim(const std::string& animName)
+    {
+        if (m_states.find(animName) == m_states.end())
+        {
+            m_states.emplace(animName);
+        }
+        m_states.at(animName).animState = asset::AnimState::PLAY;
+    }
+
+    void Animator::TurnAnimGraph(const std::string& animName)
+    {
+        m_states.at(animName).turnFrag != m_states.at(animName).turnFrag;
+    }
+
+    void Animator::PauseAnim(const std::string& animName)
+    {
+        m_states.at(animName).animState = asset::AnimState::PAUSE;
+    }
+
+    void Animator::StopAnim(const std::string& animName)
+    {
+        auto& playState = m_states.at(animName);
+        playState.animState = asset::AnimState::STOP;
+
+        auto& anim = AppCtx::AssetMgr().Fetch<asset::Animation>()->GetAnim(animName).second;
+        playState.nowFrame = anim.startFrame;
+    }
+
+    void Animator::Update(const float& deltaTime)
+    {
+        // 現在所持している再生情報を一斉更新
+        for (auto& [animName, playState] : m_states)
+        {
+            // 再生中以外は未更新にする
+            if (playState.animState != asset::AnimState::PLAY)
+            {
+                continue;
+            }
+
+            // フレーム更新
+            auto& anim = AppCtx::AssetMgr().Fetch<asset::Animation>()->GetAnim(animName).second;
+            playState.nowFrame += (!playState.isReverce ? anim.animationSpeed : -anim.animationSpeed) * deltaTime;
+
+            // 再生終了した場合
+            if (playState.nowFrame >= anim.endFrame)
+            {
+                // ループは開始地点、ピンポンは反転用フラグを反転し終了地点へフレームを移動
+                if (anim.type == asset::AnimType::LOOP)
+                {
+                    playState.nowFrame = anim.startFrame;
+                }
+                else if (anim.type == asset::AnimType::PINGPONG)
+                {
+                    playState.isReverce != playState.isReverce;
+                    playState.nowFrame = anim.endFrame;
+                }
+            }
+            else if (playState.nowFrame <= anim.startFrame)
+            {
+                // ピンポンは反転用フラグを反転し開始地点へフレームを移動
+                if(anim.type == asset::AnimType::PINGPONG)
+                {
+                    playState.isReverce != playState.isReverce;
+                    playState.nowFrame = anim.startFrame;
+                }
+            }
+        }
+    }
+
+    void Animator::Draw()
+    {
+        // 現在所持している再生情報を一斉描画
+        for (auto& [animName, playState] : m_states)
+        {
+            DrawRotaGraph(
+                m_owner->AccessPos().NowX(),
+                m_owner->AccessPos().NowY(),
+                1,
+                0,
+                AppCtx::AssetMgr().Fetch<asset::Animation>()->GetAnim(animName).first[(size_t)playState.nowFrame],
+                true,
+                playState.turnFrag
+            );
+        }
+    }
+}

@@ -1,4 +1,4 @@
-﻿module Object.ObjectManager;
+module Object.ObjectManager;
 import ObjectContext;
 import GameSystem.Camera;
 
@@ -90,6 +90,7 @@ namespace object
             {
                 for (auto pendingObj : pendingObjects)
                 {
+                    pendingObj->Init();
                     objects[pendingObj->MyObjectTag()].emplace_back(pendingObj);
                 }
                 pendingObjects.clear();
@@ -113,6 +114,7 @@ namespace object
             //オブジェクトを描画
             for (auto& object : objects[tag])
             {
+                object->DrawComponents();
                 object->Draw();
             }
         }
