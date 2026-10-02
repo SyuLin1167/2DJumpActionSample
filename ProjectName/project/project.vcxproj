@@ -169,6 +169,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\code\Asset\Animation\Animation.cpp" />
+    <ClCompile Include="..\code\Asset\Animation\Animation.ixx" />
+    <ClCompile Include="..\code\Asset\Animation\AnimationDef.ixx" />
     <ClCompile Include="..\code\Asset\AssetBase\AssetBase.ixx">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCppModule</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsCppModule</CompileAs>

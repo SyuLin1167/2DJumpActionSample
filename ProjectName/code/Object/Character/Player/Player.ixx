@@ -1,4 +1,4 @@
-﻿export module Object.Player;
+export module Object.Player;
 
 import <future>;
 
@@ -55,7 +55,15 @@ export namespace object
             return ObjectTag::PLAYER;
         }
 
-        col2d::ColliderID id;
-        std::future<json> data;
+        /// <summary>
+        /// プレイヤーのアセット名
+        /// </summary>
+        const struct AssetName
+        {
+            static constexpr const char* BODY = "PlayerBody"; // ボディ名
+        };
+
+        col2d::ColliderID id;   // コライダーの識別子
+        std::future<json> data; // プレイヤーデータの非同期読み込み
     };
 }

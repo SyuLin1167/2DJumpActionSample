@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include <fstream>
 #include <DxLib.h>
 #include <json.hpp>
@@ -27,12 +27,12 @@ namespace object
         data = AppCtx::FileSystem().jsonIO.LoadAsync(AppCtx::FileSystem().GetDataDir() / "PlayerData");
 
         //プレイヤー画像読み込み
-        AppCtx::AssetMgr().LoadAsync<asset::Graph>("body", "player.png");
+        AppCtx::AssetMgr().LoadAsync<asset::Graph>(AssetName::BODY, "player.png");
     }
 
     Player::~Player()
     {
-        AppCtx::AssetMgr().DeleteHandle<asset::Graph>("body");
+        AppCtx::AssetMgr().DeleteHandle<asset::Graph>(AssetName::BODY);
     }
 
     void Player::Init()
@@ -56,20 +56,20 @@ namespace object
 
         // サイズ設定
         int imgW, imgH;
-        GetGraphSize(AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("body"), &imgW, &imgH);
+        GetGraphSize(AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle(AssetName::BODY), &imgW, &imgH);
 
         // 当たり判定追加
         col2d::ColliderDef colDef{};
         colDef.localPos = m_pos;
         colDef.isActive = true;
         colDef.shouldCCD = true;
-        id = ObjCtx::ColMgr().CreateRectCollider(&colDef, Vector2f(imgW - 4, imgH), MyObjectTag());
+        id = ObjCtx::ColMgr().CreateRectCollider(&colDef, Vector2f(imgW, imgH), MyObjectTag());
         ObjCtx::ColMgr().AddMask(id, col2d::CIRCLE, ObjectTag::ENEMY);
 
         // 衝突イベント追加
         col2d::ContactListener listener;
         listener.when = [&]() {return ObjCtx::ColMgr().GetCollider(id)->GetVelocity().y == 0 && m_velocity.y > 0; };
-        listener.event = [&, jump]() {jump->CanJump(); };
+        listener.event = [&, jump]() { m_velocity.y = 0; jump->CanJump();};
         ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::TILE, ObjectTag::MAP), listener);
     }
 
@@ -90,7 +90,7 @@ namespace object
 
     void Player::Draw()
     {
-        const Vector2f sp = gameSystem::Camera::Instance().WorldToScreen(m_pos);
-        DrawGraph((int)sp.x, (int)sp.y, AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("body"), true);
+        const Vector2f sp = Camera::Instance().WorldToScreen(m_pos);
+        DrawGraph((int)sp.x, (int)sp.y, AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle(AssetName::BODY), true);
     }
 }

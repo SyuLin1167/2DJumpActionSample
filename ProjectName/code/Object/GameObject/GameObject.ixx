@@ -1,4 +1,4 @@
-﻿export module Object.GameObject;
+export module Object.GameObject;
 
 import <memory>;
 import <typeindex>;
@@ -56,9 +56,14 @@ export namespace object
         virtual void LateUpdate() {};
 
         /// <summary>
-        /// コンポーネント更新
+        /// コンポーネント郡更新
         /// </summary>
         void UpdateComponents();
+
+        /// <summary>
+        /// コンポーネント郡描画
+        /// </summary>
+        void DrawComponents();
 
         /// <summary>
         /// 描画

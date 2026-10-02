@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include <DxLib.h>
 #include <format>
 #include <future>
@@ -17,10 +17,11 @@ namespace asset
         //確保した画像の解放
         for (auto& info : m_handles)
         {
-            for (int i = 0; i < info.second.total; i++)
+            for (int i = 0; i < info.second.handle.size(); i++)
             {
                 DeleteGraph(info.second.handle[i]);
             }
+            info.second.handle.clear();
         }
     }
 
@@ -39,11 +40,11 @@ namespace asset
         DeleteGraph(img);
         int col = imgW / m_divW;
         int row = imgH / m_divH;
-        m_handles[handleName].total = col * row;
-        m_handles[handleName].handle = new int[m_handles[handleName].total];
+        int total = col * row;
+        m_handles[handleName].handle.resize(total);
 
         //取得した情報から画像分割読み込み
-        LoadDivGraph(fpath.string().c_str(), m_handles[handleName].total, col, row, m_divW, m_divH, m_handles[handleName].handle);
+        LoadDivGraph(fpath.string().c_str(), total, col, row, m_divW, m_divH, m_handles[handleName].handle.data());
     }
 
     void DivisionGraph::CreateHandleAsync(std::string handleName, std::string graphName)
@@ -64,23 +65,20 @@ namespace asset
         DeleteGraph(img);
         int col = imgW / m_divW;
         int row = imgH / m_divH;
-        m_handles[handleName].total = col * row;
-        m_handles[handleName].handle = new int[m_handles[handleName].total](-1);
+        int total = col * row;
+        m_handles[handleName].handle.resize(total);
 
         // 非同期モード再開
         SetUseASyncLoadFlag(true);
 
         // 取得した情報から画像分割読み込み
-        LoadDivGraph(fpath.string().c_str(), m_handles[handleName].total, col, row, m_divW, m_divH, m_handles[handleName].handle);
+        LoadDivGraph(fpath.string().c_str(), total, col, row, m_divW, m_divH, m_handles[handleName].handle.data());
         
         auto task = [this, fpath, handleName]()
             {
-                // ループ制御用の変数
-                int total = m_handles[handleName].total;
-
                 // 非同期読み込み完了待ち// 分割分のハンドルの完了状況を見る
                 int x = 0;
-                for (int i = 0; i < total; i++)
+                for (int i = 0; i < m_handles[handleName].handle.size(); i++)
                 {
                     int y = 0;
                     while (CheckHandleASyncLoad(m_handles[handleName].handle[i]))
@@ -112,7 +110,7 @@ namespace asset
             return;
         }
 
-        for (int i = 0; i < it->second.total; ++i)
+        for (int i = 0; i < it->second.handle.size(); ++i)
         {
             DeleteGraph(it->second.handle[i]);
         }

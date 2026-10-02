@@ -9,4 +9,12 @@ namespace component
             component.second->Update(deltaTime);
         }
     }
+
+    void ComponentManager::Draw()
+    {
+        for (auto& component : m_components)
+        {
+            component.second->Draw();
+        }
+    }
 }

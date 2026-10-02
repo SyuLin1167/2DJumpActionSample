@@ -1,4 +1,4 @@
-﻿export module Asset.DivisionGraph;
+export module Asset.DivisionGraph;
 import Asset.AssetBase;
 
 /// <summary>
@@ -17,6 +17,13 @@ export namespace asset
         /// コンストラクタ
         /// </summary>
         DivisionGraph() :m_divW(32), m_divH(32) {};
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="divW">分割幅(横)</param>
+        /// <param name="divH">分割幅(縦)</param>
+        DivisionGraph(int divW, int divH) :m_divW(divW), m_divH(divH) {};
 
         /// <summary>
         /// デストラクタ
@@ -58,12 +65,30 @@ export namespace asset
         /// ハンドル取得
         /// </summary>
         /// <param name="name">取得するハンドル名</param>
+        /// <returns>ハンドル</returns>
+        int* GetHandle(std::string name) const
+        {
+            return (int*)m_handles.at(name).handle.data();
+        };
+
+        /// <summary>
+        /// ハンドル取得
+        /// </summary>
+        /// <param name="name">取得するハンドル名</param>
         /// <param name="num">取得する添え字</param>
-        /// <returns></returns>
+        /// <returns>ハンドル</returns>
         int GetHandle(std::string name, size_t index) const
         {
             return m_handles.at(name).handle[index];
         };
+
+        /// <summary>
+        /// 分割総数取得
+        /// </summary>
+        int GetTotalDiv(std::string name) const
+        {
+            return m_handles.at(name).handle.size();
+        }
 
     private:
         /// <summary>
@@ -71,8 +96,7 @@ export namespace asset
         /// </summary>
         struct Info
         {
-            int* handle;
-            int total;
+            std::vector<int> handle;
         };
 
         int m_divW;       //分割幅(横)

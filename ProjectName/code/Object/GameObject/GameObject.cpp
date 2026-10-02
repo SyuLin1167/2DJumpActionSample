@@ -18,4 +18,9 @@ namespace object
     {
         m_compMgr->Update(m_deltaTime);
     }
+
+    void GameObject::DrawComponents()
+    {
+        m_compMgr->Draw();
+    }
 }
