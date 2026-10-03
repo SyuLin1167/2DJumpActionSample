@@ -19,8 +19,19 @@ namespace asset
         //処理なし
     }
 
+    Animation::~Animation()
+    {
+        m_animations.clear();
+    }
+
     void Animation::CreateHandle(std::string handleName, std::string graphName)
     {
+        m_divGraph->CreateHandle(handleName, graphName);
+    }
+
+    void Animation::CreateHandle(std::string handleName, std::string graphName, const int& sizeX, const int& sizeY)
+    {
+        m_divGraph->ChangeDivSize(sizeX, sizeY);
         m_divGraph->CreateHandle(handleName, graphName);
     }
 
@@ -29,10 +40,19 @@ namespace asset
         m_divGraph->CreateHandleAsync(handleName, graphName);
     }
 
+    void Animation::CreateHandleAsync(std::string handleName, std::string graphName, const int& sizeX, const int& sizeY)
+    {
+        m_divGraph->ChangeDivSize(sizeX, sizeY);
+        m_divGraph->CreateHandleAsync(handleName, graphName);
+    }
+
     void Animation::AddAnim(const AnimationDef& animDef)
     {
         m_animations[animDef.name] = { m_divGraph->GetHandle(animDef.name), animDef };
-        m_animations[animDef.name].second.endFrame = m_divGraph->GetTotalDiv(animDef.name);
+        if (animDef.endFrame == 0)
+        {
+            m_animations[animDef.name].second.endFrame = m_divGraph->GetTotalDiv(animDef.name);
+        }
     }
 
     void Animation::AddAnimCategory(const std::string& category, const std::vector<AnimationDef> animDefs)

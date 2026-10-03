@@ -6,6 +6,7 @@ module Component.Animator;
 
 import AppContext;
 import Asset.Animation;
+import GameSystem.Camera;
 
 using namespace gameSystem;
 
@@ -18,18 +19,26 @@ namespace component
         // 処理なし
     }
 
+    Animator::~Animator()
+    {
+        m_states.clear();
+    }
+
     void Animator::PlayAnim(const std::string& animName)
     {
         if (m_states.find(animName) == m_states.end())
         {
-            m_states.emplace(animName);
+            AnimPlayState state;
+            auto& anim = AppCtx::AssetMgr().Fetch<asset::Animation>()->GetAnim(animName).second;
+            state.nowFrame = anim.startFrame;
+            m_states.emplace(animName, state);
         }
         m_states.at(animName).animState = asset::AnimState::PLAY;
     }
 
     void Animator::TurnAnimGraph(const std::string& animName)
     {
-        m_states.at(animName).turnFrag != m_states.at(animName).turnFrag;
+        m_states.at(animName).turnFrag = !m_states.at(animName).turnFrag;
     }
 
     void Animator::PauseAnim(const std::string& animName)
@@ -71,7 +80,7 @@ namespace component
                 }
                 else if (anim.type == asset::AnimType::PINGPONG)
                 {
-                    playState.isReverce != playState.isReverce;
+                    playState.isReverce = !playState.isReverce;
                     playState.nowFrame = anim.endFrame;
                 }
             }
@@ -80,7 +89,7 @@ namespace component
                 // ピンポンは反転用フラグを反転し開始地点へフレームを移動
                 if(anim.type == asset::AnimType::PINGPONG)
                 {
-                    playState.isReverce != playState.isReverce;
+                    playState.isReverce = !playState.isReverce;
                     playState.nowFrame = anim.startFrame;
                 }
             }
@@ -92,15 +101,10 @@ namespace component
         // 現在所持している再生情報を一斉描画
         for (auto& [animName, playState] : m_states)
         {
-            DrawRotaGraph(
-                m_owner->AccessPos().NowX(),
-                m_owner->AccessPos().NowY(),
-                1,
-                0,
-                AppCtx::AssetMgr().Fetch<asset::Animation>()->GetAnim(animName).first[(size_t)playState.nowFrame],
-                true,
-                playState.turnFrag
-            );
+            const math::Vector2f sp = Camera::Instance().WorldToScreen(m_owner->AccessPos().NowPos());
+            auto& anim = AppCtx::AssetMgr().Fetch<asset::Animation>()->GetAnim(animName);
+            auto pos = sp + anim.second.size.Half();
+            DrawRotaGraphF(pos.x, pos.y, 1, 0, anim.first[(size_t)playState.nowFrame], true, playState.turnFrag);
         }
     }
 }

@@ -13,13 +13,19 @@ using namespace asset;
 /// <summary>
 /// コンポーネント関連
 /// </summary>
-namespace component
+export namespace component
 {
     /// <summary>
     /// アニメーションを操作するクラス
     /// </summary>
-    export class Animator final : component::ComponentBase
+    export class Animator final : public ComponentBase
     {
+    public:
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        Animator() = default;
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -66,6 +72,7 @@ namespace component
         /// </summary>
         void Draw() override;
 
+    private:
         /// <summary>
         /// アニメーションの再生情報
         /// </summary>

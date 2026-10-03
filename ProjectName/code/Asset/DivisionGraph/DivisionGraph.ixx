@@ -11,7 +11,6 @@ export namespace asset
     /// </summary>
     export class DivisionGraph final :public AssetBase
     {
-        struct Info;
     public:
         /// <summary>
         /// コンストラクタ

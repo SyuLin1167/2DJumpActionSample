@@ -12,7 +12,8 @@ import MyLib.Math.Vector2;
 import GameSystem.Camera;
 import Component.Jump;
 import Component.MoveWithKey;
-import Asset.Graph;
+import Component.Animator;
+import Asset.Animation;
 
 using json = nlohmann::json;
 using namespace gameSystem;
@@ -24,23 +25,19 @@ namespace object
         :id()
     {
         // プレイヤー初期データ読み込み
-        data = AppCtx::FileSystem().jsonIO.LoadAsync(AppCtx::FileSystem().GetDataDir() / "PlayerData");
+        json data = AppCtx::FileSystem().jsonIO.Load(AppCtx::FileSystem().GetDataDir() / "PlayerData");
+        pData.Input(data);
 
         //プレイヤー画像読み込み
-        AppCtx::AssetMgr().LoadAsync<asset::Graph>(AssetName::BODY, "player.png");
+        AppCtx::AssetMgr().Fetch<asset::Animation>()->CreateHandleAsync(AssetName::IDLE, "player.png", pData.size.x, pData.size.y);
     }
 
     Player::~Player()
     {
-        AppCtx::AssetMgr().DeleteHandle<asset::Graph>(AssetName::BODY);
     }
 
     void Player::Init()
     {
-        // プレイヤーデータ入力
-        PlayerData pData{};
-        pData.Input(data.get());
-
         // 初期位置設定
         m_pos = pData.pos;
 
@@ -54,16 +51,12 @@ namespace object
         // ジャンプ機能追加
         auto jump = m_compMgr->AddComponent<component::Jump>(this, pData.moveSpeed.y, std::bind(input::KeyStatus::CheckKey, keyType.SPACE, ON_PRESS));
 
-        // サイズ設定
-        int imgW, imgH;
-        GetGraphSize(AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle(AssetName::BODY), &imgW, &imgH);
-
         // 当たり判定追加
         col2d::ColliderDef colDef{};
         colDef.localPos = m_pos;
         colDef.isActive = true;
         colDef.shouldCCD = true;
-        id = ObjCtx::ColMgr().CreateRectCollider(&colDef, Vector2f(imgW, imgH), MyObjectTag());
+        id = ObjCtx::ColMgr().CreateRectCollider(&colDef, pData.size, MyObjectTag());
         ObjCtx::ColMgr().AddMask(id, col2d::CIRCLE, ObjectTag::ENEMY);
 
         // 衝突イベント追加
@@ -71,6 +64,17 @@ namespace object
         listener.when = [&]() {return ObjCtx::ColMgr().GetCollider(id)->GetVelocity().y == 0 && m_velocity.y > 0; };
         listener.event = [&, jump]() { m_velocity.y = 0; jump->CanJump();};
         ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::TILE, ObjectTag::MAP), listener);
+
+        // アニメーション追加
+        auto anim = m_compMgr->AddComponent<component::Animator>(this);
+        asset::AnimationDef animDef{};
+        animDef.name = AssetName::IDLE;
+        animDef.type = asset::AnimType::LOOP;
+        animDef.animationSpeed = 4;
+        animDef.endFrame = 4;
+        animDef.size = pData.size;
+        AppCtx::AssetMgr().Fetch<asset::Animation>()->AddAnim(animDef);
+        m_compMgr->GetComponent<component::Animator>()->PlayAnim(AssetName::IDLE);
     }
 
     void Player::Update()
@@ -90,7 +94,6 @@ namespace object
 
     void Player::Draw()
     {
-        const Vector2f sp = Camera::Instance().WorldToScreen(m_pos);
-        DrawGraph((int)sp.x, (int)sp.y, AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle(AssetName::BODY), true);
+        // 処理なし
     }
 }

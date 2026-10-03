@@ -7,7 +7,7 @@ import <string>;
 
 import Asset.AssetBase;
 import Asset.DivisionGraph;
-import Asset.AnimationDef;
+export import Asset.AnimationDef;
 import MyLib.Math.Vector2;
 
 /// <summary>
@@ -18,7 +18,7 @@ export namespace asset
     /// <summary>
     /// アニメーションを担当するクラス
     /// </summary>
-    export class Animation final :AssetBase
+    export class Animation final :public AssetBase
     {
     public:
         /// <summary>
@@ -29,7 +29,7 @@ export namespace asset
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~Animation() = default;
+        ~Animation();
 
         /// <summary>
         /// ハンドル生成
@@ -39,11 +39,29 @@ export namespace asset
         void CreateHandle(std::string handleName, std::string graphName) override;
 
         /// <summary>
+        /// ハンドル生成
+        /// </summary>
+        /// <param name="handleName">ハンドル名</param>
+        /// <param name="graphName">画像名</param>
+        /// <param name="sizeX">分割サイズX</param>
+        /// <param name="sizeY">分割サイズY</param>
+        void CreateHandle(std::string handleName, std::string graphName, const int& sizeX, const int& sizeY);
+
+        /// <summary>
         /// ハンドル生成(非同期)
         /// </summary>
         /// <param name="handleName">ハンドル名</param>
         /// <param name="graphName">画像名</param>
         void CreateHandleAsync(std::string handleName, std::string graphName) override;
+
+        /// <summary>
+        /// ハンドル生成(非同期)
+        /// </summary>
+        /// <param name="handleName">ハンドル名</param>
+        /// <param name="graphName">画像名</param>
+        /// <param name="sizeX">分割サイズX</param>
+        /// <param name="sizeY">分割サイズY</param>
+        void CreateHandleAsync(std::string handleName, std::string graphName ,const int& sizeX, const int& sizeY);
 
         /// <summary>
         /// アニメーション追加
