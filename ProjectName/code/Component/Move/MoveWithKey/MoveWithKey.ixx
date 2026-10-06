@@ -1,4 +1,4 @@
-﻿export module Component.MoveWithKey;
+export module Component.MoveWithKey;
 
 import Component;
 export import MyLib.Math.Vector2;
@@ -42,6 +42,16 @@ export namespace component
         /// </summary>
         /// <param name="deltaTime">デルタタイム</param>
         void Update(const float& deltaTime) override;
+
+        const bool CanMoveHorizontal()
+        {
+            return m_canMoveX;
+        }
+
+        const bool CanMoveVertical()
+        {
+            return m_canMoveY;
+        }
 
     private:
         int m_leftKey;

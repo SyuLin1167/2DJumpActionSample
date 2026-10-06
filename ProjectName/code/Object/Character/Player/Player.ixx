@@ -60,10 +60,10 @@ export namespace object
         /// </summary>
         const struct AssetName
         {
-            static constexpr const char* BODY = "PlayerBody"; // ボディ名
+            static constexpr const char* IDLE = "PlayerIdle"; // アイドル名
         };
 
+        PlayerData pData; // プレイヤー情報
         col2d::ColliderID id;   // コライダーの識別子
-        std::future<json> data; // プレイヤーデータの非同期読み込み
     };
 }

@@ -1,6 +1,7 @@
 export module Asset.AnimationDef;
 
 import <string>;
+import MyLib.Math.Vector2;
 
 /// <summary>
 /// アセット関連
@@ -37,8 +38,9 @@ export namespace asset
 
         AnimType type = AnimType::LOOP; // アニメーションの種類
         std::string name; // アニメーション名
-        float startFrame = 0; // 開始フレーム
+        float startFrame = 1; // 開始フレーム
         float endFrame; //終了フレーム
         float animationSpeed; // アニメーション速度
+        math::Vector2f size; // サイズ
     };
 }
