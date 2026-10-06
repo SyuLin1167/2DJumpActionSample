@@ -46,7 +46,7 @@ namespace asset
         m_divGraph->CreateHandleAsync(handleName, graphName);
     }
 
-    void Animation::AddAnim(const AnimationDef& animDef)
+    void Animation::CreateAnim(const AnimationDef& animDef)
     {
         m_animations[animDef.name] = { m_divGraph->GetHandle(animDef.name), animDef };
         if (animDef.endFrame == 0)
@@ -55,7 +55,7 @@ namespace asset
         }
     }
 
-    void Animation::AddAnimCategory(const std::string& category, const std::vector<AnimationDef> animDefs)
+    void Animation::CreateAnimCategory(const std::string& category, const std::vector<AnimationDef> animDefs)
     {
         for (auto& def : animDefs)
         {
