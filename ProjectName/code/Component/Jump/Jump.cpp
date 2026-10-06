@@ -1,4 +1,4 @@
-﻿module Component.Jump;
+module Component.Jump;
 import Object.GameObject;
 import MyLib.Math.PropVector2;
 
@@ -9,7 +9,8 @@ namespace component
     Jump::Jump(object::GameObject* owner, const float& jumpPower, std::function<bool()> trigger)
         :ComponentBase(owner)
         , JUMP_POWER(jumpPower)
-        , m_nowJump(false)
+        , m_isGround(false)
+        , m_verticalSpeed(0.0f)
         , m_trigger(trigger)
     {
         //処理なし
@@ -22,22 +23,31 @@ namespace component
         {
             TryJump(deltaTime);
         }
-        
-        // ジャンプ中なら最大落下速度まで重力を加算する
-        if (m_owner->AccessVel().NowY() < MAX_FALL_VELOCITY)
+
+        // 空中なら最大落下速度まで重力を加算する
+        if (!m_isGround)
         {
-            m_owner->AccessVel().Add(PropVector2<float>::Y, FALL_SPEED * GRAVITY * deltaTime);
+            m_verticalSpeed += GRAVITY;
+            if(m_verticalSpeed> MAX_FALL_VELOCITY)
+            {
+                m_verticalSpeed = MAX_FALL_VELOCITY;
+            }
         }
+
+        // Y軸の速度をオーナーに反映
+        m_owner->AccessVel().Assign(PropVector2<float>::Y, m_verticalSpeed * deltaTime);
+
+        m_isGround = false; //地面に接地しているかどうかのフラグをリセット
     }
 
     void Jump::TryJump(const float& deltaTime)
     {
-        //ジャンプ中でなければジャンプを実施
-        if (!m_nowJump)
+        //ジャンプを実施
+        if (m_canJump)
         {
-            m_nowJump = true;
-            m_owner->AccessVel().Assign(PropVector2<float>::Y, 0.0f);
-            m_owner->AccessVel().Add(PropVector2<float>::Y, -JUMP_POWER * deltaTime);
+            m_canJump = false;
+            m_isGround = false;
+            m_verticalSpeed = -JUMP_POWER;
         }
     }
 }
