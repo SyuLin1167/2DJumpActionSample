@@ -1,4 +1,4 @@
-﻿module Component.MoveWithKey;
+module Component.MoveWithKey;
 
 import MyLib.KeyStatus;
 import Object.GameObject;
@@ -38,33 +38,33 @@ namespace component
 
     void MoveWithKey::Update(const float& deltaTime)
     {
+        Vector2f direction{};
+
         //移動処理
         if (m_canMoveX)
         {
-            float velocity = 0.0f;
             if (KeyStatus::CheckKey(m_leftKey, ON_PRESS | PRESSING))
             {
-                velocity = -m_moveSpeed.x * deltaTime;
+                direction -= 1.0f;
             }
             if (KeyStatus::CheckKey(m_rightKey, ON_PRESS | PRESSING))
             {
-
-                velocity = m_moveSpeed.x * deltaTime;
+                direction += 1.0f;
             }
-            m_owner->AccessVel().Assign(PropVector2<float>::X, velocity);
+            m_owner->AccessVel().Assign(PropVector2<float>::X, direction.x * m_moveSpeed.x * deltaTime);
         }
         if (m_canMoveY)
         {
-            float velocity = 0.0f;
             if (KeyStatus::CheckKey(m_upKey, ON_PRESS | PRESSING))
             {
-                velocity = -m_moveSpeed.y * deltaTime;
+                direction.y -= 1.0f;
             }
+
             if (KeyStatus::CheckKey(m_downKey, ON_PRESS | PRESSING))
             {
-                velocity = m_moveSpeed.y * deltaTime;
+                direction.y += 1.0f;
             }
-            m_owner->AccessVel().Assign(PropVector2<float>::Y, velocity);
+            m_owner->AccessVel().Assign(PropVector2<float>::Y, direction.y * m_moveSpeed.x * deltaTime);
         }
     }
 }

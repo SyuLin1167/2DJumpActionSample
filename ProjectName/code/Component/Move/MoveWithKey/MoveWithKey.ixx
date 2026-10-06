@@ -43,11 +43,19 @@ export namespace component
         /// <param name="deltaTime">デルタタイム</param>
         void Update(const float& deltaTime) override;
 
+        /// <summary>
+        ///　X軸移動が可能かどうか
+        /// </summary>
+        /// <returns>移動可否情報</returns>
         const bool CanMoveHorizontal()
         {
             return m_canMoveX;
         }
 
+        /// <summary>
+        /// Y軸移動が可能かどうか
+        /// </summary>
+        /// <returns>移動可否情報</returns>
         const bool CanMoveVertical()
         {
             return m_canMoveY;
