@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include <functional>
 
 export module Component.Jump;
@@ -10,9 +10,8 @@ import Component;
 /// </summary>
 export namespace component
 {
-    constexpr float GRAVITY = 3.8f;             //重力加速度
-    constexpr float FALL_SPEED = 5.0f;          //落下速度
-    constexpr float DEFAULT_JUMP_POWER = 5.0f;  //デフォルトのジャンプ力
+    constexpr float GRAVITY = 30.0f;             //重力加速度
+    constexpr float DEFAULT_JUMP_POWER = 50.0f;  //デフォルトのジャンプ力
 
     /// <summary>
     /// ジャンプ処理
@@ -54,13 +53,17 @@ export namespace component
         /// </summary>
         void CanJump()
         {
-            m_nowJump = false;
+            m_canJump = true;
+            m_isGround = true;
+            m_verticalSpeed = 0.0f;
         }
 
     private:
         const float JUMP_POWER;    //ジャンプ力
-        static constexpr float MAX_FALL_VELOCITY = 30.0f;      //最大落下速度
-        bool m_nowJump;                             //ジャンプ状態判定
+        static constexpr float MAX_FALL_VELOCITY = 300.0f;      //最大落下速度
+        bool m_isGround;                             //地面にいるか
+        bool m_canJump;                               //ジャンプ可能か
+        float m_verticalSpeed; // 垂直速度
         std::function<bool()> m_trigger;            //トリガー
     };
 }
