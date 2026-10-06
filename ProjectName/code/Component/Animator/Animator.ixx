@@ -38,6 +38,12 @@ export namespace component
         ~Animator();
 
         /// <summary>
+        /// アニメーション追加
+        /// </summary>
+        /// <param name="animName"></param>
+        void AddAnim(const std::string& animName);
+
+        /// <summary>
         /// 再生
         /// </summary>
         /// <param name="animName">再生するアニメーション</param>
@@ -62,6 +68,23 @@ export namespace component
         void StopAnim(const std::string& animName);
 
         /// <summary>
+        /// 不可視化
+        /// </summary>
+        /// <param name="animName">不可視化するアニメーション</param>
+        void EnableAnim(const std::string& animName)
+        {
+            auto& playState = m_states.at(animName);
+            playState.enable = true;
+        }
+
+        /// <summary>
+        /// アニメーション切り替え
+        /// </summary>
+        /// <param name="issueName">再生対象のアニメーション</param>
+        /// <param name="targetName"切り替え対象のアニメーション></param>
+        void SwitchAnim(const std::string& issueName, const std::string& targetName);
+
+        /// <summary>
         /// 更新処理
         /// </summary>
         /// <param name="deltaTime">デルタタイム</param>
@@ -78,11 +101,11 @@ export namespace component
         /// </summary>
         struct AnimPlayState
         {
-            bool isPlay = false;
             float nowFrame = 0;
             AnimState animState = AnimState::STOP;
             bool isReverce = false;
             bool turnFrag = false;
+            bool enable = false;
         };
 
         std::unordered_map<std::string, AnimPlayState> m_states; // 再生情報郡

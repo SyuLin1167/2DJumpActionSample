@@ -64,18 +64,18 @@ export namespace asset
         void CreateHandleAsync(std::string handleName, std::string graphName ,const int& sizeX, const int& sizeY);
 
         /// <summary>
-        /// アニメーション追加
+        /// アニメーション作成
         /// </summary>
         /// <param name="animName">アニメーション名</param>
         /// <param name="animDef">アニメーション定義</param>
-        void AddAnim(const AnimationDef& animDef);
+        void CreateAnim(const AnimationDef& animDef);
 
         /// <summary>
-        /// アニメーション群追加
+        /// アニメーション群作成
         /// </summary>
         /// <param name="animName">カテゴリー名</param>
         /// <param name="animDef">アニメーション定義群</param>
-        void AddAnimCategory(const std::string& category, const std::vector<AnimationDef> animDefs);
+        void CreateAnimCategory(const std::string& category, const std::vector<AnimationDef> animDefs);
 
         /// <summary>
         /// ハンドル削除
