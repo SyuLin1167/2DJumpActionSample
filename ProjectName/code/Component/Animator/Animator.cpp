@@ -24,8 +24,9 @@ namespace component
         m_states.clear();
     }
 
-    void Animator::PlayAnim(const std::string& animName)
+    void Animator::AddAnim(const std::string& animName)
     {
+        // 管理下に置くアニメーションを新規追加
         if (m_states.find(animName) == m_states.end())
         {
             AnimPlayState state;
@@ -33,7 +34,17 @@ namespace component
             state.nowFrame = anim.startFrame;
             m_states.emplace(animName, state);
         }
-        m_states.at(animName).animState = asset::AnimState::PLAY;
+    }
+
+    void Animator::PlayAnim(const std::string& animName)
+    {
+        auto& playState = m_states.at(animName);
+        playState.enable = false;
+        if (playState.animState == asset::AnimState::PLAY)
+        {
+            return;
+        }
+        playState.animState = asset::AnimState::PLAY;
     }
 
     void Animator::TurnAnimGraph(const std::string& animName)
@@ -43,16 +54,32 @@ namespace component
 
     void Animator::PauseAnim(const std::string& animName)
     {
-        m_states.at(animName).animState = asset::AnimState::PAUSE;
+        auto& playState = m_states.at(animName);
+        if (playState.animState == asset::AnimState::PAUSE)
+        {
+            return;
+        }
+        playState.animState = asset::AnimState::PAUSE;
     }
 
     void Animator::StopAnim(const std::string& animName)
     {
         auto& playState = m_states.at(animName);
+        if (playState.animState == asset::AnimState::STOP)
+        {
+            return;
+        }
         playState.animState = asset::AnimState::STOP;
 
         auto& anim = AppCtx::AssetMgr().Fetch<asset::Animation>()->GetAnim(animName).second;
         playState.nowFrame = anim.startFrame;
+    }
+
+    void Animator::SwitchAnim(const std::string& issueName, const std::string& targetName)
+    {
+        StopAnim(targetName);
+        EnableAnim(targetName);
+        PlayAnim(issueName);
     }
 
     void Animator::Update(const float& deltaTime)
@@ -101,6 +128,10 @@ namespace component
         // 現在所持している再生情報を一斉描画
         for (auto& [animName, playState] : m_states)
         {
+            if (playState.enable)
+            {
+                continue;
+            }
             const math::Vector2f sp = Camera::Instance().WorldToScreen(m_owner->AccessPos().NowPos());
             auto& anim = AppCtx::AssetMgr().Fetch<asset::Animation>()->GetAnim(animName);
             auto pos = sp + anim.second.size.Half();

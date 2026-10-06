@@ -14,10 +14,12 @@ import Component.Jump;
 import Component.MoveWithKey;
 import Component.Animator;
 import Asset.Animation;
+import Collider;
 
 using json = nlohmann::json;
 using namespace gameSystem;
 using namespace math;
+using namespace col2d;
 
 namespace object
 {
@@ -29,7 +31,7 @@ namespace object
         pData.Input(data);
 
         //プレイヤー画像読み込み
-        AppCtx::AssetMgr().Fetch<asset::Animation>()->CreateHandleAsync(AssetName::IDLE, "player.png", pData.size.x, pData.size.y);
+        AppCtx::AssetMgr().Fetch<asset::Animation>()->CreateHandleAsync("Player", "player.png", pData.size.x, pData.size.y);
     }
 
     Player::~Player()
@@ -49,10 +51,14 @@ namespace object
         move->SetHorizontal(keyType.LEFT, keyType.RIGHT, pData.moveSpeed.x);
 
         // ジャンプ機能追加
-        auto jump = m_compMgr->AddComponent<component::Jump>(this, pData.moveSpeed.y, std::bind(input::KeyStatus::CheckKey, keyType.SPACE, ON_PRESS));
+        auto jump = m_compMgr->AddComponent<component::Jump>(
+            this,
+            pData.moveSpeed.y,
+            std::bind(input::KeyStatus::CheckKey, keyType.SPACE, ON_PRESS)
+        );
 
         // 当たり判定追加
-        col2d::ColliderDef colDef{};
+        ColliderDef colDef{};
         colDef.localPos = m_pos;
         colDef.isActive = true;
         colDef.shouldCCD = true;
@@ -60,27 +66,46 @@ namespace object
         ObjCtx::ColMgr().AddMask(id, col2d::CIRCLE, ObjectTag::ENEMY);
 
         // 衝突イベント追加
-        col2d::ContactListener listener;
-        listener.when = [&]() {return ObjCtx::ColMgr().GetCollider(id)->GetVelocity().y == 0 && m_velocity.y > 0; };
-        listener.event = [&, jump]() { m_velocity.y = 0; jump->CanJump();};
-        ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::TILE, ObjectTag::MAP), listener);
+        ContactListener listener;
+        listener.when = [&](const ContactInfo& info) { return info.normal == NORMAL_TOP; };
+        listener.event = [&, jump]() { jump->CanJump();};
+        ObjCtx::ColMgr().AddEvent(id, MakeKey(TILE, ObjectTag::MAP), listener);
+
+        // 待機アニメーション定義
+        asset::AnimationDef idleAnimDef{};
+        idleAnimDef.name = AssetName::IDLE;
+        idleAnimDef.type = asset::AnimType::LOOP;
+        idleAnimDef.animationSpeed = 4;
+        idleAnimDef.endFrame = 4;
+        idleAnimDef.size = pData.size;
+
+        // 歩行アニメーション定義
+        asset::AnimationDef walkAnimDef{};
+        walkAnimDef = idleAnimDef;
+        walkAnimDef.name = AssetName::WALK;
+        walkAnimDef.startFrame = 5;
+        walkAnimDef.endFrame = 8;
 
         // アニメーション追加
+        AppCtx::AssetMgr().Fetch<asset::Animation>()->CreateAnimCategory("Player", { idleAnimDef,walkAnimDef });
         auto anim = m_compMgr->AddComponent<component::Animator>(this);
-        asset::AnimationDef animDef{};
-        animDef.name = AssetName::IDLE;
-        animDef.type = asset::AnimType::LOOP;
-        animDef.animationSpeed = 4;
-        animDef.endFrame = 4;
-        animDef.size = pData.size;
-        AppCtx::AssetMgr().Fetch<asset::Animation>()->AddAnim(animDef);
-        m_compMgr->GetComponent<component::Animator>()->PlayAnim(AssetName::IDLE);
+        m_compMgr->GetComponent<component::Animator>()->AddAnim(AssetName::IDLE);
+        m_compMgr->GetComponent<component::Animator>()->AddAnim(AssetName::WALK);
     }
 
     void Player::Update()
     {
         // 速度反映
         ObjectContext::ColMgr().GetCollider(id)->SetVelocity(m_velocity);
+
+        if (m_velocity.x != 0)
+        {
+            m_compMgr->GetComponent<component::Animator>()->SwitchAnim(AssetName::WALK, AssetName::IDLE);
+        }
+        else
+        {
+            m_compMgr->GetComponent<component::Animator>()->SwitchAnim(AssetName::IDLE, AssetName::WALK);
+        }
     }
 
     void Player::LateUpdate()

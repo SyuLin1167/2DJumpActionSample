@@ -60,7 +60,8 @@ export namespace object
         /// </summary>
         const struct AssetName
         {
-            static constexpr const char* IDLE = "PlayerIdle"; // アイドル名
+            static constexpr const char* IDLE = "PlayerIdle"; // アイドル
+            static constexpr const char* WALK = "PlayerWALK"; // 歩行
         };
 
         PlayerData pData; // プレイヤー情報
