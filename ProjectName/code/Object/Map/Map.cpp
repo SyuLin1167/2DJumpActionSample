@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include <DxLib.h>
 #include <json.hpp>
 #include <fstream>
@@ -25,19 +25,18 @@ namespace object
     {
         // マップ構成読み込み
         auto path = AppCtx::FileSystem().Resolve("data://MapTip.csv");
-        auto mapDataSf = AppCtx::FileSystem().csvIO.CreateArrayAsync<size_t>(path).share();
+        auto mapDataArray = AppCtx::FileSystem().csvIO.CreateArray<size_t>(path);
 
         // タイル情報読み込み
-        auto mapInfoSf = AppCtx::FileSystem().jsonIO.LoadAsync(AppCtx::FileSystem().Resolve("data://MapData")).share(); 
+        auto mapInfo = AppCtx::FileSystem().jsonIO.Load(AppCtx::FileSystem().Resolve("data://MapData")); 
 
         // 最終的な MapInfo を届けるための promise/future
         auto infoPromise = std::make_shared<std::promise<object::MapInfo>>();
 
         // マップ生成
-        task::LoadingContext::Get()->AddTask(task::INIT, [this, mapDataSf, mapInfoSf, infoPromise]() {
+        task::LoadingContext::Get()->AddTask(task::INIT, [this, mapDataArray, mapInfo, infoPromise]() {
             // マップデータ取得
-            const auto& dataArray = mapDataSf.get();
-            m_mapInfo.FromJson(mapInfoSf.get());
+            m_mapInfo.FromJson(mapInfo);
 
             // チャンクサイズを取得
             m_mapInfo.chunkSize = Window::GetWindowData()->SIZE / m_mapInfo.tileSize.Half();
@@ -52,7 +51,7 @@ namespace object
                 m_mapInfo.chunkSize,
                 [&](size_t, size_t, size_t gidx, size_t, size_t)->std::optional<size_t>
                 {
-                    return std::optional<size_t>{ dataArray[gidx] };
+                    return std::optional<size_t>{ mapDataArray[gidx] };
                 });
             });
 
