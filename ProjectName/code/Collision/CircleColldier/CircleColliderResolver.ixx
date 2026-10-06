@@ -2,17 +2,15 @@ export module Collider.CircleColliderResolver;
 import <optional>;
 import MyLib.Math.Vector2;
 import ColliderDef;
-import Collider.RectCollider;
-import Collider.CircleCollider;
 
 /// <summary>
 /// 当たり判定関連
 /// </summary>
 export namespace col2d
 {
-    /// <summary>
-    /// 前方宣言
-    /// </summary>
+    class RectCollider;
+    class CircleCollider;
+
     /// <summary>
     /// 円形コライダー解決
     /// </summary>
