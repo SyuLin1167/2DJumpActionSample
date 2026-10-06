@@ -1,4 +1,4 @@
-﻿module Collider.RectColliderResolver;
+module Collider.RectColliderResolver;
 import Collider.RectCollider;
 import Collider.CircleCollider;
 import MyLib.Math.Vector2;
@@ -7,7 +7,7 @@ using namespace math;
 
 namespace col2d
 {
-    void RectColliderResolver::Resolve(RectCollider& issue, const RectCollider& other)
+    std::optional<ContactInfo> RectColliderResolver::Resolve(RectCollider& issue, const RectCollider& other)
     {
         // 差分を算出
         Vector2f diffX
@@ -28,8 +28,10 @@ namespace col2d
         // 対角同値は何もしない
         if (std::abs(dx) == std::abs(dy))
         {
-            return;
+            return std::nullopt;
         }
+
+        ContactInfo info{};
 
         // 最も近い方向に押し戻す
         if (std::abs(dx) < std::abs(dy))
@@ -40,6 +42,11 @@ namespace col2d
                 issue.AddVelocity(Vector2f(dx, 0.0f));
             }
             issue.SetVelocity(Vector2f(0.0f, issue.GetVelocity().y));
+
+            // 衝突情報を作成
+            info.normal = std::signbit(dx) ? NORMAL_LEFT : NORMAL_RIGHT;
+            info.point = other.GetRect().Center();
+            info.point.x = std::signbit(dx) ? other.GetRect().Left() : other.GetRect().Right();
         }
         else
         {
@@ -49,10 +56,17 @@ namespace col2d
                 issue.AddVelocity(Vector2f(0.0f, dy));
             }
             issue.SetVelocity(Vector2f(issue.GetVelocity().x, 0.0f));
+
+            // 衝突情報を作成
+            info.normal = std::signbit(dy) ? NORMAL_TOP : NORMAL_BOTTOM;
+            info.point = other.GetRect().Center();
+            info.point.y = std::signbit(dy) ? other.GetRect().Top() : other.GetRect().Bottom();
         }
+
+        return info;
     }
 
-    void RectColliderResolver::Resolve(RectCollider& issue, const CircleCollider& other)
+    std::optional<ContactInfo> RectColliderResolver::Resolve(RectCollider& issue, const CircleCollider& other)
     {
         // 中心から最も近い辺を求める
         Vector2f nearest
@@ -75,5 +89,11 @@ namespace col2d
         Vector2f v = issue.GetVelocity();
         float vn = v.Dot(normal);
         issue.SetVelocity(v - normal * vn);
+
+        // 衝突情報を作成
+        ContactInfo info{};
+        info.normal = normal;
+        info.point = other.GetCircle().center + normal * other.GetCircle().radius;
+        return info;
     }
 }

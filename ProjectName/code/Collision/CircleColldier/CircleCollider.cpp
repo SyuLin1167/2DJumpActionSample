@@ -1,4 +1,4 @@
-﻿module Collider.CircleCollider;
+module Collider.CircleCollider;
 
 import MyLib.Shape.Circle;
 import MyLib.Shape.Rect;

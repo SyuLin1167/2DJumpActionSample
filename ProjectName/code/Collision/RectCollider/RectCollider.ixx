@@ -1,4 +1,4 @@
-﻿export module Collider.RectCollider;
+export module Collider.RectCollider;
 import MyLib.Shape.Rect;
 import Collider;
 

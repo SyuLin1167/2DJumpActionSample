@@ -1,4 +1,4 @@
-﻿module Collider.CircleColliderResolver;
+module Collider.CircleColliderResolver;
 import MyLib.Math.Vector2;
 import MyLib.Shape.Rect;
 import Collider.CircleCollider;
@@ -8,7 +8,7 @@ using namespace math;
 
 namespace col2d
 {
-    void CircleColliderResolver::Resolve(CircleCollider& issue, const RectCollider& other)
+    std::optional<ContactInfo> CircleColliderResolver::Resolve(CircleCollider& issue, const RectCollider& other)
     {
         // 差分を算出
         shape::Rect otherRect = other.GetRect();
@@ -24,7 +24,7 @@ namespace col2d
         float radius = issue.GetCircle().radius;
         if (distSq >= radius * radius)
         {
-            return;
+            return std::nullopt;
         }
 
         // 押し戻し量と方向を計算
@@ -38,9 +38,15 @@ namespace col2d
         Vector2f v = issue.GetVelocity();
         float vn = v.Dot(normal);
         issue.SetVelocity(v - normal * vn);
+
+        // 衝突情報を作成
+        ContactInfo info{};
+        info.normal = normal;
+        info.point = closestPoint;
+        return info;
     }
 
-    void CircleColliderResolver::Resolve(CircleCollider& issue, const CircleCollider& other)
+    std::optional<ContactInfo> CircleColliderResolver::Resolve(CircleCollider& issue, const CircleCollider& other)
     {
         // 差分を算出
         Vector2f diff = issue.GetCircle().center - other.GetCircle().center;
@@ -59,5 +65,11 @@ namespace col2d
         Vector2f v = issue.GetVelocity();
         float vn = v.Dot(normal);
         issue.SetVelocity(v - normal * vn);
+
+        // 衝突情報を作成
+        ContactInfo info{};
+        info.normal = normal;
+        info.point = other.GetCircle().center + normal * other.GetCircle().radius;
+        return info;
     }
 }

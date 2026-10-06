@@ -1,5 +1,6 @@
-﻿export module Collider.TileColliderResolver;
+export module Collider.TileColliderResolver;
 import <cstdint>;
+import <optional>;
 import Collider.RectCollider;
 import Collider.TileCollider;
 import MyLib.Shape.Rect;
@@ -32,7 +33,8 @@ export namespace col2d
         /// </summary>
         /// <param name="issue">解決対象のタイルコライダー</param>
         /// <param name="tileInfo">タイル情報</param>
-        void Resolve(RectCollider& issue, const TileInfo& tileInfo);
+        /// <returns>衝突情報</returns>
+        std::optional<ContactInfo> Resolve(RectCollider& issue, const TileInfo& tileInfo);
 
         // 押し戻し量の計算
         math::Vector2f CalcPushBack(const RectCollider& issue,const uint8_t adjacentFlag, const shape::Rect& tileRect);
@@ -41,15 +43,17 @@ export namespace col2d
         /// 通常ブロックの解決処理
         /// </summary>
         /// <param name="issue">解決対象のタイルコライダー</param>
-        /// <param name="tileInfo">タイル情報</param>
-        void ResolveSolid(RectCollider& issue, const TileInfo& tileInfo);
+        /// <param name="tileInfo">タイル情報</param
+        /// <returns>衝突情報</returns>
+        std::optional<ContactInfo> ResolveSolid(RectCollider& issue, const TileInfo& tileInfo);
 
         /// <summary>
         /// 上からのみ当たるブロックの解決処理
         /// </summary>
         /// <param name="issue">解決対象のタイルコライダー</param>
         /// <param name="tileInfo">タイル情報</param>
-        void ResolveOneWayTop(RectCollider& issue, const TileInfo& tileInfo);
+        /// <returns>衝突情報</returns>
+        std::optional<ContactInfo> ResolveOneWayTop(RectCollider& issue, const TileInfo& tileInfo);
     };
 }
 

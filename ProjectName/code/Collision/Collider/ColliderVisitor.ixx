@@ -1,4 +1,4 @@
-﻿export module ColliderVisitor;
+export module ColliderVisitor;
 import ColliderDef;
 
 /// <summary>
@@ -55,13 +55,17 @@ export namespace col2d
             // どちらかがトリガーなら押し戻しは行わない
             if (!issue.GetColliderDef()->isTrigger || !target.GetColliderDef()->isTrigger)
             {
-                resolve.Resolve(issue, target);
+                if (auto info = resolve.Resolve(issue, target))
+                {
+                    m_info = info.value();
+                }
             }
 
             return true;
         }
 
     protected:
-        bool m_hadContact; // 衝突が発生したかどうか
+        bool m_hadContact = false;
+        ContactInfo m_info; // 衝突情報
     };
 }

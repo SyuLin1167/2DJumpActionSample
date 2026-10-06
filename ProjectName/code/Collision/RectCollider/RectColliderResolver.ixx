@@ -1,4 +1,6 @@
-﻿export module Collider.RectColliderResolver;
+export module Collider.RectColliderResolver;
+import <optional>;
+import ColliderDef;
 
 /// <summary>
 /// 当たり判定関連
@@ -33,13 +35,13 @@ export namespace col2d
         /// </summary>
         /// <param name="issue">解決対象の矩形コライダー</param>
         /// <param name="other">他の矩形コライダー</param>
-        void Resolve(RectCollider& issue, const RectCollider& other);
+        std::optional<ContactInfo> Resolve(RectCollider& issue, const RectCollider& other);
 
         /// <summary>
         /// 解決処理
         /// </summary>
         /// <param name="issue">解決対象の矩形コライダー</param>
         /// <param name="other">他の円形コライダー</param>
-        void Resolve(RectCollider& issue, const CircleCollider& other);
+        std::optional<ContactInfo> Resolve(RectCollider& issue, const CircleCollider& other);
     };
 }

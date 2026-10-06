@@ -1,4 +1,4 @@
-﻿export module Collider;
+export module Collider;
 
 import <memory>;
 import <functional>;
@@ -18,12 +18,17 @@ export namespace col2d
 {
     constexpr float EPSILON = 1e-6f;    // 浮動小数点誤差許容値
 
+    constexpr Vector2f NORMAL_LEFT = { -1.0f, 0 }; // 左方向の法線
+    constexpr Vector2f NORMAL_RIGHT = { 1.0f, 0 }; // 右方向の法線
+    constexpr Vector2f NORMAL_TOP = { 0, -1.0f }; // 上方向の法線
+    constexpr Vector2f NORMAL_BOTTOM = { 0, 1.0f }; // 下方向の法線
+
     /// <summary>
     /// コンタクトリスナー
     /// </summary>
     export struct ContactListener
     {
-        std::function<bool()> when; // 条件
+        std::function<bool(const ContactInfo&)> when; // 条件
         std::function<void()> event; // 処理
     };
 
@@ -46,7 +51,7 @@ export namespace col2d
         /// <summary>
         /// デストラクタ
         /// </summary>
-        virtual ~Collider() = default;
+        virtual ~Collider();
 
         /// <summary>
         /// カテゴリーの生成
@@ -122,7 +127,8 @@ export namespace col2d
         /// イベントの発火
         /// </summary>
         /// <param name="key">イベントのキー</param>
-        void TriggerEvent(const uint64_t& key);
+        /// <param name="info">衝突情報</param>
+        void TriggerEvent(const uint64_t& key, const ContactInfo& info);
 
         /// <summary>
         /// イベントの削除

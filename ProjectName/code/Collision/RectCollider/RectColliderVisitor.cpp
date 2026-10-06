@@ -1,4 +1,4 @@
-﻿module Collider.RectColliderVisitor;
+module Collider.RectColliderVisitor;
 
 import MyLib.Math.Vector2;
 import Collider.RectCollider;
@@ -53,8 +53,9 @@ namespace col2d
         // 衝突していればイベントを実施する
         if (m_hadContact)
         {
-            m_issue.TriggerEvent(target.GetFilter().category);
-            target.TriggerEvent(m_issue.GetFilter().category);
+            m_issue.TriggerEvent(target.GetFilter().category, m_info);
+            m_info.normal *= -1.0f; // 法線を反転させる
+            target.TriggerEvent(m_issue.GetFilter().category, m_info);
         }
 
         // サブステップで進めた純粋な前進分だけを必ず巻き戻す
@@ -100,8 +101,9 @@ namespace col2d
         // 衝突していればイベントを実施する
         if (m_hadContact)
         {
-            m_issue.TriggerEvent(target.GetFilter().category);
-            target.TriggerEvent(m_issue.GetFilter().category);
+            m_issue.TriggerEvent(target.GetFilter().category, m_info);
+            m_info.normal *= -1.0f; // 法線を反転させる
+            target.TriggerEvent(m_issue.GetFilter().category, m_info);
         }
 
         // サブステップで進めた純粋な前進分だけを必ず巻き戻す
