@@ -1,4 +1,4 @@
-﻿export module ColliderDef;
+export module ColliderDef;
 
 import MyLib.Math.Vector2;
 
@@ -42,6 +42,15 @@ export namespace col2d
         bool shouldCCD;             // 連続衝突検出を行うか
         bool isTrigger;             // トリガーかどうか
         bool isActive;              // 有効かどうか
+    };
+
+    /// <summary>
+    /// 衝突情報
+    /// </summary>
+    export struct ContactInfo
+    {
+        Vector2f normal{}; // 法線
+        Vector2f point{}; // 衝突点
     };
 }
 

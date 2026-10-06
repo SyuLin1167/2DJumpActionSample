@@ -1,13 +1,11 @@
-﻿export module Collider.TileColliderVisitor;
+export module Collider.TileColliderVisitor;
 export import ColliderVisitor;
 import Collider.TileColliderResolver;
+import Collider.RectCollider;
+import Collider.TileCollider;
 
 export namespace col2d
 {
-    // 前方宣言
-    class TileCollider;
-    class CircleCollider;
-
     /// <summary>
     /// タイルコライダービジター
     /// </summary>
@@ -43,7 +41,11 @@ export namespace col2d
             // タイルコライダーは円形コライダーに対応していないため、処理なし
         }
 
-        // 衝突タイル毎に処理
+        /// <summary>
+        /// 衝突タイル毎の処理
+        /// </summary>
+        /// <param name="collider">矩形コライダー</param>
+        /// <param name="axis">判定軸</param>
         void ProcessCollisionTiles(RectCollider& collider);
 
     private:

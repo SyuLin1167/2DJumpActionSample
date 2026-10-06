@@ -1,4 +1,4 @@
-﻿export module Collider.TileCollider;
+export module Collider.TileCollider;
 import <future>;
 import <string>;
 import <queue>;
@@ -56,7 +56,7 @@ export namespace col2d
     /// <remarks>
     /// タイルマップのタイルに対するコライダー
     /// </remarks>
-    export class TileCollider final :public Collider
+    export class TileCollider final : public Collider
     {
     public:
         /// <summary>

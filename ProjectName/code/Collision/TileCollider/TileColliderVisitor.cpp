@@ -1,6 +1,7 @@
-﻿module Collider.TileColliderVisitor;
+module Collider.TileColliderVisitor;
 import MyLib.Math.Vector2;
 import Collider.TileCollider;
+import Collider.RectCollider;
 
 using namespace math;
 
@@ -20,46 +21,31 @@ namespace col2d
             return;
         }
 
-        // 衝突が発生したかどうか
-        m_hadContact = false;
+        // 元の移動量を保存
+        const Vector2f velocity = collider.GetVelocity();
 
-        // 移動量からサブステップ数を決める
-        Vector2f vel = collider.GetVelocity();
-        const float longest = std::max(std::abs(vel.x), std::abs(vel.y));
-        const Vector2f tileSize = m_issue.GetTileSize();
-        const float stepMax = 0.5f * std::min(tileSize.x, tileSize.y);
-        int N = std::max(1, static_cast<int>(std::ceil(longest / stepMax)));
-        vel /= N;
-        Vector2f accumulatedMove{ 0.0f, 0.0f };
+        // 解決処理側で参照できるように移動量を保持
+        collider.SetVelocity(velocity);
 
-        // サブステップごとに衝突判定と解決を行う
-        for (int i = 0; i < N; ++i)
+        // X方向
+        collider.AddVelocity({ velocity.x, 0.0f });
+        if (m_issue.IsColliding(collider.GetRect()))
         {
-            // 仮想移動
-            collider.AddVelocity(vel);
-            accumulatedMove += vel;
-
-            // 現在予定位置で衝突しているタイルを収集(あれば衝突)
-            if (m_issue.IsColliding(collider.GetRect()))
-            {
-                // 衝突タイルごとに処理
-                ProcessCollisionTiles(collider);
-            }
+            ProcessCollisionTiles(collider);
         }
 
-        // サブステップで進めた純粋な前進分だけを必ず巻き戻す
-        collider.AddVelocity((accumulatedMove - vel) * -1.0f);
-
-        // 衝突していればイベントを実施する
-        if (m_hadContact)
+        // Y方向
+        collider.AddVelocity({ 0.0f, velocity.y });
+        if (m_issue.IsColliding(collider.GetRect()))
         {
-            collider.TriggerEvent(m_issue.GetFilter().category);
+            ProcessCollisionTiles(collider);
         }
     }
 
     void TileColliderVisitor::ProcessCollisionTiles(RectCollider& collider)
     {
         auto hitTileKeys = m_issue.TakeHitTileKeys();
+
         while (!hitTileKeys.empty())
         {
             // 衝突タイル情報取得
@@ -76,8 +62,13 @@ namespace col2d
             // 現在位置で本当に衝突しているか再確認
             if (collider.IsColliding(*tileInfo->collider))
             {
-                m_hadContact = true;
-                m_resolver.Resolve(collider, *tileInfo);
+                const auto contact = m_resolver.Resolve(collider, *tileInfo);
+
+                // 衝突箇所があれば衝突として確定しイベント発火
+                if (contact)
+                {
+                    collider.TriggerEvent(m_issue.GetFilter().category, *contact);
+                }
             }
         }
     }
