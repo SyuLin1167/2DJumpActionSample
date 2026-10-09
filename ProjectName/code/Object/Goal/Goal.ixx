@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include <DxLib.h>
 
 export module Object.Goal;
@@ -44,7 +44,7 @@ export namespace object
 
             // 衝突イベント登録
             col2d::ContactListener listener;
-            listener.when = [&]() {return true; };
+            listener.when = [&](const col2d::ContactInfo&) { return true; };
             listener.event = [&]() { m_cleared = true; };
             ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::RECT, ObjectTag::PLAYER), listener);
         }

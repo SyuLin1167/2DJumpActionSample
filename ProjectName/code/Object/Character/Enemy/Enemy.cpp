@@ -1,4 +1,4 @@
-﻿module;
+module;
 #include<DxLib.h>
 
 module Object.Enemy;
@@ -33,7 +33,7 @@ namespace object
 
         // 衝突イベント登録
         col2d::ContactListener listener;
-        listener.when = [&]() {return true; };
+        listener.when = [&](const col2d::ContactInfo&) { return true; };
         listener.event = [&]() {m_health -= m_damage * m_deltaTime; };
         ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::RECT, ObjectTag::PLAYER), listener);
     }
