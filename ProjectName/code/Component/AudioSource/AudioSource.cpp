@@ -26,12 +26,12 @@ namespace component
         m_states.clear();
     }
 
-    void AudioSource::PlaySound(const std::string& soundName)
+    void AudioSource::Play(const std::string& soundName)
     {
-        // サウンドがない場合は再生しない
+        // 未登録の場合は停止状態で登録
         if (m_states.find(soundName) == m_states.end())
         {
-            return;
+            m_states[soundName] = SoundState::STOP;
         }
 
         // サウンドハンドルがない場合は再生しない
@@ -45,10 +45,10 @@ namespace component
         ChangeVolumeSoundMem(sound.soundDef.volume, sound.handle);
 
         // SE(単発)の場合は複製ハンドルを再生
-        if (sound.soundDef.soundType = SOUNDTYPE_SE_ONCE)
+        if (sound.soundDef.soundType == SOUNDTYPE_SE_ONCE)
         {
             int handle = DuplicateSoundMem(sound.handle);
-            PlaySoundMem(handle, sound.soundDef.soundType);
+            PlaySoundMem(handle, DX_PLAYTYPE_BACK);
 
             // 再生終了後に自動削除
             SetPlayFinishDeleteSoundMem(TRUE, handle);
@@ -58,16 +58,16 @@ namespace component
         // サウンド再生
         if (m_states[soundName] == SoundState::PAUSE)
         {
-            PlaySoundMem(sound.handle, sound.soundDef.soundType, false);
+            PlaySoundMem(sound.handle, DX_PLAYTYPE_LOOP, false);
         }
         else if(m_states[soundName] == SoundState::STOP)
         {
-            PlaySoundMem(sound.handle, sound.soundDef.soundType);
+            PlaySoundMem(sound.handle, DX_PLAYTYPE_LOOP);
         }
         m_states[soundName] = SoundState::PLAY;
     }
 
-    void AudioSource::PauseSound(const std::string& soundName)
+    void AudioSource::Pause(const std::string& soundName)
     {
         // サウンドがない場合は一時停止しない
         if (m_states.find(soundName) == m_states.end())
@@ -84,11 +84,10 @@ namespace component
 
         // サウンド一時停止
         StopSoundMem(sound.handle);
-        auto& playState = m_states.at(soundName);
-        playState.soundState = SoundState::PAUSE;
+        m_states.at(soundName) = SoundState::PAUSE;
     }
 
-    void AudioSource::StopSound(const std::string& soundName)
+    void AudioSource::Stop(const std::string& soundName)
     {
         // サウンドがない場合は停止しない
         if (m_states.find(soundName) == m_states.end())
@@ -105,8 +104,7 @@ namespace component
 
         // サウンド停止
         StopSoundMem(sound.handle);
-        auto& playState = m_states.at(soundName);
-        playState.soundState = SoundState::STOP;
+        m_states.at(soundName) = SoundState::STOP;
     }
 }
 

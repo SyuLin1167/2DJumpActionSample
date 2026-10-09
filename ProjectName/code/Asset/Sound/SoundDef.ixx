@@ -33,8 +33,6 @@ export namespace asset
         int8_t soundType;        // サウンドの種類
         int8_t playType;        // 再生タイプ
         std::string name;       // サウンド名
-        float startFrame = 1;   // 開始フレーム
-        float endFrame;         // 終了フレーム
         int volume;             // 個別ボリューム
     };
 }

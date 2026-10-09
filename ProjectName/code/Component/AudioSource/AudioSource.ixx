@@ -40,19 +40,19 @@ export namespace component
         /// 再生
         /// </summary>
         /// <param name="soundName">再生するサウンド</param>
-        void PlaySound(const std::string& soundName);
+        void Play(const std::string& soundName);
 
         /// <summary>
         /// 一時停止
         /// </summary>
         /// <param name="soundName">一時停止するサウンド</param>
-        void PauseSound(const std::string& soundName);
+        void Pause(const std::string& soundName);
 
         /// <summary>
         /// 停止
         /// </summary>
         /// <param name="soundName">停止するサウンド</param>
-        void StopSound(const std::string& soundName);
+        void Stop(const std::string& soundName);
 
     private:
         std::unordered_map<std::string, SoundState> m_states; // 再生情報群

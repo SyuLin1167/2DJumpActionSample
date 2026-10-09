@@ -463,6 +463,13 @@
     <ClCompile Include="..\code\Asset\Animation\AnimationDef.ixx">
       <Filter>Asset\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="..\code\Asset\Sound\Sound.cpp" />
+    <ClCompile Include="..\code\Asset\Sound\Sound.ixx" />
+    <ClCompile Include="..\code\Asset\Sound\SoundDef.ixx" />
+    <ClCompile Include="..\code\Component\Animator\Animator.cpp" />
+    <ClCompile Include="..\code\Component\Animator\Animator.ixx" />
+    <ClCompile Include="..\code\Component\AudioSource\AudioSource.cpp" />
+    <ClCompile Include="..\code\Component\AudioSource\AudioSource.ixx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />

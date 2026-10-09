@@ -13,7 +13,9 @@ import GameSystem.Camera;
 import Component.Jump;
 import Component.MoveWithKey;
 import Component.Animator;
+import Component.AudioSource;
 import Asset.Animation;
+import Asset.Sound;
 import Collider;
 
 using json = nlohmann::json;
@@ -32,10 +34,28 @@ namespace object
 
         //プレイヤー画像読み込み
         AppCtx::AssetMgr().Fetch<asset::Animation>()->CreateHandleAsync("Player", "player.png", pData.size.x, pData.size.y);
+
+        // 歩行サウンド定義
+        asset::SoundDef walkSoundDef{};
+        walkSoundDef.name = AssetName::WALK;
+        walkSoundDef.soundType = asset::SOUNDTYPE_SE_LOOP;
+        walkSoundDef.volume = 100;
+
+        // プレイヤーの歩行音読み込み
+        AppCtx::AssetMgr().Fetch<asset::Sound>()->AddSound(walkSoundDef, "SE_Footsteps.wav");
     }
 
     Player::~Player()
     {
+        // プレイヤー画像削除
+        AppCtx::AssetMgr().Fetch<asset::Animation>()->DeleteHandle("Player");
+
+        // アニメーション削除
+        AppCtx::AssetMgr().Fetch<asset::Animation>()->DeleteAnim(AssetName::IDLE);
+        AppCtx::AssetMgr().Fetch<asset::Animation>()->DeleteAnim(AssetName::WALK);
+
+        // プレイヤーの歩行音削除
+        AppCtx::AssetMgr().Fetch<asset::Sound>()->DeleteHandle(AssetName::WALK);
     }
 
     void Player::Init()
@@ -89,8 +109,11 @@ namespace object
         // アニメーション追加
         AppCtx::AssetMgr().Fetch<asset::Animation>()->CreateAnimCategory("Player", { idleAnimDef,walkAnimDef });
         auto anim = m_compMgr->AddComponent<component::Animator>(this);
-        m_compMgr->GetComponent<component::Animator>()->AddAnim(AssetName::IDLE);
-        m_compMgr->GetComponent<component::Animator>()->AddAnim(AssetName::WALK);
+        anim->AddAnim(AssetName::IDLE);
+        anim->AddAnim(AssetName::WALK);
+
+        // サウンド再生コンポーネント追加
+        m_compMgr->AddComponent<component::AudioSource>(this);
     }
 
     void Player::Update()
@@ -101,10 +124,12 @@ namespace object
         if (m_velocity.x != 0)
         {
             m_compMgr->GetComponent<component::Animator>()->SwitchAnim(AssetName::WALK, AssetName::IDLE);
+            m_compMgr->GetComponent<component::AudioSource>()->Play(AssetName::WALK);
         }
         else
         {
             m_compMgr->GetComponent<component::Animator>()->SwitchAnim(AssetName::IDLE, AssetName::WALK);
+            m_compMgr->GetComponent<component::AudioSource>()->Stop(AssetName::WALK);
         }
     }
 

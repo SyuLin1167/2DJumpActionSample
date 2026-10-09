@@ -89,7 +89,7 @@ namespace asset
         }
 
         // サウンドファイル名がある場合、データ追加とファイル読み込みを行う
-        m_sounds.emplace(soundDef.name, soundDef);
+        m_sounds[soundDef.name].soundDef = soundDef;
         CreateHandleAsync(soundDef.name, fileName);
     }
 
