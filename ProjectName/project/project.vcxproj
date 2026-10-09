@@ -198,6 +198,9 @@
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CompileAsCppModule</CompileAs>
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsCppModule</CompileAs>
     </ClCompile>
+    <ClCompile Include="..\code\Asset\Sound\Sound.cpp" />
+    <ClCompile Include="..\code\Asset\Sound\Sound.ixx" />
+    <ClCompile Include="..\code\Asset\Sound\SoundDef.ixx" />
     <ClCompile Include="..\code\Collision\CircleColldier\CircleCollider.cpp" />
     <ClCompile Include="..\code\Collision\CircleColldier\CircleCollider.ixx">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCppModule</CompileAs>
@@ -295,6 +298,8 @@
     </ClCompile>
     <ClCompile Include="..\code\Component\Animator\Animator.cpp" />
     <ClCompile Include="..\code\Component\Animator\Animator.ixx" />
+    <ClCompile Include="..\code\Component\AudioSource\AudioSource.cpp" />
+    <ClCompile Include="..\code\Component\AudioSource\AudioSource.ixx" />
     <ClCompile Include="..\code\Component\ComponentBase\ComponentBase.cpp" />
     <ClCompile Include="..\code\Component\ComponentBase\ComponentBase.ixx">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCppModule</CompileAs>
