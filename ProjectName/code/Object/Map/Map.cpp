@@ -56,7 +56,7 @@ namespace object
             });
 
         // 当たり判定生成
-        col2d::ColliderDef def;
+        col2d::ColliderDef def{};
         def.isActive = true;
         colID = ObjectContext::ColMgr().CreateTileCollider(&def, infoPromise->get_future().share(), "MapTip.csv", MyObjectTag());
 

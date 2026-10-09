@@ -77,13 +77,10 @@ namespace object
         for (auto tag : OBJECT_TAGS)
         {
             //死亡状態のオブジェクトを削除
-            for (auto& object : objects[tag])
-            {
-                if (object->NowState() & MainState::DEAD)
+            std::erase_if(objects[tag], [](const std::shared_ptr<GameObject>& object)
                 {
-                    RemoveObject(object.get());
-                }
-            }
+                    return (object->NowState() & MainState::DEAD) != 0;
+                });
 
             //更新時に追加したオブジェクトを配列に格納
             if (!pendingObjects.empty())

@@ -62,7 +62,7 @@ export namespace component
         const float JUMP_POWER;    //ジャンプ力
         static constexpr float MAX_FALL_VELOCITY = 300.0f;      //最大落下速度
         bool m_isGround;                             //地面にいるか
-        bool m_canJump;                               //ジャンプ可能か
+        bool m_canJump{ false };
         float m_verticalSpeed; // 垂直速度
         std::function<bool()> m_trigger;            //トリガー
     };

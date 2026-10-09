@@ -110,7 +110,7 @@ export namespace ui
         /// </summary>
         void OnReleased();
 
-        bool m_onClicked;                   // クリック状態
+        bool m_onClicked{ false }; 
         std::unique_ptr<ButtonDef> m_def;   // ボタン定義
     };
 }
