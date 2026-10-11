@@ -34,6 +34,18 @@ export namespace gameSystem
         }
 
         /// <summary>
+        /// 追尾ターゲット解除(自分が登録したターゲットの場合のみ)
+        /// </summary>
+        /// <param name="target">解除するターゲット</param>
+        void ClearTarget(const Vector2f* target)
+        {
+            if (m_target == target)
+            {
+                m_target = nullptr;
+            }
+        }
+
+        /// <summary>
         /// ワールド全体サイズ設定
         /// </summary>
         /// <param name="worldSize">ワールドサイズ</param>

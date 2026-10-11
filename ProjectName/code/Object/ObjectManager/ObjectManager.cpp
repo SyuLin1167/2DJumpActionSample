@@ -1,5 +1,4 @@
 module Object.ObjectManager;
-import ObjectContext;
 import GameSystem.Camera;
 
 namespace object
@@ -9,7 +8,6 @@ namespace object
         , pendingObjects()
         , isUpdate(false)
     {
-        ObjCtx::Activate();
     }
 
     ObjectManager::~ObjectManager() = default;
@@ -56,7 +54,7 @@ namespace object
         }
 
         //当たり判定の更新
-        ObjectContext::ColMgr().Step();
+        m_colMgr.Step();
 
         for (auto tag : OBJECT_TAGS)
         {

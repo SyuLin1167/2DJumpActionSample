@@ -47,6 +47,15 @@ namespace object
 
     Player::~Player()
     {
+        // カメラ追従を解除(自分が登録した場合のみ)
+        gameSystem::Camera::Instance().ClearTarget(&m_pos);
+
+        // コライダーを破棄(イベントも同時に削除される)
+        if (auto* mgr = ColMgrPtr())
+        {
+            mgr->Destroy(id);
+        }
+
         // プレイヤー画像削除
         AppCtx::AssetMgr().Fetch<asset::Animation>()->DeleteHandle("Player");
 
@@ -82,14 +91,14 @@ namespace object
         colDef.localPos = m_pos;
         colDef.isActive = true;
         colDef.shouldCCD = true;
-        id = ObjCtx::ColMgr().CreateRectCollider(&colDef, pData.size, MyObjectTag());
-        ObjCtx::ColMgr().AddMask(id, col2d::CIRCLE, ObjectTag::ENEMY);
+        id = ColMgr().CreateRectCollider(&colDef, pData.size, MyObjectTag());
+        ColMgr().AddMask(id, col2d::CIRCLE, ObjectTag::ENEMY);
 
         // 衝突イベント追加
         ContactListener listener;
         listener.when = [&](const ContactInfo& info) { return info.normal == NORMAL_TOP; };
         listener.event = [&, jump]() { jump->CanJump();};
-        ObjCtx::ColMgr().AddEvent(id, MakeKey(TILE, ObjectTag::MAP), listener);
+        ColMgr().AddEvent(id, MakeKey(TILE, ObjectTag::MAP), listener);
 
         // 待機アニメーション定義
         asset::AnimationDef idleAnimDef{};
@@ -119,7 +128,7 @@ namespace object
     void Player::Update()
     {
         // 速度反映
-        ObjectContext::ColMgr().GetCollider(id)->SetVelocity(m_velocity);
+        ColMgr().GetCollider(id)->SetVelocity(m_velocity);
 
         if (m_velocity.x != 0)
         {
@@ -136,10 +145,10 @@ namespace object
     void Player::LateUpdate()
     {
         // 座標更新
-        m_pos = ObjCtx::ColMgr().GetCollider(id)->GetColliderDef()->localPos;
+        m_pos = ColMgr().GetCollider(id)->GetColliderDef()->localPos;
 
         // 速度更新
-        m_velocity = ObjCtx::ColMgr().GetCollider(id)->GetVelocity();
+        m_velocity = ColMgr().GetCollider(id)->GetVelocity();
     }
 
     void Player::Draw()

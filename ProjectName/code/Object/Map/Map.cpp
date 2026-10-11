@@ -72,10 +72,8 @@ namespace object
             }
             });
 
-        // 当たり判定生成
-        col2d::ColliderDef def{};
-        def.isActive = true;
-        colID = ObjectContext::ColMgr().CreateTileCollider(&def, infoPromise->get_future().share(), "MapTip.csv", MyObjectTag());
+        // 当たり判定はシーン所属後(Init)に生成する
+        m_infoFuture = infoPromise->get_future().share();
 
         // マップ画像読み込み
         AppCtx::AssetMgr().LoadAsync<asset::DivisionGraph>("map", "map.png");
@@ -83,6 +81,12 @@ namespace object
 
     Map::~Map()
     {
+        // タイルコライダーを破棄
+        if (auto* mgr = ColMgrPtr())
+        {
+            mgr->Destroy(colID);
+        }
+
         AppCtx::AssetMgr().DeleteHandle<asset::DivisionGraph>("map");
     }
 
@@ -97,7 +101,15 @@ namespace object
         gameSystem::Camera::Instance().SetWorldSize(worldSize);
 
         // 衝突マスク追加
-        ObjectContext::ColMgr().AddMask(colID, col2d::RECT, PLAYER);
+        ColMgr().AddMask(colID, col2d::RECT, PLAYER);
+    }
+
+    void Map::OnAttach()
+    {
+        // 当たり判定生成(Loading中のコンストラクターから呼ばれる)
+        col2d::ColliderDef def{};
+        def.isActive = true;
+        colID = ColMgr().CreateTileCollider(&def, m_infoFuture, "MapTip.csv", MyObjectTag());
     }
 
     void Map::Draw()

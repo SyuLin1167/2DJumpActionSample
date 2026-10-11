@@ -36,11 +36,15 @@ export namespace object
             // 更新中なら一時保存、そうでないなら新規追加
             if (isUpdate)
             {
+                object->SetColliderManager(&m_colMgr);
+                object->OnAttach();
                 pendingObjects.emplace_back(object);
                 return;
             }
 
             // 新規追加
+            object->SetColliderManager(&m_colMgr);
+            object->OnAttach();
             auto obj = std::shared_ptr<GameObject>(object, std::forward<Args>(args)...);
             objects[object->MyObjectTag()].emplace_back(obj);
         }
@@ -79,7 +83,9 @@ export namespace object
         void Draw();
 
     private:
-        std::unordered_map<uint32_t, std::vector<std::shared_ptr<GameObject>>> objects;     //オブジェクト配列
+        // このシーン専用のコライダー管理(objectsより先に宣言=objectsの後に破棄される)
+        col2d::ColliderManager m_colMgr;
+        std::unordered_map<uint32_t, std::vector<std::shared_ptr<GameObject>>> objects;
         std::vector<GameObject*> pendingObjects;    //一時保存オブジェクト配列
         bool isUpdate;                              //更新状況
     };

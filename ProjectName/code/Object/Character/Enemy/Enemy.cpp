@@ -19,7 +19,10 @@ namespace object
 
     Enemy::~Enemy()
     {
-        ObjCtx::ColMgr().Destroy(id);
+        if (auto* mgr = ColMgrPtr())
+        {
+            mgr->Destroy(id);
+        }
     }
     
     void Enemy::Init()
@@ -29,13 +32,13 @@ namespace object
         def.type = col2d::Type::STATIC;
         def.localPos = m_pos;
         def.isActive = true;
-        id = ObjCtx::ColMgr().CreateCircleCollider(&def, 16.0f, MyObjectTag());
+        id = ColMgr().CreateCircleCollider(&def, 16.0f, MyObjectTag());
 
         // 衝突イベント登録
         col2d::ContactListener listener;
         listener.when = [&](const col2d::ContactInfo&) { return true; };
         listener.event = [&]() {m_health -= m_damage * m_deltaTime; };
-        ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::RECT, ObjectTag::PLAYER), listener);
+        ColMgr().AddEvent(id, col2d::MakeKey(col2d::RECT, ObjectTag::PLAYER), listener);
     }
 
     void Enemy::Update()
