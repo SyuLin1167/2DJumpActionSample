@@ -49,6 +49,15 @@ namespace scene
     {
         AppCtx::UIMgr().Update();
 
+        // 必須画像の読み込み完了後に未登録なら、ログを残して安全に終了
+        if (!task::LoadingContext::Get() || !task::LoadingContext::Get()->IsLoading())
+        {
+            if (AppCtx::AssetMgr().Fetch<asset::Graph>()->GetHandle("Title") == -1)
+            {
+                ErrorLogFmtAdd("Title required resource missing: Title.png");
+                return CmdQuit{};
+            }
+        }
         //Eキーが押されていたらシーン移動
         if (m_toNextScene)
         {

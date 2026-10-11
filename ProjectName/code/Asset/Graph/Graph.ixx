@@ -1,4 +1,6 @@
 ﻿export module Asset.Graph;
+import <unordered_map>;
+import <string>;
 import Asset.AssetBase;
 
 /// <summary>

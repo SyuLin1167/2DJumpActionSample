@@ -68,6 +68,11 @@ export namespace scene
         SceneCmd Update() override;
 
         /// <summary>
+        /// 読み込み失敗時の遷移先
+        /// </summary>
+        SceneCmd OnLoadFailed();
+
+        /// <summary>
         /// 描画処理
         /// </summary>
         void Draw() override;
@@ -78,5 +83,6 @@ export namespace scene
         std::shared_ptr<SceneBase> m_nextScene;           //次シーン
         std::function<std::shared_ptr<SceneBase>()> m_loadScene;  //次シーン読み込み処理
         Coroutine m_coroutine;                            //コルーチン
+        bool m_failed = false;                            //読み込み失敗
     };
 }

@@ -5,6 +5,7 @@ module Scene.LoadingScene;
 import GameSystem.FrameRate;
 import MyLib.Loading;
 import MyLib.Loading.LoadingContext;
+import Scene.Title;
 
 namespace scene
 {
@@ -20,7 +21,6 @@ namespace scene
         SetUseASyncLoadFlag(true);
         task::LoadingContext::Set(std::make_unique<task::Loading>().release());
         task::LoadingContext::Get()->StartLoading();
-        task::LoadingContext::Get()->WatchProgress();
 
         // ポリシー別処理
         if (m_policy & (LoadPolicy::COROUTINE | LoadPolicy::PROGRESS))
@@ -30,6 +30,8 @@ namespace scene
         else if (m_policy & LoadPolicy::DONE)
         {
             m_nextScene = m_loadScene();
+            // タスク登録完了後に実行開始
+            task::LoadingContext::Get()->Run();
         }
     }
 
@@ -44,8 +46,18 @@ namespace scene
         // 次シーンのローディング処理
         m_nextScene = m_loadScene();
 
+        // タスク登録完了後に実行開始
+        task::LoadingContext::Get()->Run();
+
         // 読み込み完了まで待機
         co_yield WaitUntil{ [this] { return !task::LoadingContext::Get()->IsLoading(); } };
+
+        // 失敗時は100%表示待ちを省略して終了
+        if (task::LoadingContext::Get()->HasFailed())
+        {
+            m_failed = true;
+            co_return;
+        }
 
         // 100％表示用の待機時間
         co_yield WaitForSeconds{ 0.5f };
@@ -54,8 +66,28 @@ namespace scene
         co_return;
     }
 
+    SceneCmd LoadingScene::OnLoadFailed()
+    {
+        // 失敗理由をログ出力
+        ErrorLogFmtAdd("Loading failed: %s", task::LoadingContext::Get()->FailureReason().c_str());
+
+        // タイトル自体の読み込み失敗(戻り先なし)は安全に終了
+        if (!m_holdScene)
+        {
+            return CmdQuit{};
+        }
+
+        // それ以外はタイトルへ戻る
+        return CmdReplace{ []() { return std::make_shared<Title>(); } };
+    }
+
     SceneCmd LoadingScene::Update()
     {
+        // ワーカーが予約した共有コンテナーの更新をメインスレッドで反映
+        if (auto* loading = task::LoadingContext::Get())
+        {
+            loading->PumpMain();
+        }
         // ポリシーに基づいた行進処理
         if (m_policy & (LoadPolicy::COROUTINE | LoadPolicy::PROGRESS))
         {
@@ -95,6 +127,11 @@ namespace scene
                 // コルーチン完了確認
                 if (m_coroutine.handle.done())
                 {
+                    task::LoadingContext::Get()->PumpMain();
+                    if (m_failed)
+                    {
+                        return OnLoadFailed();
+                    }
                     auto next = m_nextScene;
                     return CmdReplace{ [next]() { return next; } };
                 }
@@ -105,6 +142,12 @@ namespace scene
             // 読み込み完了確認
             if (!task::LoadingContext::Get()->IsLoading())
             {
+                task::LoadingContext::Get()->PumpMain();
+                if (task::LoadingContext::Get()->HasFailed())
+                {
+                    m_failed = true;
+                    return OnLoadFailed();
+                }
                 auto next = m_nextScene;
                 return CmdReplace{ [next]() { return next; } };
             }
