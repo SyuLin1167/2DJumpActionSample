@@ -4,6 +4,7 @@ import <string>;
 import <queue>;
 import <unordered_map>;
 import MyLib.Shape.Rect;
+import MyLib.Loading;
 export import Collider;
 export import Object.MapInfo;
 import Collider.RectCollider;
@@ -174,6 +175,18 @@ export namespace col2d
         /// </summary>
         /// <param name="mapData">マップデータ</param>
         void BuildTileColliders(std::vector<size_t> mapData);
+
+        /// <summary>
+        /// タイルコライダーを構築して返す
+        /// </summary>
+        /// <param name="mapInfo">マップ情報</param>
+        /// <param name="mapData">マップデータ</param>
+        std::unordered_map<size_t, std::vector<TileInfo>> BuildTileCollidersFor(const object::MapInfo& mapInfo, const std::vector<size_t>& mapData) const;
+
+        /// <summary>
+        /// 構築結果の反映
+        /// </summary>
+        void Commit(task::Loading* loading, const object::MapInfo& mapInfo, std::shared_ptr<std::unordered_map<size_t, std::vector<TileInfo>>> built);
 
         object::MapInfo m_mapInfo;      // マップ情報
 

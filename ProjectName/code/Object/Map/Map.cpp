@@ -34,31 +34,46 @@ namespace object
         auto infoPromise = std::make_shared<std::promise<object::MapInfo>>();
 
         // マップ生成
-        task::LoadingContext::Get()->AddTask(task::INIT, [this, mapDataArray, mapInfo, infoPromise]() {
-            // マップデータ取得
-            m_mapInfo.FromJson(mapInfo);
+        task::LoadingContext::Get()->AddTask(task::INIT, [this, loading = task::LoadingContext::Get(), mapDataArray, mapInfo, infoPromise]() {
+            try
+            {
+                // ワーカー内では一時変数にのみ書き込む
+                MapInfo info;
+                info.FromJson(mapInfo);
 
-            // チャンクサイズを取得
-            m_mapInfo.chunkSize = Window::GetWindowData()->SIZE / m_mapInfo.tileSize.Half();
+                // チャンクサイズを取得
+                info.chunkSize = Window::GetWindowData()->SIZE / info.tileSize.Half();
 
-            
-            infoPromise->set_value(m_mapInfo);
+                // 待機中のTileColliderへ通知
+                infoPromise->set_value(info);
 
-            //チャンク化してマップデータ格納
-            m_mapData = tile::BuildChunkedGrid<size_t>(
-                m_mapInfo.mapSize.x,
-                m_mapInfo.mapSize.y,
-                m_mapInfo.chunkSize,
-                [&](size_t, size_t, size_t gidx, size_t, size_t)->std::optional<size_t>
-                {
-                    return std::optional<size_t>{ mapDataArray[gidx] };
-                });
+                //チャンク化してマップデータ格納
+                auto chunked = tile::BuildChunkedGrid<size_t>(
+                    info.mapSize.x,
+                    info.mapSize.y,
+                    info.chunkSize,
+                    [&](size_t, size_t, size_t gidx, size_t, size_t)->std::optional<size_t>
+                    {
+                        return std::optional<size_t>{ mapDataArray[gidx] };
+                    });
+
+                // メンバーへの反映はメインスレッドで行う
+                loading->PostToMain([this, info, chunked = std::move(chunked)]() mutable {
+                    m_mapInfo = info;
+                    m_mapData = std::move(chunked);
+                    });
+            }
+            catch (...)
+            {
+                // 待機側が無限待機しないよう例外を伝える(set_value済みなら無視)
+                try { infoPromise->set_exception(std::current_exception()); }
+                catch (const std::future_error&) {}
+                throw;
+            }
             });
 
-        // 当たり判定生成
-        col2d::ColliderDef def;
-        def.isActive = true;
-        colID = ObjectContext::ColMgr().CreateTileCollider(&def, infoPromise->get_future().share(), "MapTip.csv", MyObjectTag());
+        // 当たり判定はシーン所属後(Init)に生成する
+        m_infoFuture = infoPromise->get_future().share();
 
         // マップ画像読み込み
         AppCtx::AssetMgr().LoadAsync<asset::DivisionGraph>("map", "map.png");
@@ -66,6 +81,12 @@ namespace object
 
     Map::~Map()
     {
+        // タイルコライダーを破棄
+        if (auto* mgr = ColMgrPtr())
+        {
+            mgr->Destroy(colID);
+        }
+
         AppCtx::AssetMgr().DeleteHandle<asset::DivisionGraph>("map");
     }
 
@@ -80,7 +101,15 @@ namespace object
         gameSystem::Camera::Instance().SetWorldSize(worldSize);
 
         // 衝突マスク追加
-        ObjectContext::ColMgr().AddMask(colID, col2d::RECT, PLAYER);
+        ColMgr().AddMask(colID, col2d::RECT, PLAYER);
+    }
+
+    void Map::OnAttach()
+    {
+        // 当たり判定生成(Loading中のコンストラクターから呼ばれる)
+        col2d::ColliderDef def{};
+        def.isActive = true;
+        colID = ColMgr().CreateTileCollider(&def, m_infoFuture, "MapTip.csv", MyObjectTag());
     }
 
     void Map::Draw()

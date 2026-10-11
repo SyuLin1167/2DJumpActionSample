@@ -28,7 +28,10 @@ export namespace object
         ~Goal()
         {
             //AppCtx::AssetMgr().DeleteHandle<asset::Graph>("goal");
-            ObjCtx::ColMgr().Destroy(id);
+            if (auto* mgr = ColMgrPtr())
+            {
+                mgr->Destroy(id);
+            }
         }
 
         void Init() override
@@ -39,14 +42,14 @@ export namespace object
             def.localPos = m_pos;
             def.isTrigger = true;
             def.isActive = true;
-            id = ObjCtx::ColMgr().CreateCircleCollider(&def, 16.0f, MyObjectTag());
-            ObjCtx::ColMgr().AddMask(id, col2d::RECT, ObjectTag::PLAYER);
+            id = ColMgr().CreateCircleCollider(&def, 16.0f, MyObjectTag());
+            ColMgr().AddMask(id, col2d::RECT, ObjectTag::PLAYER);
 
             // 衝突イベント登録
             col2d::ContactListener listener;
             listener.when = [&](const col2d::ContactInfo&) { return true; };
             listener.event = [&]() { m_cleared = true; };
-            ObjCtx::ColMgr().AddEvent(id, col2d::MakeKey(col2d::RECT, ObjectTag::PLAYER), listener);
+            ColMgr().AddEvent(id, col2d::MakeKey(col2d::RECT, ObjectTag::PLAYER), listener);
         }
 
         void Update() override {}

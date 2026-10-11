@@ -38,6 +38,11 @@ export namespace object
         void Init() override;
 
         /// <summary>
+        /// シーン所属時の処理(タイルコライダー生成)
+        /// </summary>
+        void OnAttach() override;
+
+        /// <summary>
         /// 描画
         /// </summary>
         void Draw() override;
@@ -67,5 +72,6 @@ export namespace object
         std::pair<size_t, size_t> rangeY;           //描画範囲Y
 
         col2d::ColliderID colID;            // コライダーID
+        std::shared_future<MapInfo> m_infoFuture;   // MapInfo通知用future
     };
 }

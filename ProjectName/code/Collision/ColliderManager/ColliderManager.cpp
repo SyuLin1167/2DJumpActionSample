@@ -2,32 +2,39 @@
 
 namespace col2d
 {
+    // 世代の最大値(uint16_t)
+    constexpr uint16_t MAX_GENERATION = 0xFFFF;
+
     ColliderID ColliderManager::CreateID()
     {
         ColliderID id{};
 
-        // 未使用のコライダーのインデックスがあれば再利用し世代も新規にする
-        if (!m_freeID.empty())
+        if (!m_freeIndex.empty())
         {
-            id = m_freeID.front();
-            m_freeID.pop();
-            ++id.generation;
+            // 再利用: 世代はDestroy時に進め済みなのでここでは進めない
+            id.index = m_freeIndex.front();
+            m_freeIndex.pop();
         }
         else
         {
-            // 新しいコライダーのインデックスを割り当てる
-            id.index = static_cast<uint32_t>(m_colliders.size());
-            id.generation = 0;
+            // 新規: スロットを追加(サイズは減らないため単調増加)
+            id.index = static_cast<uint32_t>(m_slots.size());
+            m_slots.emplace_back();
         }
 
-        m_generations[id.index] = id.generation;
-
+        m_slots[id.index].alive = true;
+        id.generation = m_slots[id.index].generation;
         return id;
     }
 
     void ColliderManager::Destroy(const ColliderID& id)
     {
-        // コライダーを解放
+        // 無効/古いIDは安全に無視
+        if (!IsValid(id))
+        {
+            return;
+        }
+
         if (auto it = m_colliders.find(id.index); it != m_colliders.end())
         {
             // 他のコライダーからのマスクとイベントを削除
@@ -38,23 +45,27 @@ namespace col2d
                 collider->DeleteEvent(category);
             }
 
-            // コライダーを削除してインデックスを再利用可能にする
             m_colliders.erase(it);
-            m_generations.erase(id.index);
-            m_freeID.push(id);
         }
+
+        // スロットを解放し世代を進める(古いIDはこれ以降無効)
+        auto& slot = m_slots[id.index];
+        slot.alive = false;
+        if (slot.generation < MAX_GENERATION)
+        {
+            ++slot.generation;
+            m_freeIndex.push(id.index);     // alive→falseの遷移時のみ登録されるため重複しない
+        }
+        // 世代が最大値のスロットは再利用せず退役(ラップアラウンドで古いIDが再有効化されるのを防ぐ)
     }
 
     Collider* ColliderManager::GetCollider(const ColliderID& id) const
     {
-        // 世代が一致するか確認
-        auto generation = m_generations.find(id.index);
-        if (generation == m_generations.end() || generation->second != id.generation)
+        if (!IsValid(id))
         {
             return nullptr;
         }
 
-        // インデックスが存在するか確認
         if (auto it = m_colliders.find(id.index); it != m_colliders.end())
         {
             return it->second.get();
@@ -87,5 +98,5 @@ namespace col2d
             collider->AddVelocity();
         }
     }
-    
-}
+
+    }

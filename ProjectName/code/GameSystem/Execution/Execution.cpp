@@ -7,7 +7,6 @@ module GameSystem.Execution;
 import GameSystem.Library;
 import GameSystem.Window;
 import AppContext;
-import ObjectContext;
 import MyLib.KeyStatus;
 import Scene.SceneManager;
 
@@ -33,7 +32,6 @@ namespace gameSystem
     Execution::~Execution()
     {
         m_scene.reset();
-        object::ObjCtx::Deactivate();
         AppCtx::Deactivate();
     }
 

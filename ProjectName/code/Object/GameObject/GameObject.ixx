@@ -9,8 +9,8 @@ export import MyLib.Math.PropVector2;
 export import ObjectState;
 export import ObjectTag;
 export import AppContext;
-export import ObjectContext;
 export import Component.ComponentManager;
+export import Collider.ColliderManager;
 
 using namespace math;
 
@@ -103,8 +103,38 @@ export namespace object
         /// <returns>自身のタグ</returns>
         virtual ObjectTag MyObjectTag() const = 0;
 
+        /// <summary>
+        /// 所属シーンのコライダー管理を設定(ObjectManagerが呼ぶ)
+        /// </summary>
+        void SetColliderManager(col2d::ColliderManager* mgr)
+        {
+            m_colMgr = mgr;
+        }
+
+        /// <summary>
+        /// シーンへ所属した直後に呼ばれる(ここからColMgr()が使用可能)
+        /// </summary>
+        virtual void OnAttach() {}
+
     protected:
-        std::shared_ptr<component::ComponentManager> m_compMgr;   //コンポーネントマネージャー
+        /// <summary>
+        /// 所属シーンのコライダー管理(未所属ならnullptr)
+        /// </summary>
+        col2d::ColliderManager* ColMgrPtr() const
+        {
+            return m_colMgr;
+        }
+
+        /// <summary>
+        /// 所属シーンのコライダー管理(Init以降で使用)
+        /// </summary>
+        col2d::ColliderManager& ColMgr() const
+        {
+            return *m_colMgr;
+        }
+
+        col2d::ColliderManager* m_colMgr = nullptr;   //所属シーンのコライダー管理
+        std::shared_ptr<component::ComponentManager> m_compMgr;
         const float& m_deltaTime;             //デルタタイム
         Vector2f m_pos;           //座標
         Vector2f m_velocity;      //速さ

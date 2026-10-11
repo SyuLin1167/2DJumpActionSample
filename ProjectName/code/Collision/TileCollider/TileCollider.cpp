@@ -30,13 +30,11 @@ namespace col2d
         auto mapDataSf = AppCtx::FileSystem().csvIO.CreateArrayAsync<size_t>(path).share();
 
         // タイルコライダー生成タスク
-        auto task = [this, mapDataSf, info]()
+        auto task = [this, loading = task::LoadingContext::Get(), mapDataSf, info]()
         {
-            // マップ情報取得
-            m_mapInfo = info;
             const auto& mapData = mapDataSf.get();
-            // タイルコライダー生成
-            BuildTileColliders(mapData);
+            auto built = std::make_shared<std::unordered_map<size_t, std::vector<TileInfo>>>(BuildTileCollidersFor(info, mapData));
+            Commit(loading, info, std::move(built));
         };
 
         // タスクの登録または即時実行
@@ -61,14 +59,12 @@ namespace col2d
         auto mapDataSf = AppCtx::FileSystem().csvIO.CreateArrayAsync<size_t>(path).share();
  
         // タイルコライダー生成タスク
-        auto task = [this, mapDataSf, info]()
+        auto task = [this, loading = task::LoadingContext::Get(), mapDataSf, info]()
         {
-            // マップ情報取得
-            m_mapInfo = info.get();
+            const object::MapInfo mapInfo = info.get();
             const auto& mapData = mapDataSf.get();
-
-            // タイルコライダー生成
-            BuildTileColliders(mapData);
+            auto built = std::make_shared<std::unordered_map<size_t, std::vector<TileInfo>>>(BuildTileCollidersFor(mapInfo, mapData));
+            Commit(loading, mapInfo, std::move(built));
         };
         // タスクの登録または即時実行
         if (task::LoadingContext::Get())
@@ -83,6 +79,24 @@ namespace col2d
     }
 
     TileCollider::~TileCollider() = default;
+
+    void TileCollider::Commit(task::Loading* loading, const object::MapInfo& mapInfo, std::shared_ptr<std::unordered_map<size_t, std::vector<TileInfo>>> built)
+    {
+        // メンバーへの反映はメインスレッドで行う
+        auto apply = [this, mapInfo, built]()
+        {
+            m_mapInfo = mapInfo;
+            m_tileColliders = std::move(*built);
+        };
+        if (loading)
+        {
+            loading->PostToMain(std::move(apply));
+        }
+        else
+        {
+            apply();
+        }
+    }
 
     bool TileCollider::IsColliding(const shape::Rect& rect)
     {
@@ -208,11 +222,28 @@ namespace col2d
 
     void TileCollider::BuildTileColliders(std::vector<size_t> mapData)
     {
+        m_tileColliders = BuildTileCollidersFor(m_mapInfo, mapData);
+    }
+
+    std::unordered_map<size_t, std::vector<TileInfo>> TileCollider::BuildTileCollidersFor(const object::MapInfo& mapInfo, const std::vector<size_t>& mapData) const
+    {
+        // 隣接フラグ算出用の一時TileCollider無しで済むよう、ローカルのラムダで算出
+        auto adjacentAt = [&](size_t x, size_t y) -> uint8_t
+        {
+            uint8_t flag = 0;
+            const size_t tileIndex = y * mapInfo.mapSize.x + x;
+            if (x > 0 && mapData[tileIndex - 1] != 0) { flag |= TileFlag::LEFT; }
+            if (x < mapInfo.mapSize.x - 1 && mapData[tileIndex + 1] != 0) { flag |= TileFlag::RIGHT; }
+            if (y > 0 && mapData[tileIndex - mapInfo.mapSize.x] != 0) { flag |= TileFlag::TOP; }
+            if (y < mapInfo.mapSize.y - 1 && mapData[tileIndex + mapInfo.mapSize.x] != 0) { flag |= TileFlag::BOTTOM; }
+            return flag;
+        };
+
         // チャンク化してタイルコライダー生成
-        m_tileColliders = tile::BuildChunkedGrid<TileInfo>(
-            m_mapInfo.mapSize.x,
-            m_mapInfo.mapSize.y,
-            m_mapInfo.chunkSize,
+        return tile::BuildChunkedGrid<TileInfo>(
+            mapInfo.mapSize.x,
+            mapInfo.mapSize.y,
+            mapInfo.chunkSize,
             [&](size_t x, size_t y, size_t gidx, size_t , size_t) -> std::optional<TileInfo>
             {
                 if (mapData[gidx] == 0)
@@ -220,7 +251,7 @@ namespace col2d
                     return std::nullopt;
                 }
 
-                auto adjacentFlag = AdjacentTileAt(mapData, x, y);
+                auto adjacentFlag = adjacentAt(x, y);
                 if (adjacentFlag == TileFlag::ALL)
                 {
                     return std::nullopt;
@@ -231,10 +262,10 @@ namespace col2d
                 tileInfo.type = static_cast<TileType>(mapData[gidx]);
 
                 ColliderDef colDef{};
-                colDef.localPos = Vector2f(x * m_mapInfo.tileSize.x, y * m_mapInfo.tileSize.y);
+                colDef.localPos = Vector2f(x * mapInfo.tileSize.x, y * mapInfo.tileSize.y);
                 colDef.isActive = true;
 
-                tileInfo.collider = std::make_unique<RectCollider>(&colDef, m_mapInfo.tileSize);
+                tileInfo.collider = std::make_unique<RectCollider>(&colDef, mapInfo.tileSize);
 
                 return tileInfo;
             });

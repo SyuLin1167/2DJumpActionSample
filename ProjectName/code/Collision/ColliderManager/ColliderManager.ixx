@@ -1,6 +1,7 @@
 ﻿export module Collider.ColliderManager;
 
 import <queue>;
+import <vector>;
 import <memory>;
 import <functional>;
 import <unordered_map>;
@@ -26,7 +27,7 @@ export namespace col2d
     /// </summary>
     export struct ColliderID
     {
-        uint32_t index;          // インデックス
+        uint32_t index = 0xFFFFFFFF;    // インデックス(既定値は無効)
         uint16_t generation;     // 生成世代
     };
 
@@ -58,9 +59,9 @@ export namespace col2d
         template<typename T, typename... Args>
         [[nodiscard]] inline ColliderID CreateCollider(ColliderDef* def, const uint32_t& ownerID, Args&&... args)
         {
-            ColliderID id = CreateID();
             auto col = std::make_unique<T>(def, std::forward<Args>(args)...);
             col->GenerateCategory(ownerID);
+            ColliderID id = CreateID();
             m_colliders[id.index] = std::move(col);
             return id;
         }
@@ -137,8 +138,10 @@ export namespace col2d
         /// <param name="ownerID">所有者のID</param>
         void AddMask(const ColliderID& id, const uint32_t& shape, const uint32_t& ownerID)
         {
-            if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
-                it->second->GetFilter().AddMask(shape, ownerID);
+            // 世代が一致しない(古い/無効な)IDは無視する
+            if (Collider* collider = GetCollider(id))
+            {
+                collider->GetFilter().AddMask(shape, ownerID);
             }
         }
 
@@ -150,8 +153,10 @@ export namespace col2d
         /// <param name="event">追加するイベント</param>
         void AddEvent(const ColliderID& id, const uint64_t& key, ContactListener event)
         {
-            if (auto it = m_colliders.find(id.index); it != m_colliders.end()) {
-                it->second->AddEvent(key, event);
+            // 世代が一致しない(古い/無効な)IDは無視する
+            if (Collider* collider = GetCollider(id))
+            {
+                collider->AddEvent(key, event);
             }
         }
 
@@ -162,8 +167,32 @@ export namespace col2d
         /// <returns>生成されたコライダーの識別子</returns>
         ColliderID CreateID();
 
-        std::queue<ColliderID> m_freeID; // 未使用のコライダーID
-        std::unordered_map<uint32_t, uint16_t> m_generations; // 現在の世代を管理
+        /// <summary>
+        /// IDスロット
+        /// </summary>
+        /// <remarks>
+        /// スロットは削除せず、vectorのサイズが単調増加する採番カウンターを兼ねる。
+        /// generationは「次にこのindexへ割り当てる/現在有効な世代」を表す。
+        /// Destroy時にのみ世代を進め、CreateIDでは進めない。
+        /// </remarks>
+        struct IDSlot
+        {
+            uint16_t generation = 0;    // 現在の世代
+            bool alive = false;         // 使用中か
+        };
+
+        /// <summary>
+        /// IDが現在有効か(範囲内・使用中・世代一致)
+        /// </summary>
+        bool IsValid(const ColliderID& id) const
+        {
+            return id.index < m_slots.size()
+                && m_slots[id.index].alive
+                && m_slots[id.index].generation == id.generation;
+        }
+
+        std::queue<uint32_t> m_freeIndex;   // 再利用可能なindex(重複登録しない)
+        std::vector<IDSlot> m_slots;        // index毎の世代と使用状態
         std::unordered_map<uint32_t, std::unique_ptr<Collider>> m_colliders; // コライダーのマップ
     };
 }

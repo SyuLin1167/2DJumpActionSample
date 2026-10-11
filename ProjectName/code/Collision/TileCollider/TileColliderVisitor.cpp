@@ -49,7 +49,7 @@ namespace col2d
         while (!hitTileKeys.empty())
         {
             // 衝突タイル情報取得
-            auto& [key, index] = hitTileKeys.front();
+            auto [key, index] = hitTileKeys.front();
             hitTileKeys.pop();
             auto tileInfo = m_issue.GetTileInfo(key, index);
 

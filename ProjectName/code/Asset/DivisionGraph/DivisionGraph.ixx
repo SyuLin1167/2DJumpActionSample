@@ -1,4 +1,6 @@
 export module Asset.DivisionGraph;
+import <unordered_map>;
+import <string>;
 import Asset.AssetBase;
 
 /// <summary>
@@ -67,7 +69,8 @@ export namespace asset
         /// <returns>ハンドル</returns>
         int* GetHandle(std::string name) const
         {
-            return (int*)m_handles.at(name).handle.data();
+            auto it = m_handles.find(name);
+            return it == m_handles.end() ? nullptr : (int*)it->second.handle.data();
         };
 
         /// <summary>
@@ -78,7 +81,12 @@ export namespace asset
         /// <returns>ハンドル</returns>
         int GetHandle(std::string name, size_t index) const
         {
-            return m_handles.at(name).handle[index];
+            auto it = m_handles.find(name);
+            if (it == m_handles.end() || index >= it->second.handle.size())
+            {
+                return -1;
+            }
+            return it->second.handle[index];
         };
 
         /// <summary>

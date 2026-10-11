@@ -44,19 +44,42 @@ namespace asset
         // 以前のハンドルを削除
         DeleteHandle(handleName);
 
-        // 非同期タスクを作成
-        auto fpath = gameSystem::AppCtx::FileSystem().Resolve(std::format("assets://{}", graphName));
-
         // グラフィック読み込み
+        auto fpath = gameSystem::AppCtx::FileSystem().Resolve(std::format("assets://{}", graphName));
         int handle = LoadGraph(fpath.string().c_str());
 
-        auto task = [this, handle, handleName]()
+        // 読み込み開始に失敗した場合は待機せず終了
+        if (handle == -1)
+        {
+            ErrorLogFmtAdd("Graph load start failed: %s", graphName.c_str());
+            if (task::LoadingContext::Get())
             {
-                while (CheckHandleASyncLoad(handle))
+                task::LoadingContext::Get()->ReportFailure("Graph load start failed: " + graphName);
+            }
+            return;
+        }
+
+        // タスクを作成
+        auto* loading = task::LoadingContext::Get();
+        auto task = [this, loading, handle, handleName, graphName]()
+            {
+                // 読み込み完了を待機(失敗時は登録しない)
+                if (!WaitAsyncLoad(handle))
                 {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                    ErrorLogFmtAdd("Graph async load failed: %s", graphName.c_str());
+                    DeleteGraph(handle);
+                    throw std::runtime_error("Graph async load failed: " + graphName);
                 }
-                handles[handleName] = handle;
+
+                // 共有コンテナーへの登録はメインスレッドで行う
+                if (loading)
+                {
+                    loading->PostToMain([this, handleName, handle]() { handles[handleName] = handle; });
+                }
+                else
+                {
+                    handles[handleName] = handle;
+                }
             };
 
         // 非同期読み込み中ならタスクに登録

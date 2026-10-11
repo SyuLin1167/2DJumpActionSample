@@ -1,97 +1,167 @@
-﻿module;
+
+module;
 #include <thread>
 #include <future>
 #include <chrono>
+#include <exception>
+#include <mutex>
+#include <string>
 
 module MyLib.Loading;
 
 namespace task
 {
-    Loading::Loading()
-        : m_progress(0.0f)
-        , m_isLoading()
-    {
-        // 処理なし
-    }
+	Loading::Loading()
+	{
+		// 処理なし
+	}
 
-    Loading::~Loading()
-    {
-        // 処理なし
-    }
+	Loading::~Loading()
+	{
+		// 未実行タスクを中断し、実行中スレッドの終了を待つ
+		m_cancel.store(true);
+		if (m_runner.valid())
+		{
+			m_runner.wait();
+		}
+	}
 
-    void Loading::AddTask(Level level, std::function<void()> task)
-    {
-        // タスク総数を加算
-        auto& endInfo = m_taskInfo[(int)Level::END];
-        endInfo.totalTasks.fetch_add(1, std::memory_order_relaxed);
+	void Loading::StartLoading()
+	{
+		// ロード開始前に状態をリセット
+		m_cancel.store(false);
+		m_failed.store(false);
+		m_totalTasks.store(0);
+		m_finishTasks.store(0);
+		m_isLoading.store(true);
+		{
+			std::lock_guard<std::mutex> lock(m_mutex);
+			m_failReason.clear();
+		}
+		for (auto& level : m_tasks)
+		{
+			level.clear();
+		}
+	}
 
-        // レベル別タスク総数を加算
-        auto& info = m_taskInfo[(int)level];
-        info.totalTasks.fetch_add(1, std::memory_order_relaxed);
+	void Loading::AddTask(Level level, std::function<void()> task)
+	{
+		// 登録のみ(Run呼び出しまで実行しない)
+		if (level < 0 || level >= Level::END || !task)
+		{
+			return;
+		}
+		m_tasks[(int)level].emplace_back(std::move(task));
+		m_totalTasks.fetch_add(1);
+	}
 
-        // タスクの追加実行
-        m_taskInfo[(int)level].tasks.emplace_back(std::async(std::launch::async, [this, level, task]() {
+	void Loading::Run()
+	{
+		// すでに実行中なら何もしない
+		if (m_runner.valid())
+		{
+			return;
+		}
 
-            // 前レベルの完了待ち
-            if (level != Level::DATA)
-            {
-                int prevIndex = (int)level - 1;
-                while (prevIndex >= 0)
-                {
-                    auto& prev = m_taskInfo[prevIndex];
-                    if (prev.totalTasks.load(std::memory_order_acquire) > 0)
-                    {
-                        prev.future.wait();
-                        break;
-                    }
-                    --prevIndex;
-                }
-            }
+		// 実行用スレッドを作成
+		m_runner = std::async(std::launch::async, [this]() { Execute(); });
+	}
 
-            // タスク実行
-            task();
+	void Loading::ReportFailure(const std::string& reason)
+	{
+		// 失敗を報告
+		{
+			std::lock_guard<std::mutex> lock(m_mutex);
+			if (!m_failed.load())
+			{
+				m_failReason = reason;
+			}
+		}
+		m_failed.store(true);
+	}
 
-            // 全体レベルの完了数を加算
-            auto& endInf = m_taskInfo[(int)Level::END];
-            endInf.finishTasks.fetch_add(1, std::memory_order_relaxed);
+	std::string Loading::FailureReason() const
+	{
+		// 失敗理由を取得
+		std::lock_guard<std::mutex> lock(m_mutex);
+		return m_failReason;
+	}
 
-            // レベル別の完了数を加算
-            auto& info = m_taskInfo[(int)level];
-            int finish = info.finishTasks.fetch_add(1, std::memory_order_relaxed) + 1;
+	void Loading::PostToMain(std::function<void()> commit)
+	{
+		// メインスレッドで実行する処理を予約
+		if (!commit)
+		{
+			return;
+		}
+		std::lock_guard<std::mutex> lock(m_mainMutex);
+		m_mainQueue.emplace_back(std::move(commit));
+	}
 
-            // レベル完了でシグナル
-            if (finish == info.totalTasks.load(std::memory_order_relaxed))
-            {
-                info.promise.set_value();
-            }
+	void Loading::PumpMain()
+	{
+		// ロック内で取り出し、実行はロック外で行う
+		std::vector<std::function<void()>> commits;
+		{
+			std::lock_guard<std::mutex> lock(m_mainMutex);
+			commits.swap(m_mainQueue);
+		}
 
-            // 全レベル完了でフラグを下ろす
-            if (endInf.finishTasks.load(std::memory_order_relaxed) == endInf.totalTasks.load(std::memory_order_relaxed))
-            {
-                m_isLoading.store(false, std::memory_order_relaxed);
-            }
-        }));
-    }
+		// メインスレッドで実行する処理を実行
+		for (auto& commit : commits)
+		{
+			commit();
+		}
+	}
 
-    void Loading::WatchProgress()
-    {
-        // 監視用タスクが未登録なら登録
-        if (m_taskInfo[Level::END].tasks.empty())
-        {
-            // 監視用タスクを追加
-            m_taskInfo[Level::END].tasks.emplace_back(std::async(std::launch::async, [this]() {
-                auto& info = m_taskInfo[Level::END];
-                using namespace std::chrono_literals;
+	void Loading::RunTask(const std::function<void()>& task)
+	{
+		// タスク実行中に例外が発生した場合は失敗として報告
+		try
+		{
+			task();
+		}
+		catch (const std::exception& e)
+		{
+			ReportFailure(e.what());
+		}
+		catch (...)
+		{
+			ReportFailure("unknown exception");
+		}
+	}
 
-                // 全タスク終了まで進捗を更新
-                while (info.finishTasks.load(std::memory_order_relaxed) < info.totalTasks.load(std::memory_order_relaxed))
-                {
-                    const auto total = std::max(1, info.totalTasks.load(std::memory_order_relaxed));
-                    m_progress = static_cast<float>(info.finishTasks.load(std::memory_order_relaxed)) / static_cast<float>(total);
-                    std::this_thread::sleep_for(8ms);
-                }
-                m_progress = 1.0f;
-                }));
-        }
-    }
+	void Loading::Execute()
+	{
+		// レベル順に実行(同一レベルは並列、レベル間は完了待ち)
+		for (auto& level : m_tasks)
+		{
+			std::vector<std::future<void>> running;
+			running.reserve(level.size());
+
+			// 同一レベルのタスクを並列実行
+
+			for (auto& t : level)
+			{
+				if (m_failed.load() || m_cancel.load())
+				{
+					m_finishTasks.fetch_add(1);
+					continue;
+				}
+				running.emplace_back(std::async(std::launch::async, [this, fn = std::move(t)]() {
+					RunTask(fn);
+					m_finishTasks.fetch_add(1);
+					}));
+			}
+
+			// 同一レベルのタスクがすべて完了するまで待機
+			for (auto& f : running)
+			{
+				f.wait();
+			}
+			level.clear();
+		}
+
+		m_isLoading.store(false);
+	}
 }

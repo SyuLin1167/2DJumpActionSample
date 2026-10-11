@@ -2,12 +2,44 @@
 
 namespace ui
 {
+    // 世代の最大値(uint16_t)
+    constexpr uint16_t MAX_GENERATION = 0xFFFF;
+
     void UIManager::Destroy(const UIElementID& id)
     {
-        // UI要素を解放
+        // 無効/古いIDは安全に無視
+        if (!IsValid(id))
+        {
+            return;
+        }
+
         m_elements.erase(id.index);
-        m_generations.erase(id.index);
-        m_freeID.push(id);
+        ReleaseSlot(id.index);
+    }
+
+    void UIManager::Clear()
+    {
+        // 使用中の全スロットを解放し、Clear前のIDを無効化する
+        m_elements.clear();
+        for (uint32_t index = 0; index < m_slots.size(); ++index)
+        {
+            if (m_slots[index].alive)
+            {
+                ReleaseSlot(index);
+            }
+        }
+    }
+
+    void UIManager::ReleaseSlot(uint32_t index)
+    {
+        auto& slot = m_slots[index];
+        slot.alive = false;
+        if (slot.generation < MAX_GENERATION)
+        {
+            ++slot.generation;
+            m_freeIndex.push(index);    // alive→falseの遷移時のみ登録されるため重複しない
+        }
+        // 世代が最大値のスロットは再利用せず退役させる(ラップアラウンドによる再有効化を防ぐ)
     }
 
     void UIManager::Update()
@@ -30,21 +62,21 @@ namespace ui
     {
         UIElementID id{};
 
-        // 未使用のインデックスがあれば再利用し世代も新規にする
-        if (!m_freeID.empty())
+        if (!m_freeIndex.empty())
         {
-            id = m_freeID.front();
-            ++id.generation;
-            m_freeID.pop();
+            // 再利用: 世代はReleaseSlotで進め済みなのでここでは進めない
+            id.index = m_freeIndex.front();
+            m_freeIndex.pop();
         }
         else
         {
-            // 新しいインデックスを割り当てる
-            id.index = static_cast<uint32_t>(m_elements.size());
-            id.generation = 0;
+            // 新規: スロットを追加(サイズは減らないため単調増加)
+            id.index = static_cast<uint32_t>(m_slots.size());
+            m_slots.emplace_back();
         }
 
-        m_generations[id.index] = id.generation;
+        m_slots[id.index].alive = true;
+        id.generation = m_slots[id.index].generation;
         return id;
     }
 }

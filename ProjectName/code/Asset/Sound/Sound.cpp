@@ -46,26 +46,52 @@ namespace asset
         // 以前のハンドルを削除
         DeleteHandle(soundName);
 
-        // SEでのファイル読み込み
+        // ファイル読み込み
         auto fpath = gameSystem::AppCtx::FileSystem().Resolve("assets://Sounds/SE/" + fileName);
         int handle;
-        handle = LoadSoundMem(fpath.string().c_str());
-
-        // SEでない場合、BGMでのファイル読み込み
-        if (handle == -1)
+        if (std::filesystem::exists(fpath))
         {
+            handle = LoadSoundMem(fpath.string().c_str());
+        }
+        else
+        {
+            // SEでない場合、BGMでのファイル読み込み
             fpath = gameSystem::AppCtx::FileSystem().Resolve("assets://Sounds/BGM/" + fileName);
             handle = LoadBGM(fpath.string().c_str());
         }
 
-        // 非同期タスクを作成
-        auto task = [this, handle, soundName]()
+        // 読み込み開始に失敗した場合は待機せず終了
+        if (handle == -1)
+        {
+            ErrorLogFmtAdd("Sound load start failed: %s", fileName.c_str());
+            if (task::LoadingContext::Get())
             {
-                while (CheckHandleASyncLoad(handle))
+                task::LoadingContext::Get()->ReportFailure("Sound load start failed: " + fileName);
+            }
+            return;
+        }
+
+        // 非同期タスクを作成
+        auto* loading = task::LoadingContext::Get();
+        auto task = [this, loading, handle, soundName, fileName]()
+            {
+                // 読み込み完了を待機(失敗時はハンドルを登録しない)
+                if (!WaitAsyncLoad(handle))
                 {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                    ErrorLogFmtAdd("Sound async load failed: %s", fileName.c_str());
+                    DeleteSoundMem(handle);
+                    throw std::runtime_error("Sound async load failed: " + fileName);
                 }
-                m_sounds[soundName].handle = handle;
+
+                // 共有コンテナーへの登録はメインスレッドで行う
+                if (loading)
+                {
+                    loading->PostToMain([this, soundName, handle]() { m_sounds[soundName].handle = handle; });
+                }
+                else
+                {
+                    m_sounds[soundName].handle = handle;
+                }
             };
 
         // 非同期読み込み中ならタスクに登録
@@ -100,6 +126,7 @@ namespace asset
         {
             ErrorLogFmtAdd("Sound is not found: %s",soundName.c_str());
             ErrorLogFmtAdd("サウンドが見つかりません: %s", soundName.c_str());
+            return;
         }
 
         // サウンドハンドル削除
@@ -113,6 +140,7 @@ namespace asset
         {
             ErrorLogFmtAdd("Sound is not found: %s", soundName.c_str());
             ErrorLogFmtAdd("サウンドが見つかりません: %s", soundName.c_str());
+            return;
         }
 
         // サウンドの削除
