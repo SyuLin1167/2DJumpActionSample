@@ -1,0 +1,20 @@
+:root {
+  --vp-c-brand-1: #25665c;
+  --vp-c-brand-2: #337e72;
+  --vp-c-brand-3: #25665c;
+  --vp-c-brand-soft: rgba(37, 102, 92, .12);
+  --vp-font-family-base: 'BIZ UDPGothic', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+.dark {
+  --vp-c-brand-1: #81cbbd;
+  --vp-c-brand-2: #9cddcf;
+  --vp-c-brand-3: #337e72;
+  --vp-c-brand-soft: rgba(129, 203, 189, .13);
+}
+.vp-doc p, .vp-doc li { line-height: 1.95; }
+.vp-doc h2 { margin-top: 2.8rem; }
+.vp-doc table { font-size: .9rem; }
+.VPHome .name { letter-spacing: -.035em; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}

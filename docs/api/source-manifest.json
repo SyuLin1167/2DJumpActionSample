@@ -1,0 +1,961 @@
+{
+  "revision": "08f9fa53fa5e9043d46aeede8e7aab7bab519892",
+  "modules": [
+    {
+      "module": "Asset.Animation",
+      "source": "ProjectName/code/Asset/Animation/Animation.ixx",
+      "slug": "asset-animation",
+      "group": "asset",
+      "sha256": "de0dd5100810644db7a9af7d3ec4fb358b2c877dd9c844e7a7dbaed08ce13201"
+    },
+    {
+      "module": "Asset.AnimationDef",
+      "source": "ProjectName/code/Asset/Animation/AnimationDef.ixx",
+      "slug": "asset-animationdef",
+      "group": "asset",
+      "sha256": "6ddb52b72743478a74a33fb703d61511f35fc2ad8e330ceb956a7d9806e30985"
+    },
+    {
+      "module": "Asset.AssetBase",
+      "source": "ProjectName/code/Asset/AssetBase/AssetBase.ixx",
+      "slug": "asset-assetbase",
+      "group": "asset",
+      "sha256": "3bad2109f09e3a5872ee1fda6a92b57e878859ab20f8cc64c3d847dc7b41885a"
+    },
+    {
+      "module": "Asset.AssetManager",
+      "source": "ProjectName/code/Asset/AssetManager/AssetManager.ixx",
+      "slug": "asset-assetmanager",
+      "group": "asset",
+      "sha256": "25fa48ea944290893afcf098ce8c77718a04265b2eeb24184209d80022f3f0a3"
+    },
+    {
+      "module": "Asset.DivisionGraph",
+      "source": "ProjectName/code/Asset/DivisionGraph/DivisionGraph.ixx",
+      "slug": "asset-divisiongraph",
+      "group": "asset",
+      "sha256": "ecb94fb88d7e64009588020d354a4676864361ea8c90453394ee2401acd997af"
+    },
+    {
+      "module": "Asset.Graph",
+      "source": "ProjectName/code/Asset/Graph/Graph.ixx",
+      "slug": "asset-graph",
+      "group": "asset",
+      "sha256": "8ee679a85e2bd18cecdf893742d55cadd08f8b66f65e1549a6347ba3c650c367"
+    },
+    {
+      "module": "Asset.Sound",
+      "source": "ProjectName/code/Asset/Sound/Sound.ixx",
+      "slug": "asset-sound",
+      "group": "asset",
+      "sha256": "8de726a6ccefbc6431ee1d4bfccf3835be64c85eb521e43c0a50c293e18a7a5e"
+    },
+    {
+      "module": "Asset.SoundDef",
+      "source": "ProjectName/code/Asset/Sound/SoundDef.ixx",
+      "slug": "asset-sounddef",
+      "group": "asset",
+      "sha256": "4e27edbc4bc67a3a5f24aff120d8a9c6c4d1952e49f44ae5cef215f50b55b96e"
+    },
+    {
+      "module": "Collider.CircleCollider",
+      "source": "ProjectName/code/Collision/CircleColldier/CircleCollider.ixx",
+      "slug": "collider-circlecollider",
+      "group": "collision",
+      "sha256": "de1d27d3a9c51892cfc3e361433963d7dbbef45d02893972242f24d28a45696d"
+    },
+    {
+      "module": "Collider.CircleColliderResolver",
+      "source": "ProjectName/code/Collision/CircleColldier/CircleColliderResolver.ixx",
+      "slug": "collider-circlecolliderresolver",
+      "group": "collision",
+      "sha256": "086ffa1eaaf70ed65021f09fc086ebd57104af851bd9baef954d93cc0324fac3"
+    },
+    {
+      "module": "Collider.CircleColliderVisitor",
+      "source": "ProjectName/code/Collision/CircleColldier/CircleColliderVisitor.ixx",
+      "slug": "collider-circlecollidervisitor",
+      "group": "collision",
+      "sha256": "1832701b5cdac2c9529fb81d3ccccc49fcbf578e22f937ad18f7639bb96e2d76"
+    },
+    {
+      "module": "Collider.ColliderManager",
+      "source": "ProjectName/code/Collision/ColliderManager/ColliderManager.ixx",
+      "slug": "collider-collidermanager",
+      "group": "collision",
+      "sha256": "7e96fefbe91651f822484d7b41c9152f27f8fa612f036f3cd5c770a180a2ff37"
+    },
+    {
+      "module": "Collider",
+      "source": "ProjectName/code/Collision/Collider/Collider.ixx",
+      "slug": "collider",
+      "group": "collision",
+      "sha256": "6498ada2366764d496440ee084b8ec612d2f92b32367d51e0a410514e46184c1"
+    },
+    {
+      "module": "ColliderDef",
+      "source": "ProjectName/code/Collision/Collider/ColliderDef.ixx",
+      "slug": "colliderdef",
+      "group": "collision",
+      "sha256": "fcf829f2d4cfe6f252e1dbb24e824f74c8a9e46bd004d3773d7747ed98e04031"
+    },
+    {
+      "module": "ColliderFilter",
+      "source": "ProjectName/code/Collision/Collider/ColliderFilter.ixx",
+      "slug": "colliderfilter",
+      "group": "collision",
+      "sha256": "e50bd779c0508aa04a0450a2102241fbaa2d3625c95a81845b3a28d1bdc21042"
+    },
+    {
+      "module": "ColliderVisitor",
+      "source": "ProjectName/code/Collision/Collider/ColliderVisitor.ixx",
+      "slug": "collidervisitor",
+      "group": "collision",
+      "sha256": "9d4132896bf12a48def876d5d3afa92a76c611e0e1c61252f874dc8131c6b232"
+    },
+    {
+      "module": "Collider.RectCollider",
+      "source": "ProjectName/code/Collision/RectCollider/RectCollider.ixx",
+      "slug": "collider-rectcollider",
+      "group": "collision",
+      "sha256": "db9022e3731015963456f600503e832834088f23cc4839cc18e838aef0bc28bf"
+    },
+    {
+      "module": "Collider.RectColliderResolver",
+      "source": "ProjectName/code/Collision/RectCollider/RectColliderResolver.ixx",
+      "slug": "collider-rectcolliderresolver",
+      "group": "collision",
+      "sha256": "d70b34de7d6a4417fb8bfb2344195b37fccff983b6fa15e9e75ddb6213d919f7"
+    },
+    {
+      "module": "Collider.RectColliderVisitor",
+      "source": "ProjectName/code/Collision/RectCollider/RectColliderVisitor.ixx",
+      "slug": "collider-rectcollidervisitor",
+      "group": "collision",
+      "sha256": "4224bc237b750278ac170d672eed156c33912eb89c6d8ee4b2c847d067a5e5f0"
+    },
+    {
+      "module": "Collider.TileCollider",
+      "source": "ProjectName/code/Collision/TileCollider/TileCollider.ixx",
+      "slug": "collider-tilecollider",
+      "group": "collision",
+      "sha256": "fc1dcc46703b0125ca8d222c80fd3c710e42a8ce353501e4818c66c868011aa4"
+    },
+    {
+      "module": "Collider.TileColliderResolver",
+      "source": "ProjectName/code/Collision/TileCollider/TileColliderResolver.ixx",
+      "slug": "collider-tilecolliderresolver",
+      "group": "collision",
+      "sha256": "c8d6efca64613d69d28482b6c21c13a1e821b2702aba1d06f1fa35c59d484a4d"
+    },
+    {
+      "module": "Collider.TileColliderVisitor",
+      "source": "ProjectName/code/Collision/TileCollider/TileColliderVisitor.ixx",
+      "slug": "collider-tilecollidervisitor",
+      "group": "collision",
+      "sha256": "1c64c8bf931453ad4482ef9b88250f10385ba27cfeafb3e2e9c14c357be8fd08"
+    },
+    {
+      "module": "Component.Animator",
+      "source": "ProjectName/code/Component/Animator/Animator.ixx",
+      "slug": "component-animator",
+      "group": "component",
+      "sha256": "12a8a21fa08f822903a9db500e32a84b966b2058ffcd3bb04fd96e51545c678c"
+    },
+    {
+      "module": "Component.AudioSource",
+      "source": "ProjectName/code/Component/AudioSource/AudioSource.ixx",
+      "slug": "component-audiosource",
+      "group": "component",
+      "sha256": "7bc82a5f76a9b8b0a378717696c0afb368fe825bfdc320ee7f72b49d2bcb6e3d"
+    },
+    {
+      "module": "Component",
+      "source": "ProjectName/code/Component/ComponentBase/ComponentBase.ixx",
+      "slug": "component",
+      "group": "component",
+      "sha256": "8e7b935020e4e183197eebbc14560eb6a4de3e2cdfd8cdf16c12fc1daa46ae61"
+    },
+    {
+      "module": "Component.ComponentManager",
+      "source": "ProjectName/code/Component/ComponentManager/ComponentManager.ixx",
+      "slug": "component-componentmanager",
+      "group": "component",
+      "sha256": "f13c8d47111b9fabb8f9dd10b8ebb81180e53356b7cd64eb6a45b0f53def5093"
+    },
+    {
+      "module": "Component.Jump",
+      "source": "ProjectName/code/Component/Jump/Jump.ixx",
+      "slug": "component-jump",
+      "group": "component",
+      "sha256": "502f4fc48b290249b27a8bdfffdeda9d1f90e207100111e680032ffeace04e48"
+    },
+    {
+      "module": "Component.MoveWithKey",
+      "source": "ProjectName/code/Component/Move/MoveWithKey/MoveWithKey.ixx",
+      "slug": "component-movewithkey",
+      "group": "component",
+      "sha256": "8a3a642edc54f005c14c4b1fd8704785ccd830f4926720d6a6ffbcabcd254d31"
+    },
+    {
+      "module": "AppContext",
+      "source": "ProjectName/code/GameSystem/AppContext.ixx",
+      "slug": "appcontext",
+      "group": "game-system",
+      "sha256": "07d1ba9610476369d973dd8b4cabccab992b966597b59b5e477d74ad3a9bd985"
+    },
+    {
+      "module": "GameSystem.Camera",
+      "source": "ProjectName/code/GameSystem/Camera/Camera.ixx",
+      "slug": "gamesystem-camera",
+      "group": "game-system",
+      "sha256": "a6559ad1838f5e6b90c6d9ecff7d004813e657f94aaa7943e81953ca926034f4"
+    },
+    {
+      "module": "GameSystem.Execution",
+      "source": "ProjectName/code/GameSystem/Execution/Execution.ixx",
+      "slug": "gamesystem-execution",
+      "group": "game-system",
+      "sha256": "b02bf3c8ae85af2282dc759991eb2d9ec364a28a65ebe4cb0e988db73f0259e3"
+    },
+    {
+      "module": "GameSystem.FrameRate",
+      "source": "ProjectName/code/GameSystem/FrameRate/FrameRate.ixx",
+      "slug": "gamesystem-framerate",
+      "group": "game-system",
+      "sha256": "3729ef3e37046803a05c6be7bb091dc7e92fdd201526972d5432938423fb0191"
+    },
+    {
+      "module": "GameSystem.Library",
+      "source": "ProjectName/code/GameSystem/Library/Library.ixx",
+      "slug": "gamesystem-library",
+      "group": "game-system",
+      "sha256": "4cee55ffe171a7c32275700e7cdc64f5a6408ffe16cf68aacad327ac26924557"
+    },
+    {
+      "module": "GameSystem.Window",
+      "source": "ProjectName/code/GameSystem/Window/Window.ixx",
+      "slug": "gamesystem-window",
+      "group": "game-system",
+      "sha256": "9118f710a53c5dfe334de2685eba4f6fa66c27391c67e277d5ae2b5b25db6bff"
+    },
+    {
+      "module": "Object.Enemy",
+      "source": "ProjectName/code/Object/Character/Enemy/Enemy.ixx",
+      "slug": "object-enemy",
+      "group": "object",
+      "sha256": "84eb2e3b336605dd76903c0d6a61637b1653668780ba8a0056b695f4b68a944d"
+    },
+    {
+      "module": "Object.Player",
+      "source": "ProjectName/code/Object/Character/Player/Player.ixx",
+      "slug": "object-player",
+      "group": "object",
+      "sha256": "6b36193213064c2ed09e0163507c66c37eacfdae73ea59179605526b62cec623"
+    },
+    {
+      "module": "Object.PlayerData",
+      "source": "ProjectName/code/Object/Character/Player/PlayerData.ixx",
+      "slug": "object-playerdata",
+      "group": "object",
+      "sha256": "8e0b73c2632034b5392685971913b396a4a8815e1413c5cbc9d15e0f5d4277fc"
+    },
+    {
+      "module": "Object.GameObject",
+      "source": "ProjectName/code/Object/GameObject/GameObject.ixx",
+      "slug": "object-gameobject",
+      "group": "object",
+      "sha256": "61d7cc253c7d38f0a239708a40afde29ec6ac84bd626534c035f1b7f42db359e"
+    },
+    {
+      "module": "Object.ObjectData",
+      "source": "ProjectName/code/Object/GameObject/ObjectData.ixx",
+      "slug": "object-objectdata",
+      "group": "object",
+      "sha256": "7475cd5d560f4e9e8041a67feeb0bc496cd7117c203be4e9b31684c0c48ebfc9"
+    },
+    {
+      "module": "ObjectState",
+      "source": "ProjectName/code/Object/GameObject/ObjectState.ixx",
+      "slug": "objectstate",
+      "group": "object",
+      "sha256": "1878671a60f9a40f8b8996e6c76589f9094ff399a3ff2bb6d355e2041379881c"
+    },
+    {
+      "module": "ObjectTag",
+      "source": "ProjectName/code/Object/GameObject/ObjectTag.ixx",
+      "slug": "objecttag",
+      "group": "object",
+      "sha256": "b74be44eaa9bbd6f453300e67a10e52e79d7003cbec833fe0640344334e7a82b"
+    },
+    {
+      "module": "Object.Goal",
+      "source": "ProjectName/code/Object/Goal/Goal.ixx",
+      "slug": "object-goal",
+      "group": "object",
+      "sha256": "1301f6536837b731ff3c4acf92e9ac06971535473950fb8ee6b8d318bdaf47c7"
+    },
+    {
+      "module": "Object.Map",
+      "source": "ProjectName/code/Object/Map/Map.ixx",
+      "slug": "object-map",
+      "group": "object",
+      "sha256": "f464bdd2b5e9b794c2df093ea21e13eee3cc48fa349702af726469cd50c9dddd"
+    },
+    {
+      "module": "Object.MapInfo",
+      "source": "ProjectName/code/Object/Map/MapInfo.ixx",
+      "slug": "object-mapinfo",
+      "group": "object",
+      "sha256": "29acaea7061dd24e402625dc02d5f3beee3a909a2459ee27343ab033e6c243ef"
+    },
+    {
+      "module": "Object.ObjectManager",
+      "source": "ProjectName/code/Object/ObjectManager/ObjectManager.ixx",
+      "slug": "object-objectmanager",
+      "group": "object",
+      "sha256": "d8bf02fc9f3dcce4ba89aec0e90026d7577fbdbafd930799c35bbc05b5292d54"
+    },
+    {
+      "module": "Scene.LoadingScene",
+      "source": "ProjectName/code/Scene/LoadingScene/LoadingScene.ixx",
+      "slug": "scene-loadingscene",
+      "group": "scene",
+      "sha256": "bbdd974e713e8cf8742430ba845197c336ce8e897d7b3ac3bdc66bbd90bdef72"
+    },
+    {
+      "module": "Scene.Play",
+      "source": "ProjectName/code/Scene/Play/Play.ixx",
+      "slug": "scene-play",
+      "group": "scene",
+      "sha256": "16ea9f262032648bc7f32181abc03ca5997254ec944b22baba7bee77381fca88"
+    },
+    {
+      "module": "Scene.Result",
+      "source": "ProjectName/code/Scene/Result/Result.ixx",
+      "slug": "scene-result",
+      "group": "scene",
+      "sha256": "068f0041c9f5680df0d5af3635ea939f30504080af82fff8a25c96ba26fc0348"
+    },
+    {
+      "module": "Scene.SceneBase",
+      "source": "ProjectName/code/Scene/SceneBase/SceneBase.ixx",
+      "slug": "scene-scenebase",
+      "group": "scene",
+      "sha256": "02a765c6feb8dc4f5d1b9c8432e8e5b1f4a3578f38cab8ec48c86b8d63e67837"
+    },
+    {
+      "module": "Scene.SceneManager",
+      "source": "ProjectName/code/Scene/SceneManager/SceneManager.ixx",
+      "slug": "scene-scenemanager",
+      "group": "scene",
+      "sha256": "445e7845c372830c6e9796dd88c7451b6d0cd29ed6cddc3ae64302d6270d78e6"
+    },
+    {
+      "module": "Scene.Title",
+      "source": "ProjectName/code/Scene/Title/Title.ixx",
+      "slug": "scene-title",
+      "group": "scene",
+      "sha256": "320fa9b7c8cc9c1193f8be745e9e7ea1c16dd827df894f791e822c510aaf8cbc"
+    },
+    {
+      "module": "UI.Button",
+      "source": "ProjectName/code/UI/Button/Button.ixx",
+      "slug": "ui-button",
+      "group": "ui",
+      "sha256": "63b6660625703ff1af443296bae779b828e1674d9ed9a16ea33b369dab24d9d9"
+    },
+    {
+      "module": "UI.UIBase",
+      "source": "ProjectName/code/UI/UIBase/UIBase.ixx",
+      "slug": "ui-uibase",
+      "group": "ui",
+      "sha256": "5f587670657e128dbbbe2c62b64942e8a51562d74b7a876235d5347941ecac83"
+    },
+    {
+      "module": "UI.UIManager",
+      "source": "ProjectName/code/UI/UIManager/UIManager.ixx",
+      "slug": "ui-uimanager",
+      "group": "ui",
+      "sha256": "c4695d24b19d0971e97ba182218afacd4fe3f7cb9e5f09c6d939adaf1c71324e"
+    },
+    {
+      "module": "MyLib.ClickStatus",
+      "source": "ProjectName/include/MyLib/ClickStatus/ClickStatus.ixx",
+      "slug": "mylib-clickstatus",
+      "group": "mylib",
+      "sha256": "e88207b19e5558a00934a34e09971a70709f3ec823a6c9794b90034e1d921533"
+    },
+    {
+      "module": "MyLib.Coroutine",
+      "source": "ProjectName/include/MyLib/Coroutine.ixx",
+      "slug": "mylib-coroutine",
+      "group": "mylib",
+      "sha256": "5586cc99d1ed519293952b85c6335a9089410dfb29c3b1fadc20379b7389236d"
+    },
+    {
+      "module": "MyLib.File.CsvIO",
+      "source": "ProjectName/include/MyLib/FileSystem/FileIO/CsvIO.ixx",
+      "slug": "mylib-file-csvio",
+      "group": "mylib",
+      "sha256": "e988b4fb6bdbef65fb41d3803ae0b592164098a124da5d047dad0f75b07eb9ee"
+    },
+    {
+      "module": "MyLib.File.JsonIO",
+      "source": "ProjectName/include/MyLib/FileSystem/FileIO/JsonIO.ixx",
+      "slug": "mylib-file-jsonio",
+      "group": "mylib",
+      "sha256": "7da033296145aee9849df3a6040c69fedbc10d181ceee7ea7688b3e0d1b7a540"
+    },
+    {
+      "module": "MyLib.File.MemMapFile",
+      "source": "ProjectName/include/MyLib/FileSystem/FileIO/MemMapFile.ixx",
+      "slug": "mylib-file-memmapfile",
+      "group": "mylib",
+      "sha256": "aeb7739811cc25edcd6ed74a7827dfd73869434093072d98c208ec44634f5049"
+    },
+    {
+      "module": "MyLib.File.FileSystem",
+      "source": "ProjectName/include/MyLib/FileSystem/FileSystem.ixx",
+      "slug": "mylib-file-filesystem",
+      "group": "mylib",
+      "sha256": "5c4e0aee5ffecaa6c38ac8a0112a687eca552ff61c96ed20192e0f5e40eb39ca"
+    },
+    {
+      "module": "MyLib.KeyStatus",
+      "source": "ProjectName/include/MyLib/KeyStatus/KeyStatus.ixx",
+      "slug": "mylib-keystatus",
+      "group": "mylib",
+      "sha256": "9b76c8a29136708cefa9c20368c73cc74c9b600d8d9eef05449f7101c787b6f4"
+    },
+    {
+      "module": "MyLib.KeyStatus.KeyTag",
+      "source": "ProjectName/include/MyLib/KeyStatus/KeyTag.ixx",
+      "slug": "mylib-keystatus-keytag",
+      "group": "mylib",
+      "sha256": "e386b5f50058b8ddd023341a1b700b4646e4ddf00d5fedd1637153c6d0ff3fc2"
+    },
+    {
+      "module": "MyLib.Loading",
+      "source": "ProjectName/include/MyLib/Loading/Loading.ixx",
+      "slug": "mylib-loading",
+      "group": "mylib",
+      "sha256": "1ec7055c893bdbdce1062948430cc9cb7eed0ff1da15260badd24eb48831b340"
+    },
+    {
+      "module": "MyLib.Loading.LoadingContext",
+      "source": "ProjectName/include/MyLib/Loading/LoadingContext.ixx",
+      "slug": "mylib-loading-loadingcontext",
+      "group": "mylib",
+      "sha256": "9c8a38c02a4ae25d47b44ac03ebf5613ade43387bcafe29a0de14bcedd721b41"
+    },
+    {
+      "module": "MyLib.Math.PropVector2",
+      "source": "ProjectName/include/MyLib/Math/PropVector2.ixx",
+      "slug": "mylib-math-propvector2",
+      "group": "mylib",
+      "sha256": "32eaba13125473ed4178ac7650e7cf1620a4304908817e19683413ca9ea98971"
+    },
+    {
+      "module": "MyLib.Math.Vector2",
+      "source": "ProjectName/include/MyLib/Math/Vector2.ixx",
+      "slug": "mylib-math-vector2",
+      "group": "mylib",
+      "sha256": "47a215a7fbd9f0c5c7d38d290da24b960f16f8c333c3d06f91b33d45cdb4df94"
+    },
+    {
+      "module": "MyLib.MouseStatus",
+      "source": "ProjectName/include/MyLib/MouseStatus/MouseStatus.ixx",
+      "slug": "mylib-mousestatus",
+      "group": "mylib",
+      "sha256": "5bb63e5f15f7671aa10251f11669a8736c397c795018cb0311862875448f7c6a"
+    },
+    {
+      "module": "MyLib.Shape.Circle",
+      "source": "ProjectName/include/MyLib/Shape/Circle.ixx",
+      "slug": "mylib-shape-circle",
+      "group": "mylib",
+      "sha256": "cd2e117a2be74162470cb8abdb5d0fe9e8310d084c8330f51a6af36e847acf35"
+    },
+    {
+      "module": "MyLib.Shape.Rect",
+      "source": "ProjectName/include/MyLib/Shape/Rect.ixx",
+      "slug": "mylib-shape-rect",
+      "group": "mylib",
+      "sha256": "03e9d455df0c77fa6dc2599f7373c73be6d1c161d0f27afccbdd85044df84e28"
+    },
+    {
+      "module": "MyLib.TileChunkUtil",
+      "source": "ProjectName/include/MyLib/TileChunkUtil.ixx",
+      "slug": "mylib-tilechunkutil",
+      "group": "mylib",
+      "sha256": "593b1d2b30df1906dd433cb9cb04b14b37fe2402d84ca1199bdc30daa917abfb"
+    }
+  ],
+  "reviewedFiles": [
+    {
+      "source": "ProjectName/code/Asset/Animation/Animation.cpp",
+      "sha256": "2aa83c96669b25999b15f9e25e543156ac5aaa660545a8ffb1ed6ea09ca1a82e"
+    },
+    {
+      "source": "ProjectName/code/Asset/Animation/Animation.ixx",
+      "sha256": "de0dd5100810644db7a9af7d3ec4fb358b2c877dd9c844e7a7dbaed08ce13201"
+    },
+    {
+      "source": "ProjectName/code/Asset/Animation/AnimationDef.ixx",
+      "sha256": "6ddb52b72743478a74a33fb703d61511f35fc2ad8e330ceb956a7d9806e30985"
+    },
+    {
+      "source": "ProjectName/code/Asset/AssetBase/AssetBase.ixx",
+      "sha256": "3bad2109f09e3a5872ee1fda6a92b57e878859ab20f8cc64c3d847dc7b41885a"
+    },
+    {
+      "source": "ProjectName/code/Asset/AssetManager/AssetManager.ixx",
+      "sha256": "25fa48ea944290893afcf098ce8c77718a04265b2eeb24184209d80022f3f0a3"
+    },
+    {
+      "source": "ProjectName/code/Asset/DivisionGraph/DivisionGraph.cpp",
+      "sha256": "e1cfef1826a95352b9ea90bd01f00676b65c00572f0b2d4ea804a5f4db63aeee"
+    },
+    {
+      "source": "ProjectName/code/Asset/DivisionGraph/DivisionGraph.ixx",
+      "sha256": "ecb94fb88d7e64009588020d354a4676864361ea8c90453394ee2401acd997af"
+    },
+    {
+      "source": "ProjectName/code/Asset/Graph/Graph.cpp",
+      "sha256": "d249782eb578440a9fd1fca8269e5060b69c1c8f4f38d236172cef0ace650268"
+    },
+    {
+      "source": "ProjectName/code/Asset/Graph/Graph.ixx",
+      "sha256": "8ee679a85e2bd18cecdf893742d55cadd08f8b66f65e1549a6347ba3c650c367"
+    },
+    {
+      "source": "ProjectName/code/Asset/Sound/Sound.cpp",
+      "sha256": "d7ac01d843fd78ac7f954ba3acd70db7c0251095b5964b79c9d56ef1ab3534fd"
+    },
+    {
+      "source": "ProjectName/code/Asset/Sound/Sound.ixx",
+      "sha256": "8de726a6ccefbc6431ee1d4bfccf3835be64c85eb521e43c0a50c293e18a7a5e"
+    },
+    {
+      "source": "ProjectName/code/Asset/Sound/SoundDef.ixx",
+      "sha256": "4e27edbc4bc67a3a5f24aff120d8a9c6c4d1952e49f44ae5cef215f50b55b96e"
+    },
+    {
+      "source": "ProjectName/code/Collision/CircleColldier/CircleCollider.cpp",
+      "sha256": "12c5dff813c2983e2e397345223327192c17c8c387b451981521b45fe3767e82"
+    },
+    {
+      "source": "ProjectName/code/Collision/CircleColldier/CircleCollider.ixx",
+      "sha256": "de1d27d3a9c51892cfc3e361433963d7dbbef45d02893972242f24d28a45696d"
+    },
+    {
+      "source": "ProjectName/code/Collision/CircleColldier/CircleColliderResolver.cpp",
+      "sha256": "66b9013dddb962f7405747b7f8fb570ebd03fd9905bcaaa5bed2f4017509e07a"
+    },
+    {
+      "source": "ProjectName/code/Collision/CircleColldier/CircleColliderResolver.ixx",
+      "sha256": "086ffa1eaaf70ed65021f09fc086ebd57104af851bd9baef954d93cc0324fac3"
+    },
+    {
+      "source": "ProjectName/code/Collision/CircleColldier/CircleColliderVisitor.cpp",
+      "sha256": "a02ab92bdf3a5e10b6c836e15ddd089f9d374010769b1198ff0028461856a5f8"
+    },
+    {
+      "source": "ProjectName/code/Collision/CircleColldier/CircleColliderVisitor.ixx",
+      "sha256": "1832701b5cdac2c9529fb81d3ccccc49fcbf578e22f937ad18f7639bb96e2d76"
+    },
+    {
+      "source": "ProjectName/code/Collision/ColliderManager/ColliderManager.cpp",
+      "sha256": "e507809949e4f8b295e9ee4f734cce0c4381e2d9c085a7162f3e0013f49215f7"
+    },
+    {
+      "source": "ProjectName/code/Collision/ColliderManager/ColliderManager.ixx",
+      "sha256": "7e96fefbe91651f822484d7b41c9152f27f8fa612f036f3cd5c770a180a2ff37"
+    },
+    {
+      "source": "ProjectName/code/Collision/Collider/Collider.cpp",
+      "sha256": "23c3bbe937ca1f1a099db2e150339df42aab68b985b3e5ef180e4d7c6cdabc2b"
+    },
+    {
+      "source": "ProjectName/code/Collision/Collider/Collider.ixx",
+      "sha256": "6498ada2366764d496440ee084b8ec612d2f92b32367d51e0a410514e46184c1"
+    },
+    {
+      "source": "ProjectName/code/Collision/Collider/ColliderDef.ixx",
+      "sha256": "fcf829f2d4cfe6f252e1dbb24e824f74c8a9e46bd004d3773d7747ed98e04031"
+    },
+    {
+      "source": "ProjectName/code/Collision/Collider/ColliderFilter.ixx",
+      "sha256": "e50bd779c0508aa04a0450a2102241fbaa2d3625c95a81845b3a28d1bdc21042"
+    },
+    {
+      "source": "ProjectName/code/Collision/Collider/ColliderVisitor.ixx",
+      "sha256": "9d4132896bf12a48def876d5d3afa92a76c611e0e1c61252f874dc8131c6b232"
+    },
+    {
+      "source": "ProjectName/code/Collision/RectCollider/RectCollider.cpp",
+      "sha256": "ca881866c57b638e1c866e4d4e1eaba3bae797fe01880ef584fc126044f1be78"
+    },
+    {
+      "source": "ProjectName/code/Collision/RectCollider/RectCollider.ixx",
+      "sha256": "db9022e3731015963456f600503e832834088f23cc4839cc18e838aef0bc28bf"
+    },
+    {
+      "source": "ProjectName/code/Collision/RectCollider/RectColliderResolver.cpp",
+      "sha256": "2bb8c92b9e6fee0c2da4c7c3b24a60646a3383b9f3611b39c909abedd0670dc3"
+    },
+    {
+      "source": "ProjectName/code/Collision/RectCollider/RectColliderResolver.ixx",
+      "sha256": "d70b34de7d6a4417fb8bfb2344195b37fccff983b6fa15e9e75ddb6213d919f7"
+    },
+    {
+      "source": "ProjectName/code/Collision/RectCollider/RectColliderVisitor.cpp",
+      "sha256": "bc963a29f012926d61f7f4b23364936047c49137c6a1b6e1b696515d5c099a1d"
+    },
+    {
+      "source": "ProjectName/code/Collision/RectCollider/RectColliderVisitor.ixx",
+      "sha256": "4224bc237b750278ac170d672eed156c33912eb89c6d8ee4b2c847d067a5e5f0"
+    },
+    {
+      "source": "ProjectName/code/Collision/TileCollider/TileCollider.cpp",
+      "sha256": "92ae032da3fe54298248cc6149a80695986f39d7d39f0ff3ae7fe98cf29e38ff"
+    },
+    {
+      "source": "ProjectName/code/Collision/TileCollider/TileCollider.ixx",
+      "sha256": "fc1dcc46703b0125ca8d222c80fd3c710e42a8ce353501e4818c66c868011aa4"
+    },
+    {
+      "source": "ProjectName/code/Collision/TileCollider/TileColliderResolver.cpp",
+      "sha256": "ec857cd25c58452e899a1a88860473b683190d7bb8c293697de890705604d7c0"
+    },
+    {
+      "source": "ProjectName/code/Collision/TileCollider/TileColliderResolver.ixx",
+      "sha256": "c8d6efca64613d69d28482b6c21c13a1e821b2702aba1d06f1fa35c59d484a4d"
+    },
+    {
+      "source": "ProjectName/code/Collision/TileCollider/TileColliderVisitor.cpp",
+      "sha256": "fc77a984f4792a7b416b1325782c23fb0630ac0a434f1cc48cce7179ae5937aa"
+    },
+    {
+      "source": "ProjectName/code/Collision/TileCollider/TileColliderVisitor.ixx",
+      "sha256": "1c64c8bf931453ad4482ef9b88250f10385ba27cfeafb3e2e9c14c357be8fd08"
+    },
+    {
+      "source": "ProjectName/code/Component/Animator/Animator.cpp",
+      "sha256": "30fe0bc562a53b47f6eaa9c8168d5856cee83dc0f21a0a6614f5a66b958079fc"
+    },
+    {
+      "source": "ProjectName/code/Component/Animator/Animator.ixx",
+      "sha256": "12a8a21fa08f822903a9db500e32a84b966b2058ffcd3bb04fd96e51545c678c"
+    },
+    {
+      "source": "ProjectName/code/Component/AudioSource/AudioSource.cpp",
+      "sha256": "829fca0ff902d2a6d22beb7e1aaa315543e9b58f739ab4a3fa2d656cae9f7681"
+    },
+    {
+      "source": "ProjectName/code/Component/AudioSource/AudioSource.ixx",
+      "sha256": "7bc82a5f76a9b8b0a378717696c0afb368fe825bfdc320ee7f72b49d2bcb6e3d"
+    },
+    {
+      "source": "ProjectName/code/Component/ComponentBase/ComponentBase.cpp",
+      "sha256": "4e8471499cb47285380e2c52bae3b075bcb6182d7a3f71ef6f5db532396fee49"
+    },
+    {
+      "source": "ProjectName/code/Component/ComponentBase/ComponentBase.ixx",
+      "sha256": "8e7b935020e4e183197eebbc14560eb6a4de3e2cdfd8cdf16c12fc1daa46ae61"
+    },
+    {
+      "source": "ProjectName/code/Component/ComponentManager/ComponentManager.cpp",
+      "sha256": "904190f2e5872f4054eb3e101811d8d5743f92962e8fc15e06c0e0989aefc2b7"
+    },
+    {
+      "source": "ProjectName/code/Component/ComponentManager/ComponentManager.ixx",
+      "sha256": "f13c8d47111b9fabb8f9dd10b8ebb81180e53356b7cd64eb6a45b0f53def5093"
+    },
+    {
+      "source": "ProjectName/code/Component/Jump/Jump.cpp",
+      "sha256": "4501e6f2c87992643aaf7d9fe1791ef2f4fefff4bb773fb0a48b7e7a0f8a9966"
+    },
+    {
+      "source": "ProjectName/code/Component/Jump/Jump.ixx",
+      "sha256": "502f4fc48b290249b27a8bdfffdeda9d1f90e207100111e680032ffeace04e48"
+    },
+    {
+      "source": "ProjectName/code/Component/Move/MoveWithKey/MoveWithKey.cpp",
+      "sha256": "5ee20778fa841e82cf46fc72fffb2a775d3aa4ca0a8b4c38310a2bb46bd98fb2"
+    },
+    {
+      "source": "ProjectName/code/Component/Move/MoveWithKey/MoveWithKey.ixx",
+      "sha256": "8a3a642edc54f005c14c4b1fd8704785ccd830f4926720d6a6ffbcabcd254d31"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/AppContext.ixx",
+      "sha256": "07d1ba9610476369d973dd8b4cabccab992b966597b59b5e477d74ad3a9bd985"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/Camera/Camera.cpp",
+      "sha256": "3d7e50f58771448c0994694f4e43a044a4766c39fee6a5fe145539fe1a0ca4d3"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/Camera/Camera.ixx",
+      "sha256": "a6559ad1838f5e6b90c6d9ecff7d004813e657f94aaa7943e81953ca926034f4"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/Execution/Execution.cpp",
+      "sha256": "686fdb810069610358c2e5cb6c0e2547972f5a278da942cbd61bb14fd5cc4e74"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/Execution/Execution.ixx",
+      "sha256": "b02bf3c8ae85af2282dc759991eb2d9ec364a28a65ebe4cb0e988db73f0259e3"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/FrameRate/FrameRate.cpp",
+      "sha256": "b894a68c38728bde93de0174a83e988d8391392d31adb9864fdf952c5095cf3c"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/FrameRate/FrameRate.ixx",
+      "sha256": "3729ef3e37046803a05c6be7bb091dc7e92fdd201526972d5432938423fb0191"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/Library/Library.cpp",
+      "sha256": "119299383dac05104677d6da0621de49373c3424a183005369553bfc7b3ab395"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/Library/Library.ixx",
+      "sha256": "4cee55ffe171a7c32275700e7cdc64f5a6408ffe16cf68aacad327ac26924557"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/Window/Window.cpp",
+      "sha256": "4ba8d3b7f8ba4ebb8b850129f0da3ab7059cbabd59035ca9482b2ea797244e57"
+    },
+    {
+      "source": "ProjectName/code/GameSystem/Window/Window.ixx",
+      "sha256": "9118f710a53c5dfe334de2685eba4f6fa66c27391c67e277d5ae2b5b25db6bff"
+    },
+    {
+      "source": "ProjectName/code/Object/Character/Enemy/Enemy.cpp",
+      "sha256": "a873ef5dc41e7d783b08a7d53491a4e67eaf176956e4030e6c9354255a93bbe5"
+    },
+    {
+      "source": "ProjectName/code/Object/Character/Enemy/Enemy.ixx",
+      "sha256": "84eb2e3b336605dd76903c0d6a61637b1653668780ba8a0056b695f4b68a944d"
+    },
+    {
+      "source": "ProjectName/code/Object/Character/Player/Player.cpp",
+      "sha256": "542c56cb9aced386fa363285e5729d28ecddc6ac270e9406443d61b68fd7001a"
+    },
+    {
+      "source": "ProjectName/code/Object/Character/Player/Player.ixx",
+      "sha256": "6b36193213064c2ed09e0163507c66c37eacfdae73ea59179605526b62cec623"
+    },
+    {
+      "source": "ProjectName/code/Object/Character/Player/PlayerData.ixx",
+      "sha256": "8e0b73c2632034b5392685971913b396a4a8815e1413c5cbc9d15e0f5d4277fc"
+    },
+    {
+      "source": "ProjectName/code/Object/GameObject/GameObject.cpp",
+      "sha256": "857e1a958f0a6e73056ff9a62d360172ea981b4505873fecbd583f79697f923d"
+    },
+    {
+      "source": "ProjectName/code/Object/GameObject/GameObject.ixx",
+      "sha256": "61d7cc253c7d38f0a239708a40afde29ec6ac84bd626534c035f1b7f42db359e"
+    },
+    {
+      "source": "ProjectName/code/Object/GameObject/ObjectData.ixx",
+      "sha256": "7475cd5d560f4e9e8041a67feeb0bc496cd7117c203be4e9b31684c0c48ebfc9"
+    },
+    {
+      "source": "ProjectName/code/Object/GameObject/ObjectState.ixx",
+      "sha256": "1878671a60f9a40f8b8996e6c76589f9094ff399a3ff2bb6d355e2041379881c"
+    },
+    {
+      "source": "ProjectName/code/Object/GameObject/ObjectTag.ixx",
+      "sha256": "b74be44eaa9bbd6f453300e67a10e52e79d7003cbec833fe0640344334e7a82b"
+    },
+    {
+      "source": "ProjectName/code/Object/Goal/Goal.ixx",
+      "sha256": "1301f6536837b731ff3c4acf92e9ac06971535473950fb8ee6b8d318bdaf47c7"
+    },
+    {
+      "source": "ProjectName/code/Object/Map/Map.cpp",
+      "sha256": "eb3e3caf93807253194413c5ec49625a91712c50ee039d8647d56306dcdfd7f0"
+    },
+    {
+      "source": "ProjectName/code/Object/Map/Map.ixx",
+      "sha256": "f464bdd2b5e9b794c2df093ea21e13eee3cc48fa349702af726469cd50c9dddd"
+    },
+    {
+      "source": "ProjectName/code/Object/Map/MapInfo.ixx",
+      "sha256": "29acaea7061dd24e402625dc02d5f3beee3a909a2459ee27343ab033e6c243ef"
+    },
+    {
+      "source": "ProjectName/code/Object/ObjectManager/ObjectManager.cpp",
+      "sha256": "b724fd977ce6973e542ccbb830bd3801ec9c5a669eda62811aa689313ef4fe83"
+    },
+    {
+      "source": "ProjectName/code/Object/ObjectManager/ObjectManager.ixx",
+      "sha256": "d8bf02fc9f3dcce4ba89aec0e90026d7577fbdbafd930799c35bbc05b5292d54"
+    },
+    {
+      "source": "ProjectName/code/Scene/LoadingScene/LoadingScene.cpp",
+      "sha256": "97663d20546e7cfb677e0afdcb7560e282e54b3c337834f9b2cc873050a6c5c0"
+    },
+    {
+      "source": "ProjectName/code/Scene/LoadingScene/LoadingScene.ixx",
+      "sha256": "bbdd974e713e8cf8742430ba845197c336ce8e897d7b3ac3bdc66bbd90bdef72"
+    },
+    {
+      "source": "ProjectName/code/Scene/Play/Play.cpp",
+      "sha256": "446772ac6bd128fecfc71c9f89e59c6e4391782b669062411fbf99e157e73bf4"
+    },
+    {
+      "source": "ProjectName/code/Scene/Play/Play.ixx",
+      "sha256": "16ea9f262032648bc7f32181abc03ca5997254ec944b22baba7bee77381fca88"
+    },
+    {
+      "source": "ProjectName/code/Scene/Result/Result.cpp",
+      "sha256": "ed97a893405ea739610be2b13f7ad086cdaf25590dac9a8edc110f7562a91fe3"
+    },
+    {
+      "source": "ProjectName/code/Scene/Result/Result.ixx",
+      "sha256": "068f0041c9f5680df0d5af3635ea939f30504080af82fff8a25c96ba26fc0348"
+    },
+    {
+      "source": "ProjectName/code/Scene/SceneBase/SceneBase.ixx",
+      "sha256": "02a765c6feb8dc4f5d1b9c8432e8e5b1f4a3578f38cab8ec48c86b8d63e67837"
+    },
+    {
+      "source": "ProjectName/code/Scene/SceneManager/SceneManager.cpp",
+      "sha256": "ba4641a0bd5421b589d263083b03249a2be3d1eb6790fcd897163c81fb5bad27"
+    },
+    {
+      "source": "ProjectName/code/Scene/SceneManager/SceneManager.ixx",
+      "sha256": "445e7845c372830c6e9796dd88c7451b6d0cd29ed6cddc3ae64302d6270d78e6"
+    },
+    {
+      "source": "ProjectName/code/Scene/Title/Title.cpp",
+      "sha256": "d170e616fde6281ed6a8853229eaf1e2133efda629f4475c4ae136fcd2a47767"
+    },
+    {
+      "source": "ProjectName/code/Scene/Title/Title.ixx",
+      "sha256": "320fa9b7c8cc9c1193f8be745e9e7ea1c16dd827df894f791e822c510aaf8cbc"
+    },
+    {
+      "source": "ProjectName/code/UI/Button/Button.cpp",
+      "sha256": "24c0048c745ddf9cf8de2a2194ec758431d1960488743e60ffba1933a44fbedf"
+    },
+    {
+      "source": "ProjectName/code/UI/Button/Button.ixx",
+      "sha256": "63b6660625703ff1af443296bae779b828e1674d9ed9a16ea33b369dab24d9d9"
+    },
+    {
+      "source": "ProjectName/code/UI/UIBase/UIBase.ixx",
+      "sha256": "5f587670657e128dbbbe2c62b64942e8a51562d74b7a876235d5347941ecac83"
+    },
+    {
+      "source": "ProjectName/code/UI/UIManager/UIManager.cpp",
+      "sha256": "7767a0227dafb208ecf9237246d340907cb776cf5c269330949def427998f74a"
+    },
+    {
+      "source": "ProjectName/code/UI/UIManager/UIManager.ixx",
+      "sha256": "c4695d24b19d0971e97ba182218afacd4fe3f7cb9e5f09c6d939adaf1c71324e"
+    },
+    {
+      "source": "ProjectName/code/main.cpp",
+      "sha256": "6db236b52bc50d69b1a91d6d8db912357c9f84b66c670d45276a02d5cce9f647"
+    },
+    {
+      "source": "ProjectName/include/MyLib/ClickStatus/ClickStatus.cpp",
+      "sha256": "ee8fddd1dea94f0dcc0bb402148591b8bd7f31fbf71e3f02798b83178a3a4ca5"
+    },
+    {
+      "source": "ProjectName/include/MyLib/ClickStatus/ClickStatus.ixx",
+      "sha256": "e88207b19e5558a00934a34e09971a70709f3ec823a6c9794b90034e1d921533"
+    },
+    {
+      "source": "ProjectName/include/MyLib/Coroutine.ixx",
+      "sha256": "5586cc99d1ed519293952b85c6335a9089410dfb29c3b1fadc20379b7389236d"
+    },
+    {
+      "source": "ProjectName/include/MyLib/FileSystem/FileIO/CsvIO.ixx",
+      "sha256": "e988b4fb6bdbef65fb41d3803ae0b592164098a124da5d047dad0f75b07eb9ee"
+    },
+    {
+      "source": "ProjectName/include/MyLib/FileSystem/FileIO/JsonIO.ixx",
+      "sha256": "7da033296145aee9849df3a6040c69fedbc10d181ceee7ea7688b3e0d1b7a540"
+    },
+    {
+      "source": "ProjectName/include/MyLib/FileSystem/FileIO/MemMapFile.cpp",
+      "sha256": "74336e3a5af7f028a219b98a26331c09b0dfc67b64d3e050ab900a172ca0ade1"
+    },
+    {
+      "source": "ProjectName/include/MyLib/FileSystem/FileIO/MemMapFile.ixx",
+      "sha256": "aeb7739811cc25edcd6ed74a7827dfd73869434093072d98c208ec44634f5049"
+    },
+    {
+      "source": "ProjectName/include/MyLib/FileSystem/FileSystem.ixx",
+      "sha256": "5c4e0aee5ffecaa6c38ac8a0112a687eca552ff61c96ed20192e0f5e40eb39ca"
+    },
+    {
+      "source": "ProjectName/include/MyLib/KeyStatus/KeyStatus.cpp",
+      "sha256": "7568bf1b714af4df7e2850bef0293afd4bd94a9513295af575d7b95fdd135188"
+    },
+    {
+      "source": "ProjectName/include/MyLib/KeyStatus/KeyStatus.ixx",
+      "sha256": "9b76c8a29136708cefa9c20368c73cc74c9b600d8d9eef05449f7101c787b6f4"
+    },
+    {
+      "source": "ProjectName/include/MyLib/KeyStatus/KeyTag.ixx",
+      "sha256": "e386b5f50058b8ddd023341a1b700b4646e4ddf00d5fedd1637153c6d0ff3fc2"
+    },
+    {
+      "source": "ProjectName/include/MyLib/Loading/Loading.cpp",
+      "sha256": "b925f027b0c1a3f623bbce4d2488dfd4071348f9fe729fe37b1b1407edc60bd5"
+    },
+    {
+      "source": "ProjectName/include/MyLib/Loading/Loading.ixx",
+      "sha256": "1ec7055c893bdbdce1062948430cc9cb7eed0ff1da15260badd24eb48831b340"
+    },
+    {
+      "source": "ProjectName/include/MyLib/Loading/LoadingContext.ixx",
+      "sha256": "9c8a38c02a4ae25d47b44ac03ebf5613ade43387bcafe29a0de14bcedd721b41"
+    },
+    {
+      "source": "ProjectName/include/MyLib/Math/PropVector2.ixx",
+      "sha256": "32eaba13125473ed4178ac7650e7cf1620a4304908817e19683413ca9ea98971"
+    },
+    {
+      "source": "ProjectName/include/MyLib/Math/Vector2.ixx",
+      "sha256": "47a215a7fbd9f0c5c7d38d290da24b960f16f8c333c3d06f91b33d45cdb4df94"
+    },
+    {
+      "source": "ProjectName/include/MyLib/MouseStatus/MouseStatus.cpp",
+      "sha256": "2ffe0ade5e404ae2e9d041b165dbbc347ba0ab7bf4a987816d7a1c087b6ae672"
+    },
+    {
+      "source": "ProjectName/include/MyLib/MouseStatus/MouseStatus.ixx",
+      "sha256": "5bb63e5f15f7671aa10251f11669a8736c397c795018cb0311862875448f7c6a"
+    },
+    {
+      "source": "ProjectName/include/MyLib/Shape/Circle.ixx",
+      "sha256": "cd2e117a2be74162470cb8abdb5d0fe9e8310d084c8330f51a6af36e847acf35"
+    },
+    {
+      "source": "ProjectName/include/MyLib/Shape/Rect.ixx",
+      "sha256": "03e9d455df0c77fa6dc2599f7373c73be6d1c161d0f27afccbdd85044df84e28"
+    },
+    {
+      "source": "ProjectName/include/MyLib/TileChunkUtil.ixx",
+      "sha256": "593b1d2b30df1906dd433cb9cb04b14b37fe2402d84ca1199bdc30daa917abfb"
+    },
+    {
+      "source": "ProjectName/project/project.vcxproj",
+      "sha256": "72c4a6a3db192edb2ffc91cfeb27a836b3922da2a8e7b4b37c822020e3c983c2"
+    },
+    {
+      "source": "setup.bat",
+      "sha256": "7c59a2a09bdc070f50cb3990d50d34947a11fcea208b2b529a41d0496a6113ed"
+    }
+  ]
+}

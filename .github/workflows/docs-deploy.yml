@@ -1,0 +1,44 @@
+name: Deploy documentation (approval required)
+on:
+  push:
+    branches: [develop-dxlib]
+    paths: ['docs/**', '.github/workflows/docs-deploy.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: documentation-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    # Keep this repository variable unset until the owner approves publication.
+    if: github.ref == 'refs/heads/develop-dxlib' && vars.DOCS_PUBLISH_APPROVED == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
