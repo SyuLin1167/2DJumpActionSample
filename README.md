@@ -4,6 +4,8 @@ C++20 ModulesとDxLibで構築した、**2Dゲーム制作のための開発用�
 
 付属のジャンプアクションは各機能の利用例です。各ジャンルの完成済みテンプレートを提供するものではありません。
 
+**[ドキュメントサイトを見る](https://syulin1167.github.io/2DGameSample/)** — 利用ガイド・チュートリアル・APIリファレンス
+
 ## デモ
 
 付属ゲームでは移動・ジャンプ・地形との衝突・アニメーション・歩行音・ゴール到達によるシーン切り替えを確認できます。
@@ -80,11 +82,11 @@ Execution / AppContext
 
 ## ドキュメント
 
-公開サイトは未公開です。リポジトリ内の文書から閲覧できます。
+**[2DGameSample ドキュメントサイト](https://syulin1167.github.io/2DGameSample/)** で、導入手順から設計・APIの詳細まで閲覧できます。サイトの閲覧にNode.jsのインストールは不要です。
 
-- [利用ガイド](docs/guide/index.md)：環境構築からゲーム制作まで
-- [チュートリアル](docs/tutorials/index.md)：機能を順に学ぶ8つの実習
-- [APIリファレンス](docs/api/index.md)：公開インターフェース、使用例、制約
+- [利用ガイド](https://syulin1167.github.io/2DGameSample/guide/)：環境構築からゲーム制作まで
+- [チュートリアル](https://syulin1167.github.io/2DGameSample/tutorials/)：機能を順に学ぶ8つの実習
+- [APIリファレンス](https://syulin1167.github.io/2DGameSample/api/)：公開インターフェース、使用例、制約
 - [サイトのローカル閲覧](docs/project/documentation.md)：Node.jsが必要なのは文書サイトの開発時だけです
 
 ## 開発目的・今後
